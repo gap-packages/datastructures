@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (Example) - Contents</title>
+<title>GAP (GAPData) - Contents</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -15,49 +15,37 @@
 <body class="chap0"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapA.html">A</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chapInd.html">Ind</a>  </div>
 
-<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chapInd.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap0_mj.html">[MathJax on]</a></p>
 <p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
 <div class="pcenter">
 
-<h1><strong class="pkg">Example</strong></h1>
+<h1><strong class="pkg">GAPData</strong></h1>
 
 
-<h2>Example/Template of a <strong class="pkg">GAP</strong> Package and Guidelines for Package Authors</h2>
+<h2>GAPData a collection of standard datatypes</h2>
 
-<p>Version 3.4.3</p>
+<p>Version 0.0.0</p>
 
-<p>27 March 2013</p>
+<p>31 December 2013</p>
 
 </div>
-<p><b> Werner Nickel
+<p><b> Markus Pfeiffer
     
     
   </b>
-<br />Email: <span class="URL"><a href="mailto:nickel@mathematik.tu-darmstadt.de">nickel@mathematik.tu-darmstadt.de</a></span>
-<br />Homepage: <span class="URL"><a href="http://www.mathematik.tu-darmstadt.de/~nickel">http://www.mathematik.tu-darmstadt.de/~nickel</a></span>
-</p><p><b> Greg Gamble
-    
-    
-  </b>
-<br />Email: <span class="URL"><a href="mailto:gregg@math.rwth-aachen.de">gregg@math.rwth-aachen.de</a></span>
-<br />Homepage: <span class="URL"><a href="http://www.math.rwth-aachen.de/~Greg.Gamble">http://www.math.rwth-aachen.de/~Greg.Gamble</a></span>
-</p><p><b> Alexander Konovalov
-    
-    
-  </b>
-<br />Email: <span class="URL"><a href="mailto:alexk@mcs.st-andrews.ac.uk">alexk@mcs.st-andrews.ac.uk</a></span>
-<br />Homepage: <span class="URL"><a href="http://www.cs.st-andrews.ac.uk/~alexk/">http://www.cs.st-andrews.ac.uk/~alexk/</a></span>
+<br />Email: <span class="URL"><a href="mailto:markusp@mcs.st-andrews.ac.uk">markusp@mcs.st-andrews.ac.uk</a></span>
+<br />Homepage: <span class="URL"><a href="http://www-groups.mcs.st-andrews.ac.uk/~markusp">http://www-groups.mcs.st-andrews.ac.uk/~markusp</a></span>
 </p>
 
 <p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
 <h3>Copyright</h3>
-<p>© 1997-2012 by Werner Nickel, Greg Gamble and Alexander Konovalov</p>
+<p>© 2013 by Markus Pfeiffer and the GAP group</p>
 
-<p><strong class="pkg">Example</strong> package is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="http://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+<p><strong class="pkg">GAPData</strong> package is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="http://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
 
 <p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
 <h3>Acknowledgements</h3>
@@ -68,124 +56,14 @@
 <div class="contents">
 <h3>Contents<a id="contents" name="contents"></a></h3>
 
-<div class="ContChap"><a href="chap1.html#X8656021F83A3BD80">1 <span class="Heading">The Example Package</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7D3DC4ED855DC13C">1.1 <span class="Heading">The Main Functions</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X791F84D17C64D56A">1.1-1 ListDirectory</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X841462157B10C113">1.1-2 FindFile</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7856BE147FCE91AC">1.1-3 LoadedPackages</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7838D0477D8C0571">1.1-4 Which</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X79090A0F87898612">1.1-5 WhereIsPkgProgram</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80F716527825B803">1.1-6 HelloWorld</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X84DA2EEC8534A70D">1.1-7 FruitCake</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85B83BDB83B1C910">1.1-8 Recipe</a></span>
-</div></div>
-</div>
-<div class="ContChap"><a href="chap2.html#X83473D1A871AB899">2 <span class="Heading">Installing and Loading the Example Package</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7A671E2078C9770B">2.1 <span class="Heading">Unpacking the Example Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X79E203C779518B3D">2.2 <span class="Heading">Compiling Binaries of the Example Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7A242BA97D904EDF">2.3 <span class="Heading">Loading the Example Package</span></a>
-</span>
-</div>
-</div>
-<div class="ContChap"><a href="chapA.html#X7EE8E5D97B0F8AFF">A <span class="Heading">Guidelines for Writing a GAP Package</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X8383876782480702">A.1 <span class="Heading">Structure of a GAP Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X84164AA2859A195F">A.2 <span class="Heading">Writing Documentation and Tools Needed</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X79AB306684AC8E7A">A.3 <span class="Heading">An Example of a GAP Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X7A61B1AE7D632E01">A.4 <span class="Heading">File Structure</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X85C8DE357EE424D8">A.5 <span class="Heading">The PackageInfo.g File</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X7DEACD9786DE29F1">A.6 <span class="Heading">Functions and Variables and Choices of Their Names</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X7FB5FECD7C271688">A.7 <span class="Heading">Package Dependencies (Requesting one <strong class="pkg">GAP</strong> Package from within Another)</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X7A7835A5797AF766">A.8 <span class="Heading">Declaration and Implementation Part of a Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X7D7F236A78106358">A.9 <span class="Heading">Autoreadable Variables</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X84F13D358249EC3C">A.10 <span class="Heading">Standalone Programs in a <strong class="pkg">GAP</strong> Package</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X83EF9C32795BAD9F">A.10-1 <span class="Heading">Installation of <strong class="pkg">GAP</strong> Package Binaries</span></a>
-</span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X7E4F39867CCC6026">A.10-2 <span class="Heading">Test for the Existence of GAP Package Binaries</span></a>
-</span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X8438685184FCEFEC">A.10-3 <span class="Heading">Calling of and Communication with External Binaries</span></a>
-</span>
-</div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X78969BA778DDE385">A.11 <span class="Heading">Having an InfoClass</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X784E0A5A7DB88332">A.12 <span class="Heading">The Banner</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X8180BCDA82587F41">A.13 <span class="Heading">Version Numbers</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X79EE09BC85E32640">A.14 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X85CA2F547CF87666">A.14-1 <span class="Heading">Tests files for a GAP package</span></a>
-</span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X7BE11072850F07CD">A.14-2 <span class="Heading">Testing <strong class="pkg">GAP</strong> package loading</span></a>
-</span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X80A0D21D78CF8494">A.14-3 LoadAllPackages</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X7ECAB2357B024ABA">A.14-4 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package with the <strong class="pkg">GAP</strong> standard test suite</span></a>
-</span>
-</div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X86DEFDA57A0976C0">A.15 <span class="Heading">Access to the <strong class="pkg">GAP</strong> Development Version</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X8296209D82C12A73">A.16 <span class="Heading">Selecting a license for a <strong class="pkg">GAP</strong> Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X85AA25B97FEFA49E">A.17 <span class="Heading">Wrapping up a <strong class="pkg">GAP</strong> Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X80A75C09812F9B7A">A.18 <span class="Heading">The WWW Homepage of a Package</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X86C2A6A08063E0D2">A.19 <span class="Heading">Upgrading the package to work with <strong class="pkg">GAP</strong> 4.5</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X8631074083FC19DA">A.19-1 <span class="Heading">Changes in <strong class="pkg">GAP</strong> 4.5 from the packages perspective</span></a>
-</span>
-</div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA.html#X84619DEB8161417E">A.20 <span class="Heading">Checklists</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X8393B9AC87D358FD">A.20-1 <span class="Heading">Package release checklist</span></a>
-</span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA.html#X7FB5FFF082351DA6">A.20-2 <span class="Heading">Checklist for package upgrade to work with <strong class="pkg">GAP</strong> 4.5</span></a>
-</span>
-</div></div>
-</div>
 <div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
 <br />
 </div>
 
-<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chapInd.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapA.html">A</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

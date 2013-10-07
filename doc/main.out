@@ -1,0 +1,28 @@
+\BOOKMARK [0][-]{chapter.1}{The Example Package}{}
+\BOOKMARK [1][-]{section.1.1}{The Main Functions}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Installing and Loading the Example Package}{}
+\BOOKMARK [1][-]{section.2.1}{Unpacking the Example Package}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Compiling Binaries of the Example Package}{chapter.2}
+\BOOKMARK [1][-]{section.2.3}{Loading the Example Package}{chapter.2}
+\BOOKMARK [0][-]{appendix.A}{Guidelines for Writing a GAP Package}{}
+\BOOKMARK [1][-]{section.A.1}{Structure of a GAP Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.2}{Writing Documentation and Tools Needed}{appendix.A}
+\BOOKMARK [1][-]{section.A.3}{An Example of a GAP Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.4}{File Structure}{appendix.A}
+\BOOKMARK [1][-]{section.A.5}{The PackageInfo.g File}{appendix.A}
+\BOOKMARK [1][-]{section.A.6}{Functions and Variables and Choices of Their Names}{appendix.A}
+\BOOKMARK [1][-]{section.A.7}{Package Dependencies \(Requesting one GAP Package from within Another\)}{appendix.A}
+\BOOKMARK [1][-]{section.A.8}{Declaration and Implementation Part of a Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.9}{Autoreadable Variables}{appendix.A}
+\BOOKMARK [1][-]{section.A.10}{Standalone Programs in a GAP Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.11}{Having an InfoClass}{appendix.A}
+\BOOKMARK [1][-]{section.A.12}{The Banner}{appendix.A}
+\BOOKMARK [1][-]{section.A.13}{Version Numbers}{appendix.A}
+\BOOKMARK [1][-]{section.A.14}{Testing a GAP package}{appendix.A}
+\BOOKMARK [1][-]{section.A.15}{Access to the GAP Development Version}{appendix.A}
+\BOOKMARK [1][-]{section.A.16}{Selecting a license for a GAP Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.17}{Wrapping up a GAP Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.18}{The WWW Homepage of a Package}{appendix.A}
+\BOOKMARK [1][-]{section.A.19}{Upgrading the package to work with GAP 4.5}{appendix.A}
+\BOOKMARK [1][-]{section.A.20}{Checklists}{appendix.A}
+\BOOKMARK [0][-]{section*.4}{Index}{}

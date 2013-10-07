@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (Example) - Appendix A: Guidelines for Writing a GAP Package</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chapA"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapA_mj.html">A</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chapA.html">[MathJax off]</a></p>
+<p><a id="X7EE8E5D97B0F8AFF" name="X7EE8E5D97B0F8AFF"></a></p>
+<div class="ChapSects"><a href="chapA_mj.html#X7EE8E5D97B0F8AFF">A <span class="Heading">Guidelines for Writing a GAP Package</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X8383876782480702">A.1 <span class="Heading">Structure of a GAP Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X84164AA2859A195F">A.2 <span class="Heading">Writing Documentation and Tools Needed</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X79AB306684AC8E7A">A.3 <span class="Heading">An Example of a GAP Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X7A61B1AE7D632E01">A.4 <span class="Heading">File Structure</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X85C8DE357EE424D8">A.5 <span class="Heading">The PackageInfo.g File</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X7DEACD9786DE29F1">A.6 <span class="Heading">Functions and Variables and Choices of Their Names</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X7FB5FECD7C271688">A.7 <span class="Heading">Package Dependencies (Requesting one <strong class="pkg">GAP</strong> Package from within Another)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X7A7835A5797AF766">A.8 <span class="Heading">Declaration and Implementation Part of a Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X7D7F236A78106358">A.9 <span class="Heading">Autoreadable Variables</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X84F13D358249EC3C">A.10 <span class="Heading">Standalone Programs in a <strong class="pkg">GAP</strong> Package</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X83EF9C32795BAD9F">A.10-1 <span class="Heading">Installation of <strong class="pkg">GAP</strong> Package Binaries</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X7E4F39867CCC6026">A.10-2 <span class="Heading">Test for the Existence of GAP Package Binaries</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X8438685184FCEFEC">A.10-3 <span class="Heading">Calling of and Communication with External Binaries</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X78969BA778DDE385">A.11 <span class="Heading">Having an InfoClass</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X784E0A5A7DB88332">A.12 <span class="Heading">The Banner</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X8180BCDA82587F41">A.13 <span class="Heading">Version Numbers</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X79EE09BC85E32640">A.14 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X85CA2F547CF87666">A.14-1 <span class="Heading">Tests files for a GAP package</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X7BE11072850F07CD">A.14-2 <span class="Heading">Testing <strong class="pkg">GAP</strong> package loading</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X80A0D21D78CF8494">A.14-3 LoadAllPackages</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X7ECAB2357B024ABA">A.14-4 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package with the <strong class="pkg">GAP</strong> standard test suite</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X86DEFDA57A0976C0">A.15 <span class="Heading">Access to the <strong class="pkg">GAP</strong> Development Version</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X8296209D82C12A73">A.16 <span class="Heading">Selecting a license for a <strong class="pkg">GAP</strong> Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X85AA25B97FEFA49E">A.17 <span class="Heading">Wrapping up a <strong class="pkg">GAP</strong> Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X80A75C09812F9B7A">A.18 <span class="Heading">The WWW Homepage of a Package</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X86C2A6A08063E0D2">A.19 <span class="Heading">Upgrading the package to work with <strong class="pkg">GAP</strong> 4.5</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X8631074083FC19DA">A.19-1 <span class="Heading">Changes in <strong class="pkg">GAP</strong> 4.5 from the packages perspective</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapA_mj.html#X84619DEB8161417E">A.20 <span class="Heading">Checklists</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X8393B9AC87D358FD">A.20-1 <span class="Heading">Package release checklist</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chapA_mj.html#X7FB5FFF082351DA6">A.20-2 <span class="Heading">Checklist for package upgrade to work with <strong class="pkg">GAP</strong> 4.5</span></a>
+</span>
+</div></div>
+</div>
+
+<h3>A <span class="Heading">Guidelines for Writing a GAP Package</span></h3>
+
+<p>This appendix explains the basics of how to write a <strong class="pkg">GAP</strong> package so that it interfaces properly to <strong class="pkg">GAP</strong>. For the role of <strong class="pkg">GAP</strong> packages and the ways to load them, see Chapter <a href="../../../doc/ref/chap76_mj.html#X816DC7C580D41F49"><span class="RefLink">Reference: GAP Packages</span></a>.</p>
+
+<p>There are two basic aspects of creating a <strong class="pkg">GAP</strong> package.</p>
+
+<p>First, it is a convenient possibility to load additional functionality into <strong class="pkg">GAP</strong> including a smooth integration of the package documentation. Second, a package is a way to make your code available to other <strong class="pkg">GAP</strong> users.</p>
+
+<p>Moreover, the <strong class="pkg">GAP</strong> Group may provide some help with redistributing your package via the web and ftp site of GAP itself after checking if the package provides some new or improved functionality which looks interesting for other users, if it contains reasonable documentation, and if it seems to work smoothly with the GAP library and other distributed packages. In this case the package can take part in the <strong class="pkg">GAP</strong> distribution update mechanism and becomes a <em>deposited</em> package.</p>
+
+<p>Furthermore, package authors are encouraged to check if the package would be appropriate for the refereeing process and <em>submit</em> it. If the refereeing has been successful, the package becomes an <em>accepted</em> package. Check out the <strong class="pkg">GAP</strong> Web site <span class="URL"><a href="http://www.gap-system.org">http://www.gap-system.org</a></span> for more details.</p>
+
+<p>We start this chapter with a description how the directory structure of a <strong class="pkg">GAP</strong> package should be constructed and then add remarks on certain aspects of creating a package, some of these only apply to some packages. Finally, we provide guidelines for the release preparation, wrapping and distribution.</p>
+
+<p><a id="X8383876782480702" name="X8383876782480702"></a></p>
+
+<h4>A.1 <span class="Heading">Structure of a GAP Package</span></h4>
+
+<p>A <strong class="pkg">GAP</strong> package should have an alphanumeric name (<var class="Arg">package-name</var>, say); mixed case is fine, but there should be no whitespaces. All files of a <strong class="pkg">GAP</strong> package <var class="Arg">package-name</var> must be collected in a single directory <var class="Arg">package-dir</var>, where <var class="Arg">package-dir</var> should be just <var class="Arg">package-name</var> preferably converted to lowercase and optionally followed by the package version (with or without hyphen to separate the version from <var class="Arg">package-name</var>). Let us call this directory the <em>home directory</em> of the package.</p>
+
+<p>To use the package with <strong class="pkg">GAP</strong>, the directory <var class="Arg">package-dir</var> must be a subdirectory of a <code class="file">pkg</code> directory in (one of) the <strong class="pkg">GAP</strong> root directories (see <a href="../../../doc/ref/chap9_mj.html#X7A4973627A5DB27D"><span class="RefLink">Reference: GAP Root Directories</span></a>). For example, if <strong class="pkg">GAP</strong> is installed in <code class="file">/usr/local/gap4</code> then the files of the package <code class="code">MyPack</code> may be placed in the directory <code class="file">/usr/local/gap4/pkg/mypack</code>. The directory <var class="Arg">package-dir</var> preferably should have the following structure (below, a trailing <code class="code">/</code> distinguishes directories from ordinary files):</p>
+
+
+<div class="example"><pre>
+package-dir/
+  doc/
+  lib/
+  src/
+  tst/
+  README
+  CHANGES
+  configure
+  Makefile.in
+  PackageInfo.g
+  init.g
+  read.g
+</pre></div>
+
+<p>There are three file names with a special meaning in the home directory of a package: <code class="file">PackageInfo.g</code> and <code class="file">init.g</code> which must be present, and <code class="file">read.g</code> which is optional. We now describe the above files and directories:</p>
+
+
+<dl>
+<dt><strong class="Mark">
+<code class="file">README</code></strong></dt>
+<dd><p>This should contain "how to get it" (from the <strong class="pkg">GAP</strong> <code class="code">ftp</code>- and web-sites) instructions, as well as installation instructions and names of the package authors and their email addresses. The installation instructions should be repeated in the package's documentation, which should be in the <code class="file">doc</code> directory (see <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>). Authors' names and addresses should be repeated both in the package's documentation and in the <code class="file">PackageInfo.g</code> (see below).</p>
+
+</dd>
+<dt><strong class="Mark">
+<code class="file">CHANGES</code></strong></dt>
+<dd><p>For further versions of the package, it will be also useful to have a <code class="file">CHANGES</code> file that records the main changes between versions of the package.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">configure</code>, <code class="file">Makefile.in</code></strong></dt>
+<dd><p>These files are only necessary if the package has a non-<strong class="pkg">GAP</strong> component, e.g. some C code (the files of which should be in the <code class="file">src</code> directory). The <code class="file">configure</code> and <code class="file">Makefile.in</code> files of the <strong class="pkg">Example</strong> package provide prototypes. The <code class="file">configure</code> file typically takes a path <var class="Arg">path</var> to the <strong class="pkg">GAP</strong> root directory as argument and uses the value assigned to <code class="code">GAParch</code> in the file <code class="file">sysinfo.gap</code>, created when <strong class="pkg">GAP</strong> was compiled to determine the compilation architecture, inserts this in place of the string <code class="code">@GAPARCH@</code> in <code class="file">Makefile.in</code> and creates a file <code class="file">Makefile</code>. When <code class="code">make</code> is run (which, of course, reads the constructed <code class="file">Makefile</code>), a directory <code class="file">bin</code> (if necessary) and subdirectories of <code class="file">bin</code> with the path equal to the string assigned to <code class="code">GAParch</code> in the file <code class="file">sysinfo.gap</code> should be created; any binaries constructed by compiling the code in <code class="file">src</code> should end up in this subdirectory of <code class="file">bin</code>.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">PackageInfo.g</code></strong></dt>
+<dd><p>Since <strong class="pkg">GAP</strong> 4.4, a <strong class="pkg">GAP</strong> package <em>must</em> have a <code class="file">PackageInfo.g</code> file which contains meta-information about the package (package name, version, author(s), relations to other packages, homepage, download archives, banner, ...). This information is used by the package loading mechanism and also for the distribution of a package to other users. The <strong class="pkg">Example</strong> package's <code class="file">PackageInfo.g</code> file is well-commented and should be used as a prototype (see also <a href="chapA_mj.html#X85C8DE357EE424D8"><span class="RefLink">A.5</span></a> for further details).</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">init.g</code>, <code class="file">read.g</code></strong></dt>
+<dd><p>A <strong class="pkg">GAP</strong> package <em>must</em> have a file <code class="file">init.g</code>. As of <strong class="pkg">GAP</strong> 4.4, the typical <code class="file">init.g</code> and <code class="file">read.g</code> files should normally consist entirely of <code class="func">ReadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X870954577B27DCAB"><span class="RefLink">Reference: ReadPackage</span></a>) commands (and possibly also <code class="func">Read</code> (<a href="../../../doc/ref/chap9_mj.html#X8373AC6B7D5F9167"><span class="RefLink">Reference: Read</span></a>) commands) for reading further files of the package. If the "declaration" and "implementation" parts of the package are separated (and this is recommended), there should be a <code class="file">read.g</code> file. The "declaration" part of a package consists of function and variable <em>name</em> declarations and these go in files with <code class="code">.gd</code> extensions; these files are read in via <code class="code">ReadPackage</code> commands in the <code class="file">init.g</code> file. The "implementation" part of a package consists of the actual definitions of the functions and variables whose names were declared in the "declaration" part, and these go in files with <code class="code">.gi</code> extensions; these files are read in via <code class="code">ReadPackage</code> commands in the <code class="file">read.g</code> file. The reason for following the above dichotomy is that the <code class="file">read.g</code> file is read <em>after</em> the <code class="file">init.g</code> file, thus enabling the possibility of a function's implementation to refer to another function whose name is known but is not actually defined yet (see <a href="chapA_mj.html#X7A7835A5797AF766"><span class="RefLink">A.8</span></a> below for more details).</p>
+
+<p>The <strong class="pkg">GAP</strong> code (whether or not it is split into "declaration" and "implementation" parts) should go in the package's <code class="file">lib</code> directory (see below).</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">doc</code></strong></dt>
+<dd><p>This directory should contain the package's documentation. It is strongly recommended to use an XML-based documentation format supported by the <strong class="pkg">GAP</strong> package <strong class="pkg">GAPDoc</strong> (see <a href="../../../pkg/GAPDoc-1.5.1/doc/chap1_mj.html#X7D4EE663818DA109"><span class="RefLink">GAPDoc: Introduction and Example</span></a>) which is used for the <strong class="pkg">GAP</strong> documentation. An alternative is to use the TeX-based system, formerly used for the <strong class="pkg">GAP</strong> documentation in <strong class="pkg">GAP</strong> 4.4 and earlier releases. This system is described in the document "The gapmacro.tex Manual Format" (the file <code class="file">gap4r5/doc/gapmacrodoc.pdf</code> included in the tools archive as described in Section <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>) and is still used by some of the <strong class="pkg">GAP</strong> packages whose authors are encouraged to switch at some point to the <strong class="pkg">GAPDoc</strong>-based documenation. Please spend some time reading the documentation for whichever system you decide to use for writing your package's documentation. The <strong class="pkg">Example</strong> package's documentation is written in the XML format supported by the <strong class="pkg">GAPDoc</strong> package. If you intend to use this format, please use the <strong class="pkg">Example</strong> package's <code class="file">doc</code> directory as a prototype, which as you will observe contains the master file <code class="file">main.xml</code>, further <code class="file">.xml</code> files for manual chapters (included in the manual via <code class="code">Include</code> directives in the master file) and the <strong class="pkg">GAP</strong> input file <code class="file">../makedocrel.g</code> which generates the manuals. Generally, one should also provide a <code class="file">manual.bib</code> BibTeX database file or an <code class="file">xml</code> file in the BibXMLext format (see <a href="../../../pkg/GAPDoc-1.5.1/doc/chap7_mj.html#X7FB8F6BD80D859D1"><span class="RefLink">GAPDoc: The BibXMLext Format</span></a>). With <code class="file">gapmacro.tex</code>, it is also possible to use a <code class="file">manual.bbl</code> file.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">lib</code></strong></dt>
+<dd><p>This is the preferred place for the <strong class="pkg">GAP</strong> code, i.e. the <code class="code">.g</code>, <code class="code">.gd</code> and <code class="code">.gi</code> files (other than <code class="file">PackageInfo.g</code>, <code class="file">init.g</code> and <code class="file">read.g</code>). For some packages, the directory <code class="file">gap</code> has been used instead of <code class="file">lib</code>; <code class="file">lib</code> has the slight advantage that it is the default subdirectory of a package directory searched for by the <code class="func">DirectoriesPackageLibrary</code> (<a href="../../../doc/ref/chap76_mj.html#X807D835C7B032D4E"><span class="RefLink">Reference: DirectoriesPackageLibrary</span></a>) command.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">src</code></strong></dt>
+<dd><p>If the package has non-<strong class="pkg">GAP</strong> code, e.g. C code, then this "source" code should go in the <code class="file">src</code> directory. If there are <code class="code">.h</code> "include" files you may prefer to put these all together in a separate <code class="code">include</code> directory. There is one further rule for the location of kernel library modules or external programs which is explained in <a href="chapA_mj.html#X83EF9C32795BAD9F"><span class="RefLink">A.10-1</span></a> below.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">tst</code></strong></dt>
+<dd><p>If the package has test files, then they should go in the <code class="file">tst</code> directory. For a deposited package, a test file with a basic test of the package (for example, to check that it works as expected and/or that the manual examples are correct) may be specified in the <code class="file">PackageInfo.g</code> to be included in the <strong class="pkg">GAP</strong> standard test suite. More specific and time consuming tests are not supposed to be a part of the <strong class="pkg">GAP</strong> standard test suite but may be placed in the <code class="file">tst</code> directory with further instructions on how to run them. See Section <a href="chapA_mj.html#X79EE09BC85E32640"><span class="RefLink">A.14</span></a> about the requirements to the test files formats and further recommendations.</p>
+
+</dd>
+</dl>
+<p>All other files can be organized as you like. But we suggest that you have a look at existing packages and use a similar scheme, for example, put examples in the <code class="file">examples</code> subdirectory, data libraries in extra subdirectories, and so on.</p>
+
+<p>Sometimes there may be a need to include an empty directory in the package distribution (for example, as a place to store some data that may appear at runtime). In this case package authors are advised to put in this directory a short <code class="file">README</code> file describing its purpose to ensure that such directory will be included in the redistribution.</p>
+
+<p>Concerning the <strong class="pkg">GAP</strong> code in packages, it is recommended to use only documented <strong class="pkg">GAP</strong> functions, see <a href="../../../doc/ref/chap83_mj.html#X801428EB86E7113C"><span class="RefLink">Reference: Undocumented Variables</span></a>. In particular if you want to make your package available to other <strong class="pkg">GAP</strong> users it is advisable to avoid using "obsolescent" variables (see <a href="../../../doc/ref/chap77_mj.html#X78C85ED17F00DCC1"><span class="RefLink">Reference: Replaced and Removed Command Names</span></a>). For that, you can set the <code class="code">ReadObsolete</code> component in your <code class="file">gap.ini</code> file to <code class="keyw">false</code>, see <a href="../../../doc/ref/chap3_mj.html#X7FD66F977A3B02DF"><span class="RefLink">Reference: The gap.ini and gaprc files</span></a>.</p>
+
+<p><a id="X84164AA2859A195F" name="X84164AA2859A195F"></a></p>
+
+<h4>A.2 <span class="Heading">Writing Documentation and Tools Needed</span></h4>
+
+<p>If you intend to make your package available to other users it is essential to include documentation explaining how to install and use your programs.</p>
+
+<p>Concerning the installation you should produce a file <code class="file">README</code> which gives a short description of the purpose of the package and contains proper instructions how to install your package. Again, check out some existing packages to get an idea how this could look like.</p>
+
+<p>Concerning the documentation of the use of the package there are currently two recognised ways of producing <strong class="pkg">GAP</strong> package documentation.</p>
+
+<p>First, there is a recommended XML-based documentation format that is defined in and can be used with the <strong class="pkg">GAPDoc</strong> package (see <a href="../../../pkg/GAPDoc-1.5.1/doc/chap1_mj.html#X7D4EE663818DA109"><span class="RefLink">GAPDoc: Introduction and Example</span></a>).</p>
+
+<p>Second, there is a method which requires the documentation to be written in TeX according to the format described in the document "The gapmacro.tex Manual Format".</p>
+
+<p>In principle it is also possible to use some completely different documentation format. In that case you need to study the Chapter <a href="../../../doc/ref/chap84_mj.html#X79A6CE6C86A976AE"><span class="RefLink">Reference: Interface to the GAP Help System</span></a> to learn how to make your documentation available to the <strong class="pkg">GAP</strong> help system. There should be at least a text version of your documenation provided for use in the terminal running <strong class="pkg">GAP</strong> and some nicely printable version in <code class="code">.pdf</code> format. Many <strong class="pkg">GAP</strong> users like to browse the documentation in HTML format via their Web browser. As a package author, you are not obliged to provide an HTML version of your package manual, but if you will either use the <strong class="pkg">GAPDoc</strong> package or follow the guidelines in the document "The gapmacro.tex Manual Format", (the file <code class="file">gap4r5/doc/gapmacrodoc.pdf</code> included in the tools archive as described in this Section below), you should have no trouble in producing one. Moreover, using the <strong class="pkg">GAPDoc</strong> package, it is also possible to produce HTML version of the documentation supporting MathJax (<span class="URL"><a href="http://www.mathjax.org/">http://www.mathjax.org/</a></span>) for the high quality rendering of mathematical symbols while viewing it online. For example, if you are viewing the HTML version of the manual, compare how this formula will look with MathJax turned on/off:</p>
+
+<p class="center">\[
+[ \chi, \psi ] = \left( \sum_{{g \in G}} \chi(g) \psi(g^{{-1}}) \right) / |G|.
+\]</p>
+
+<p>The manual of the <strong class="pkg">Example</strong> package is written in the <strong class="pkg">GAPDoc</strong> format, and commands needed to build it are contained in the file <code class="code">makedocrel.g</code> (you don't need to re-build the manual since it is already included in the package).</p>
+
+<p>Whenever you use the <strong class="pkg">GAPDoc</strong> or <code class="file">gapmacro.tex</code> TeX-based system, you need to have certain TeX tools installed: to produce manuals in the <code class="code">.pdf</code> format, you need <code class="code">pdflatex</code> if the <strong class="pkg">GAPDoc</strong> is used, and either <code class="code">pdftex</code> or <code class="code">gs</code> together with <code class="code">ps2pdf</code> if your package uses <code class="file">gapmacro.tex</code>. Note that using <code class="code">gs</code> and <code class="code">ps2pdf</code> in lieu of <code class="code">pdftex</code> or <code class="code">pdflatex</code> is a poor substitute unless your <code class="code">gs</code> is at least version 6.<var class="Arg">xx</var> for some <var class="Arg">xx</var>. In addition, the <code class="code">gapmacro.tex</code> documentation system requires some more tools described below. If you intend to use the <strong class="pkg">GAPDoc</strong> package for the documenation of your package, you may skip the rest of this section and proceed to the next one to see a minimalistic example of a <strong class="pkg">GAP</strong> package.</p>
+
+<p>Otherwise, to produce the <code class="code">.pdf</code> manual formats, the following <strong class="pkg">GAP</strong> tools (supplied as a part of the <strong class="pkg">GAP</strong> distribution in the archive <code class="code">tools.tar.gz</code> in the in <strong class="pkg">GAP</strong>'s <code class="file">etc</code> directory and installed using the script <code class="file">install-tools.sh</code> in the same directory) are needed: <code class="file">gapmacro.tex</code> (the macros file that dictates the style and mark-up for the traditional TeX-based system of <strong class="pkg">GAP</strong> documentation), <code class="code">manualindex</code> (an <code class="code">awk</code> script that adjusts the TeX-produced index entries and calls <code class="code">makeindex</code> to process them), and <code class="file">mrabbrev.bib</code> (usually supplied with your TeX tools but nevertheless a copy of <code class="file">mrabbrev.bib</code> should be located in <strong class="pkg">GAP</strong>'s main <code class="file">doc</code> directory. To find it on your system, try: <code class="code">kpsewhich mrabbrev.bib</code> or, if that doesn't work and you can't otherwise find it check out a CTAN site, e.g. search for it at: <span class="URL"><a href="http://www.dante.de/cgi-bin/ctan-index">http://www.dante.de/cgi-bin/ctan-index</a></span>.</p>
+
+<p>If your manual cross-refers to <strong class="pkg">GAPDoc</strong>- or <code class="file">gapmacro.tex</code>-produced manuals, then <code class="code">manual.lab</code> for each such other manual is needed. For packages using <strong class="pkg">GAPDoc</strong>-manuals since <strong class="pkg">GAP</strong> 4.3, this is done by starting <strong class="pkg">GAP</strong> and running</p>
+
+<p>  <code class="code">gap&gt; GapDocManualLab( "<var class="Arg">package</var>" );</code></p>
+
+<p>for each such <var class="Arg">package</var> whose manual is cross-referred to (this includes the "main" manuals, e.g. those in the <code class="file">doc/ref</code> and <code class="file">doc/tut</code> directories). For packages using <code class="file">gapmacro.tex</code>-produced manuals, <code class="code">manual.lab</code> is generated by running <code class="code">tex manual</code> for each package whose manual is cross-referred to. In most cases, packages from the <strong class="pkg">GAP</strong> distribution will already have these files since they will be created as a part of building their manuals (see e.g. the last command of the <code class="file">example/makedocrel.g</code> script) and included in their distribution, so you will probably not need to create <code class="code">manual.lab</code> files yourself.</p>
+
+<p>To produce an HTML version of the manual one needs the Perl 5 program <code class="file">convert.pl</code> which is included in the tools archive <code class="code">tools.tar.gz</code>. This archive is supplied as a part of the <strong class="pkg">GAP</strong> distribution in the <strong class="pkg">GAP</strong>'s <code class="file">etc</code> directory and should be installed using the script <code class="file">install-tools.sh</code> in the same directory.</p>
+
+<p>Finally, to ensure the mathematical formulae are rendered as well as they can be in the HTML version, one should also have the program <code class="code">tth</code> (TeX to HTML converter); <code class="file">convert.pl</code> calls <code class="file">tth</code> to translate mathmode formulae to HTML (if it's available). The <code class="file">tth</code> program is easy to compile and can be obtained from <span class="URL"><a href="http://hutchinson.belmont.ma.us/tth/tth-noncom/download.html">http://hutchinson.belmont.ma.us/tth/tth-noncom/download.html</a></span>.</p>
+
+<p><a id="X79AB306684AC8E7A" name="X79AB306684AC8E7A"></a></p>
+
+<h4>A.3 <span class="Heading">An Example of a GAP Package</span></h4>
+
+<p>We illustrate the creation of a <strong class="pkg">GAP</strong> package by an example of a basic package.</p>
+
+<p>Create the following directories in your home area: <code class="file">.gap</code>, <code class="file">.gap/pkg</code> and <code class="file">.gap/pkg/test</code>. Then inside the directory <code class="file">.gap/pkg/test</code> create an empty file <code class="file">init.g</code>, and a file <code class="file">PackageInfo.g</code> with the following contents:</p>
+
+
+<div class="example"><pre>
+SetPackageInfo( rec(
+  PackageName := "test",
+  Version := "1.0",
+  PackageDoc := rec(
+      BookName  := "test",
+      SixFile   := "doc/manual.six",
+      Autoload  := true ),
+  Dependencies := rec(
+      GAP       := "4.5",
+      NeededOtherPackages := [ ["GAPDoc", "1.3"] ],
+      SuggestedOtherPackages := [ ] ),
+  AvailabilityTest := ReturnTrue ) );
+</pre></div>
+
+<p>This file declares the <strong class="pkg">GAP</strong> package with name "test" in version 1.0. The package documentation consists of one autoloaded book; the <code class="code">SixFile</code> component is needed by the <strong class="pkg">GAP</strong> help system. Package dependencies require at least <strong class="pkg">GAP</strong> 4.5 and <strong class="pkg">GAPDoc</strong> package at version at least 1.3, and these conditions will be checked when the package will be loaded (see <a href="chapA_mj.html#X8180BCDA82587F41"><span class="RefLink">A.13</span></a>). Since there are no requirements that have to be tested, <code class="code">AvailabilityTest</code> just uses <code class="func">ReturnTrue</code> (<a href="../../../doc/ref/chap5_mj.html#X7DB422A2876CCC4D"><span class="RefLink">Reference: ReturnTrue</span></a>).</p>
+
+<p>Now start <strong class="pkg">GAP</strong> (without using the <code class="code">-r</code> option) and the <code class="file">.gap</code> directory will be added to the <strong class="pkg">GAP</strong> root directory to allow <strong class="pkg">GAP</strong> to find the packages installed there (see <a href="../../../doc/ref/chap9_mj.html#X7A4973627A5DB27D"><span class="RefLink">Reference: GAP Root Directories</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage("test");</span>
+true
+</pre></div>
+
+<p>This <strong class="pkg">GAP</strong> package is too simple to be useful, but we have succeeded in loading it via <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>), satisfying all specified dependencies.</p>
+
+<p><a id="X7A61B1AE7D632E01" name="X7A61B1AE7D632E01"></a></p>
+
+<h4>A.4 <span class="Heading">File Structure</span></h4>
+
+<p>Package files may follow the style used for the <strong class="pkg">GAP</strong> library. Every file in the <strong class="pkg">GAP</strong> library starts with a header that lists the filename, copyright, a short description of the file contents and the original authors of this file, and ends with a comment line <code class="code">#E</code>. Indentation in functions and the use of decorative spaces in the code are left to the decision of the authors of each file. Global (i.e. re-used elsewhere) comments usually are indented by two hash marks and two blanks, in particular, every declaration or method or function installation which is not only of local scope is separated by a header.</p>
+
+<p>Historically, when the <strong class="pkg">GAP</strong> main manuals were based on the TeX macros described in the document "The gapmacro.tex Manual Format" (the file <code class="file">gap4r5/doc/gapmacrodoc.pdf</code> included in the tools archive as described in Section <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>) such headers were used for the manuals and have the type</p>
+
+
+<div class="example"><pre>
+#############################################################################
+##
+#X  ExampleFunction(&lt;A&gt;,&lt;B&gt;)
+##
+##  This function does great things.
+</pre></div>
+
+<p>where "X" was one of the letters: <code class="code">F</code>, <code class="code">A</code>, <code class="code">P</code>, <code class="code">O</code>, <code class="code">C</code>, <code class="code">R</code> or <code class="code">V</code> indicating whether the object declared will be a function, attribute, property, operation, category, representation or variable, respectively. Additionally <code class="code">M</code> was used in <code class="code">.gi</code> files for method installations. Then a sample usage of the function was given, followed by a comment which described the identifier. This description was automatically be extracted to build the manual source, if there is a <code class="code">\Declaration</code> line in some <code class="code">.msk</code> file together with an appropriate configuration file.</p>
+
+<p>Nowadays, facilities to distribute a document over several files to allow the documentation for parts of some code to be stored in the same file as the code itself are provided by the <strong class="pkg">GAPDoc</strong> package (see <a href="../../../pkg/GAPDoc-1.5.1/doc/chap4_mj.html#X7A3355C07F57C280"><span class="RefLink">GAPDoc: Distributing a Document into Several Files</span></a>). The same approach is demonstrated by the <strong class="pkg">Example</strong> package. E.g. <code class="file">example/doc/example.xml</code> has the statement <code class="code">&lt;#Include Label="ListDirectory"&gt;</code> and <code class="file">example/lib/files.gd</code> contains</p>
+
+
+<div class="example"><pre>
+#############################################################################
+##
+#F  ListDirectory([&lt;dir&gt;])  . . . . . . . . . . list the files in a directory
+##
+##  &lt;#GAPDoc Label="ListDirectory"&gt;
+##  &lt;ManSection&gt;
+##  &lt;Func Name="ListDirectory" Arg="[dir]"/&gt;
+##
+##  &lt;Description&gt;
+##  lists the files in directory &lt;A&gt;dir&lt;/A&gt; (a string) 
+##  or the current directory if called with no arguments.
+##  &lt;/Description&gt;
+##  &lt;/ManSection&gt;
+##  &lt;#/GAPDoc&gt;
+DeclareGlobalFunction( "ListDirectory" );
+</pre></div>
+
+<p>This is all put together in the file <code class="file">example/makedocrel.g</code> which builds the package documentation, calling <code class="func">MakeGAPDocDoc</code> (<a href="../../../pkg/GAPDoc-1.5.1/doc/chap5_mj.html#X826F530686F4D052"><span class="RefLink">GAPDoc: MakeGAPDocDoc</span></a>) with locations of library files containing parts of the documentation.</p>
+
+<p><a id="X85C8DE357EE424D8" name="X85C8DE357EE424D8"></a></p>
+
+<h4>A.5 <span class="Heading">The PackageInfo.g File</span></h4>
+
+<p>As a first step the example in <a href="chapA_mj.html#X79AB306684AC8E7A"><span class="RefLink">A.3</span></a> shows the information needed for the package loading mechanism to load a simple package. However, if your package depends on the functionality of other packages, the component <code class="code">Dependencies</code> given in the <code class="file">PackageInfo.g</code> file becomes important (see <a href="chapA_mj.html#X7FB5FECD7C271688"><span class="RefLink">A.7</span></a> below), and more entries become relevant if you want to distribute your package: they contain lists of authors and/or maintainers including contact information, URLs of the package archives and README files, status information, text for a package overview Web page, and so on.</p>
+
+<p>We suggest to create a <code class="file">PackageInfo.g</code> file for your package by copying the one in the <strong class="pkg">Example</strong> package, distributed with <strong class="pkg">GAP</strong>, and then adjusting it for your package. Within <strong class="pkg">GAP</strong> you can look at this template file for a list and explanation of all recognized entries by</p>
+
+
+<div class="example"><pre>
+Pager(StringFile(Filename(DirectoriesLibrary(), 
+                          "../pkg/example/PackageInfo.g")));
+</pre></div>
+
+<p>Once you have created the <code class="file">PackageInfo.g</code> file for your package, you can test its validity with the function <code class="func">ValidatePackageInfo</code> (<a href="../../../doc/ref/chap76_mj.html#X79767C2482FF6F55"><span class="RefLink">Reference: ValidatePackageInfo</span></a>).</p>
+
+<p><a id="X7DEACD9786DE29F1" name="X7DEACD9786DE29F1"></a></p>
+
+<h4>A.6 <span class="Heading">Functions and Variables and Choices of Their Names</span></h4>
+
+<p>In writing the <strong class="pkg">GAP</strong> code for your package you need to be a little careful on just how you define your functions and variables.</p>
+
+<p><em>Firstly</em>, in general one should avoid defining functions and variables via assignment statements in the way you would interactively, e.g.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Squared := x -&gt; x^2;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Cubed := function(x) return x^3; end;;</span>
+</pre></div>
+
+<p>The reason for this is that such functions and variables are <em>easily overwritten</em> and what's more you are not warned about it when it happens.</p>
+
+<p>To protect a function or variable against overwriting there is the command <code class="func">BindGlobal</code> (<a href="../../../doc/ref/chap4_mj.html#X7D39D3E17CF49F5B"><span class="RefLink">Reference: BindGlobal</span></a>), or alternatively (and equivalently) you may define a global function via a <code class="func">DeclareGlobalFunction</code> (<a href="../../../doc/ref/chap79_mj.html#X834A8CC587A609BE"><span class="RefLink">Reference: DeclareGlobalFunction</span></a>) and <code class="func">InstallGlobalFunction</code> (<a href="../../../doc/ref/chap79_mj.html#X834A8CC587A609BE"><span class="RefLink">Reference: InstallGlobalFunction</span></a>) pair or a global variable via a <code class="func">DeclareGlobalVariable</code> (<a href="../../../doc/ref/chap79_mj.html#X8324B5DE8300E0F2"><span class="RefLink">Reference: DeclareGlobalVariable</span></a>) and <code class="func">InstallValue</code> (<a href="../../../doc/ref/chap79_mj.html#X7A23F09886E936D2"><span class="RefLink">Reference: InstallValue</span></a>) pair. There are also operations and their methods, and related objects like attributes and filters which also have <code class="code">Declare...</code> and <code class="code">Install...</code> pairs.</p>
+
+<p><em>Secondly</em>, it's a good idea to reduce the chance of accidental overwriting by choosing names for your functions and variables that begin with a string that identifies it with the package, e.g. some of the undocumented functions in the <strong class="pkg">Example</strong> package begin with <code class="code">Eg</code>. This is especially important in cases where you actually want the user to be able to change the value of a function or variable defined by your package, for which you have used direct assignments (for which the user will receive no warning if she accidentally overwrites them). It's also important for functions and variables defined via <code class="code">BindGlobal</code>, <code class="code">DeclareGlobalFunction</code>/<code class="code">InstallGlobalFunction</code> and <code class="code">DeclareGlobalVariable</code>/<code class="code">InstallValue</code>, in order to avoid name clashes that may occur with (extensions of) the <strong class="pkg">GAP</strong> library and other packages.</p>
+
+<p>Additionally, since <strong class="pkg">GAP</strong> 4.5 a package may place global variables into a local namespace as explained in <a href="../../../doc/ref/chap4_mj.html#X875BA7C58175DEFB"><span class="RefLink">Reference: Namespaces for GAP packages</span></a> in order to avoid name clashes and preserve compatibility. This new feature allows you to define in your package global variables with the identifier ending with the <code class="code">@</code> symbol, e.g. <code class="code">xYz@</code>. Such variables may be used in your package code safely, as they may be accessed from outside the package only by their full name, i.e. <code class="code">xYz@YourPackageName</code>. This helps to prevent clashes between different packages or between a package and the <strong class="pkg">GAP</strong> library because of the same variable names.</p>
+
+<p>On the other hand, operations and their methods (defined via <code class="func">DeclareOperation</code> (<a href="../../../doc/ref/chap79_mj.html#X843F48137B899BC3"><span class="RefLink">Reference: DeclareOperation</span></a>), <code class="func">InstallMethod</code> (<a href="../../../doc/ref/chap78_mj.html#X837EFDAB7BEF290B"><span class="RefLink">Reference: InstallMethod</span></a>) etc. pairs) and their relatives do not need this consideration, as they avoid name clashes by allowing for more than one "method" for the same-named object.</p>
+
+<p>To demonstrate the definition of a function via a <code class="code">DeclareOperation</code>/<code class="code">InstallMethod</code> pair, the method <code class="func">Recipe</code> (<a href="chap1_mj.html#X85B83BDB83B1C910"><span class="RefLink">1.1-8</span></a>) was included in the <strong class="pkg">Example</strong> package; <code class="code">Recipe( FruitCake );</code> gives a "method" for making a fruit cake (forgive the pun).</p>
+
+<p><em>Thirdly</em>, functions or variables with <code class="code">Set<var class="Arg">XXX</var></code> or <code class="code">Has<var class="Arg">XXX</var></code> names (even if they are defined as operations) should be avoided as these may clash with objects associated with attributes or properties (attributes and properties <var class="Arg">XXX</var> declared via the <code class="code">DeclareAttribute</code> and <code class="code">DeclareProperty</code> commands have associated with them testers of form <code class="code">Has<var class="Arg">XXX</var></code> and setters of form <code class="code">Set<var class="Arg">XXX</var></code>).</p>
+
+<p><em>Fourthly</em>, it is a good idea to have some convention for internal functions and variables (i.e. the functions and variables you don't intend for the user to use). For example, they might be entirely CAPITALISED.</p>
+
+<p>Additionally, there is a recommended naming convention that the <strong class="pkg">GAP</strong> core system and <strong class="pkg">GAP</strong> packages should not use global variables starting in the lowercase. This allows to reserve variables with names starting in lowecase to the <strong class="pkg">GAP</strong> user so they will never clash with the system. It is extremely important to avoid using for package global variables very short names started in lowercase. For example, such names like <code class="code">cs</code>, <code class="code">exp</code>, <code class="code">ngens</code>, <code class="code">pc</code>, <code class="code">pow</code> which are perfectly fine for local variables, should never be used for globals. Additionally, the package must not have writable global variables with very short names even if they are starting in uppercase, for example, <code class="code">C1</code> or <code class="code">ORB</code>, since they also could be easily overwritten by the user.</p>
+
+<p>It is a good practice to follow naming conventions used in <strong class="pkg">GAP</strong> as explained in <a href="../../../doc/ref/chap5_mj.html#X81F732457F7BC851"><span class="RefLink">Reference: Naming Conventions</span></a> and <a href="../../../doc/tut/chap7_mj.html#X7EA77DE17DD8A231"><span class="RefLink">Tutorial: Changing the Structure</span></a>, which might help users to memorize or even guess names of functions provided by the package.</p>
+
+<p><em>Finally</em>, note the advantage of using <code class="code">DeclareGlobalFunction</code>/<code class="code">InstallGlobalFunction</code>, <code class="code">DeclareGlobalVariable</code>/<code class="code">InstallValue</code>, etc. pairs (rather than <code class="code">BindGlobal</code>) to define functions and variables, which allow the package author to organise her function- and variable- definitions in any order without worrying about any interdependence. The <code class="code">Declare...</code> statements should go in files with <code class="code">.gd</code> extensions and be loaded by <code class="code">ReadPackage</code> statements in the package <code class="file">init.g</code> file, and the <code class="code">Install...</code> definitions should go in files with <code class="code">.gi</code> extensions and be loaded by <code class="code">ReadPackage</code> statements in the package <code class="file">read.g</code> file; this ensures that the <code class="code">.gi</code> files are read <em>after</em> the <code class="code">.gd</code> files. All other package code should go in <code class="code">.g</code> files (other than the <code class="file">init.g</code> and <code class="file">read.g</code> files themselves) and be loaded via <code class="code">ReadPackage</code> statements in the <code class="file">init.g</code> file.</p>
+
+<p>In conclusion, here is some practical advice on how to check which variables are used by the package.</p>
+
+<p>Firstly, there is a function <code class="func">ShowPackageVariables</code> (<a href="../../../doc/ref/chap76_mj.html#X7D34AC3287611B15"><span class="RefLink">Reference: ShowPackageVariables</span></a>). If the package <var class="Arg">pkgname</var> is available but not yet loaded then <code class="code">DisplayPackageVariables( pkgname )</code> prints a list of global variables that become bound and of methods that become installed when the package is loaded (for that, the package will be actually loaded, so <code class="code">ShowPackageVariables</code> can be called only once for the same package in the same <strong class="pkg">GAP</strong> session.) The second optional argument <var class="Arg">version</var> may specify a particular package version to be loaded. An error message will be printed if (the given version of) the package is not available or already loaded.</p>
+
+<p>Info lines for undocumented variables will be marked with an asterisk <code class="code">*</code>. Note that the <strong class="pkg">GAP</strong> help system is case insensitive, so it is difficult to document identifiers that differ only by case.</p>
+
+<p>The following entries are omitted from the list: default setter methods for attributes and properties that are declared in the package, and <code class="code">Set<var class="Arg">attr</var></code> and <code class="code">Has<var class="Arg">attr</var></code> type variables where <var class="Arg">attr</var> is an attribute or property.</p>
+
+<p>For example, for this package it currently produces the following output:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ShowPackageVariables("example");</span>
+----------------------------------------------------------------
+Loading  Example 3.3 (Example/Template of a GAP Package)
+by Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel),
+   Greg Gamble (http://www.math.rwth-aachen.de/~Greg.Gamble), and
+   Alexander Konovalov (http://www.cs.st-andrews.ac.uk/~alexk/).
+----------------------------------------------------------------
+new global functions:
+  EgSeparatedString( str, c )*
+  FindFile( dir, file )
+  HelloWorld(  )
+  ListDirectory( arg )
+  LoadedPackages(  )
+  WhereIsPkgProgram( prg )
+  Which( prg )
+
+new global variables:
+  FruitCake
+
+new operations:
+  Recipe( arg )
+
+new methods:
+  Recipe( cake )
+</pre></div>
+
+<p>Another trick is to start <strong class="pkg">GAP</strong> with <code class="code">-r -A</code> options, immediately load your package and then call <code class="func">NamesUserGVars</code> (<a href="../../../doc/ref/chap4_mj.html#X870169447AF490D8"><span class="RefLink">Reference: NamesUserGVars</span></a>) which returns a list of the global variable names created since the library was read, to which a value is currently bound. For example, for the <strong class="pkg">Example</strong> it produces</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NamesUserGVars();</span>
+[ "EgSeparatedString", "FindFile", "FruitCake", "HelloWorld", "ListDirectory",
+  "LoadedPackages", "Recipe", "WhereIsPkgProgram", "Which" ]
+</pre></div>
+
+<p>but for packages with dependencies it will also contain variables created by other packages. Nevertheless, it may be a useful check to search for unwanted variables appearing after package loading. A potentially dangerous situation which should be avoided is when the package uses some simply named temporary variables at the loading stage. Such "phantom" variables may then remain unnoticed and, as a result, there will be no warnings if the user occasionally uses the same name as a local variable name in a function. Even more dangerous is the case when the user variable with the same already exists before the package is loaded so it will be silently overwritten.</p>
+
+<p><a id="X7FB5FECD7C271688" name="X7FB5FECD7C271688"></a></p>
+
+<h4>A.7 <span class="Heading">Package Dependencies (Requesting one <strong class="pkg">GAP</strong> Package from within Another)</span></h4>
+
+<p>It is possible for one <strong class="pkg">GAP</strong> package <code class="code">A</code>, say, to require another package <code class="code">B</code>. For that, one simply adds the name and the (least) version number of the package <code class="code">B</code> to the <code class="code">NeededOtherPackages</code> component of the <code class="code">Dependencies</code> component of the <code class="file">PackageInfo.g</code> file of the package <code class="code">A</code>. In this situation, loading the package <code class="code">A</code> forces that also the package <code class="code">B</code> is loaded, and that <code class="code">A</code> cannot be loaded if <code class="code">B</code> is not available.</p>
+
+<p>If <code class="code">B</code> is not essential for <code class="code">A</code> but should be loaded if it is available (for example because <code class="code">B</code> provides some improvements of the main system that are useful for <code class="code">A</code>) then the name and the (least) version number of <code class="code">B</code> should be added to the <code class="code">SuggestedOtherPackages</code> component of the <code class="code">Dependencies</code> component of the <code class="file">PackageInfo.g</code> file of <code class="code">A</code>. In this situation, loading <code class="code">A</code> forces an attempt to load also <code class="code">B</code>, but <code class="code">A</code> is loaded even if <code class="code">B</code> is not available.</p>
+
+<p>Also the component <code class="code">Dependencies.OtherPackagesLoadedInAdvance</code> in <code class="file">PackageInfo.g</code> is supported, which describes needed packages that shall be loaded before the current package is loaded. See <a href="chapA_mj.html#X7A7835A5797AF766"><span class="RefLink">A.8</span></a> for details about this and more generally about the order in which the files of the packages in question are read.</p>
+
+<p>All package dependencies must be documented explicitly in the <code class="file">PackageInfo.g</code> file. It is important to properly identify package dependencies and make the right decision whether the other package should be "needed" or "suggested". For example, declaring package as "needed" when "suggested" might be sufficient may prevent loading of packages under Windows for no good reason.</p>
+
+<p>It is not appropriate to explicitly call <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) <em>when the package is loaded</em>, since this may distort the order of package loading and result in warning messages. It is recommended to turn such dependencies into needed or suggested packages. For example, a package can be designed in such a way that it can be loaded with restricted functionality if another package (or standalone program) is missing, and in this case the missing package (or binary) is <em>suggested</em>. Alternatively, if the package author decides that loading the package in this situation makes no sense, then the missing component is <em>needed</em>.</p>
+
+<p>On the other hand, if <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) is called inside functions of the package then there is no such problem, provided that these functions are called only after the package has been loaded, so it is not necessary to specify the other package as suggested. The same applies to test files and manual examples, which may be simply extended by calls to <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>).</p>
+
+<p>It may happen that a package B that is listed as a suggested package of package A is actually needed by A. If no explicit <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) calls for B occur in A at loading time, this can now be detected using the new possibility to load a package without loading its suggested packages using the global option <code class="code">OnlyNeeded</code> which can be used to (recursively) suppress loading the suggested packages of the package in question. Using this option, one can check whether errors or warnings appear when B is not available (note that this option should be used only for such checks to simulate the situation when package B is not available; it is not supposed to be used in an actual <strong class="pkg">GAP</strong> session when package B will be loaded later, since this may cause problems). In case of any errors or warnings, their consequence can then be either turning B into a needed package or (since apparently B was not intended to become a needed package) changing the code accordingly. Only if package A calls <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) for B at loading time (see above) then package B needs to be <em>deinstalled</em> (i.e. removed) to test loading of A without B.</p>
+
+<p>Finally, if the package manual is in the <strong class="pkg">GAPDoc</strong> format, then <strong class="pkg">GAPDoc</strong> should still be listed as <em>needed</em> for this package (not as <em>suggested</em>), even though <strong class="pkg">GAPDoc</strong> is now a needed package for <strong class="pkg">GAP</strong> itself.</p>
+
+<p><a id="X7A7835A5797AF766" name="X7A7835A5797AF766"></a></p>
+
+<h4>A.8 <span class="Heading">Declaration and Implementation Part of a Package</span></h4>
+
+<p>When <strong class="pkg">GAP</strong> packages require each other in a circular way, a "bootstrapping" problem arises of defining functions before they are called. The same problem occurs in the <strong class="pkg">GAP</strong> library, and it is resolved there by separating declarations (which define global variables such as filters and operations) and implementations (which install global functions and methods) in different files. Any implementation file may use global variables defined in any declaration file. <strong class="pkg">GAP</strong> initially reads all declaration files (in the library they have a <code class="code">.gd</code> suffix) and afterwards reads all implementation files (which have a <code class="code">.gi</code> suffix).</p>
+
+<p>Something similar is possible for <strong class="pkg">GAP</strong> packages: if a file <code class="file">read.g</code> exists in the home directory of the package, this file is read only <em>after</em> all the <code class="file">init.g</code> files of all (implicitly) required <strong class="pkg">GAP</strong> packages are read. Thus one can separate declaration and implementation for a <strong class="pkg">GAP</strong> package in the same way as is done for the <strong class="pkg">GAP</strong> library, by creating a file <code class="file">read.g</code>, restricting the <code class="func">ReadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X870954577B27DCAB"><span class="RefLink">Reference: ReadPackage</span></a>) statements in <code class="file">init.g</code> to only read those files of the package that provide declarations, and to read the implementation files from <code class="file">read.g</code>.</p>
+
+<p><em>Examples:</em></p>
+
+<p>Suppose that there are two packages <code class="code">A</code> and <code class="code">B</code>, each with files <code class="file">init.g</code> and <code class="file">read.g</code>.</p>
+
+
+<ul>
+<li><p>If package <code class="code">A</code> suggests or needs package <code class="code">B</code> and package <code class="code">B</code> does not need or suggest any other package then first <code class="file">init.g</code> of <code class="code">B</code> is read, then <code class="file">read.g</code> of <code class="code">B</code>, then <code class="file">init.g</code> of <code class="code">A</code>, then <code class="file">read.g</code> of <code class="code">A</code>.</p>
+
+</li>
+<li><p>If package <code class="code">A</code> suggests or needs package <code class="code">B</code> and package <code class="code">B</code> (or a package that is suggested or needed by <code class="code">B</code>) suggests or needs package <code class="code">A</code> then first the files <code class="file">init.g</code> of <code class="code">A</code> and <code class="code">B</code> are read (in an unspecified order) and then the files <code class="file">read.g</code> of <code class="code">A</code> and <code class="code">B</code> (in the same order).</p>
+
+</li>
+</ul>
+<p>In general, when <strong class="pkg">GAP</strong> is asked to load a package then first the dependencies between this packages and its needed and suggested packages are inspected (recursively), and a list of package sets is computed such that no cyclic dependencies occur between different package sets and such that no package in any of the package sets needs any package in later package sets. Then <strong class="pkg">GAP</strong> runs through the package sets and reads for each set first all <code class="file">init.g</code> files and then all <code class="file">read.g</code> files of the packages in the set. (There is one exception from this rule: Whenever packages are autoloaded before the implementation part of the <strong class="pkg">GAP</strong> library is read, only the <code class="file">init.g</code> files of the packages are read; as soon as the <strong class="pkg">GAP</strong> library has been read, the <code class="file">read.g</code> files of these packages are also read, and afterwards the above rule holds.)</p>
+
+<p>It can happen that some code of a package depends on the availability of suggested packages, i.e., different initializations are performed depending on whether a suggested package will eventually be loaded or not. One can test this condition with the function <code class="func">IsPackageMarkedForLoading</code> (<a href="../../../doc/ref/chap76_mj.html#X8067348B836BAF37"><span class="RefLink">Reference: IsPackageMarkedForLoading</span></a>). In particular, one should <em>not</em> call (and use the value returned by this call) the function <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) inside package code that is read during package loading. Note that for debugging purposes loading suggested packages may have been deliberately disabled via the global option <code class="code">OnlyNeeded</code>.</p>
+
+<p>Note that the separation of the <strong class="pkg">GAP</strong> code of packages into declaration part and implementation part does in general <em>not</em> allow one to actually <em>call</em> functions from a package when the implementation part is read. For example, in the case of a "cyclic dependency" as in the second example above, suppose that <code class="code">B</code> provides a new function <code class="code">f</code> or a new global record <code class="code">r</code>, say, which are declared in the declaration part of <code class="code">B</code>. Then the code in the implementation part of <code class="code">A</code> may contain calls to the functions defined in the declaration part of <code class="code">B</code>. However, the implementation part of <code class="code">A</code> may be read <em>before</em> the implementation part of <code class="code">B</code>. So one can in general not assume that during the loading of <code class="code">A</code>, the function <code class="code">f</code> can be called, or that one can access components of the record <code class="code">r</code>.</p>
+
+<p>If one wants to call the function <code class="code">f</code> or to access components of the record <code class="code">r</code> in the code of the package <code class="code">A</code> then the problem is that it may be not possible to determine a cyclic dependency between <code class="code">A</code> and <code class="code">B</code> from the packages <code class="code">A</code> and <code class="code">B</code> alone. A safe solution is then to add the name of <code class="code">B</code> to the component <code class="code">Dependencies.OtherPackagesLoadedInAdvance</code> of the <code class="file">PackageInfo.g</code> file of <code class="code">A</code>. The effect is that package <code class="code">B</code> is completely loaded before the file <code class="file">read.g</code> of <code class="code">A</code> is read, provided that there is no cyclic dependency between <code class="code">A</code> and <code class="code">B</code>, and that package <code class="code">A</code> is regarded as not available in the case that such a cyclic dependency between <code class="code">A</code> and <code class="code">B</code> exists.</p>
+
+<p>A special case where <code class="code">Dependencies.OtherPackagesLoadedInAdvance</code> can be useful is that a package wants to force the complete <strong class="pkg">GAP</strong> library to be read before the file <code class="file">read.g</code> of the package <code class="code">A</code> is read. In this situation, the "package name" <code class="code">"gap"</code> should be added to this component in the <code class="file">PackageInfo.g</code> file of <code class="code">A</code>.</p>
+
+<p>In the case of cyclic dependencies, one solution for the above problem might be to delay those computations (typically initializations) in package <code class="code">A</code> that require package <code class="code">B</code> to be loaded until all required packages are completely loaded. This can be done by moving the declaration and implementation of the variables that are created in the initialization into a separate file and to declare these variables in the <code class="file">init.g</code> file of the package, via a call to <code class="func">DeclareAutoreadableVariables</code> (<a href="../../../doc/ref/chap76_mj.html#X8495E5327D563AC3"><span class="RefLink">Reference: DeclareAutoreadableVariables</span></a>) (see also <a href="chapA_mj.html#X7D7F236A78106358"><span class="RefLink">A.9</span></a>).</p>
+
+<p><a id="X7D7F236A78106358" name="X7D7F236A78106358"></a></p>
+
+<h4>A.9 <span class="Heading">Autoreadable Variables</span></h4>
+
+<p>Package files containing method installations must be read when the package is loaded. For package files <em>not</em> containing method installations (this applies, for example, to many data files) another mechanism allows one to delay reading such files until the data are actually accessed. See <a href="../../../doc/ref/chap76_mj.html#X8495E5327D563AC3"><span class="RefLink">Reference: DeclareAutoreadableVariables</span></a> for further details.</p>
+
+<p><a id="X84F13D358249EC3C" name="X84F13D358249EC3C"></a></p>
+
+<h4>A.10 <span class="Heading">Standalone Programs in a <strong class="pkg">GAP</strong> Package</span></h4>
+
+<p><strong class="pkg">GAP</strong> packages that involve stand-alone programs are fundamentally different from <strong class="pkg">GAP</strong> packages that consist entirely of <strong class="pkg">GAP</strong> code.</p>
+
+<p>This difference is threefold: A user who installs the <strong class="pkg">GAP</strong> package must also compile (or install) the package's binaries, the package must check whether the binaries are indeed available, and finally the <strong class="pkg">GAP</strong> code of the package has to start the external binary and to communicate with it. We will cover these three points in the following sections.</p>
+
+<p>If the package does not solely consist of an interface to an external binary and if the external program called is not just special-purpose code, but a generally available program, chances are high that sooner or later other <strong class="pkg">GAP</strong> packages might also require this program. We therefore strongly recommend the provision of a documented <strong class="pkg">GAP</strong> function that will call the external binary. We also suggest to create actually two <strong class="pkg">GAP</strong> packages; the first providing only the binary and the interface and the second (requiring the first, see <a href="chapA_mj.html#X7FB5FECD7C271688"><span class="RefLink">A.7</span></a>) being the actual <strong class="pkg">GAP</strong> package.</p>
+
+<p><a id="X83EF9C32795BAD9F" name="X83EF9C32795BAD9F"></a></p>
+
+<h5>A.10-1 <span class="Heading">Installation of <strong class="pkg">GAP</strong> Package Binaries</span></h5>
+
+<p>The scheme for the installation of package binaries which is described further on is intended to permit the installation on different architectures which share a common file system (and share the architecture independent file).</p>
+
+<p>A <strong class="pkg">GAP</strong> package which includes external binaries contains a <code class="file">bin</code> subdirectory. This subdirectory in turn contains subdirectories for the different architectures on which the <strong class="pkg">GAP</strong> package binaries are installed. The names of these directories must be the same as the names of the architecture dependent subdirectories of the main <code class="file">bin</code> directory. Unless you use a tool like <code class="code">autoconf</code> yourself, you must obtain the correct name of the binary directory from the main <strong class="pkg">GAP</strong> branch. To help with this, the main <strong class="pkg">GAP</strong> directory contains a file <code class="file">sysinfo.gap</code> which assigns the shell variable <code class="code">GAParch</code> to the proper name as determined by <strong class="pkg">GAP</strong>'s <code class="code">configure</code> process. For example on a Linux system, the file <code class="file">sysinfo.gap</code> may look like this:</p>
+
+
+<div class="example"><pre>
+GAParch=i586-unknown-linux2.0.31-gcc
+</pre></div>
+
+<p>We suggest that your <strong class="pkg">GAP</strong> package contains a file <code class="file">configure</code> which is called with the path of the <strong class="pkg">GAP</strong> root directory as parameter. This file then will read <code class="file">sysinfo.gap</code> and set up everything for compiling under the given architecture (for example creating a <code class="file">Makefile</code> from <code class="file">Makefile.in</code>). As initial templates, you may use installation scripts of the <strong class="pkg">Example</strong> package.</p>
+
+<p><a id="X7E4F39867CCC6026" name="X7E4F39867CCC6026"></a></p>
+
+<h5>A.10-2 <span class="Heading">Test for the Existence of GAP Package Binaries</span></h5>
+
+<p>If an external binary is essential for the workings of a <strong class="pkg">GAP</strong> package, the function stored in the component <code class="code">AvailabilityTest</code> of the <code class="file">PackageInfo.g</code> file of the package should test whether the program has been compiled on the architecture (and inhibit package loading if this is not the case). This is especially important if the package is loaded automatically.</p>
+
+<p>The easiest way to accomplish this is to use <code class="func">Filename</code> (<a href="../../../doc/ref/chap9_mj.html#X7E352E1F87060602"><span class="RefLink">Reference: Filename (for a directory and a string)</span></a>) for checking for the actual binaries in the path given by <code class="func">DirectoriesPackagePrograms</code> (<a href="../../../doc/ref/chap76_mj.html#X794508E5811D3BC9"><span class="RefLink">Reference: DirectoriesPackagePrograms</span></a>) for the respective package. For example the <strong class="pkg">example</strong> <strong class="pkg">GAP</strong> package could use the following function to test whether the binary <code class="file">hello</code> has been compiled; it will issue a warning if not, and will only load the package if the binary is indeed available:</p>
+
+
+<div class="example"><pre>
+...
+AvailabilityTest := function()
+  local path,file;
+    # test for existence of the compiled binary
+    path:= DirectoriesPackagePrograms( "example" );
+    file:= Filename( path, "hello" );
+    if file = fail then
+      LogPackageLoadingMessage( PACKAGE_WARNING,
+          [ "The program `hello' is not compiled,",
+            "`HelloWorld()' is thus unavailable.",
+            "See the installation instructions;",
+            "type: ?Installing the Example package" ] );
+    fi;
+    return file &lt;&gt; fail;
+  end,
+...
+</pre></div>
+
+<p>However, if you look at the actual <code class="file">PackageInfo.g</code> file of the <strong class="pkg">example</strong> package, you will see that its <code class="code">AvailabilityTest</code> function always returns <code class="keyw">true</code>, and just logs the warning if the binary is not available (which may be later viewed with <code class="func">DisplayPackageLoadingLog</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: DisplayPackageLoadingLog</span></a>)). This means that the binary is not regarded as essential for this package.</p>
+
+<p>You might also have to cope with the situation that external binaries will only run under UNIX (and not, say, under Windows), or may not compile with some compilers or default compiler options. See <a href="../../../doc/ref/chap3_mj.html#X83BF07587F2CC6CD"><span class="RefLink">Reference: Testing for the System Architecture</span></a> for information on how to test for the architecture.</p>
+
+<p>Last but not least: do not print anything in the <code class="code">AvailabilityTest</code> function of the package via <code class="code">Print</code> or <code class="code">Info</code>. Instead one should call <code class="func">LogPackageLoadingMessage</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: LogPackageLoadingMessage</span></a>) to store a message which may be viewed later with <code class="func">DisplayPackageLoadingLog</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: DisplayPackageLoadingLog</span></a>) (the latter two functions are introduced in <strong class="pkg">GAP</strong> 4.5)</p>
+
+<p><a id="X8438685184FCEFEC" name="X8438685184FCEFEC"></a></p>
+
+<h5>A.10-3 <span class="Heading">Calling of and Communication with External Binaries</span></h5>
+
+<p>There are two reasons for this: the input data has to be passed on to the stand-alone program and the stand-alone program has to be started from within <strong class="pkg">GAP</strong>.</p>
+
+<p>There are two principal ways of doing this.</p>
+
+<p>The first possibility is to write all the data for the stand-alone to one or several files, then start the stand-alone with <code class="func">Process</code> (<a href="../../../doc/ref/chap11_mj.html#X7B09033178D1107A"><span class="RefLink">Reference: Process</span></a>) or <code class="func">Exec</code> (<a href="../../../doc/ref/chap11_mj.html#X81402C91833986FC"><span class="RefLink">Reference: Exec</span></a>) which then writes the output data to file, and finally read in the standalone's output file.</p>
+
+<p>The second way is interfacing via input-output streams, see Section <a href="../../../doc/ref/chap10_mj.html#X8563EF8387236417"><span class="RefLink">Reference: Input-Output Streams</span></a>.</p>
+
+<p>Some <strong class="pkg">GAP</strong> packages use kernel modules (see <a href="../../../doc/ref/chap76_mj.html#X79EF67107E40A130"><span class="RefLink">Reference: Kernel modules in GAP packages</span></a>) instead of external binaries. A kernel module is implemented in C and follows certain conventions to comply with the <strong class="pkg">GAP</strong> kernel interface, which we plan to document later. In the meantime, we advise you to look at existing examples of such packages and get in touch with <strong class="pkg">GAP</strong> developers if you plan to develop such a package.</p>
+
+<p><a id="X78969BA778DDE385" name="X78969BA778DDE385"></a></p>
+
+<h4>A.11 <span class="Heading">Having an InfoClass</span></h4>
+
+<p>It is a good idea to declare an <code class="code">InfoClass</code> for your package. This gives the package user the opportunity to control the verbosity of output and/or the possibility of receiving debugging information (see <a href="../../../doc/ref/chap7_mj.html#X7A9C902479CB6F7C"><span class="RefLink">Reference: Info Functions</span></a>). Below, we give a quick overview of its utility.</p>
+
+<p>An <code class="code">InfoClass</code> is defined with a <code class="code">DeclareInfoClass( <var class="Arg">InfoPkgname</var> );</code> statement and may be set to have an initial <code class="code">InfoLevel</code> other than the zero default (which means no <code class="code">Info</code> statement is to output information) via a <code class="code">SetInfoLevel( <var class="Arg">InfoPkgname</var>, <var class="Arg">level</var> );</code> statement. An initial <code class="code">InfoLevel</code> of 1 is typical.</p>
+
+<p><code class="code">Info</code> statements have the form: <code class="code">Info( <var class="Arg">InfoPkgname</var>, <var class="Arg">level</var>, <var class="Arg">expr1</var>, <var class="Arg">expr2</var>, ...);</code> where the expression list <code class="code"><var class="Arg">expr1</var>, <var class="Arg">expr2</var>, ...</code> appears just like it would in a <code class="code">Print</code> statement. The only difference is that the expression list is only printed (or even executed) if the <code class="code">InfoLevel</code> of <var class="Arg">InfoPkgname</var> is at least <var class="Arg">level</var>.</p>
+
+<p><a id="X784E0A5A7DB88332" name="X784E0A5A7DB88332"></a></p>
+
+<h4>A.12 <span class="Heading">The Banner</span></h4>
+
+<p>Since <strong class="pkg">GAP</strong> 4.4, the package banner, if one is desired, should be provided by assigning a string to the <code class="code">BannerString</code> field of the record argument of <code class="code">SetPackageInfo</code> in the <code class="file">PackageInfo.g</code> file.</p>
+
+<p>It is a good idea to have a hook into your package documentation from your banner. The banner of the <strong class="pkg">Example</strong> package suggests to the <strong class="pkg">GAP</strong> user:</p>
+
+
+<div class="example"><pre>
+For help, type: ?Example package
+</pre></div>
+
+<p>In order for this to display the introduction of the <strong class="pkg">Example</strong> package the index-entry <code class="code">&lt;Index&gt;Example package&lt;/Index&gt;</code> was added just before the first paragraph of the introductory section in the file <code class="file">example.xml</code>. The <strong class="pkg">Example</strong> package uses <strong class="pkg">GAPDoc</strong> (see Section <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>) for documentation (you will need some different scheme to achieve this using the <code class="file">gapmacro.tex</code> system).</p>
+
+<p><a id="X8180BCDA82587F41" name="X8180BCDA82587F41"></a></p>
+
+<h4>A.13 <span class="Heading">Version Numbers</span></h4>
+
+<p>Version numbers are strings containing nonnegative integers separated by non-numeric characters. They are compared by <code class="func">CompareVersionNumbers</code> (<a href="../../../doc/ref/chap76_mj.html#X787DFEB383545A49"><span class="RefLink">Reference: CompareVersionNumbers</span></a>) which first splits them at non-digit characters and then lexicographically compares the resulting integer lists. Thus version <code class="code">"2-3"</code> is larger than version <code class="code">"2-2-5"</code> but smaller than <code class="code">"4r2p3"</code> or <code class="code">"11.0"</code>.</p>
+
+<p>It is possible for code to require <strong class="pkg">GAP</strong> packages in certain versions. In this case, all versions, whose number is equal or larger than the requested number are acceptable. It is the task of the package author to provide upwards compatibility.</p>
+
+<p>Loading a specific version of a package (that is, <em>not</em> one with a larger version number) can be achieved by prepending <code class="code">=</code> to the desired version number. For example, <code class="code">LoadPackage( "example", "=1.0" )</code> will load version <code class="code">"1.0"</code> of the package <code class="code">"example"</code>, even if version <code class="code">"1.1"</code> is available. As a consequence, version numbers must not start with <code class="code">=</code>, so <code class="code">"=1.0"</code> is not a valid version number.</p>
+
+<p>Package authors should choose a version numbering scheme that admits a new version number even after tiny changes to the package, and ensure that version numbers of successive package versions increase. The automatic update of package archives in the <strong class="pkg">GAP</strong> distribution will only work if a package has a new version number.</p>
+
+<p>It is a well-established custom to name package archives like <code class="file">name-version.tar.gz</code>, <code class="file">name-version.tar.bz2</code> etc., where <code class="code">name</code> is the lower case name, and <code class="code">version</code> is the version (another custom is that the archive then should extract to a directory that has exactly the name <code class="file">name-version</code>).</p>
+
+<p>It is very important that there should not ever be, for a given <strong class="pkg">GAP</strong> package, two different archives with the same package version number. If you make changes to your package and place a new archive of the package onto the public server, please ensure that a new archive has a new version number. This should be done even for very minor changes.</p>
+
+<p>For most of the packages it will be inappropriate to re-use the date of the release as a version number. It's much more obvious how big are the changes between versions "4.4.12", "4.5.1" and "4.5.2" than between versions "2008.12.17", "2011.04.15" and "2011.09.14".</p>
+
+<p>Since version information is duplicated in several places throughout the package documentation, for <strong class="pkg">GAPDoc</strong>-based manuals you may define the version and the release manual in the comments in <code class="file">PackageInfo.g</code> file close to the place where you specified its <code class="code">Version</code> and <code class="code">Date</code> components, for example</p>
+
+
+<div class="example"><pre>
+##  &lt;#GAPDoc Label="PKGVERSIONDATA"&gt;
+##  &lt;!ENTITY VERSION "3.3"&gt;
+##  &lt;!ENTITY RELEASEDATE "11/11/2011"&gt;
+##  &lt;#/GAPDoc&gt;
+</pre></div>
+
+<p>notify <code class="func">MakeGAPDocDoc</code> (<a href="../../../pkg/GAPDoc-1.5.1/doc/chap5_mj.html#X826F530686F4D052"><span class="RefLink">GAPDoc: MakeGAPDocDoc</span></a>) that a part of the document is stored in <code class="file">PackageInfo.g</code> (see <code class="file">example/makedocrel.g</code>), read this data into the header of the main document via <code class="code">&lt;#Include Label="PKGVERSIONDATA"&gt;</code> directive and then use them via &amp;VERSION; and &amp;RELEASEDATE; entities almost everywhere where you need to refer to them (most commonly, in the title page and installation instructions).</p>
+
+<p><a id="X79EE09BC85E32640" name="X79EE09BC85E32640"></a></p>
+
+<h4>A.14 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package</span></h4>
+
+<p><a id="X85CA2F547CF87666" name="X85CA2F547CF87666"></a></p>
+
+<h5>A.14-1 <span class="Heading">Tests files for a GAP package</span></h5>
+
+<p>The (optional) <code class="file">tst</code> directory of your package may contain as many tests of the package functionality as appears appropriate. These tests should be organised into test files similarly to those in the <code class="file">tst</code> directory of the <strong class="pkg">GAP</strong> distribution as documented in <a href="../../../doc/ref/chap7_mj.html#X801051CC86594630"><span class="RefLink">Reference: Test Files</span></a>.</p>
+
+<p>For a deposited package, a test file with a basic test of the package (for example, to check that it works as expected and/or that the manual examples are correct) may be specified in the component <code class="code">TestFile</code> in the <code class="file">PackageInfo.g</code> to be included in the GAP standard test suite. This file can either consist of <code class="func">ReadTest</code> (<a href="../../../doc/ref/chap7_mj.html#X7DBA18E38405A147"><span class="RefLink">Reference: ReadTest</span></a>) calls (in this case, it is common to call it <code class="file">testall.g</code>) or be itself a test file having an extension <code class="file">.tst</code> and supposed to be read via <code class="func">ReadTest</code> (<a href="../../../doc/ref/chap7_mj.html#X7DBA18E38405A147"><span class="RefLink">Reference: ReadTest</span></a>). It is assumed that the latter case occurs if and only if the file contains the substring</p>
+
+<p> <code class="code">"gap&gt; START_TEST("</code></p>
+
+<p>(with exactly one space after the <strong class="pkg">GAP</strong> prompt).</p>
+
+<p>For deposited packages, these tests are run by the <strong class="pkg">GAP</strong> Group regularly, as a part of the standard <strong class="pkg">GAP</strong> test suite. For the efficient testing it is important that the test specified in the <code class="file">PackageInfo.g</code> file does not display any output (e.g. no test progress indicators) except reporting discrepancies if such occur and the completion report as in the example below:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReadTest("tst/testall.tst");</span>
+Line 50 : 
++ Example package: testall.tst
+Line 50 : 
++ GAP4stones: 10000
+true
+</pre></div>
+
+<p>Tests which produce extended output and/or requires substantial runtime are not supposed to be a part of the <strong class="pkg">GAP</strong> standard test suite but may be placed in the <code class="file">tst</code> directory of the packages with further instructions on how to run them elsewhere.</p>
+
+<p><a id="X7BE11072850F07CD" name="X7BE11072850F07CD"></a></p>
+
+<h5>A.14-2 <span class="Heading">Testing <strong class="pkg">GAP</strong> package loading</span></h5>
+
+<p>To test that your package may be loaded into <strong class="pkg">GAP</strong> without any problems and conflicts with other packages, test that it may be loaded in various configurations:</p>
+
+
+<ul>
+<li><p>starting <strong class="pkg">GAP</strong> with no packages (except needed for <strong class="pkg">GAP</strong>) using <code class="code">-r -A</code> options and calling <code class="code">LoadPackage("your-package-name");</code></p>
+
+</li>
+<li><p>starting <strong class="pkg">GAP</strong> with no packages (except needed for <strong class="pkg">GAP</strong>) using <code class="code">-r -A</code> options and calling <code class="code">LoadPackage("your-package-name" : OnlyNeeded );</code></p>
+
+</li>
+<li><p>starting <strong class="pkg">GAP</strong> in the default configuration (with no options) and calling <code class="code">LoadPackage("your-package-name");</code></p>
+
+</li>
+<li><p>starting <strong class="pkg">GAP</strong> in the default configuration (with no options) and calling <code class="code">LoadPackage("your-package-name" : OnlyNeeded );</code></p>
+
+</li>
+<li><p>finally, together with all other packages using <code class="func">LoadAllPackages</code> (<a href="chapA_mj.html#X80A0D21D78CF8494"><span class="RefLink">A.14-3</span></a>) (see below) in four possible combinations of starting <strong class="pkg">GAP</strong> with/without <code class="code">-r -A</code> options and calling <code class="func">LoadAllPackages</code> (<a href="chapA_mj.html#X80A0D21D78CF8494"><span class="RefLink">A.14-3</span></a>) with/without <code class="code">Reversed</code> option.</p>
+
+</li>
+</ul>
+<p>The test of loading all packages is the most subtle one. Quite often it reveals problems which do not occur in the default configuration but may cause difficulties to the users of specialised packages.</p>
+
+<p>For your convenience, <code class="code">make testpackagesload</code> called in the <strong class="pkg">GAP</strong> root directory will run all package loading tests listed in this subsection and write their output in its <code class="code">dev/log</code> directory.</p>
+
+<p>It will produce four files with test logs, corresponding to the four cases above (the letter <code class="code">N</code> in the filename stands for "needed", <code class="code">A</code> stands for "autoloaded"):</p>
+
+
+<ul>
+<li><p><code class="file">dev/log/testpackagesload1_...</code></p>
+
+</li>
+<li><p><code class="file">dev/log/testpackagesloadN1_...</code></p>
+
+</li>
+<li><p><code class="file">dev/log/testpackagesloadA_...</code></p>
+
+</li>
+<li><p><code class="file">dev/log/testpackagesloadNA_...</code></p>
+
+</li>
+</ul>
+<p>Each file contains small sections for loading individual packages: among those, you need to find the section related to your package and may ignore all other sections. For example, the section for the <strong class="pkg">Example</strong> package looks like</p>
+
+
+<div class="example"><pre>
+%%% Loading example 3.3.3
+[  ]
+### Loaded example 3.3.3
+</pre></div>
+
+<p>so it has clearly passed the test. If there are any error messages displayed between <code class="code">Loading ...</code> and <code class="code">Loaded ...</code> lines, they will signal on errors during loading of your package.</p>
+
+<p>Additionally, this test collects information about variables created since the library was read (obtained using <code class="func">NamesUserGVars</code> (<a href="../../../doc/ref/chap4_mj.html#X870169447AF490D8"><span class="RefLink">Reference: NamesUserGVars</span></a>)) with either short names (no more than three characters) or names breaking a recommended naming convention that the <strong class="pkg">GAP</strong> core system and <strong class="pkg">GAP</strong> packages should not use global variables starting in the lowercase (see Section <a href="chapA_mj.html#X7DEACD9786DE29F1"><span class="RefLink">A.6</span></a>). Their list will be displayed in the test log (in the example above, <strong class="pkg">Example</strong> packages does not create any such variables, so an empty list is displayed). It may be hard to attribute a particular identifier to a package, since it may be created by another package loaded because of dependencies, so when a more detailed and precise report on package variables is needed, it may be obtained using <code class="func">ShowPackageVariables</code> (<a href="../../../doc/ref/chap76_mj.html#X7D34AC3287611B15"><span class="RefLink">Reference: ShowPackageVariables</span></a>) (also, <code class="code">make testpackagesvars</code> called in the <strong class="pkg">GAP</strong> root directory produces such reports for each package and writes them to a file <code class="file">dev/log/testpackagesvars_...</code>).</p>
+
+<p>Finally, each log file finishes with two large sections for loading all packages in the alphabetical and reverse aplhabetical order (to check more combinations of loading one package after another). We are aiming at releasing only collections of package which do not break <code class="func">LoadAllPackages</code> (<a href="chapA_mj.html#X80A0D21D78CF8494"><span class="RefLink">A.14-3</span></a>) in any of the four configurations, so if it is broken when you plug in the development version of your package into the released version of <strong class="pkg">GAP</strong>, it is likely that your package triggers this error. If you observe that <code class="func">LoadAllPackages</code> (<a href="chapA_mj.html#X80A0D21D78CF8494"><span class="RefLink">A.14-3</span></a>) is broken and suspect that this is not the fault of your package, please contact the <strong class="pkg">GAP</strong> Support.</p>
+
+<p><a id="X80A0D21D78CF8494" name="X80A0D21D78CF8494"></a></p>
+
+<h5>A.14-3 LoadAllPackages</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoadAllPackages</code>( <var class="Arg">:</var> <var class="Arg">Reversed</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>loads all <strong class="pkg">GAP</strong> packages from their list sorted in alphabetical order (needed and suggested packages will be loaded when required). This is a technical function to check packages compatibility, so it should NOT be used to run anything except tests; it is known that <strong class="pkg">GAP</strong> performance is slower if all packages are loaded. To introduce some variations of the order in which packages will be loaded for testing purposes, <code class="func">LoadAllPackages</code> accepts version <code class="code">Reversed</code> to load packages from their list sorted in the reverse alphabetical order.</p>
+
+<p><a id="X7ECAB2357B024ABA" name="X7ECAB2357B024ABA"></a></p>
+
+<h5>A.14-4 <span class="Heading">Testing a <strong class="pkg">GAP</strong> package with the <strong class="pkg">GAP</strong> standard test suite</span></h5>
+
+<p>The <code class="file">tst</code> directory of the <strong class="pkg">GAP</strong> installation contains a selection of test files and two scripts, <code class="file">testinstall.g</code> and <code class="file">testall.g</code> which are a part of the <strong class="pkg">GAP</strong> standard test suite.</p>
+
+<p>It is important to check that your package does not break <strong class="pkg">GAP</strong> standard tests. To perform a clean test and avoid interfering with other packages, first you must start a new <strong class="pkg">GAP</strong> session with the following command (assuming that <code class="code">gap</code> starts <strong class="pkg">GAP</strong> in your system):</p>
+
+
+<div class="example"><pre>
+gap -N -A -x 80 -r -m 100m -o 512m
+</pre></div>
+
+<p>After that load your package and run either <code class="file">testinstall.g</code> or <code class="file">testall.g</code> as demonstrated below.</p>
+
+<p>The quicker test, <code class="file">testinstall.g</code>, requires about 512MB of memory and runs for about one minute on an Intel Core 2 Duo / 2.53 GHz machine. It may be started with the command</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Read( Filename( DirectoriesLibrary( "tst" ), "testinstall.g" ) );</span>
+</pre></div>
+
+<p>You will get a large number of lines with output about the progress of the tests.</p>
+
+
+<div class="example"><pre>
+test file         GAP4stones     time(msec)
+-------------------------------------------
+testing: .../gap4r5/tst/zlattice.tst
+zlattice.tst               0              0
+testing: .../gap4r5/tst/gaussian.tst
+gaussian.tst               0             10
+... further lines deleted ...
+</pre></div>
+
+<p>The more thorough test is <code class="file">testall.g</code> which exercises more of <strong class="pkg">GAP</strong>'s capabilities, containing all test files from <code class="file">testinstall.g</code> as a subset. It requires about 512MB of memory, runs for about one hour on an Intel Core 2 Duo / 2.53 GHz machine, and produces an output similar to the testinstall.g test. To run it, also start a new <strong class="pkg">GAP</strong> session with <code class="code">gap -N -A -x 80 -r -m 100m -o 512m</code> and then call</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Read( Filename( DirectoriesLibrary( "tst" ), "testall.g" ) );</span>
+</pre></div>
+
+<p>You may repeat the same check loading your package with <code class="code">OnlyNeeded</code> option. Remember to perform each subsequent test in a new <strong class="pkg">GAP</strong> session.</p>
+
+<p>Also you may perform individual tests from the <code class="file">tst</code> directory of the <strong class="pkg">GAP</strong> installation loading them with <code class="func">ReadTest</code> (<a href="../../../doc/ref/chap7_mj.html#X7DBA18E38405A147"><span class="RefLink">Reference: ReadTest</span></a>), for example, the file <code class="file">bugfix.tst</code>.</p>
+
+<p><a id="X86DEFDA57A0976C0" name="X86DEFDA57A0976C0"></a></p>
+
+<h4>A.15 <span class="Heading">Access to the <strong class="pkg">GAP</strong> Development Version</span></h4>
+
+<p>We are aiming at providing a stable platform for package development and testing with official <strong class="pkg">GAP</strong> releases. However, when it may be of benefit to obtain access to the <strong class="pkg">GAP</strong> development version, please contact the <strong class="pkg">GAP</strong> team by mailing to <span class="URL"><a href="mailto:support@gap-system.org">support@gap-system.org</a></span>.</p>
+
+<p><a id="X8296209D82C12A73" name="X8296209D82C12A73"></a></p>
+
+<h4>A.16 <span class="Heading">Selecting a license for a <strong class="pkg">GAP</strong> Package</span></h4>
+
+<p>It is advised to make clear in the documentation of the package the basis on which it is being distributed to users. GAP itself is distributed under the GNU Public License version 2 (version 2 or later). We would encourage you to consider the GPL for your packages, but you might wish to be more restrictive (for instance forbidding redistribution for profit) or less restrictive (allowing your software to be incorporated into commercial software). See "Choosing a License for the Distribution of Your Package" from <span class="URL"><a href="http://www.gap-system.org/Packages/Authors/authors.html">http://www.gap-system.org/Packages/Authors/authors.html</a></span> for further details.</p>
+
+<p>In the past many <strong class="pkg">GAP</strong> packages used the text "We adopt the copyright regulations of GAP as detailed in the copyright notice in the <strong class="pkg">GAP</strong> manual" or a similar statement. We now advise to be more explicit and make the exact reference to the GPL license, for example:</p>
+
+<p><em> <strong class="pkg">package-name</strong> is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="http://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. </em></p>
+
+<p><a id="X85AA25B97FEFA49E" name="X85AA25B97FEFA49E"></a></p>
+
+<h4>A.17 <span class="Heading">Wrapping up a <strong class="pkg">GAP</strong> Package</span></h4>
+
+<p>Currently, the <strong class="pkg">GAP</strong> distribution provides archives in four different formats.</p>
+
+
+<dl>
+<dt><strong class="Mark"><code class="file">.tar.gz</code></strong></dt>
+<dd><p>a standard UNIX <code class="code">tar</code> archive, compressed with <code class="code">gzip</code></p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">.tar.bz2</code></strong></dt>
+<dd><p>a standard UNIX <code class="code">tar</code> archive, compressed with <code class="code">bzip2</code></p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">.zip</code></strong></dt>
+<dd><p>an archive in <code class="code">zip</code> format, where text files should have UNIX style line breaks</p>
+
+</dd>
+<dt><strong class="Mark"><code class="file">-win.zip</code></strong></dt>
+<dd><p>an archive in <code class="code">zip</code> format, where text files should have DOS/Windows style line breaks</p>
+
+</dd>
+</dl>
+<p>For convenience of possible users it is sensible that you provide an archive of your package in at least one of these formats.</p>
+
+<p>For example, if you wish to supply a <code class="file">.tar.gz</code> archive, you may create it with the command</p>
+
+<p> <code class="code">tar -cvzf package-name-version.tar.gz package-name</code></p>
+
+<p>The <code class="file">etc</code> directory obtained from <code class="code">tools.tar.gz</code> (described above in Section <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>) contains a file <code class="file">packpack</code> which provides a more versatile packing-up script.</p>
+
+<p>In the past, it was recommended that your <strong class="pkg">GAP</strong> package should be packed with the <code class="file">zoo</code> archiver. We do not redistribute <code class="file">.zoo</code> archives since <strong class="pkg">GAP</strong> 4.5, but we still accept package archives in <code class="file">.zoo</code> format for backwards compatibility, if no other formats are available.</p>
+
+<p>Because the release of the <strong class="pkg">GAP</strong> package is independent of the version of <strong class="pkg">GAP</strong>, a <strong class="pkg">GAP</strong> package should be wrapped up in separate file that can be installed onto any version of <strong class="pkg">GAP</strong>. In this way, a package can be upgraded any time without the need to wait for new <strong class="pkg">GAP</strong> releases. To ensure this, the package should be archived from the <strong class="pkg">GAP</strong> <code class="file">pkg</code> directory, that is all files are archived with the path starting at the package's name.</p>
+
+<p>The archive of a <strong class="pkg">GAP</strong> package should contain all files necessary for the package to work. In particular there should be a compiled documentation, which includes the <code class="file">manual.six</code>, <code class="file">manual.toc</code> and <code class="file">manual.lab</code> file in the documentation subdirectory which are created by TeXing the documentation, if you use <strong class="pkg">GAPDoc</strong> or the <code class="file">gapmacro.tex</code> document formats. (The first two files are needed by the <strong class="pkg">GAP</strong> help system, and the <code class="file">manual.lab</code> file is needed if the main manuals or another package is referring to your package. Use the command <code class="code">GAPDocManualLab( packagename );</code> to create this file for your help books if you use <strong class="pkg">GAPDoc</strong>.)</p>
+
+<p>For packages which are redistributed via the <strong class="pkg">GAP</strong> Web site, we offer an automatic conversion of any of the formats listed above to all the others. To use this service, you can provide any of the four archive formats or even more than one, however you should adhere to the following rule: text files in <code class="file">.tar.gz</code> and <code class="file">.tar.bz2</code> archives must have UNIX style line breaks, while text files in <code class="file">-win.zip</code> archives must have DOS/Windows line breaks.</p>
+
+<p>The package wrapping tools for the <strong class="pkg">GAP</strong> distribution and web pages then will use a sensible list of file extensions to decide if a file is a text file (being conservative, it may miss a few text files). These rules may be prepended by the application of rules from the <code class="file">PackageInfo.g</code> file:</p>
+
+
+<ul>
+<li><p>if it has a <code class="code">.TextFiles</code> component, then consider the given files as text files before <strong class="pkg">GAP</strong> defaults will be applied;</p>
+
+</li>
+<li><p>if it has a <code class="code">.BinaryFiles</code> component, then consider given files as binary files before <strong class="pkg">GAP</strong> defaults will be applied;</p>
+
+</li>
+<li><p>if it has a <code class="code">.TextBinaryFilesPatterns</code> component, then apply it before <strong class="pkg">GAP</strong> defaults will be applied;</p>
+
+</li>
+</ul>
+<p>The <code class="file">etc</code> directory obtained from <code class="code">tools.tar.gz</code> (described above in Section <a href="chapA_mj.html#X84164AA2859A195F"><span class="RefLink">A.2</span></a>) contains a file <code class="file">classifyfiles.py</code> and two files <code class="file">patternscolor.txt</code> and <code class="file">patternstextbinary.txt</code> implementing <strong class="pkg">GAP</strong> default rules used to classify files in packages. For most of the packages these default rules perfecty detect binary and text files, so there is no need for them to use any of the three optional components. However, <code class="code">.TextBinaryFilesPatterns</code>, or <code class="code">.TextFiles</code>, or <code class="code">.BinaryFiles</code> will become useful if the package has e.g. data files which are recognised as binary files by the default rules, or if the package uses standard extensions in a non-standard way (this is not recommended, of course). If things will go wrong, it is possible that one (or indeed all) created archives have wrong line breaks.</p>
+
+<p>Utility functions available in <code class="file">gap4r5/lib/lbutil.g</code>, namely <code class="code">DosUnixLinebreaks</code>, <code class="code">UnixDosLinebreaks</code>, <code class="code">MacUnixLinebreaks</code> may be helpful. They are described in the comments to their source code.</p>
+
+<p><a id="X80A75C09812F9B7A" name="X80A75C09812F9B7A"></a></p>
+
+<h4>A.18 <span class="Heading">The WWW Homepage of a Package</span></h4>
+
+<p>If you want to distribute your package you should create a WWW homepage containing some basic information, archives for download, the <code class="file">README</code> file with installation instructions, and a copy of the package's <code class="file">PackageInfo.g</code> file.</p>
+
+<p>The responsibility for this WWW homepage is with the package authors/maintainers.</p>
+
+<p>If you tell us about your package (say, by mail to <span class="URL"><a href="mailto:support@gap-system.org">support@gap-system.org</a></span>) we may consider either</p>
+
+
+<ul>
+<li><p>adding a link to your package homepage from the <strong class="pkg">GAP</strong> website (thus, the package will be an <em>undeposited contribution</em>);</p>
+
+</li>
+<li><p>or redistributing the current version of your package as a part of the <strong class="pkg">GAP</strong> distribution (this, the package will be <em>deposited</em>), also ;</p>
+
+</li>
+</ul>
+<p>In the latter case we can also provide some services for producing several archive formats from the archive you provide (e.g., you produce a <code class="code">.tar.gz</code> version of your archive and we produce also a <code class="code">.tar.bz2</code> and a <code class="code">-win.zip</code> version from it).</p>
+
+<p>Please also consider submitting your package to the <strong class="pkg">GAP</strong> package refereeing process (see <span class="URL"><a href="http://www.gap-system.org/Contacts/submit.html">http://www.gap-system.org/Contacts/submit.html</a></span> for further information).</p>
+
+<p><a id="X86C2A6A08063E0D2" name="X86C2A6A08063E0D2"></a></p>
+
+<h4>A.19 <span class="Heading">Upgrading the package to work with <strong class="pkg">GAP</strong> 4.5</span></h4>
+
+<p><a id="X8631074083FC19DA" name="X8631074083FC19DA"></a></p>
+
+<h5>A.19-1 <span class="Heading">Changes in <strong class="pkg">GAP</strong> 4.5 from the packages perspective</span></h5>
+
+<p>Here we list only those changes which may have some implications for the packages.</p>
+
+
+<ul>
+<li><p>Changing the distribution format providing one archive with the core system and all currently redistributed packages.</p>
+
+</li>
+<li><p>The <strong class="pkg">GAP</strong> kernel is now compiled by default to use the GMP large integer arithmetic library, speeding up arithmetic by a factor of 4 or more in many cases. This slightly changes the build process, affecting mainly packages with dynamically loaded modules (see <span class="URL"><a href="http://www.gap-system.org/Download/">http://www.gap-system.org/Download/</a></span> for <strong class="pkg">GAP</strong> installation instructions).</p>
+
+</li>
+<li><p>The <strong class="pkg">GAP</strong> documentation has been converted to the <strong class="pkg">GAPDoc</strong> format and extensively reviewed. Now it has only two books: the Tutorial and the Reference Manual. The two other books, "Extending <strong class="pkg">GAP</strong>" and "Programming Tutorial" became parts of the Reference Manual. Packages that refer to parts of the <strong class="pkg">GAP</strong> documentation may need to rebuild their manuals to update references.</p>
+
+<p>Some packages still use the old "gapmacro" format for their manuals, for which support may be discontinued in the future. There is no urgent need to convert such manuals into the <strong class="pkg">GAPDoc</strong> format before <strong class="pkg">GAP</strong> 4.5 release, but we encourage you very much to consider doing this at some later point.</p>
+
+</li>
+<li><p>The old concept of an autoloaded package has been integrated with the <em>needed</em> and <em>suggested</em> mechanism that already exists between packages. <strong class="pkg">GAP</strong> itself now "needs" certain packages (for instance <strong class="pkg">GAPDoc</strong>) and "suggests" others (typically the packages that were autoloaded). The decisions which packages <strong class="pkg">GAP</strong> should need or suggest are made by developers based on technical criteria. They can be easily overridden by a user using the new <code class="file">gap.ini</code> (see <a href="../../../doc/ref/chap3_mj.html#X7FD66F977A3B02DF"><span class="RefLink">Reference: The gap.ini and gaprc files</span></a>). The default file ensures that all previously autoloaded packages are still loaded if present.</p>
+
+</li>
+<li><p>Optional <code class="file">~/.gap</code> directory for user's customisations which may contain e.g. locally installed packages (see <a href="../../../doc/ref/chap9_mj.html#X7A4973627A5DB27D"><span class="RefLink">Reference: GAP Root Directories</span></a>). If package installation instructions explain how to install the package in a non-standard location, they may need an update. This is intended to replace <code class="file">.gaprc</code> files, but those are still supported for backwards compatibility (see <a href="../../../doc/ref/chap77_mj.html#X7F2FF72A7AD60E0C"><span class="RefLink">Reference: The former .gaprc file</span></a>).</p>
+
+</li>
+<li><p>Various improvements in the packages loading mechanism make it more informative, while avoiding confusing the user with warning and error messages for packages they didn't know they were loading. For example, many messages are stored but not displayed using the function <code class="func">LogPackageLoadingMessage</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: LogPackageLoadingMessage</span></a>) and there is a function <code class="func">DisplayPackageLoadingLog</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: DisplayPackageLoadingLog</span></a>) to show log messages that occur during package loading. Packages are encouraged to use these mechanisms to report problems in loading (e.g. binaries not compiled), rather than printing messages directly.</p>
+
+</li>
+<li><p>Since <strong class="pkg">GAP</strong> 4.5 a package may place global variables into a local namespace as explained in <a href="../../../doc/ref/chap4_mj.html#X875BA7C58175DEFB"><span class="RefLink">Reference: Namespaces for GAP packages</span></a> in order to avoid name clashes and preserve compatibility.</p>
+
+</li>
+<li><p>In <strong class="pkg">GAP</strong> 4.5 the internal representation of a record has changed, as well as some of the basic functions to manipulate records. This speeds up considerably the creation of and access to records with many components. Record components are now internally stored in the order in which they were used first, and this means that the internal ordering of components (returned by <code class="func">RecNames</code> (<a href="../../../doc/ref/chap29_mj.html#X837F1E1F866FB1A0"><span class="RefLink">Reference: RecNames</span></a>) and so the ordering of records, depends on the GAP session. Therefore, within each session everything is consistent, so one can efficiently remove duplicates with <code class="func">Set</code> (<a href="../../../doc/ref/chap30_mj.html#X7E399AC97FD98217"><span class="RefLink">Reference: Set</span></a>), sort lists of records, find records with binary search, etc., but a care should be taken not to rely on <code class="func">RecNames</code> (<a href="../../../doc/ref/chap29_mj.html#X837F1E1F866FB1A0"><span class="RefLink">Reference: RecNames</span></a>) always returning names of components in the same order.</p>
+
+</li>
+</ul>
+<p><a id="X84619DEB8161417E" name="X84619DEB8161417E"></a></p>
+
+<h4>A.20 <span class="Heading">Checklists</span></h4>
+
+<p><a id="X8393B9AC87D358FD" name="X8393B9AC87D358FD"></a></p>
+
+<h5>A.20-1 <span class="Heading">Package release checklist</span></h5>
+
+<p>The following checklist may be used by package authors, members of the <strong class="pkg">GAP</strong> team responsible for package updates, package editors and referees.</p>
+
+
+<ul>
+<li><p>Test that the package:</p>
+
+
+<ul>
+<li><p>does not break <code class="file">testinstall.g</code> and <code class="file">testall.g</code> and does not slow them down noticeably (see <a href="chapA_mj.html#X7ECAB2357B024ABA"><span class="RefLink">A.14-4</span></a>);</p>
+
+</li>
+<li><p>may be loaded in various configurations (see <a href="chapA_mj.html#X7BE11072850F07CD"><span class="RefLink">A.14-2</span></a>);</p>
+
+</li>
+<li><p>follows the guidelines of Section <a href="chapA_mj.html#X7DEACD9786DE29F1"><span class="RefLink">A.6</span></a> about names of functions and variables;</p>
+
+</li>
+</ul>
+</li>
+<li><p>Package documentation:</p>
+
+
+<ul>
+<li><p>is built and included in the package archive together with its source files;</p>
+
+</li>
+<li><p>states the version, release date and package authors;</p>
+
+</li>
+<li><p>has the same version, release date and package authors details as stated in the <code class="file">PackageInfo.g</code> file;</p>
+
+</li>
+<li><p>is searchable using the <strong class="pkg">GAP</strong> help system;</p>
+
+</li>
+<li><p>is clear about the license under which the package is distributed;</p>
+
+</li>
+</ul>
+</li>
+<li><p><code class="file">PackageInfo.g</code> file:</p>
+
+
+<ul>
+<li><p>has the same version, release date and package authors details as stated in the package manual;</p>
+
+</li>
+<li><p>has all mandatory components and also optional components where appropriate;</p>
+
+</li>
+<li><p>in particular, contains hints to distinguish binary and text files in case of non-standard file names and extensions;</p>
+
+</li>
+<li><p>is validated using <code class="func">ValidatePackageInfo</code> (<a href="../../../doc/ref/chap76_mj.html#X79767C2482FF6F55"><span class="RefLink">Reference: ValidatePackageInfo</span></a>);</p>
+
+</li>
+</ul>
+</li>
+<li><p>Package archive(s):</p>
+
+
+<ul>
+<li><p>have correct permisisons for all files and directories after their unpacking (755 for directories and executables, if any; 644 for other files);</p>
+
+</li>
+<li><p>contain files with correct line breaks for the given format (see <a href="chapA_mj.html#X85AA25B97FEFA49E"><span class="RefLink">A.17</span></a>);</p>
+
+</li>
+<li><p>contain no hidden system files and directories that are not supposed to be included in the package, e.g. <code class="file">.cvsignore</code>, <code class="file">.git</code> etc.;</p>
+
+</li>
+</ul>
+</li>
+<li><p>Package availability:</p>
+
+
+<ul>
+<li><p>not only the package archive(s), but also the <code class="file">PackageInfo.g</code> and <code class="file">README</code> files are available online;</p>
+
+</li>
+<li><p>the URL of the <code class="file">PackageInfo.g</code> file is validated using the online tool available from <span class="URL"><a href="http://www.gap-system.org/Packages/Authors/authors.html">http://www.gap-system.org/Packages/Authors/authors.html</a></span>;</p>
+
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="X7FB5FFF082351DA6" name="X7FB5FFF082351DA6"></a></p>
+
+<h5>A.20-2 <span class="Heading">Checklist for package upgrade to work with <strong class="pkg">GAP</strong> 4.5</span></h5>
+
+<p>The following checklist will help you to check how well your package is ready to work with <strong class="pkg">GAP</strong> 4.5.</p>
+
+
+<ul>
+<li><p>Mandatory changes needed for package upgrade to work with <strong class="pkg">GAP</strong> 4.5:</p>
+
+
+<dl>
+<dt><strong class="Mark">
+Check that the package works as expected:
+</strong></dt>
+<dd>
+<ul>
+<li><p>verify that the package functionality works as required, that examples in the manual are correct and that test files show no discrepancies;</p>
+
+</li>
+<li><p>if necessary, update manual examples and test files because the order in which record components are printed has changed (but now it will be more consistent and less dependent on how the record was created);</p>
+
+</li>
+<li><p>check the usage of names of record components in the code: take care not to rely on <code class="func">RecNames</code> (<a href="../../../doc/ref/chap29_mj.html#X837F1E1F866FB1A0"><span class="RefLink">Reference: RecNames</span></a>) always returning names of components in the same order (see <a href="chapA_mj.html#X86C2A6A08063E0D2"><span class="RefLink">A.19</span></a>)</p>
+
+</li>
+</ul>
+</dd>
+<dt><strong class="Mark">
+Revise package dependencies:
+</strong></dt>
+<dd><p>Check the the <code class="file">PackageInfo.g</code> has the correct list of needed and suggested packages (see <a href="chapA_mj.html#X7FB5FECD7C271688"><span class="RefLink">A.7</span></a>).</p>
+
+</dd>
+<dt><strong class="Mark">
+Revise licensing information:
+</strong></dt>
+<dd><p>Check that the package states clearly under which conditions it is distributed (see <a href="chapA_mj.html#X8296209D82C12A73"><span class="RefLink">A.16</span></a>).</p>
+
+</dd>
+<dt><strong class="Mark">
+Rebuild the package documentation:
+</strong></dt>
+<dd><p>whenever your package documentation is <strong class="pkg">GAPDoc</strong> or <code class="code">gapmacro.tex</code>-based, <strong class="pkg">GAP</strong> 4.5 contains new versions of both tools. This will ensure that cross-references from the package manual to the main <strong class="pkg">GAP</strong> manuals are correct and that the <strong class="pkg">GAP</strong> help system will be able to navigate to the more precise location in the package manual. This will also improve the layout of the package documentation. In particular, <strong class="pkg">GAPDoc</strong> has a better <code class="file">.css</code> file and is capable of producing the HTML version with MathJax support to display nicely mathematical formulae.</p>
+
+<p>Note that it's not possible for a package to have an HTML manual which contains correct links to both <strong class="pkg">GAP</strong> 4.4 and <strong class="pkg">GAP</strong> 4.5 main manuals.</p>
+
+</dd>
+</dl>
+</li>
+<li><p>Optional changes recommended for package upgrade to work with <strong class="pkg">GAP</strong> 4.5:</p>
+
+
+<ul>
+<li><p>When the <code class="code">AvailabilityTest</code> component in <code class="file">PackageInfo.g</code> differs from <code class="func">ReturnTrue</code> (<a href="../../../doc/ref/chap5_mj.html#X7DB422A2876CCC4D"><span class="RefLink">Reference: ReturnTrue</span></a>), use <code class="func">LogPackageLoadingMessage</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: LogPackageLoadingMessage</span></a>) to store a message which may be viewed later with <code class="func">DisplayPackageLoadingLog</code> (<a href="../../../doc/ref/chap76_mj.html#X7D162DDF813D2BBA"><span class="RefLink">Reference: DisplayPackageLoadingLog</span></a>) instead of calling <code class="code">Print</code> or <code class="code">Info</code> directly (see <a href="chapA_mj.html#X7E4F39867CCC6026"><span class="RefLink">A.10-2</span></a>).</p>
+
+</li>
+<li><p>It is recommended not to call <code class="func">LoadPackage</code> (<a href="../../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) from a package file while this file is read: instead one should list the package in question in the lists of needed or suggested packages. To verify whether such calls occur in the package first load it and then call <code class="code">DisplayPackageLoadingLog( PACKAGE_WARNING );</code>. If there is a genuine need to decide whether some package will be available at runtime, use the function <code class="func">IsPackageMarkedForLoading</code> (<a href="../../../doc/ref/chap76_mj.html#X8067348B836BAF37"><span class="RefLink">Reference: IsPackageMarkedForLoading</span></a>) introduced in <strong class="pkg">GAP</strong> 4.5.</p>
+
+</li>
+<li><p>Check if the package still relies on some obsolete variables (see <a href="../../../doc/ref/chap77_mj.html#X78C85ED17F00DCC1"><span class="RefLink">Reference: Replaced and Removed Command Names</span></a>) and try to get rid of their usage.</p>
+
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapA_mj.html">A</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

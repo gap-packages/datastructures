@@ -1,0 +1,103 @@
+  
+  
+                                    [1X[5XExample[105X[101X
+  
+  
+      [1XExample/Template of a [5XGAP[105X Package and Guidelines for Package Authors[101X
+  
+  
+                                 Version 3.4.3
+  
+  
+                                 27 March 2013
+  
+  
+                                 Werner Nickel
+  
+                                  Greg Gamble
+  
+                              Alexander Konovalov
+  
+  
+  
+  Werner Nickel
+      Email:    [7Xmailto:nickel@mathematik.tu-darmstadt.de[107X
+      Homepage: [7Xhttp://www.mathematik.tu-darmstadt.de/~nickel[107X
+  Greg Gamble
+      Email:    [7Xmailto:gregg@math.rwth-aachen.de[107X
+      Homepage: [7Xhttp://www.math.rwth-aachen.de/~Greg.Gamble[107X
+  Alexander Konovalov
+      Email:    [7Xmailto:alexk@mcs.st-andrews.ac.uk[107X
+      Homepage: [7Xhttp://www.cs.st-andrews.ac.uk/~alexk/[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 1997-2012 by Werner Nickel, Greg Gamble and Alexander Konovalov[133X
+  
+  [33X[0;0Y[5XExample[105X  package  is free software; you can redistribute it and/or modify it
+  under     the     terms     of    the    GNU    General    Public    License
+  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YWe  appreciate  very  much  all  past  and  future comments, suggestions and
+  contributions  to  this  package and its documentation provided by [5XGAP[105X users
+  and developers.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (Example)[101X
+  
+  1 [33X[0;0YThe Example Package[133X
+    1.1 [33X[0;0YThe Main Functions[133X
+      1.1-1 ListDirectory
+      1.1-2 FindFile
+      1.1-3 LoadedPackages
+      1.1-4 Which
+      1.1-5 WhereIsPkgProgram
+      1.1-6 HelloWorld
+      1.1-7 FruitCake
+      1.1-8 Recipe
+  2 [33X[0;0YInstalling and Loading the Example Package[133X
+    2.1 [33X[0;0YUnpacking the Example Package[133X
+    2.2 [33X[0;0YCompiling Binaries of the Example Package[133X
+    2.3 [33X[0;0YLoading the Example Package[133X
+  A [33X[0;0YGuidelines for Writing a GAP Package[133X
+    A.1 [33X[0;0YStructure of a GAP Package[133X
+    A.2 [33X[0;0YWriting Documentation and Tools Needed[133X
+    A.3 [33X[0;0YAn Example of a GAP Package[133X
+    A.4 [33X[0;0YFile Structure[133X
+    A.5 [33X[0;0YThe PackageInfo.g File[133X
+    A.6 [33X[0;0YFunctions and Variables and Choices of Their Names[133X
+    A.7 [33X[0;0YPackage Dependencies (Requesting one [5XGAP[105X Package from within Another)[133X
+    A.8 [33X[0;0YDeclaration and Implementation Part of a Package[133X
+    A.9 [33X[0;0YAutoreadable Variables[133X
+    A.10 [33X[0;0YStandalone Programs in a [5XGAP[105X Package[133X
+      A.10-1 [33X[0;0YInstallation of [5XGAP[105X Package Binaries[133X
+      A.10-2 [33X[0;0YTest for the Existence of GAP Package Binaries[133X
+      A.10-3 [33X[0;0YCalling of and Communication with External Binaries[133X
+    A.11 [33X[0;0YHaving an InfoClass[133X
+    A.12 [33X[0;0YThe Banner[133X
+    A.13 [33X[0;0YVersion Numbers[133X
+    A.14 [33X[0;0YTesting a [5XGAP[105X package[133X
+      A.14-1 [33X[0;0YTests files for a GAP package[133X
+      A.14-2 [33X[0;0YTesting [5XGAP[105X package loading[133X
+      A.14-3 LoadAllPackages
+      A.14-4 [33X[0;0YTesting a [5XGAP[105X package with the [5XGAP[105X standard test suite[133X
+    A.15 [33X[0;0YAccess to the [5XGAP[105X Development Version[133X
+    A.16 [33X[0;0YSelecting a license for a [5XGAP[105X Package[133X
+    A.17 [33X[0;0YWrapping up a [5XGAP[105X Package[133X
+    A.18 [33X[0;0YThe WWW Homepage of a Package[133X
+    A.19 [33X[0;0YUpgrading the package to work with [5XGAP[105X 4.5[133X
+      A.19-1 [33X[0;0YChanges in [5XGAP[105X 4.5 from the packages perspective[133X
+    A.20 [33X[0;0YChecklists[133X
+      A.20-1 [33X[0;0YPackage release checklist[133X
+      A.20-2 [33X[0;0YChecklist for package upgrade to work with [5XGAP[105X 4.5[133X
+  
+  
+  [32X

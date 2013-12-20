@@ -8,6 +8,7 @@
 #R  Read the declaration files.
 ##
 
+ReadPackage("gapdata", "gap/data.gd");
 ReadPackage("gapdata", "gap/avltree.gd");
 ReadPackage("gapdata", "gap/hash.gd");
 ReadPackage("gapdata", "gap/cache.gd");

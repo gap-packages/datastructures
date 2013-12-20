@@ -6,7 +6,7 @@
 ##                                                          Max Neunhoeffer
 ##                                                             Felix Noeske
 ##
-##  Copyright 2005-2008 by the authors.
+##  Copyright 2005-2013 by the authors.
 ##  This file is free software, see license information at the end.
 ##
 ##  Declaration stuff for caching.

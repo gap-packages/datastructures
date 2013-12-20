@@ -9,7 +9,7 @@
 ##  Copyright 2005-2008 by the authors.
 ##  This file is free software, see license information at the end.
 ##
-##  Declaration stuff for caching.
+##  Implementation of caching.
 ##
 #############################################################################
 

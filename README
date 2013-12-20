@@ -2,5 +2,5 @@
 
 The GAPData package aims at providing standard datastructures.
 
-AVL Trees    Originally part of the orb package, written by Max Neunhöffer
-Caches       Originally part of the orb package, written by Max Neunhöffer 
+AVL Trees    Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller
+Caches       Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller 

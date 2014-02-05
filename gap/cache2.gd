@@ -27,7 +27,9 @@ BindGlobal( "CacheNodesFamily", NewFamily( "CacheNodesFamily" ) );
 BindGlobal( "CachesFamily", CollectionsFamily( CacheNodesFamily ) );
 
 DeclareCategory("IsCache", IsComponentObjectRep);
+DeclareCategory("IsCacheNode", IsComponentObjectRep);
 
+# Linked List caches as taken from the orb package
 DeclareRepresentation("IsLinkedListCacheRep", IsCache,
         [ "head", "tail"     # doubly linked list of cached objects
           , "nrobs"          # number of objects currently in cache
@@ -36,28 +38,58 @@ DeclareRepresentation("IsLinkedListCacheRep", IsCache,
                              # function
           , "memorylimit"    # maximum number of memory units used before
                              # eviction
-          , "inserter"       # this function inserts a key
-          , "destructor"     # this function is called and passed the ob
-                             # when eviction happens
         ]);
-DeclareCategory("IsCacheNode", IsComponentObjectRep);
 DeclareRepresentation("IsLinkedListCacheNodeRep", IsCacheNode,
+        [ "next", "prev"     # links in the doubly linked list of
+                             # cache nodes
+          , "ob"             # cached object
+          , "mem"            # amount of memory used by object
+          ] );
+BindGlobal( "LinkedListCacheNodeType",
+  NewType( CacheNodesFamily, IsLinkedListCacheNodeRep and IsMutable) );
+
+# Caches With Dictionary Lookup
+DeclareRepresentation("IsLinkedListDictionaryCacheRep", IsCache and IsLookupDictionary,
+       [ "head", "tail"     # doubly linked list of cached objects
+          , "nrobs"          # number of objects currently in cache
+          , "memory"         # memory used by cached objects (this is really in
+                             # in terms of memory units passed to the caching
+                             # function
+          , "memorylimit"    # maximum number of memory units used before
+                             # eviction
+          , "inserter"       # this function inserts a key
+          , "finder"         # this function finds a key
+          , "deleter"        # this function is called and passed the ob
+                             # when eviction happens
+       ]);
+
+DeclareRepresentation("IsLinkedListCacheNodeWithKeyRep", IsCacheNode,
         [ "next", "prev"     # links in the doubly linked list of 
                              # cache nodes
           , "key"            # key in the index structure
           , "ob"             # cached object
           , "mem"            # amount of memory used by object
-        ] );
-BindGlobal( "LinkedListCacheNodeType",
-  NewType( CacheNodesFamily, IsLinkedListCacheNodeRep and IsMutable) );
+          ] );
+BindGlobal( "LinkedListCacheNodeWithKeyType".
+  NewType( CacheNodesFamily, IsLinkedListCacheNodeWithKeyRep and IsMutable) );
 
+DeclareRepresenatation("IsListKeyCacheRep", IsCache,
+        [ "cache", "indexlist" ]);
+
+# Operations for Caches
+DeclareOperation("Cache", [IsInt]);
 DeclareOperation("LinkedListCache", [IsInt]);
-DeclareOperation("ListIndexedCache", [IsInt]);
+DeclareOperation("KeyObjectCache", [IsInt, IsFunction, IsFunction, IsFunction]);
+DeclareOperation("ListKeyCache", [IsInt]);
+
 DeclareOperation("ClearCache", [IsCache]);
-DeclareGlobalFunction("CacheObject");
+DeclareOperation("CacheObject", [IsCache, IsObject]);
+DeclareOperation("UseCacheObject", [IsCache, IsObject]);
+
+# DeclareGlobalFunction("CacheObject");
 DeclareGlobalFunction("EnforceCachelimit");
-DeclareGlobalFunction("UseCacheObjectByKey");
-DeclareGlobalFunction("UseCacheObject");
+#DeclareGlobalFunction("UseCacheObjectByKey");
+#DeclareGlobalFunction("UseCacheObject");
 
 ##
 ##  This program is free software: you can redistribute it and/or modify

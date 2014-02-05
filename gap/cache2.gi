@@ -28,63 +28,15 @@ InstallMethod( LinkedListCache, "for an integer", [ IsInt ],
              , nrobs := 0
              , memory := 0
              , memorylimit := memorylimit
-             , inserter := false
-             , finder := false
-             , destructor := false);
     Objectify(NewType(CachesFamily,IsLinkedListCacheRep and IsMutable),c);
     return c;
 end );
-
-InstallOtherMethod( LinkedListCache
-        , "for an integer, an inserter, and a node destructor"
-        , [ IsInt, IsFunction, IsFunction, IsFunction ],
-  function(memorylimit, insr, finr, dtor)
-    local c;
-    c := rec(head := fail, tail := fail
-             , nrobs := 0
-             , memory := 0
-             , memorylimit := memorylimit
-             , inserter := insr
-             , finder := finr
-             , destructor := dtor );
-    Objectify(NewType(CachesFamily,IsLinkedListCacheRep and IsMutable), c);
-    return c;
-end );
-
-InstallMethod( ListIndexedCache
-        , "for an integer"
-        , [ IsInt ],
-        function(memorylimit)
-    local i,f,d,idx;
-
-    idx := [];
-    i := function(nd)
-        idx[nd!.key] := nd;
-    end;
-    f := function(k)
-        if IsBound(idx[k]) then
-           return idx[k];
-        else
-           return fail;
-        fi;
-    end;
-    d := function(nd)
-        Unbind(idx[nd!.key]);
-    end;
-
-    return LinkedListCache(memorylimit, i, f, d);
-end);
-
 InstallMethod( ViewObj, "for a linked list cache object",
   [ IsCache and IsLinkedListCacheRep ],
   function(c)
-    Print("<");
-    if (c!.inserter <> false) and (c!.destructor <> false) then
-        Print("indexed ");
-    fi;
-    Print("linked list cache ");
+    Print("<linked list cache ");
     Print("with ",c!.nrobs," objects ",
-          "using ",c!.memory," <= ",c!.memorylimit, " bytes");
+          "using ",c!.memory," <= ",c!.memorylimit, " units");
     Print(">");
   end );
 
@@ -98,8 +50,6 @@ InstallMethod( Display, "for a linked list cache object",
     i := 0;
     while cn <> fail do
         i := i + 1;
-        Print("#",i,"key=");
-        ViewObj(cn!.key);
         Print(" ob=");
         ViewObj(cn!.ob);
         Print(" mem=",cn!.mem,"\n");
@@ -113,12 +63,6 @@ InstallMethod( ClearCache, "for a linked list cache object",
   function(c)
     local cn;
     # evict all nodes from the index
-    if c!.destructor <> false then
-        cn := c!.head;
-        while cn <> fail do
-            c!.destructor(cn);
-        od;
-    fi;
     c!.head := fail;
     c!.tail := fail;
     c!.nrobs := 0;
@@ -126,10 +70,9 @@ InstallMethod( ClearCache, "for a linked list cache object",
   end );
 
 InstallGlobalFunction( CacheObject,
-  function( c, key, ob, mem )
+  function( c, ob, mem )
     local r;
-    r := rec( key := key
-              , ob := ob
+    r := rec( ob := ob
               , next := c!.head
               , prev := fail
               , mem := mem );
@@ -142,9 +85,6 @@ InstallGlobalFunction( CacheObject,
         r!.next!.prev := r;
     fi;
     c!.nrobs := c!.nrobs + 1;
-    if c!.inserter <> false then
-        c!.inserter(r);
-    fi;
     EnforceCachelimit(c);
     return r;
   end );
@@ -164,9 +104,6 @@ InstallGlobalFunction( EnforceCachelimit,
         fi;
         s!.prev := false;   # mark node as no longer in cache
         c!.nrobs := c!.nrobs - 1;
-        if c!.destructor <> false then
-            c!.destructor(s);
-        fi;
     od;
   end );
 
@@ -176,19 +113,8 @@ InstallMethod( ViewObj, "for a linked list cache node",
     Print("<linked list cache node ob=");
     ViewObj(cn!.ob);
     Print(" mem=",cn!.mem);
-    Print(" key=",cn!.key);
     Print(">");
   end );
-
-InstallGlobalFunction( UseCacheObjectByKey,
-  function(c, k)
-    local cn;
-    cn := c!.finder(k);
-    if cn <> fail
-       UseCacheObject(c, cn);
-       return cn!.ob;
-   fi;
-  end);
 
 InstallGlobalFunction( UseCacheObject,
   function( c, r )
@@ -207,13 +133,10 @@ InstallGlobalFunction( UseCacheObject,
             r!.next!.prev := r;
         fi;
         c!.nrobs := c!.nrobs + 1;
-        if c!.inserter <> false then
-            c!.inserter(r);
-        fi;
         EnforceCachelimit(c);
-        return true; # object was re-entered into the cache
+        return r; # object was re-entered into the cache
     fi;
-    if r!.prev = fail then return false; fi;   # nothing to do
+    if r!.prev = fail then return r; fi;   # nothing to do
     s := r!.prev;
     s!.next := r!.next;
     if r!.next = fail then
@@ -225,8 +148,52 @@ InstallGlobalFunction( UseCacheObject,
     r!.next := c!.head;
     r!.next!.prev := r;
     c!.head := r;
-    return false; # object wasn't re-entered into the cache
+    return r; # object wasn't re-entered into the cache
   end );
+
+########################
+# Key-Object caches:
+########################
+InstallMethod( IndexedCache
+        , "for an integer, an inserter, and a node destructor"
+        , [ IsInt, IsIndexStructure ],
+  function(memorylimit, inserter, finder, deleter)
+    local c;
+    c := rec(head := fail, tail := fail
+             , nrobs := 0
+             , memory := 0
+             , memorylimit := memorylimit
+             , inserter := inserter
+             , finder := finder
+             , deleter := deleter );
+    Objectify(NewType(CachesFamily, IsLinkedListKeyObjectCacheRep and IsMutable), c);
+    return c;
+end );
+
+InstallMethod( ListKeyCache
+        , "for an integer"
+        , [ IsInt ],
+        function(memorylimit)
+    local i, f, d, idx;
+
+    idx := [];
+    i := function(nd)
+        idx[nd!.key] := nd;
+    end;
+    f := function(k)
+        if IsBound(idx[k]) then
+           return idx[k];
+        else
+           return fail;
+        fi;
+    end;
+    d := function(nd)
+        Unbind(idx[nd!.key]);
+    end;
+
+    return KeyObjectCache(memorylimit, i, f, d);
+end);
+
 
 ##
 ##  This program is free software: you can redistribute it and/or modify

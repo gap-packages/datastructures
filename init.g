@@ -11,7 +11,8 @@
 ReadPackage("gapdata", "gap/data.gd");
 ReadPackage("gapdata", "gap/avltree.gd");
 ReadPackage("gapdata", "gap/hash.gd");
-ReadPackage("gapdata", "gap/cache2.gd");
+ReadPackage("gapdata", "gap/cache.gd");
+# ReadPackage("gapdata", "gap/cache2.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
 

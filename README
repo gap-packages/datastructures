@@ -3,5 +3,6 @@
 The GAPData package aims at providing standard datastructures, consolidating
 existing code and improving on it, in particular in view of HPCGAP.
 
+Doubly Linked Lists
 AVL Trees    Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller
 Caches       Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller 

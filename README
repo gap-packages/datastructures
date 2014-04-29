@@ -1,8 +1,9 @@
                              The GAPData package
 
 The GAPData package aims at providing standard datastructures, consolidating
-existing code and improving on it, in particular in view of HPCGAP.
+existing code and improving on it, in particular in view of HPC-GAP.
 
+Queues       Based on Reimer Behrends' implementation in HPC-GAP
 Doubly Linked Lists
 AVL Trees    Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller
 Caches       Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller 

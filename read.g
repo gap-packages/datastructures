@@ -8,6 +8,8 @@
 #R  Read the install files.
 ##
 
+ReadPackage("gapdata", "gap/queue.gi");
+
 ReadPackage("gapdata", "gap/avltree.gi");
 ReadPackage("gapdata", "gap/hash.gi");
 ReadPackage("gapdata", "gap/cache.gi");

@@ -24,11 +24,11 @@ DeclareConstructor("NewQueue", [IsQueue, IsObject, IsPosInt]);
 
 DeclareOperation("PushQueueBack", [IsQueue, IsObject]);
 DeclareOperation("PushQueueFront", [IsQueue, IsObject]);
-DeclareSynonym("PushQueue", PushQueueBack);
+DeclareOperation("Push", [IsQueue, IsObject]);
 
 DeclareOperation("PopQueueBack", [IsQueue]);
 DeclareOperation("PopQueueFront", [IsQueue]);
-DeclareSynonym("PopQueue", PopQueueFront);
+DeclareOperation("Pop", [IsQueue]);
 
 DeclareProperty("IsEmpty", IsQueue);
 DeclareAttribute("Length", IsQueue);

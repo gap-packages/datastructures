@@ -7,14 +7,18 @@
 ##
 ##
 
-
-DeclareRepresentation(IsPairingHeapRep, IsHeap and IsPositionalObjectRep, []);
+DeclareRepresentation( "IsPairingHeapFlatRep", IsHeap and IsPositionalObjectRep, []);
+BindGlobal( "PairingHeapType", NewType(HeapFamily, IsPairingHeapFlatRep));
+BindGlobal( "PairingHeapTypeMutable", NewType(HeapFamily,
+        IsPairingHeapFlatRep and IsMutable));
 
 DeclareGlobalFunction("PairingHeap");
 DeclareGlobalFunction("PairingHeapPush");
 DeclareGlobalFunction("PairingHeapPeek");
 DeclareGlobalFunction("PairingHeapPop");
 DeclareGlobalFunction("PairingHeapSize");
+DeclareGlobalFunction("PairingHeapMergePairs");
 
+DeclareGlobalFunction("PairingHeapMeld");
 
 

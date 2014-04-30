@@ -12,6 +12,7 @@
 ## to pass a comparison function via an options record, which
 ## in effect enables the making of min heaps
 DeclareCategory("IsHeap", IsCollection);
+BindGlobal( "HeapFamily", NewFamily("HeapFamily") );
 
 DeclareConstructor("NewHeap", [IsHeap, IsObject, IsObject, IsObject]);
 
@@ -25,7 +26,7 @@ DeclareOperation("Pop", [IsHeap]);
 DeclareOperation("Merge", [IsHeap, IsHeap]);
 
 # 
-DeclareProperty("Size", [IsHeap]);
+DeclareAttribute("Size", IsHeap);
 
 
 

@@ -1,12 +1,13 @@
 #############################################################################
 ##
-#W  queue.gd                    GAP library                   Reimer Behrends
+#W  lqueue.gd                   GAP library                  Reimer Behrends
 ##
 ##
 #Y  Copyright (C) 2013 The GAP Group
 ##
-##  This file implements queues. These can be used both as FIFO queues,
+##  This file implements queues. These can be used as FIFO queues,
 ##  as deques, and as stacks.
+##
 
 InstallMethod(NewQueue,
         "for IsPlistQueueRep, a sample object, and a positive integer", 

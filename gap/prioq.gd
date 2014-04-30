@@ -16,20 +16,13 @@
 ## popping
 ##
 
-
 DeclareCategory("IsPriorityQueue", IsCollection);
 
 DeclareConstructor("NewPriorityQueue", [IsPriorityQueue, IsObject]);
 
-DeclareOperation("Push", [IsPriorityQueue, IsInt]);
+DeclareOperation("Push", [IsPriorityQueue, IsInt, IsObject]);
 DeclareOperation("Pop", [IsPriorityQueue]);
 DeclareOperation("Peek", [IsPriorityQueue]);
 
 DeclareProperty("IsEmpty", IsPriorityQueue);
-#DeclareProperty("Capacity", IsPriorityQueue);
-
-#
-
-DeclareRepresentation("IsAVLTreePrioQRep", IsPriorityQueue and IsPositionalObjectRep, []);
-
-
+DeclareProperty("Length", IsPriorityQueue);

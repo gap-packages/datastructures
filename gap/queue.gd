@@ -22,26 +22,15 @@ DeclareCategory("IsQueue", IsCollection);
 
 DeclareConstructor("NewQueue", [IsQueue, IsObject, IsPosInt]);
 
-DeclareOperation("PushQueueBack", [IsQueue, IsObject]);
-DeclareOperation("PushQueueFront", [IsQueue, IsObject]);
+DeclareOperation("PushBack", [IsQueue, IsObject]);
+DeclareOperation("PushFront", [IsQueue, IsObject]);
 DeclareOperation("Push", [IsQueue, IsObject]);
 
-DeclareOperation("PopQueueBack", [IsQueue]);
-DeclareOperation("PopQueueFront", [IsQueue]);
+DeclareOperation("PopBack", [IsQueue]);
+DeclareOperation("PopFront", [IsQueue]);
 DeclareOperation("Pop", [IsQueue]);
 
 DeclareProperty("IsEmpty", IsQueue);
 DeclareAttribute("Length", IsQueue);
 DeclareAttribute("Capacity", IsQueue);
 
-  
-# The implementation we will provide
-DeclareRepresentation("IsPlistQueueRep", IsQueue and IsPositionalObjectRep, []);
-DeclareGlobalFunction("PlistQueueExpand");
-DeclareGlobalFunction("PListQueueHead");
-DeclareGlobalFunction("PListQueueTail");
-
-BindGlobal("QHEAD", 1);
-BindGlobal("QTAIL", 2);
-BindGlobal("QCAPACITY", 3);
-BindGlobal("QDATA", 4);

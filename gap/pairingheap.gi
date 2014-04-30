@@ -7,7 +7,7 @@
 ##
 ##  This file is free software, see license information at the end.
 ##
-##  Implementation of pairing heaps in GAP.
+##  A fairly naive implementation of pairing heaps in GAP.
 ##
 ##  push and peek is O(1), pop is amortised O(log n), n is number of nodes
 ##

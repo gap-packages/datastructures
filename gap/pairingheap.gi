@@ -5,7 +5,26 @@
 ##
 #Y  Copyright (C) 2014 The GAP Group
 ##
-
+##  This file is free software, see license information at the end.
+##
+##  Implementation of pairing heaps in GAP.
+##
+##  push and peek is O(1), pop is amortised O(log n), n is number of nodes
+##
+##  see
+##    Fredman, Sedgewick, Sleator, Tarjan (1986),
+##          "The pairing heap: a new form of self-adjusting heap"
+##          http://www.cs.cmu.edu/afs/cs.cmu.edu/user/sleator/www/papers/pairing-heaps.pdf
+##
+#############################################################################
+##
+## TODO:
+##
+##  - implement decrease priority
+##  - implement tests
+##  - do benchmarks and consider more efficient implementations
+##  - custom comparison function for priorities
+##
 InstallGlobalFunction(PairingHeap,
 function()
     local h;
@@ -19,7 +38,7 @@ function()
     # node[3] data attached to the node
     # node[4] list of subheaps
     h := [0, 0, 0, [0,0,0,] ];
-    
+
     return Objectify(PairingHeapTypeMutable, h);
 end);
 
@@ -51,35 +70,35 @@ meld := function(x,y)
         return y;
     fi;
 end;
- 
+
 merge_pairs := function(heaps)
     local h, res;
-    
+
     if Length(heaps) = 0 then
         return [0,0,0];
     else
         res := heaps[1];
-        
+
         for h in heaps{[2..Length(heaps)]} do
             res := meld(res, h);
         od;
-        
+
         return res;
     fi;
 end;
- 
+
 # Returns a new pairing heap which is the meld of heap1 and heap2
 InstallGlobalFunction(PairingHeapMeld,
 function(heap1, heap2)
     local res;
-   
+
     res := PairingHeap();
     res![4] := meld(heap1![4], heap2![4]);
     res![1] := heap1![1] + heap2![2];
 
     return res;
 end);
-        
+
 InstallGlobalFunction(PairingHeapPeek,
 function(heap)
     return [heap![4][1], heap![4][2]];
@@ -88,15 +107,15 @@ end);
 InstallGlobalFunction(PairingHeapPop,
 function(heap)
     local res;
-    
+
     if heap![1] = 0 then
         res := fail;
-    else    
+    else
         res := [heap![4][1], heap![4][2]];
         heap![4] := merge_pairs(heap![4][4]);
         heap![1] := heap![4][3];
     fi;
-    
+
     return res;
 end);
 
@@ -135,4 +154,17 @@ function(h)
     Print("<pairing heap>");
 end);
 
-
+##
+##  This program is free software: you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation, either version 3 of the License, or
+##  (at your option) any later version.
+##
+##  This program is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##

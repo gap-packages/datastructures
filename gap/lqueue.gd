@@ -13,9 +13,21 @@
 ## Imported into GAPdata by Markus Pfeiffer
 
 DeclareRepresentation("IsPlistQueueRep", IsQueue and IsPositionalObjectRep, []);
+
+DeclareGlobalFunction("PlistQueue");
+
+
+DeclareGlobalFunction("PlistQueuePushFront");
+DeclareGlobalFunction("PlistQueuePushBack");
+DeclareGlobalFunction("PlistQueuePopFront");
+DeclareGlobalFunction("PlistQueuePopBack");
+
 DeclareGlobalFunction("PlistQueueExpand");
-DeclareGlobalFunction("PListQueueHead");
-DeclareGlobalFunction("PListQueueTail");
+DeclareGlobalFunction("PlistQueueHead");
+DeclareGlobalFunction("PlistQueueTail");
+
+DeclareGlobalFunction("PlistQueueCapacity");
+DeclareGlobalFunction("PlistQueueLength");
 
 BindGlobal("QHEAD", 1);
 BindGlobal("QTAIL", 2);

@@ -25,4 +25,4 @@ DeclareOperation("Pop", [IsPriorityQueue]);
 DeclareOperation("Peek", [IsPriorityQueue]);
 
 DeclareProperty("IsEmpty", IsPriorityQueue);
-DeclareProperty("Length", IsPriorityQueue);
+DeclareAttribute("Length", IsPriorityQueue);

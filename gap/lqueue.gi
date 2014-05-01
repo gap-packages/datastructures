@@ -9,28 +9,32 @@
 ##  as deques, and as stacks.
 ##
 
-InstallMethod(NewQueue,
-        "for IsPlistQueueRep, a sample object, and a positive integer", 
-        [IsPlistQueueRep, IsObject, IsPosInt],
-function(filter, sample, capacity)
-  local result, i, t;
+InstallGlobalFunction(PlistQueue,
+function(arg)
+  local capacity, filter, result, i, t;
   
+  filter := IsPlistQueueRep;
+  
+  if Length(arg) = 0 then
+    capacity := 64;
+  elif Length(arg) = 1 then
+    capacity := arg[1];
+  fi;
+
   result := [1, 1, capacity, EmptyPlist(capacity)];
   for i in [1..capacity] do
     result[4][i] := fail;
   od;
   
-  t := NewType(CollectionsFamily(FamilyObj(sample)), filter and IsPositionalObjectRep);
+  t := NewType(CollectionsFamily(FamilyObj(IsObject)), filter and IsPositionalObjectRep);
   
   Objectify(t, result);
 
   return result;
 end);
 
-InstallMethod(PushQueueBack,
-        "for IsPlistQueue and an object",
-        [IsPlistQueueRep, IsObject],
-function(queue,el)
+InstallGlobalFunction(PlistQueuePushBack,
+ function(queue,el)
   local head, tail, last;
   head := queue![QHEAD];
   tail := queue![QTAIL];
@@ -59,9 +63,7 @@ function(queue,el)
   fi;
 end);
 
-InstallMethod(PushQueueFront,
-        "for IsPlistQueue and an object",
-        [IsPlistQueueRep, IsObject],
+InstallGlobalFunction(PlistQueuePushFront,
 function(queue, el)
   local head, tail, last;
   head := queue![QHEAD];
@@ -89,9 +91,7 @@ function(queue, el)
   fi;
 end);
 
-InstallMethod(PopQueueFront,
-        "for IsPlistQueue and an object",
-        [IsPlistQueueRep],
+InstallGlobalFunction(PlistQueuePopFront,
 function(queue)
   local head, tail, last, result;
   head := queue![QHEAD];
@@ -113,9 +113,7 @@ function(queue)
   return fail;
 end);
 
-InstallMethod(PopQueueBack,
-        "for IsPlistQueue and an object",
-        [IsPlistQueueRep],
+InstallGlobalFunction(PlistQueuePopBack,
 function(queue)
   local head, tail, last, result;
   head := queue![QHEAD];
@@ -134,6 +132,74 @@ function(queue)
   fi;
   return fail;
 end);
+
+InstallGlobalFunction(PlistQueueExpand,
+function(queue)
+  local result, p, head, tail, last;
+  head := queue![QHEAD];
+  tail := queue![QTAIL];
+  last := queue![QCAPACITY];
+  queue![QCAPACITY] := queue![QCAPACITY] * 2;
+  p := queue![QCAPACITY];
+  result := EmptyPlist(p);
+  while p > 0 do
+    result[p] := fail;
+    p := p - 1;
+  od;
+  p := 1;
+  while head <> tail do
+    result[p] := queue![QDATA][head];
+    p := p + 1;
+    head := head + 1;
+    if head > last then
+      head := 1;
+    fi;
+  od;
+  queue![QTAIL] := p;
+  
+  queue![QDATA] := result;
+end);
+
+########################################################################
+##
+## method installation
+##
+InstallMethod(NewQueue,
+        "for IsPlistQueueRep, a sample object, and a positive integer", 
+        [IsPlistQueueRep, IsObject, IsPosInt],
+function(filter, sample, capacity)
+  return PlistQueue(capacity);
+end);
+
+InstallMethod(PushBack,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep, IsObject],
+        PlistQueuePushBack);
+
+InstallMethod(PushFront,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep, IsObject],
+        PlistQueuePushFront);
+
+InstallMethod(Push,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep, IsObject],
+        PlistQueuePushBack);
+
+InstallMethod(PopFront,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep],
+        PlistQueuePopFront);
+
+InstallMethod(PopBack,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep],
+        PlistQueuePopBack);
+
+InstallMethod(Pop,
+        "for IsPlistQueue and an object",
+        [IsPlistQueueRep],
+        PlistQueuePopFront);
 
 InstallMethod(IsEmpty,
         "for IsPlistQueue",
@@ -162,33 +228,6 @@ InstallMethod(Capacity,
         [IsPlistQueueRep],
 function(queue)
     return queue![QCAPACITY];
-end);
-
-InstallGlobalFunction(PlistQueueExpand,
-function(queue)
-  local result, p, head, tail, last;
-  head := queue![QHEAD];
-  tail := queue![QTAIL];
-  last := queue![QCAPACITY];
-  queue![QCAPACITY] := queue![QCAPACITY] * 2;
-  p := queue![QCAPACITY];
-  result := EmptyPlist(p);
-  while p > 0 do
-    result[p] := fail;
-    p := p - 1;
-  od;
-  p := 1;
-  while head <> tail do
-    result[p] := queue![QDATA][head];
-    p := p + 1;
-    head := head + 1;
-    if head > last then
-      head := 1;
-    fi;
-  od;
-  queue![QTAIL] := p;
-  
-  queue![QDATA] := result;
 end);
 
 InstallMethod( ViewObj,

@@ -11,7 +11,6 @@
 # GAPData global declarations
 ReadPackage("gapdata", "gap/data.gd");
 
-
 # interface definitions
 ReadPackage("gapdata", "gap/queue.gd");
 ReadPackage("gapdata", "gap/heap.gd");
@@ -22,8 +21,9 @@ ReadPackage("gapdata", "gap/prioq.gd");
 #ReadPackage("gapdata", "gap/cache.gd");
 #ReadPackage("gapdata", "gap/dictionary.gd");
 
-# implementations
+# queues implemented by using lists
 ReadPackage("gapdata", "gap/lqueue.gd");
+# AVL trees
 ReadPackage("gapdata", "gap/avltree.gd");
 ReadPackage("gapdata", "gap/hash.gd");
 ReadPackage("gapdata", "gap/cache.gd");

@@ -16,7 +16,6 @@ DeclareRepresentation("IsPlistQueueRep", IsQueue and IsPositionalObjectRep, []);
 
 DeclareGlobalFunction("PlistQueue");
 
-
 DeclareGlobalFunction("PlistQueuePushFront");
 DeclareGlobalFunction("PlistQueuePushBack");
 DeclareGlobalFunction("PlistQueuePopFront");

@@ -15,6 +15,7 @@ const char * Revision_hashtable_c =
 #include <stdlib.h>
 
 #include "src/compiled.h"          /* GAP headers                */
+#include "src/avltree.h"
 
 #undef PACKAGE
 #undef PACKAGE_BUGREPORT

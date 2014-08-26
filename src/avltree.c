@@ -264,7 +264,7 @@ static Obj AVLFindIndex_C( Obj self, Obj t, Obj d )
 {
     Int tmp;
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&V
+        (TYPE_POSOBJ(t) != AVLTreeType &&
          TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
         ErrorQuit( "Usage: AVLFindIndex(avltree, object)", 0L, 0L );
         return 0L;

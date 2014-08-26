@@ -1,24 +1,24 @@
 ACLOCAL_AMFLAGS = -I m4
 
 BINARCHDIR = bin/$(GAPARCH)
-GAPINSTALLLIB = $(abs_top_srcdir)/$(BINARCHDIR)/orb.so
+GAPINSTALLLIB = $(abs_top_srcdir)/$(BINARCHDIR)/gapdata.so
 
-lib_LTLIBRARIES = orb.la
+lib_LTLIBRARIES = gapdata.la
 
-orb_la_SOURCES = src/orb.c
-orb_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
+gapdata_la_SOURCES = src/hashtable.c src/avltree.c src/gapdata.c src/misc.c
+gapdata_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12
-orb_la_LDFLAGS = -module -avoid-version
+gapdata_la_LDFLAGS = -module -avoid-version
 if SYS_IS_CYGWIN
-orb_la_LDFLAGS += -no-undefined -version-info 0:0:0 -Wl,$(GAPROOT)/bin/$(GAPARCH)/gap.dll
+gapdata_la_LDFLAGS += -no-undefined -version-info 0:0:0 -Wl,$(GAPROOT)/bin/$(GAPARCH)/gap.dll
 endif
 
-all-local: orb.la
+all-local: gapdata.la
 	$(mkdir_p) $(top_srcdir)/$(BINARCHDIR)
 if SYS_IS_CYGWIN
-	cp .libs/orb.dll $(GAPINSTALLLIB)
+	cp .libs/gapdata.dll $(GAPINSTALLLIB)
 else
-	cp .libs/orb.so $(GAPINSTALLLIB)
+	cp .libs/gapdata.so $(GAPINSTALLLIB)
 endif
 	@echo "SUCCESS!"
 

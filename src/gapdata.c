@@ -16,7 +16,6 @@ const char * Revision_gapdata_c =
 #include "src/compiled.h"          /* GAP headers                */
 #include "avltree.h"
 #include "hashtable.h"
-#include "misc.h"
 
 /*F * * * * * * * * * * * * * initialize package * * * * * * * * * * * * * * */
 
@@ -104,42 +103,6 @@ static StructGVarFunc GVarFuncs [] = {
   { "JENKINS_HASH_IN_ORB", 4, "x, offset, bytelen, hashlen",
     FuncJenkinsHashInOrb, 
     "hashtable.c:JENKINS_HASH_IN_ORB" },
-
-  { "PermLeftQuoTransformationNC_C", 2, "t1, t2",
-    FuncPermLeftQuoTransformationNC,
-    "misc.c:FuncPermLeftQuoTransformationNC" },
-
-  { "MappingPermSetSet_C", 2, "src, dst",
-    FuncMappingPermSetSet,
-    "misc.c:FuncMappingPermSetSet_C" },
-
-  { "MappingPermListList_C", 2, "src, dst",
-    FuncMappingPermListList,
-    "misc.c:FuncMappingPermListList" },
-
-#if 0
-/* The following one has better complexity and is only slightly slower
- * for very small transformations. */
-  { "ImageAndKernelOfTransformation2_C", 1, "t",
-    FuncImageAndKernelOfTransformation,
-    "misc.c:FuncImageAndKernelOfTransformation" },
-#endif
-
-  { "ImageAndKernelOfTransformation_C", 1, "t",
-    FuncImageAndKernelOfTransformation,
-    "misc.c:FuncImageAndKernelOfTransformation" },
-
-  { "TABLE_OF_TRANS_KERNEL", 2, "k, n",
-    FuncTABLE_OF_TRANS_KERNEL,
-    "misc.c:FuncTABLE_OF_TRANS_KERNEL" },
-
-  { "CANONICAL_TRANS_SAME_KERNEL", 1, "t",
-    FuncCANONICAL_TRANS_SAME_KERNEL,
-    "misc.c:FuncCANONICAL_TRANS_SAME_KERNEL" },
-
-  { "IS_INJECTIVE_TRANS_ON_LIST", 2, "t, l",
-    FuncIS_INJECTIVE_TRANS_ON_LIST,
-    "misc.c:FuncIS_INJECTIVE_TRANS_ON_LIST" },
 
   { 0 }
 

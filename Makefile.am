@@ -5,7 +5,7 @@ GAPINSTALLLIB = $(abs_top_srcdir)/$(BINARCHDIR)/gapdata.so
 
 lib_LTLIBRARIES = gapdata.la
 
-gapdata_la_SOURCES = src/avltree.c src/avltree.h src/gapdata.c src/hashtable.c src/misc.c src/hashtable.h src.misc.h
+gapdata_la_SOURCES = src/avltree.c src/avltree.h src/gapdata.c src/hashtable.c src/hashtable.h
 gapdata_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12
 gapdata_la_LDFLAGS = -module -avoid-version -Bsymbolic 

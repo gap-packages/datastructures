@@ -8,6 +8,10 @@
 #R  Read the install files.
 ##
 
+DeclareInfoClass( "InfoGAPData" );
+SetInfoLevel( InfoGAPData, 1 );
+
+
 ReadPackage("gapdata", "gap/lqueue.gi");
 
 ReadPackage("gapdata", "gap/avltree.gi");

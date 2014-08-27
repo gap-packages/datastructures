@@ -68,10 +68,10 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
   ht.accesses := ht.accesses + 1;
   if ht.nr * 10 > ht.len * 8 then
     if IsBound(ht.cangrow) then
-      Info(InfoOrb,3,"Hash table too full, growing...");
+      Info(InfoGAPData,3,"Hash table too full, growing...");
       GrowHT(ht,x);
     else
-      Info(InfoOrb,1,"Hash table too full, cannot grow...");
+      Info(InfoGAPData,1,"Hash table too full, cannot grow...");
       return fail;
     fi;
   fi;
@@ -85,7 +85,7 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
       if h>ht.len then h := h - ht.len; fi;
       if not(IsBound(ht.alert)) and QuoInt(ht.collisions,ht.accesses) > 100 then
         # We have a problem!
-        Info(InfoOrb,1,"Alarm: Collision warning: Collisions: ",
+        Info(InfoGAPData,1,"Alarm: Collision warning: Collisions: ",
              ht.collisions," Accesses: ",ht.accesses,"!");
         if not(IsBound(ht.cangrow)) then
           ht.alert := true;
@@ -136,7 +136,7 @@ InstallGlobalFunction( GrowHT, function(ht,x)
   ht.els := [];
   ht.vals := [];
   ht.len := NextPrimeInt(ht.len * 2+1);
-  Info(InfoOrb,2,"Growing hash table to length ",ht.len," !!!");
+  Info(InfoGAPData,2,"Growing hash table to length ",ht.len," !!!");
   if IsBound(ht.hfbig) and IsBound(ht.htdbig) then
       ht.hf := ORB_HashFunctionModWrapper;
       ht.hfd := [ht.hfbig,ht.hfdbig,ht.len];
@@ -158,7 +158,7 @@ InstallGlobalFunction( GrowHT, function(ht,x)
           fi;
       fi;
   od;
-  Info(InfoOrb,3,"Done.");
+  Info(InfoGAPData,3,"Done.");
 end );
 
 # The new interface for hashes:
@@ -242,7 +242,7 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
     local h,t,r;
     ht!.accesses := ht!.accesses + 1;
     if ht!.cangrow and ht!.nr > ht!.len * 10 then
-        Info(InfoOrb,3,"Tree hash table too full, growing...");
+        Info(InfoGAPData,3,"Tree hash table too full, growing...");
         HTGrow(ht,x);
     fi;
     h := ht!.hf(x,ht!.hfd);
@@ -402,10 +402,10 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
     ht!.accesses := ht!.accesses + 1;
     if ht!.nr * 10 > ht!.len * 8 then
       if IsBound(ht!.cangrow) then
-        Info(InfoOrb,3,"Hash table too full, growing...");
+        Info(InfoGAPData,3,"Hash table too full, growing...");
         HTGrow(ht,x);
       else
-        Info(InfoOrb,1,"Hash table too full, cannot grow...");
+        Info(InfoGAPData,1,"Hash table too full, cannot grow...");
         return fail;
       fi;
     fi;
@@ -420,7 +420,7 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
         if not(IsBound(ht!.alert)) and 
            QuoInt(ht!.collisions,ht!.accesses) > 100 then
           # We have a problem!
-          Info(InfoOrb,1,"Alarm: Collision warning: Collisions: ",
+          Info(InfoGAPData,1,"Alarm: Collision warning: Collisions: ",
                ht!.collisions," Accesses: ",ht!.accesses,"!");
           if not(IsBound(ht!.cangrow)) then
             ht!.alert := true;
@@ -509,7 +509,7 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
     oldlen := ht!.len;
 
     ht!.len := NextPrimeInt(ht!.len * 20+1);
-    Info(InfoOrb,2,"Growing tree hash table to length ",ht!.len," !!!");
+    Info(InfoGAPData,2,"Growing tree hash table to length ",ht!.len," !!!");
     ht!.els := EmptyPlist(ht!.len+1);
     ht!.els[ht!.len+1] := fail;
     ht!.vals := [];
@@ -558,7 +558,7 @@ function(ht,x)
   ht!.els := [];
   ht!.vals := [];
   ht!.len := NextPrimeInt(ht!.len * 2+1);
-  Info(InfoOrb,2,"Growing hash table to length ",ht!.len," !!!");
+  Info(InfoGAPData,2,"Growing hash table to length ",ht!.len," !!!");
   if IsBound(ht!.forflatplainlists) then
       ht!.hfd := ht!.len;
   elif IsBound(ht!.hfbig) and IsBound(ht!.htdbig) then
@@ -582,7 +582,7 @@ function(ht,x)
           fi;
       fi;
   od;
-  Info(InfoOrb,3,"Done.");
+  Info(InfoGAPData,3,"Done.");
 end );
 
 

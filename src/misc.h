@@ -1,6 +1,7 @@
 #ifndef __MISC_H
 #define __MISC_H
 
+#include "src/compiled.h"
 
 Obj FuncPermLeftQuoTransformationNC(Obj self, Obj t1, Obj t2);
 Obj FuncMappingPermSetSet(Obj self, Obj src, Obj dst);

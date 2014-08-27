@@ -181,7 +181,7 @@ static Int InitLibrary ( StructInitInfo *module )
     }
 
     tmp = NEW_PREC(0);
-    gvar = GVarName("ORBC"); AssGVar( gvar, tmp ); MakeReadOnlyGVar(gvar);
+    gvar = GVarName("__GAPDATA_C"); AssGVar( gvar, tmp ); MakeReadOnlyGVar(gvar);
 
     /* return success                                                      */
     return 0;

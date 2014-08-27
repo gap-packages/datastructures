@@ -15,7 +15,7 @@ const char * Revision_hashtable_c =
 #include <stdlib.h>
 
 #include "src/compiled.h"          /* GAP headers                */
-#include "src/avltree.h"
+#include "avltree.h"
 
 #undef PACKAGE
 #undef PACKAGE_BUGREPORT
@@ -67,7 +67,7 @@ static inline void initRNams(void)
     }
 }
 
-static Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -145,7 +145,7 @@ static Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
 }
 
-static Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -192,7 +192,7 @@ static Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
     return AVLValue(t,h);
 }
 
-static Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -240,7 +240,7 @@ static Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
     return v;
 }
 
-static Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -287,7 +287,7 @@ static Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     return old;
 }
 
-static Obj GenericHashFunc_C(Obj self, Obj x, Obj data)
+Obj GenericHashFunc_C(Obj self, Obj x, Obj data)
 {
      Int mult = INT_INTOBJ(ELM_PLIST(data,1));
      UChar *p = (UChar *) ADDR_OBJ(x) + INT_INTOBJ(ELM_PLIST(data,2));

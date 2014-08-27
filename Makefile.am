@@ -5,10 +5,10 @@ GAPINSTALLLIB = $(abs_top_srcdir)/$(BINARCHDIR)/gapdata.so
 
 lib_LTLIBRARIES = gapdata.la
 
-gapdata_la_SOURCES = src/hashtable.c src/avltree.c src/gapdata.c src/misc.c
+gapdata_la_SOURCES = src/avltree.c src/avltree.h src/gapdata.c src/hashtable.c src/misc.c src/hashtable.h src.misc.h
 gapdata_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12
-gapdata_la_LDFLAGS = -module -avoid-version
+gapdata_la_LDFLAGS = -module -avoid-version -Bsymbolic 
 if SYS_IS_CYGWIN
 gapdata_la_LDFLAGS += -no-undefined -version-info 0:0:0 -Wl,$(GAPROOT)/bin/$(GAPARCH)/gap.dll
 endif

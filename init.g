@@ -8,6 +8,14 @@
 #R  Read the declaration files.
 ##
 
+if (not IsBound(__GAPDATA_C)) and ("gapdata" in SHOW_STAT()) then
+  LoadStaticModule("gapdata");
+fi;
+if (not IsBound(__GAPDATA_C)) and
+   (Filename(DirectoriesPackagePrograms("gapdata"), "gapdata.so") <> fail) then
+  LoadDynamicModule(Filename(DirectoriesPackagePrograms("gapdata"), "gapdata.so"));
+fi;
+
 # GAPData global declarations
 ReadPackage("gapdata", "gap/data.gd");
 

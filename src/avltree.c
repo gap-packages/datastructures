@@ -119,7 +119,7 @@ Obj AVLCmp_C(Obj self, Obj a, Obj b)
 #define SetAVLBalFactor(t,i,b) SET_ELM_PLIST(t,i+1, \
   INTOBJ_INT( (INT_INTOBJ(ELM_PLIST(t,i+1)) & AVLmask2) + b ))
 
-static Int AVLNewNode( Obj t )
+Int AVLNewNode( Obj t )
 {
     Int n,a;
     n = AVLFree(t);
@@ -148,7 +148,7 @@ static Int AVLNewNode( Obj t )
     return n;
 }
 
-static Obj AVLNewNode_C( Obj self, Obj t )
+Obj AVLNewNode_C( Obj self, Obj t )
 {
     if ( TNUM_OBJ(t) != T_POSOBJ || TYPE_POSOBJ(t) != AVLTreeTypeMutable) {
         ErrorQuit( "Usage: AVLNewNode(avltree)", 0L, 0L );
@@ -157,7 +157,7 @@ static Obj AVLNewNode_C( Obj self, Obj t )
     return INTOBJ_INT(AVLNewNode(t));
 }
 
-static inline Obj AVLFreeNode( Obj t, Int n )
+inline Obj AVLFreeNode( Obj t, Int n )
 {
     Obj v,o;
     SET_ELM_PLIST(t,n,AVLFreeObj(t));
@@ -172,7 +172,7 @@ static inline Obj AVLFreeNode( Obj t, Int n )
     return True;
 }
 
-static Obj AVLFreeNode_C( Obj self, Obj t, Obj n)
+Obj AVLFreeNode_C( Obj self, Obj t, Obj n)
 {
     if (!IS_INTOBJ(n) ||
         TNUM_OBJ(t) != T_POSOBJ || TYPE_POSOBJ(t) != AVLTreeTypeMutable) {
@@ -182,7 +182,7 @@ static Obj AVLFreeNode_C( Obj self, Obj t, Obj n)
     return AVLFreeNode(t,INT_INTOBJ(n));
 }
 
-static inline Obj AVLValue( Obj t, Int n )
+inline Obj AVLValue( Obj t, Int n )
 {
     Obj vals = AVLValues(t);
     if (vals == Fail) return True;
@@ -191,7 +191,7 @@ static inline Obj AVLValue( Obj t, Int n )
     return ELM_LIST(vals,n);
 }
 
-static inline void SetAVLValue( Obj t, Int n, Obj v )
+inline void SetAVLValue( Obj t, Int n, Obj v )
 {
     Obj vals = AVLValues(t);
     n /= 4;
@@ -202,7 +202,7 @@ static inline void SetAVLValue( Obj t, Int n, Obj v )
     ASS_LIST(vals,n,v);
 }
 
-static inline Int AVLFind( Obj t, Obj d )
+ inline Int AVLFind( Obj t, Obj d )
 {
     Obj compare,c;
     Int p;
@@ -221,7 +221,7 @@ static inline Int AVLFind( Obj t, Obj d )
     return 0;
 }
 
-static Obj AVLFind_C( Obj self, Obj t, Obj d )
+ Obj AVLFind_C( Obj self, Obj t, Obj d )
 {
     Int tmp;
     if (TNUM_OBJ(t) != T_POSOBJ ||
@@ -237,7 +237,7 @@ static Obj AVLFind_C( Obj self, Obj t, Obj d )
         return INTOBJ_INT(tmp);
 }
             
-static inline Int AVLFindIndex( Obj t, Obj d )
+ inline Int AVLFindIndex( Obj t, Obj d )
 {
     Obj compare,c;
     Int p;
@@ -260,7 +260,7 @@ static inline Int AVLFindIndex( Obj t, Obj d )
     return 0;
 }
 
-static Obj AVLFindIndex_C( Obj self, Obj t, Obj d )
+ Obj AVLFindIndex_C( Obj self, Obj t, Obj d )
 {
     Int tmp;
     if (TNUM_OBJ(t) != T_POSOBJ ||
@@ -276,7 +276,7 @@ static Obj AVLFindIndex_C( Obj self, Obj t, Obj d )
         return INTOBJ_INT(tmp);
 }
             
-static Obj AVLLookup_C( Obj self, Obj t, Obj d )
+ Obj AVLLookup_C( Obj self, Obj t, Obj d )
 {
     Int p;
     if (TNUM_OBJ(t) != T_POSOBJ ||
@@ -290,7 +290,7 @@ static Obj AVLLookup_C( Obj self, Obj t, Obj d )
     return AVLValue(t,p);
 }
         
-static inline Int AVLIndex( Obj t, Int i )
+ inline Int AVLIndex( Obj t, Int i )
 {
     Int p,offset,r;
 
@@ -310,7 +310,7 @@ static inline Int AVLIndex( Obj t, Int i )
     }
 }
 
-static Obj AVLIndex_C( Obj self, Obj t, Obj i )
+ Obj AVLIndex_C( Obj self, Obj t, Obj i )
 {
     Int p;
     if (!IS_INTOBJ(i) || 
@@ -327,7 +327,7 @@ static Obj AVLIndex_C( Obj self, Obj t, Obj i )
         return AVLData(t,p);
 }
 
-static Obj AVLIndexFind_C( Obj self, Obj t, Obj i )
+ Obj AVLIndexFind_C( Obj self, Obj t, Obj i )
 {
     Int p;
     if (!IS_INTOBJ(i) || 
@@ -344,7 +344,7 @@ static Obj AVLIndexFind_C( Obj self, Obj t, Obj i )
         return INTOBJ_INT(p);
 }
 
-static Obj AVLIndexLookup_C( Obj self, Obj t, Obj i )
+ Obj AVLIndexLookup_C( Obj self, Obj t, Obj i )
 {
     Int p;
     Obj vals;
@@ -365,7 +365,7 @@ static Obj AVLIndexLookup_C( Obj self, Obj t, Obj i )
         return ELM_LIST(vals,p);
 }
 
-static inline void AVLRebalance( Obj tree, Int q, Int *newroot, int *shrink )
+ inline void AVLRebalance( Obj tree, Int q, Int *newroot, int *shrink )
 /* the tree starting at q has balanced subtrees but is out of balance:
    the depth of the deeper subtree is 2 bigger than the depth of the other
    tree. This function changes this situation following the procedure
@@ -478,7 +478,7 @@ static inline void AVLRebalance( Obj tree, Int q, Int *newroot, int *shrink )
   *newroot = p;
 }
 
-static Obj AVLRebalance_C( Obj self, Obj tree, Obj q )
+ Obj AVLRebalance_C( Obj self, Obj tree, Obj q )
 {
     Int newroot = 0;
     int shrink;
@@ -490,7 +490,7 @@ static Obj AVLRebalance_C( Obj self, Obj tree, Obj q )
     return tmp;
 }
 
-static Obj AVLAdd_C( Obj self, Obj tree, Obj data, Obj value )
+ Obj AVLAdd_C( Obj self, Obj tree, Obj data, Obj value )
 {
 /* Parameters: tree, data, value
     tree is an AVL tree
@@ -626,7 +626,7 @@ static Obj AVLAdd_C( Obj self, Obj tree, Obj data, Obj value )
   return True;
 }
 
-static Obj AVLIndexAdd_C( Obj self, Obj tree, Obj data, Obj value, Obj ind )
+ Obj AVLIndexAdd_C( Obj self, Obj tree, Obj data, Obj value, Obj ind )
 {
 /* Parameters: tree, data, value
     tree is an AVL tree
@@ -761,7 +761,7 @@ static Obj AVLIndexAdd_C( Obj self, Obj tree, Obj data, Obj value, Obj ind )
   return True;
 }
 
-static Obj AVLDelete_C( Obj self, Obj tree, Obj data)
+ Obj AVLDelete_C( Obj self, Obj tree, Obj data)
   /* Parameters: tree, data
       tree is an AVL tree
       data is a data structure defined by the user
@@ -935,7 +935,7 @@ static Obj AVLDelete_C( Obj self, Obj tree, Obj data)
   return old;
 }
  
-static Obj AVLIndexDelete_C( Obj self, Obj tree, Obj index)
+ Obj AVLIndexDelete_C( Obj self, Obj tree, Obj index)
   /* Parameters: tree, index
       tree is an AVL tree
       index is the index of the element to be deleted, must be between 1 and

@@ -20,7 +20,8 @@
 ##
 DeclareCategory("IsQueue", IsCollection);
 
-DeclareConstructor("NewQueue", [IsQueue, IsObject, IsPosInt]);
+# Hack because HPCGAP has a NewQueue
+DeclareConstructor("NewQueue_", [IsQueue, IsObject, IsPosInt]);
 
 DeclareOperation("PushBack", [IsQueue, IsObject]);
 DeclareOperation("PushFront", [IsQueue, IsObject]);

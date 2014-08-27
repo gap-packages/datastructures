@@ -164,7 +164,7 @@ end);
 ##
 ## method installation
 ##
-InstallMethod(NewQueue,
+InstallMethod(NewQueue_,
         "for IsPlistQueueRep, a sample object, and a positive integer", 
         [IsPlistQueueRep, IsObject, IsPosInt],
 function(filter, sample, capacity)

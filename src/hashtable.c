@@ -8,10 +8,6 @@
 **  Exported to the GAPData package by Markus Pfeiffer 2014 
 */
 
-/*T get this from git */
-const char * Revision_hashtable_c =
-   "$Id: hashtable.c,v$";
-
 #include <stdlib.h>
 
 #include "src/compiled.h"          /* GAP headers                */

@@ -14,7 +14,7 @@
 ##
 ##  The argument of STOP_TEST may be an arbitrary identifier string.
 ## 
-gap> START_TEST("GAPData package: testall.tst");
+gap> START_TEST("datastructures package: testall.tst");
 
 # Note that you may use comments in the test file
 # and also separate parts of the test by empty lines
@@ -22,7 +22,7 @@ gap> START_TEST("GAPData package: testall.tst");
 # First load the package without banner (the banner must be suppressed to 
 # avoid reporting discrepancies in the case when the package is already 
 # loaded)
-gap> LoadPackage("gapdata", false);
+gap> LoadPackage("datastructures", false);
 true
 
 gap> STOP_TEST( "testall.tst", 10000 );

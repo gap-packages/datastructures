@@ -1,0 +1,37 @@
+os:
+  - linux
+  - osx
+env:
+  - TEST_SUITE=testinstall
+  - TEST_SUITE=testtravis
+  - TEST_SUITE=testbugfix
+language: c
+compiler:
+  - gcc
+  - clang
+branches:
+  only:
+    - master
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libgmp3-dev
+script:
+  - cd ..
+  - wget ftp://ftp.gap-system.org/pub/gap/gap4core/gap4r7p7_nopackages.zip
+  - unzip gap4r7p7_nopackages.zip
+  - cd gap4r7
+  - ./configure
+  - make
+  - cd pkg
+  - wget ftp://ftp.gap-system.org/pub/gap/gap47/tar.gz/packages/GAPDoc-1.5.1.tar.gz
+  - tar xvzf GAPDoc-1.5.1.tar.gz
+  - ln -s ../../datastructures .
+  - cd datastructures 
+  - ./autogen.sh
+  - ./configure
+  - make
+  - cd ../..
+  - echo "Test(\"pkg/datastructures/tst/testall.tst\");" | sh bin/gap.sh | tee testlog.txt | grep --colour=always -E "########> Diff|$"
+  - cat testlog.txt | tail -n 2 | grep "total"
+  - ( ! grep "########> Diff" testlog.txt )
+

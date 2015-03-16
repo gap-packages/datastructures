@@ -9,6 +9,7 @@
 */
 
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "src/compiled.h"          /* GAP headers                */
 

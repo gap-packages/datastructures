@@ -24,7 +24,6 @@ gap> START_TEST("datastructures package: testall.tst");
 # loaded)
 gap> LoadPackage("datastructures", false);
 true
-
 gap> STOP_TEST( "testall.tst", 10000 );
 ## The first argument of STOP_TEST should be the name of the test file.
 ## The number is a proportionality factor that is used to output a 

@@ -201,12 +201,12 @@ InstallMethod(Pop,
         [IsPlistQueueRep],
         PlistQueuePopFront);
 
-InstallMethod(IsEmpty,
-        "for IsPlistQueue",
-        [IsPlistQueueRep],
-function(queue)
-  return queue![QHEAD] = queue![QTAIL];
-end);
+#InstallMethod(IsEmpty,
+#        "for IsPlistQueue",
+#        [IsPlistQueueRep],
+#function(queue)
+#  return queue![QHEAD] = queue![QTAIL];
+#end);
 
 InstallMethod(Length,
         "for IsPlistQueue",

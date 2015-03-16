@@ -7,11 +7,11 @@
 ##  
 SetPackageInfo( rec(
 
-PackageName := "GAPData",
+PackageName := "datastructures",
 
 ##  This may be used by a default banner or on a Web page, should fit on
 ##  one line.
-Subtitle := "GAPData is a collection of standard data structures for the GAP programming language",
+Subtitle := "datastructures is a collection of standard data structures for the GAP programming language",
 
 Version := "0.0.0",
 ##
@@ -116,12 +116,12 @@ PackageInfoURL :=
 # computing the Smith normal form of integer matrices and some related \
 # utilities.",
 AbstractHTML := 
-  "The <span class=\"pkgname\">GAPData</span> package provides some \
+  "The <span class=\"pkgname\">datastructures</span> package provides some \
    standard data structures.",
 
 PackageDoc := rec(
   # use same as in GAP            
-  BookName  := "GAPData",
+  BookName  := "datastructures",
   # format/extension can be one of .tar.gz, .tar.bz2, -win.zip, .zoo.
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
@@ -130,7 +130,7 @@ PackageDoc := rec(
   SixFile   := "doc/manual.six",
   # a longer title of the book, this together with the book name should
   # fit on a single text line (appears with the '?books' command in GAP)
-  LongTitle := "GAPDoc - GAP Data Structures",
+  LongTitle := "datastructures - GAP Data Structures",
 ),
 
 
@@ -148,12 +148,12 @@ AvailabilityTest := ReturnTrue,
 
 BannerString := Concatenation( 
     "----------------------------------------------------------------\n",
-    "Loading GAPData ", ~.Version, "\n",
+    "Loading datastructures ", ~.Version, "\n",
     "by ",
     JoinStringsWithSeparator( List( Filtered( ~.Persons, r -> r.IsAuthor ),
                                     r -> Concatenation(
         r.FirstNames, " ", r.LastName, " (", r.WWWHome, ")\n" ) ), "   " ),
-    "For help, type: ?GAPData package \n",
+    "For help, type: ?datastructures package \n",
     "----------------------------------------------------------------\n" ),
 
 TestFile := "tst/testall.tst",

@@ -1,4 +1,5 @@
 The datastructures GAP package
+==============================
 
 The datastructures package aims at providing standard datastructures, consolidating
 existing code and improving on it, in particular in view of HPC-GAP.

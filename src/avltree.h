@@ -1,5 +1,5 @@
-#ifndef __AVLTREE_H
-#define __AVLTREE_H
+#ifndef AVLTREE_H
+#define AVLTREE_H
 
 /* Interface for AVLTrees */
 extern Obj AVLTreeType;

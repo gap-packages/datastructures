@@ -586,20 +586,6 @@ function(ht,x)
 end );
 
 
-# Here comes stuff for hash functions:
-
-if not(IsBound(JENKINS_HASH_IN_ORB)) then 
-    GenericHashFunc := fail; 
-    JENKINS_HASH_IN_ORB := fail;
-else
-    GenericHashFunc := function(x,data)
-      return JENKINS_HASH_IN_ORB(x, data[2], data[3], data[4] );
-    end;
-    atomic readwrite GLOBAL_FUNCTION_NAMES do
-        AddSet( GLOBAL_FUNCTION_NAMES, "JENKINS_HASH_IN_ORB" );
-    od;
-fi;
-
 # First a few hash functions:
 
 InstallGlobalFunction( ORB_HashFunctionForShortGF2Vectors,
@@ -614,12 +600,12 @@ end );
 
 InstallGlobalFunction( ORB_HashFunctionForGF2Vectors,
 function(v,data)
-  return HASHKEY_BAG(v,101,2*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
+  return HashKeyBag(v,101,2*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
 end );
 
 InstallGlobalFunction( ORB_HashFunctionFor8BitVectors,
 function(v,data)
-  return HASHKEY_BAG(v,101,3*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
+  return HashKeyBag(v,101,3*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
 end );
 
 InstallGlobalFunction( ORB_HashFunctionReturn1,
@@ -644,9 +630,6 @@ InstallMethod( ChooseHashFunction, "for compressed gf2 vectors",
     if bytelen <= 8 then
         return rec( func := ORB_HashFunctionForShortGF2Vectors,
                     data := [hashlen] );
-    elif IsFunction(GenericHashFunc) then
-        return rec( func := GenericHashFunc,
-                    data := [101,2*GAPInfo.BytesPerVariable,bytelen,hashlen] );
     else
         return rec( func := ORB_HashFunctionForGF2Vectors,
                     data := [hashlen,bytelen] );
@@ -672,9 +655,6 @@ InstallMethod( ChooseHashFunction, "for compressed 8bit vectors",
     if bytelen <= 8 then
         return rec( func := ORB_HashFunctionForShort8BitVectors,
                     data := [hashlen,q] );
-    elif IsFunction(GenericHashFunc) then
-        return rec( func := GenericHashFunc,
-                    data := [101,3*GAPInfo.BytesPerVariable,bytelen,hashlen] );
     else
         return rec( func := ORB_HashFunctionFor8BitVectors,
                     data := [hashlen,bytelen] );
@@ -754,31 +734,11 @@ function(p,data)
    return HashKeyBag(p,255,0,2*l) mod data + 1;
 end );
 
-if CompareVersionNumbers(GAPInfo.Version,"4.5") then
-    InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
-      function( x, data )
-        return (HashKeyBag( x, 0, 0, 
-                            GAPInfo.BytesPerVariable*(Length(x)+1)) mod data)+1;
-      end );
-elif JENKINS_HASH_IN_ORB <> fail then
-    InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
-      function( x, data )
-        return JENKINS_HASH_IN_ORB(x, 0,
-                                   GAPInfo.BytesPerVariable*(Length(x)+1),data);
-      end );
-else
-    InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
-      function(v,data)
-        local i,res;
-        res := 0;
-        for i in v do
-            if IsInt(i) then
-                res := (res * 101 + i) mod data;
-            fi;
-        od;
-        return res+1;
-      end );
-fi;
+InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
+  function( x, data )
+    return (HashKeyBag( x, 0, 0, 
+                        GAPInfo.BytesPerVariable*(Length(x)+1)) mod data)+1;
+  end );
 
 InstallGlobalFunction( ORB_HashFunctionForTransformations,
 function(t,data)
@@ -787,11 +747,6 @@ end );
 
 InstallGlobalFunction( MakeHashFunctionForPlainFlatList,
   function( len )
-    if not(CompareVersionNumbers(GAPInfo.Version,"4.5")) and
-       JENKINS_HASH_IN_ORB = fail then
-        Error("Please compile the C-part, containing the Jenkinks Hash Func");
-        return fail;
-    fi;
     return rec( func := ORB_HashFunctionForPlainFlatList,
                 data := len );
   end );

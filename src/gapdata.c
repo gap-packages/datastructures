@@ -50,11 +50,6 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
     GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
     GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
-    GVAR_FUNC_TABLE_ENTRY("hashtable.c", GenericHashFunc_C, 2, "x, data"),
-
-    { "JENKINS_HASH_IN_ORB", 4, "x, offset, bytelen, hashlen",
-      FuncJenkinsHashInOrb,
-      "hashtable.c:JENKINS_HASH_IN_ORB" },
 
     { 0 }
 

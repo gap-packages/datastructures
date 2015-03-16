@@ -179,7 +179,7 @@ Obj AVLFreeNode_C( Obj self, Obj t, Obj n)
     return AVLFreeNode(t,INT_INTOBJ(n));
 }
 
-inline Obj AVLValue( Obj t, Int n )
+Obj AVLValue( Obj t, Int n )
 {
     Obj vals = AVLValues(t);
     if (vals == Fail) return True;
@@ -188,7 +188,7 @@ inline Obj AVLValue( Obj t, Int n )
     return ELM_LIST(vals,n);
 }
 
-inline void SetAVLValue( Obj t, Int n, Obj v )
+void SetAVLValue( Obj t, Int n, Obj v )
 {
     Obj vals = AVLValues(t);
     n /= 4;
@@ -199,7 +199,7 @@ inline void SetAVLValue( Obj t, Int n, Obj v )
     ASS_LIST(vals,n,v);
 }
 
- inline Int AVLFind( Obj t, Obj d )
+Int AVLFind( Obj t, Obj d )
 {
     Obj compare,c;
     Int p;

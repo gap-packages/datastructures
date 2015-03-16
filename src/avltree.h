@@ -21,8 +21,8 @@ Obj AVLIndexAdd_C( Obj self, Obj tree, Obj data, Obj value, Obj ind );
 Obj AVLDelete_C( Obj self, Obj tree, Obj data);
 Obj AVLIndexDelete_C( Obj self, Obj tree, Obj index);
 
-inline Int AVLFind( Obj t, Obj d );
-inline Obj AVLValue( Obj t, Int n );
-inline void SetAVLValue( Obj t, Int n, Obj v );
-#endif
+Int AVLFind( Obj t, Obj d );
+Obj AVLValue( Obj t, Int n );
+void SetAVLValue( Obj t, Int n, Obj v );
 
+#endif

@@ -7,10 +7,6 @@
 **
 */
 
-/*T get this from git */
-const char * Revision_gapdata_c =
-   "$Id: gapdata.c,v$";
-
 #include <stdlib.h>
 
 #include "src/compiled.h"          /* GAP headers                */
@@ -175,14 +171,12 @@ static StructInitInfo module = {
 #ifndef ORBSTATIC
 StructInitInfo * Init__Dynamic ( void )
 {
-  module.revision_c = Revision_gapdata_c;
   return &module;
 }
 #endif
 
 StructInitInfo * Init__orb ( void )
 {
-  module.revision_c = Revision_gapdata_c;
   return &module;
 }
 

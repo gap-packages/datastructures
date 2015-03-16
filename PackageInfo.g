@@ -1,6 +1,6 @@
 #############################################################################
 ##  
-##  PackageInfo.g for the package `GAPData'               Markus Pfeiffer
+##  PackageInfo.g for the package `datastructures'               Markus Pfeiffer
 ##                                                               
 ##  (created from the GAP example package, which is based on Frank Lübeck's
 ##   PackageInfo.g template file)
@@ -28,7 +28,7 @@ PackageWWWHome :=
   Concatenation( "http://www-groups.mcs.st-andrews.ac.uk/~markusp/",
       LowercaseString( ~.PackageName ), "/" ),
 
-ArchiveURL := Concatenation( ~.PackageWWWHome, "GAPData-", ~.Version ),
+ArchiveURL := Concatenation( ~.PackageWWWHome, "datastructures-", ~.Version ),
 
 ArchiveFormats := ".tar.gz",
 

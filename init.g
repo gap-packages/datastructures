@@ -8,39 +8,39 @@
 #R  Read the declaration files.
 ##
 
-if (not IsBound(__GAPDATA_C)) and ("gapdata" in SHOW_STAT()) then
-  LoadStaticModule("gapdata");
+if (not IsBound(__GAPDATA_C)) and ("datastructures" in SHOW_STAT()) then
+  LoadStaticModule("datastructures");
 fi;
 if (not IsBound(__GAPDATA_C)) and
-   (Filename(DirectoriesPackagePrograms("gapdata"), "gapdata.so") <> fail) then
-  LoadDynamicModule(Filename(DirectoriesPackagePrograms("gapdata"), "gapdata.so"));
+   (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") <> fail) then
+  LoadDynamicModule(Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so"));
 fi;
 
 # GAPData global declarations
-ReadPackage("gapdata", "gap/data.gd");
+ReadPackage("datastructures", "gap/data.gd");
 
 # interface definitions
-ReadPackage("gapdata", "gap/queue.gd");
-ReadPackage("gapdata", "gap/heap.gd");
-ReadPackage("gapdata", "gap/prioq.gd");
+ReadPackage("datastructures", "gap/queue.gd");
+ReadPackage("datastructures", "gap/heap.gd");
+ReadPackage("datastructures", "gap/prioq.gd");
 
-#ReadPackage("gapdata", "gap/collection.gd");
-#ReadPackage("gapdata", "gap/hashtable.gd");
-#ReadPackage("gapdata", "gap/cache.gd");
-#ReadPackage("gapdata", "gap/dictionary.gd");
+#ReadPackage("datastructures", "gap/collection.gd");
+#ReadPackage("datastructures", "gap/hashtable.gd");
+#ReadPackage("datastructures", "gap/cache.gd");
+#ReadPackage("datastructures", "gap/dictionary.gd");
 
 # queues implemented by using lists
-ReadPackage("gapdata", "gap/lqueue.gd");
+ReadPackage("datastructures", "gap/lqueue.gd");
 # AVL trees
-ReadPackage("gapdata", "gap/avltree.gd");
-ReadPackage("gapdata", "gap/hash.gd");
-ReadPackage("gapdata", "gap/cache.gd");
-ReadPackage("gapdata", "gap/dllist.gd");
+ReadPackage("datastructures", "gap/avltree.gd");
+ReadPackage("datastructures", "gap/hash.gd");
+ReadPackage("datastructures", "gap/cache.gd");
+ReadPackage("datastructures", "gap/dllist.gd");
 
 # Pairing Heaps
-ReadPackage("gapdata", "gap/pairingheap.gd");
+ReadPackage("datastructures", "gap/pairingheap.gd");
 
-# ReadPackage("gapdata", "gap/cache2.gd");
+# ReadPackage("datastructures", "gap/cache2.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
 

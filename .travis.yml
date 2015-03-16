@@ -27,6 +27,5 @@ script:
   - make
   - cd ../..
   - echo "Test(\"pkg/datastructures/tst/testall.tst\"); quit;" | sh bin/gap.sh | tee testlog.txt | grep --colour=always -E "########> Diff|$"
-  - cat testlog.txt | tail -n 2 | grep "total"
   - ( ! grep "########> Diff" testlog.txt )
 

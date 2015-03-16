@@ -16,92 +16,47 @@
 
 /*F * * * * * * * * * * * * * initialize package * * * * * * * * * * * * * * */
 
+typedef Obj (* GVarFuncType)(/*arguments*/);
+
+#define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
+  {#name, nparam, \
+   params, \
+   (GVarFuncType)name, \
+   srcfile ":Func" #name }
+
+
+
 /******************************************************************************
 *V  GVarFuncs . . . . . . . . . . . . . . . . . . list of functions to export
 */
 static StructGVarFunc GVarFuncs [] = {
 
-  { "AVLCmp_C", 2, "a, b",
-    AVLCmp_C,
-    "avltree.c:AVLCmp_C" },
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLCmp_C, 2, "a, b"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLNewNode_C, 1, "t"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFreeNode_C, 2, "tree, n"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFind_C, 2, "tree, data"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexFind_C, 2, "tree, i"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFindIndex_C, 2, "tree, data"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLLookup_C, 2, "tree, data"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndex_C, 2, "tree, i"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexLookup_C, 2, "tree, i"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLRebalance_C, 2, "tree, q"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLAdd_C, 3, "tree, data, value"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexAdd_C, 4, "tree, data, value, index"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLDelete_C, 2, "tree, data"),
+    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexDelete_C, 2, "tree, index"),
 
-  { "AVLNewNode_C", 1, "t",
-    AVLNewNode_C,
-    "avltree.c:AVLNewNode_C" },
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", GenericHashFunc_C, 2, "x, data"),
 
-  { "AVLFreeNode_C", 2, "tree, n",
-    AVLFreeNode_C,
-    "avltree.c:AVLFreeNode_C" },
+    { "JENKINS_HASH_IN_ORB", 4, "x, offset, bytelen, hashlen",
+      FuncJenkinsHashInOrb,
+      "hashtable.c:JENKINS_HASH_IN_ORB" },
 
-  { "AVLFind_C", 2, "tree, data",
-    AVLFind_C,
-    "avltree.c:AVLFind_C" },
-
-  { "AVLIndexFind_C", 2, "tree, i",
-    AVLIndexFind_C,
-    "avltree.c:AVLIndexFind_C" },
-
-  { "AVLFindIndex_C", 2, "tree, data",
-    AVLFindIndex_C,
-    "avltree.c:AVLFindIndex_C" },
-
-  { "AVLLookup_C", 2, "tree, data",
-    AVLLookup_C,
-    "avltree.c:AVLLookup_C" },
-
-  { "AVLIndex_C", 2, "tree, i",
-    AVLIndex_C,
-    "avltree.c:AVLIndex_C" },
-
-  { "AVLIndexLookup_C", 2, "tree, i",
-    AVLIndexLookup_C,
-    "avltree.c:AVLIndexLookup_C" },
-
-  { "AVLRebalance_C", 2, "tree, q",
-    AVLRebalance_C,
-    "avltree.c:AVLRebalance_C" },
-
-  { "AVLAdd_C", 3, "tree, data, value",
-    AVLAdd_C,
-    "avltree.c:AVLAdd_C" },
-
-  { "AVLIndexAdd_C", 4, "tree, data, value, index",
-    AVLIndexAdd_C,
-    "avltree.c:AVLIndexAdd_C" },
-
-  { "AVLDelete_C", 2, "tree, data", 
-    AVLDelete_C,
-    "avltree.c:AVLDelete_C" },
-
-  { "AVLIndexDelete_C", 2, "tree, index", 
-    AVLIndexDelete_C,
-    "avltree.c:AVLIndexDelete_C" },
-
-  { "HTAdd_TreeHash_C", 3, "treehash, x, v",
-    HTAdd_TreeHash_C,
-    "hashtable.c:HTAdd_TreeHash_C" },
-
-  { "HTValue_TreeHash_C", 2, "treehash, x",
-    HTValue_TreeHash_C,
-    "hashtable.c:HTValue_TreeHash_C" },
-
-  { "HTDelete_TreeHash_C", 2, "treehash, x",
-    HTDelete_TreeHash_C,
-    "hashtable.c:HTDelete_TreeHash_C" },
-
-  { "HTUpdate_TreeHash_C", 3, "treehash, x, v",
-    HTUpdate_TreeHash_C,
-    "hashtable.c:HTUpdate_TreeHash_C" },
-
-  { "GenericHashFunc_C", 2, "x, data",
-    GenericHashFunc_C,
-    "hashtable.c:GenericHashFunc_C" }, 
-
-  { "JENKINS_HASH_IN_ORB", 4, "x, offset, bytelen, hashlen",
-    FuncJenkinsHashInOrb, 
-    "hashtable.c:JENKINS_HASH_IN_ORB" },
-
-  { 0 }
+    { 0 }
 
 };
 

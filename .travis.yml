@@ -12,9 +12,8 @@ before_install:
   - sudo apt-get install -qq libgmp3-dev
 script:
   - cd ..
-  - wget ftp://ftp.gap-system.org/pub/gap/gap4core/gap4r7p7_nopackages.zip
-  - unzip gap4r7p7_nopackages.zip
-  - cd gap4r7
+  - git clone --depth=50 https://github.com/gap-system/gap.git gap
+  - cd gap
   - ./configure --with-gmp=system
   - make
   - mkdir pkg

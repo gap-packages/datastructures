@@ -17,6 +17,7 @@ script:
   - cd gap4r7
   - ./configure --with-gmp=system
   - make
+  - mkdir pkg
   - cd pkg
   - wget ftp://ftp.gap-system.org/pub/gap/gap47/tar.gz/packages/GAPDoc-1.5.1.tar.gz
   - tar xvzf GAPDoc-1.5.1.tar.gz

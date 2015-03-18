@@ -8,7 +8,7 @@
 #############################################################################
 ##
 gap> START_TEST("GAPData package: queue.tst");
-gap> LoadPackage( "gapdata", false );;
+gap> LoadPackage( "datastructures", false );;
 gap> q := PlistQueue();
 <queue with 0/64 entries>
 gap> PushFront(q, 15);

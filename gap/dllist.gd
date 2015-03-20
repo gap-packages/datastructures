@@ -14,11 +14,11 @@
 BindGlobal( "DoublyLinkedListNodesFamily", NewFamily( "DoublyLinkedListNodesFamily" ) );
 BindGlobal( "DoublyLinkedListFamily", CollectionsFamily( DoublyLinkedListNodesFamily ) );
 
-DeclareCategory("IsDoublyLinkedList", IsComponentObjectRep and IsCollection);
+DeclareCategory("IsDoublyLinkedList", IsNonAtomicComponentObjectRep and IsCollection);
 DeclareRepresentation("IsDoublyLinkedListRep", IsDoublyLinkedList,
         [ "head", "tail", "nrobs" ]);
 
-DeclareCategory("IsDoublyLinkedListNode", IsComponentObjectRep);
+DeclareCategory("IsDoublyLinkedListNode", IsNonAtomicComponentObjectRep);
 DeclareRepresentation("IsDoublyLinkedListNodeRep", IsDoublyLinkedListNode,
         [ "next", "prev", "obj" ]);
 BindGlobal( "DoublyLinkedListNodeType",

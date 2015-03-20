@@ -26,8 +26,8 @@
 BindGlobal( "CacheNodesFamily", NewFamily( "CacheNodesFamily" ) );
 BindGlobal( "CachesFamily", CollectionsFamily( CacheNodesFamily ) );
 
-DeclareCategory("IsCache", IsComponentObjectRep);
-DeclareCategory("IsCacheNode", IsComponentObjectRep);
+DeclareCategory("IsCache", IsNonAtomicComponentObjectRep);
+DeclareCategory("IsCacheNode", IsNonAtomicComponentObjectRep);
 
 # Linked List caches as taken from the orb package
 DeclareRepresentation("IsLinkedListCacheRep", IsCache,

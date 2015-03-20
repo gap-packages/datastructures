@@ -21,10 +21,10 @@
 BindGlobal( "CacheNodesFamily", NewFamily( "CacheNodesFamily" ) );
 BindGlobal( "CachesFamily", CollectionsFamily( CacheNodesFamily ) );
 
-DeclareCategory("IsCache", IsComponentObjectRep);
+DeclareCategory("IsCache", IsNonAtomicComponentObjectRep);
 DeclareRepresentation("IsLinkedListCacheRep", IsCache,
   [ "head", "tail", "nrobs", "memory", "memorylimit" ]);
-DeclareCategory("IsCacheNode", IsComponentObjectRep);
+DeclareCategory("IsCacheNode", IsNonAtomicComponentObjectRep);
 DeclareRepresentation("IsLinkedListCacheNodeRep", IsCacheNode,
   [ "next", "prev", "ob", "mem" ] );
 BindGlobal( "LinkedListCacheNodeType", 

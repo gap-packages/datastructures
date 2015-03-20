@@ -9,7 +9,8 @@ MakeGAPDocDoc( "doc",     # path to the directory containing the main file
                           # to path which contain pieces of documentation 
                           # which must be included in the document
                [ "../PackageInfo.g" ], 
-               "GAPData", # the name of the book used by GAP's online help
+               "datastructures",
+                          # the name of the book used by GAP's online help
                "../../..",# optional: relative path to the main GAP root 
                           # directory to produce HTML files with relative 
                           # paths to external books.
@@ -23,4 +24,4 @@ CopyHTMLStyleFiles( "doc" );
 
 # Create the manual.lab file which is needed if the main manuals or another 
 # package is referring to your package
-GAPDocManualLab( "GAPData" );; 
+GAPDocManualLab( "datastructures" );; 

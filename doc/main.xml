@@ -3,17 +3,17 @@
 <!-- Reading PKGVERSIONDATA chunk from the PackageInfo.g file -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
-   [ <!ENTITY GAPData "<Package>GAPData</Package>">
+   [ <!ENTITY datastructures "<Package>datastructures</Package>">
      <#Include Label="PKGVERSIONDATA">
    ]>
 
 <!-- Documentation of the Example package. -->
 
-<Book Name="GAPData"> 
+<Book Name="datastructures"> 
 
 <TitlePage>
-  <Title>&GAPData;</Title>
-  <Subtitle>GAPData a collection of standard datatypes</Subtitle>
+  <Title>&datastructures;</Title>
+  <Subtitle>datastructures a collection of standard datatypes</Subtitle>
   <Version>Version &VERSION;</Version>
   <Date>&RELEASEDATE;</Date>
   <Author> Markus Pfeiffer
@@ -22,8 +22,8 @@
   </Author>
     <Copyright> 
     <Index>License</Index>
-    &copyright; 2013 by Markus Pfeiffer and the GAP group<P/>
-    &GAPData; package is free software; 
+    &copyright; 2015 by Markus Pfeiffer and the GAP group<P/>
+    &datastructures; package is free software; 
     you can redistribute it and/or modify it under the terms of the 
     <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL> 
     as published by the Free Software Foundation; either version 2 of the License, 

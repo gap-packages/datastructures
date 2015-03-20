@@ -7,7 +7,7 @@
 ##
 #############################################################################
 ##
-gap> START_TEST("GAPData package: queue.tst");
+gap> START_TEST("datastructures package: queue.tst");
 gap> LoadPackage( "datastructures", false );;
 gap> q := PlistQueue();
 <queue with 0/64 entries>
@@ -35,6 +35,6 @@ gap> for i in [1..32] do
 > od; Print("\n");
 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
 gap>
-gap> STOP_TEST( "GAPData package: queue.tst", 10000);
+gap> STOP_TEST( "datastructures package: queue.tst", 10000);
 
 

@@ -1,9 +1,9 @@
   
   
-                                    [1X[5XGAPData[105X[101X
+                                 [1X[5Xdatastructures[105X[101X
   
   
-                   [1XGAPData a collection of standard datatypes[101X
+               [1Xdatastructures a collection of standard datatypes[101X
   
   
                                  Version 0.0.0
@@ -22,10 +22,10 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2013 by Markus Pfeiffer and the GAP group[133X
+  [33X[0;0Y© 2015 by Markus Pfeiffer and the GAP group[133X
   
-  [33X[0;0Y[5XGAPData[105X  package  is free software; you can redistribute it and/or modify it
-  under     the     terms     of    the    GNU    General    Public    License
+  [33X[0;0Y[5Xdatastructures[105X  package  is  free  software;  you can redistribute it and/or
+  modify   it   under   the   terms   of   the   GNU  General  Public  License
   ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
   Foundation;  either  version 2 of the License, or (at your option) any later
   version.[133X
@@ -41,7 +41,7 @@
   -------------------------------------------------------
   
   
-  [1XContents (GAPData)[101X
+  [1XContents (datastructures)[101X
   
   
   

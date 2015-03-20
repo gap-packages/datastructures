@@ -78,6 +78,21 @@ Persons := [
     Place         := "St Andrews",
     Institution   := "University of St Andrews"
   ),
+  rec( LastName      := "Horn",
+       FirstNames    := "Max",
+       IsAuthor      := true,
+       IsMaintainer  := true,
+       Email         := "max.horn@math.uni-giessen.de",
+       WWWHome       := "http://www.quendi.de/math.php",
+       PostalAddress := Concatenation( "AG Algebra\n",
+                                       "Mathematisches Institut\n",
+                                       "Justus-Liebig-Universit‰t Gieﬂen\n",
+                                       "Arndtstraﬂe 2\n",
+                                       "35392 Gieﬂen\n",
+                                       "Germany" ),
+       Place         := "Gieﬂen, Germany",
+       Institution   := "Justus-Liebig-Universit‰t Gieﬂen"
+     )
 ],
 
 ##  Status information. Currently the following cases are recognized:

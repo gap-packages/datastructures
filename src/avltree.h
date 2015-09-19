@@ -3,7 +3,7 @@
 
 /* Interface for AVLTrees */
 extern Obj AVLTreeType;
-extern Obj AVLTreeTypeMutable;    
+extern Obj AVLTreeTypeMutable;
 extern Obj AVLTree;
 
 Obj AVLCmp_C(Obj self, Obj a, Obj b);

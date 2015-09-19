@@ -30,7 +30,7 @@ DeclareCategory( "IsHashTab", IsNonAtomicComponentObjectRep and
 DeclareRepresentation( "IsHashTabRep", IsHashTab, [] );
 DeclareRepresentation( "IsTreeHashTabRep", IsHashTab, [] );
 BindGlobal( "HashTabType", NewType(HashTabFamily,IsHashTabRep and IsMutable) );
-BindGlobal( "TreeHashTabType", 
+BindGlobal( "TreeHashTabType",
   NewType(HashTabFamily,IsTreeHashTabRep and IsMutable) );
 
 DeclareOperation( "HTCreate", [ IsObject, IsRecord ] );

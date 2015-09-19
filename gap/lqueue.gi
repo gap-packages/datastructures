@@ -12,9 +12,9 @@
 InstallGlobalFunction(PlistQueue,
 function(arg)
   local capacity, filter, result, i, t;
-  
+
   filter := IsPlistQueueRep;
-  
+
   if Length(arg) = 0 then
     capacity := 64;
   elif Length(arg) = 1 then
@@ -25,9 +25,9 @@ function(arg)
   for i in [1..capacity] do
     result[4][i] := fail;
   od;
-  
+
   t := NewType(CollectionsFamily(FamilyObj(IsObject)), filter and IsPositionalObjectRep);
-  
+
   Objectify(t, result);
 
   return result;
@@ -156,7 +156,7 @@ function(queue)
     fi;
   od;
   queue![QTAIL] := p;
-  
+
   queue![QDATA] := result;
 end);
 
@@ -165,7 +165,7 @@ end);
 ## method installation
 ##
 InstallMethod(NewQueue_,
-        "for IsPlistQueueRep, a sample object, and a positive integer", 
+        "for IsPlistQueueRep, a sample object, and a positive integer",
         [IsPlistQueueRep, IsObject, IsPosInt],
 function(filter, sample, capacity)
   return PlistQueue(capacity);

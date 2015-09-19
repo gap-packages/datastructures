@@ -1,10 +1,10 @@
 #############################################################################
-##  
+##
 ##  PackageInfo.g for the package `datastructures'               Markus Pfeiffer
-##                                                               
+##
 ##  (created from the GAP example package, which is based on Frank Lübeck's
 ##   PackageInfo.g template file)
-##  
+##
 SetPackageInfo( rec(
 
 PackageName := "datastructures",
@@ -16,7 +16,7 @@ Subtitle := "datastructures is a collection of standard data structures for the 
 Version := "0.0.0",
 ##
 Date := "31/12/2013",
-##  Optional: if the package manual uses GAPDoc, you may duplicate the 
+##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
@@ -32,18 +32,18 @@ ArchiveURL := Concatenation( ~.PackageWWWHome, "datastructures-", ~.Version ),
 
 ArchiveFormats := ".tar.gz",
 
-##  If not all of the archive formats mentioned above are provided, these 
+##  If not all of the archive formats mentioned above are provided, these
 ##  can be produced at the GAP side. Therefore it is necessary to know which
 ##  files of the package distribution are text files which should be unpacked
-##  with operating system specific line breaks. 
+##  with operating system specific line breaks.
 ##  The package wrapping tools for the GAP distribution and web pages will
-##  use a sensible list of file extensions to decide if a file 
-##  is a text file (being conservative, it may miss a few text files). 
-##  These rules may be optionally prepended by the application of rules 
+##  use a sensible list of file extensions to decide if a file
+##  is a text file (being conservative, it may miss a few text files).
+##  These rules may be optionally prepended by the application of rules
 ##  from the PackageInfo.g file. For this, there are the following three
 ##  mutually exclusive possibilities to specify the text files:
-##  
-##    - specify below a component 'TextFiles' which is a list of names of the 
+##
+##    - specify below a component 'TextFiles' which is a list of names of the
 ##      text files, relative to the package root directory (e.g., "lib/bla.g"),
 ##      then all other files are taken as binary files.
 ##    - specify below a component 'BinaryFiles' as list of names, then all other
@@ -51,10 +51,10 @@ ArchiveFormats := ".tar.gz",
 ##    - specify below a component 'TextBinaryFilesPatterns' as a list of names
 ##      and/or wildcards, prepended by 'T' for text files and by 'B' for binary
 ##      files.
-##  
+##
 ##  (Remark: Just providing a .tar.gz file will often result in useful
 ##  archives)
-##  
+##
 ##  These entries are *optional*.
 #TextFiles := ["init.g", ......],
 #BinaryFiles := ["doc/manual.dvi", ......],
@@ -62,7 +62,7 @@ ArchiveFormats := ".tar.gz",
 
 
 Persons := [
-  rec( 
+  rec(
     LastName      := "Pfeiffer",
     FirstNames    := "Markus",
     IsAuthor      := true,
@@ -98,15 +98,15 @@ Persons := [
 ##  Status information. Currently the following cases are recognized:
 ##    "accepted"      for successfully refereed packages
 ##    "submitted"     for packages submitted for the refereeing
-##    "deposited"     for packages for which the GAP developers agreed 
+##    "deposited"     for packages for which the GAP developers agreed
 ##                    to distribute them with the core GAP system
-##    "dev"           for development versions of packages 
+##    "dev"           for development versions of packages
 ##    "other"         for all other packages
 ##
 # Status := "accepted",
 Status := "dev",
 
-##  You must provide the next two entries if and only if the status is 
+##  You must provide the next two entries if and only if the status is
 ##  "accepted" because is was successfully refereed:
 # format: 'name (place)'
 # CommunicatedBy := "Mike Atkinson (St. Andrews)",
@@ -115,27 +115,27 @@ Status := "dev",
 # AcceptDate := "08/1999",
 #AcceptDate := "",
 
-README_URL := 
+README_URL :=
   Concatenation( ~.PackageWWWHome, "README" ),
-PackageInfoURL := 
+PackageInfoURL :=
   Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
-##  Here you  must provide a short abstract explaining the package content 
-##  in HTML format (used on the package overview Web page) and an URL 
+##  Here you  must provide a short abstract explaining the package content
+##  in HTML format (used on the package overview Web page) and an URL
 ##  for a Webpage with more detailed information about the package
 ##  (not more than a few lines, less is ok):
 ##  Please, use '<span class="pkgname">GAP</span>' and
 ##  '<span class="pkgname">MyPKG</span>' for specifing package names.
-##  
+##
 # AbstractHTML := "This package provides a collection of functions for \
 # computing the Smith normal form of integer matrices and some related \
 # utilities.",
-AbstractHTML := 
+AbstractHTML :=
   "The <span class=\"pkgname\">datastructures</span> package provides some \
    standard data structures.",
 
 PackageDoc := rec(
-  # use same as in GAP            
+  # use same as in GAP
   BookName  := "datastructures",
   # format/extension can be one of .tar.gz, .tar.bz2, -win.zip, .zoo.
   ArchiveURLSubset := ["doc"],
@@ -161,7 +161,7 @@ Dependencies := rec(
 
 AvailabilityTest := ReturnTrue,
 
-BannerString := Concatenation( 
+BannerString := Concatenation(
     "----------------------------------------------------------------\n",
     "Loading datastructures ", ~.Version, "\n",
     "by ",

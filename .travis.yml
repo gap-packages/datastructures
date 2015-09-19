@@ -4,6 +4,9 @@ language: c
 compiler:
   - gcc
   - clang
+env:
+  - COMPILE=true
+  - COMPILE=false
 branches:
   only:
     - master
@@ -24,6 +27,6 @@ script:
   - cd datastructures
   - ./autogen.sh
   - ./configure
-  - make
+  - if [ $COMPILE = true ]; then make; fi
   - cd ../..
   - echo "Read(\"pkg/datastructures/tst/testall.g\"); quit;" | sh bin/gap.sh

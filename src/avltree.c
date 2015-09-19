@@ -154,7 +154,7 @@ Obj AVLNewNode_C( Obj self, Obj t )
     return INTOBJ_INT(AVLNewNode(t));
 }
 
-inline Obj AVLFreeNode( Obj t, Int n )
+ Obj AVLFreeNode( Obj t, Int n )
 {
     Obj v,o;
     SET_ELM_PLIST(t,n,AVLFreeObj(t));
@@ -234,7 +234,7 @@ Int AVLFind( Obj t, Obj d )
         return INTOBJ_INT(tmp);
 }
 
- inline Int AVLFindIndex( Obj t, Obj d )
+ Int AVLFindIndex( Obj t, Obj d )
 {
     Obj compare,c;
     Int p;
@@ -287,7 +287,7 @@ Int AVLFind( Obj t, Obj d )
     return AVLValue(t,p);
 }
 
- inline Int AVLIndex( Obj t, Int i )
+ Int AVLIndex( Obj t, Int i )
 {
     Int p,offset,r;
 
@@ -362,7 +362,7 @@ Int AVLFind( Obj t, Obj d )
         return ELM_LIST(vals,p);
 }
 
- inline void AVLRebalance( Obj tree, Int q, Int *newroot, int *shrink )
+ void AVLRebalance( Obj tree, Int q, Int *newroot, int *shrink )
 /* the tree starting at q has balanced subtrees but is out of balance:
    the depth of the deeper subtree is 2 bigger than the depth of the other
    tree. This function changes this situation following the procedure
@@ -1124,4 +1124,3 @@ Int AVLFind( Obj t, Obj d )
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-

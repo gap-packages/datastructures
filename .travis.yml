@@ -26,6 +26,4 @@ script:
   - ./configure
   - make
   - cd ../..
-  - echo "Test(\"pkg/datastructures/tst/testall.tst\"); quit;" | sh bin/gap.sh | tee testlog.txt | grep --colour=always -E "########> Diff|$"
-  - ( ! grep "########> Diff" testlog.txt )
-
+  - echo "Read(\"pkg/datastructures/tst/testall.g\"); quit;" | sh bin/gap.sh

@@ -40,7 +40,14 @@
 
 <Body>
 
+<#Include SYSTEM "hash.xml">
+<#Include SYSTEM "cache.xml">
+<#Include SYSTEM "avl.xml">
+
 </Body>
+
+<Bibliography Databases="datastructures,../../../doc/manualbib.xml"/>
+<Bibliography Databases="datastructures"/>
 
 <TheIndex/>
 

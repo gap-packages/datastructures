@@ -92,7 +92,7 @@ Persons := [
                                        "Germany" ),
        Place         := "Gießen, Germany",
        Institution   := "Justus-Liebig-Universität Gießen"
-     )
+     ),
   rec(
     IsAuthor := true,
     IsMaintainer := true,
@@ -106,8 +106,8 @@ Persons := [
                "UK" ),
     Place := "St Andrews",
     Institution := "University of St Andrews",
-  )
-  rec( 
+  ),
+  rec(
     LastName      := "Mueller",
     FirstNames    := "Juergen",
     IsAuthor      := true,
@@ -123,7 +123,7 @@ Persons := [
     Place         := "Aachen",
     Institution   := "RWTH Aachen"
   ),
-  rec( 
+  rec(
     LastName      := "Neunhöffer",
     FirstNames    := "Max",
     IsAuthor      := true,
@@ -137,7 +137,7 @@ Persons := [
     #Place         := "St Andrews",
     #Institution   := "University of St Andrews"
   ),
-  rec( 
+  rec(
     LastName      := "Noeske",
     FirstNames    := "Felix",
     IsAuthor      := true,
@@ -227,4 +227,3 @@ TestFile := "tst/testall.tst",
 Keywords := ["data structures", "algorithms"]
 
 ));
-

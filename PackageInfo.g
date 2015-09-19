@@ -107,6 +107,52 @@ Persons := [
     Place := "St Andrews",
     Institution := "University of St Andrews",
   )
+  rec( 
+    LastName      := "Mueller",
+    FirstNames    := "Juergen",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "juergen.mueller@math.rwth-aachen.de",
+    WWWHome       := "http://www.math.rwth-aachen.de/~Juergen.Mueller",
+    PostalAddress := Concatenation( [
+                       "Juergen Mueller\n",
+                       "Lehrstuhl D fuer Mathematik, RWTH Aachen\n",
+                       "Templergraben 64\n",
+                       "52056 Aachen\n",
+                       "Germany" ] ),
+    Place         := "Aachen",
+    Institution   := "RWTH Aachen"
+  ),
+  rec( 
+    LastName      := "Neunhöffer",
+    FirstNames    := "Max",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "max@9hoeffer.de",
+    WWWHome       := "http://www-groups.mcs.st-and.ac.uk/~neunhoef",
+    PostalAddress := Concatenation( [
+                       "Gustav-Freytag-Straße 40\n",
+                       "50354 Hürth\n",
+                       "Germany" ] ),
+    #Place         := "St Andrews",
+    #Institution   := "University of St Andrews"
+  ),
+  rec( 
+    LastName      := "Noeske",
+    FirstNames    := "Felix",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "felix.noeske@math.rwth-aachen.de",
+    WWWHome       := "http://www.math.rwth-aachen.de/~Felix.Noeske",
+    PostalAddress := Concatenation( [
+                       "Felix Noeske\n",
+                       "Lehrstuhl D fuer Mathematik, RWTH Aachen\n",
+                       "Templergraben 64\n",
+                       "52056 Aachen\n",
+                       "Germany" ] ),
+    Place         := "Aachen",
+    Institution   := "RWTH Aachen"
+  )
 ],
 
 ##  Status information. Currently the following cases are recognized:

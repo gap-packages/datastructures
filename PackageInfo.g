@@ -93,6 +93,20 @@ Persons := [
        Place         := "Gieﬂen, Germany",
        Institution   := "Justus-Liebig-Universit‰t Gieﬂen"
      )
+  rec(
+    IsAuthor := true,
+    IsMaintainer := true,
+    FirstNames := "Christopher",
+    LastName := "Jefferson",
+    WWWHome := "http://caj.host.cs.st-andrews.ac.uk/",
+    Email := "caj21@st-andrews.ac.uk",
+    PostalAddress := Concatenation(
+               "St Andrews\n",
+               "Scotland\n",
+               "UK" ),
+    Place := "St Andrews",
+    Institution := "University of St Andrews",
+  )
 ],
 
 ##  Status information. Currently the following cases are recognized:

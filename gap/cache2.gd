@@ -64,7 +64,7 @@ DeclareRepresentation("IsLinkedListDictionaryCacheRep", IsCache and IsLookupDict
        ]);
 
 DeclareRepresentation("IsLinkedListCacheNodeWithKeyRep", IsCacheNode,
-        [ "next", "prev"     # links in the doubly linked list of 
+        [ "next", "prev"     # links in the doubly linked list of
                              # cache nodes
           , "key"            # key in the index structure
           , "ob"             # cached object

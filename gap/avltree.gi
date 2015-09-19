@@ -21,7 +21,7 @@
 #
 # Conventions:
 #
-# A balanced binary tree (AVLTree) is a positional object having the 
+# A balanced binary tree (AVLTree) is a positional object having the
 # following entries:
 #   ![1]     len: last used entry (never shrinks), always = 3 mod 4
 #   ![2]     free: index of first freed entry, if 0, none free
@@ -44,10 +44,10 @@
 # We use left mod 4: 0 - balanced
 #                    1 - balance factor +1
 #                    2 - balance factor -1
-# 
+#
 
 AVLCmp_GAP := function(a,b)
-  if a = b then 
+  if a = b then
     return 0;
   elif a < b then
     return -1;
@@ -63,7 +63,7 @@ fi;
 
 AVLTree_GAP := function(arg)
   # Parameters: options record (optional)
-  # Initializes balanced binary tree object, optionally with comparison 
+  # Initializes balanced binary tree object, optionally with comparison
   # function. Returns empty tree object.
   # A comparison function takes 2 arguments and returns respectively -1, 0
   # or 1 if the first argument is smaller than, equal to, or bigger than the
@@ -273,7 +273,7 @@ else
 fi;
 
 AVLValue_GAP := function(t,n)
-  if t![7] = fail then 
+  if t![7] = fail then
       return true;
   elif not(IsBound(t![7][n/4])) then
       return true;
@@ -338,7 +338,7 @@ AVLFind_GAP := function(tree,data)
       p := AVLRight(tree,p);
     fi;
   od;
-  
+
   return fail;
 end;
 if IsBound(AVLFind_C) then
@@ -367,17 +367,17 @@ AVLIndex_GAP := function(tree,index)
   #  tree is a AVL
   #  index is an index in the tree
   # Searches in tree for the node with index index, returns the data of
-  # this node or fail if not found. Works without comparison function, 
+  # this node or fail if not found. Works without comparison function,
   # just by index.
   local p, offset, r;
 
   if index < 1 or index > tree![3] then
     return fail;
   fi;
-  
+
   p := tree![6];
   offset := 0;         # Offset of subtree p in tree
-  
+
   while true do   # will terminate!
     r := offset + AVLRank(tree,p);
     if index < r then
@@ -404,17 +404,17 @@ AVLIndexFind_GAP := function(tree,index)
   #  tree is a AVL
   #  index is an index in the tree
   # Searches in tree for the node with index index, returns the position of
-  # this node or fail if not found. Works without comparison function, 
+  # this node or fail if not found. Works without comparison function,
   # just by index.
   local p, offset, r;
 
   if index < 1 or index > tree![3] then
     return fail;
   fi;
-  
+
   p := tree![6];
   offset := 0;         # Offset of subtree p in tree
-  
+
   while true do   # will terminate!
     r := offset + AVLRank(tree,p);
     if index < r then
@@ -439,7 +439,7 @@ fi;
 AVLIndexLookup_GAP := function(tree,i)
   local p;
   p := AVLIndexFind(tree,i);
-  if p = fail then 
+  if p = fail then
       return fail;
   else
       return AVLValue(tree,p);
@@ -456,7 +456,7 @@ AVLRebalance_GAP := function(tree,q)
   # the depth of the deeper subtree is 2 bigger than the depth of the other
   # tree. This function changes this situation following the procedure
   # described in Knuth: "The Art of Computer Programming".
-  # It returns a record with the new start node of the subtree as entry 
+  # It returns a record with the new start node of the subtree as entry
   # "newroot" and in "shorter" a boolean value which indicates, if the
   # depth of the tree was decreased by 1 by this operation.
   local shrink, p, l;
@@ -467,7 +467,7 @@ AVLRebalance_GAP := function(tree,q)
   else
     p := AVLRight(tree,q);
   fi;
-  if AVLBalFactor(tree,p) = AVLBalFactor(tree,q) then   
+  if AVLBalFactor(tree,p) = AVLBalFactor(tree,q) then
     # we need a single rotation:
     #       q++             p=           q--          p=
     #      / \             / \          / \          / \
@@ -487,7 +487,7 @@ AVLRebalance_GAP := function(tree,q)
       AVLSetBalFactor(tree,p,0);
       AVLSetRank(tree,q,AVLRank(tree,q) - AVLRank(tree,p));
     fi;
-  elif AVLBalFactor(tree,p) = - AVLBalFactor(tree,q) then   
+  elif AVLBalFactor(tree,p) = - AVLBalFactor(tree,q) then
     # we need a double rotation:
     #       q++                             q--
     #      / \             c=              / \            c=
@@ -534,11 +534,11 @@ AVLRebalance_GAP := function(tree,q)
       fi;
       AVLSetBalFactor(tree,l,0);
       AVLSetRank(tree,l,AVLRank(tree,l) + AVLRank(tree,p));
-      AVLSetRank(tree,q,AVLRank(tree,q) - AVLRank(tree,l));   
+      AVLSetRank(tree,q,AVLRank(tree,q) - AVLRank(tree,l));
                            # new value of AVLRank(tree,l)!
       p := l;
     fi;
-  else   # AVLBalFactor(tree,p) = 0 then  
+  else   # AVLBalFactor(tree,p) = 0 then
     # we need a single rotation:
     #       q++             p-           q--          p+
     #      / \             / \          / \          / \
@@ -558,7 +558,7 @@ AVLRebalance_GAP := function(tree,q)
       AVLSetBalFactor(tree,p,1);
       AVLSetRank(tree,q,AVLRank(tree,q) - AVLRank(tree,p));
     fi;
-    shrink := false;    
+    shrink := false;
   fi;
   return rec(newroot := p, shorter := shrink);
 end;
@@ -576,13 +576,13 @@ AVLAdd_GAP := function(tree,data,value)
   #  value is the value stored under the key data, if true, nothing is stored
   # Tries to add the data as a node in tree. It is an error, if there is
   # already a node which is "equal" to data with respect to the comparison
-  # function. Returns true if everything went well or fail, if an equal 
-  # object is already present. 
+  # function. Returns true if everything went well or fail, if an equal
+  # object is already present.
 
   local compare, p, new, path, nodes, n, q, rankadds, c, l, i;
-  
+
   compare := tree![5];
-  
+
   p := tree![6];
   if p = 0 then   # A new, single node in the tree
     new := AVLNewNode(tree);
@@ -598,7 +598,7 @@ AVLAdd_GAP := function(tree,data,value)
     tree![6] := new;
     return true;
   fi;
-  
+
   # let's first find the right position in the tree:
   # but: remember the last node on the way with bal. factor <> 0 and the path
   #      after this node
@@ -613,12 +613,12 @@ AVLAdd_GAP := function(tree,data,value)
                    # index in "nodes" or 0 for no such node
   rankadds := EmptyPlist(10);# nothing done so far, list of Rank-modified nodes
   repeat
-    
+
     # do we have to remember this position?
     if AVLBalFactor(tree,p) <> 0 then
       q := n;       # forget old last node with balance factor <> 0
     fi;
-    
+
     # now one step:
     c := compare(data,AVLData(tree,p));
     if c = 0 then   # we did not want this!
@@ -627,7 +627,7 @@ AVLAdd_GAP := function(tree,data,value)
       od;
       return fail; # tree is unchanged
     fi;
-    
+
     l := p;     # remember last position
     if c < 0 then   # data < AVLData(tree,p)
       AVLSetRank(tree,p,AVLRank(tree,p) + 1);
@@ -639,13 +639,13 @@ AVLAdd_GAP := function(tree,data,value)
     Add(nodes,p);
     n := n + 1;
     Add(path,c);
-    
+
   until p = 0;
   # now p is 0 and nodes[n-1] is the node where data must be attached
   # the tree must be modified between nodes[q] and nodes[n-1] along path
   # Ranks are already done
   l := nodes[n-1];   # for easier reference
-  
+
   # a new node:
   p := AVLNewNode(tree);
   AVLSetLeft(tree,p,0);
@@ -663,12 +663,12 @@ AVLAdd_GAP := function(tree,data,value)
     AVLSetRight(tree,l,p);
   fi;
   tree![3] := tree![3] + 1;
-  
+
   # modify balance factors between q and l:
   for i in [q+1..n-1] do
     AVLSetBalFactor(tree,nodes[i],path[i]);
   od;
-  
+
   # is rebalancing at q necessary?
   if q = 0 then    # whole tree has grown one step
     return true;   # Success!
@@ -678,12 +678,12 @@ AVLAdd_GAP := function(tree,data,value)
     AVLSetBalFactor(tree,nodes[q],0);
     return true;   # Success!
   fi;
-  
+
   # now at last we do have to rebalance at nodes[q] because the tree has
   # gotten out of balance:
   p := AVLRebalance(tree,nodes[q]);
   p := p.newroot;
-  
+
   # finishing touch: link new root of subtree (p) to t:
   if q = 1 then  # q resp. r was First node
     tree![6] := p;
@@ -692,7 +692,7 @@ AVLAdd_GAP := function(tree,data,value)
   else
     AVLSetRight(tree,nodes[q-1],p);
   fi;
-  
+
   return true;
 end;
 if IsBound(AVLAdd_C) then
@@ -709,15 +709,15 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
   #  value is the value to be stored under key data, nothing is stored if true
   #  index is the index, where data should be inserted in tree 1 ist at
   #          first position, NumberOfNodes+1 after the last.
-  # Tries to add the data as a node in tree. Returns true if everything 
-  # went well or fail, if something went wrong, 
-  
+  # Tries to add the data as a node in tree. Returns true if everything
+  # went well or fail, if something went wrong,
+
   local p, path, nodes, n, q, offset, c, l, i;
-  
+
   if index < 1 or index > tree![3]+1 then
     return fail;
   fi;
-  
+
   p := tree![6];
   if p = 0 then   # A new, single node in the tree
     # index must be equal to 1
@@ -733,7 +733,7 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
     tree![3] := 1;
     return true;
   fi;
-  
+
   # let's first find the right position in the tree:
   # but: remember the last node on the way with bal. factor <> 0 and the path
   #      after this node
@@ -748,19 +748,19 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
                    # index in "nodes" or 0 for no such node
   offset := 0;     # number of nodes with smaller index than those in subtree
   repeat
-    
+
     # do we have to remember this position?
     if AVLBalFactor(tree,p) <> 0 then
       q := n;       # forget old last node with balance factor <> 0
     fi;
-    
+
     # now one step:
     if index <= offset+AVLRank(tree,p) then
       c := -1;    # we have to descend to left subtree
     else
       c := +1;    # we have to descend to right subtree
     fi;
-    
+
     l := p;     # remember last position
     if c < 0 then   # data < AVLData(tree,p)
       AVLSetRank(tree,p,AVLRank(tree,p) + 1);
@@ -772,13 +772,13 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
     Add(nodes,p);
     n := n + 1;
     Add(path,c);
-    
+
   until p = 0;
   # now p is 0 and nodes[n-1] is the node where data must be attached
   # the tree must be modified between nodes[q] and nodes[n-1] along path
   # Ranks are already done
   l := nodes[n-1];   # for easier reference
-  
+
   # a new node:
   p := AVLNewNode(tree);
   AVLSetLeft(tree,p,0);
@@ -796,12 +796,12 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
     AVLSetRight(tree,l,p);
   fi;
   tree![3] := tree![3] + 1;
-  
+
   # modify balance factors between q and l:
   for i in [q+1..n-1] do
     AVLSetBalFactor(tree,nodes[i],path[i]);
   od;
-  
+
   # is rebalancing at q necessary?
   if q = 0 then    # whole tree has grown one step
     return true;   # Success!
@@ -811,12 +811,12 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
     AVLSetBalFactor(tree,nodes[q],0);
     return true;   # Success!
   fi;
-  
+
   # now at last we do have to rebalance at nodes[q] because the tree has
   # gotten out of balance:
   p := AVLRebalance(tree,nodes[q]);
   p := p.newroot;
-  
+
   # finishing touch: link new root of subtree (p) to t:
   if q = 1 then  # q resp. r was First node
     tree![6] := p;
@@ -825,7 +825,7 @@ AVLIndexAdd_GAP := function(tree,data,value,index)
   else
     AVLSetRight(tree,nodes[q-1],p);
   fi;
-  
+
   return true;
 end;
 if IsBound(AVLIndexAdd_C) then
@@ -842,9 +842,9 @@ AVLDelete_GAP := function(tree,data)
   # and the tree rebalanced. It is an error, if the node is not found.
   # Returns fail in this case, and the stored value normally.
   local compare, p, path, nodes, n, ranksubs, c, m, l, r, i, old;
-  
+
   compare := tree![5];
-  
+
   p := tree![6];
   if p = 0 then   # Nothing to delete or find
     return fail;
@@ -858,7 +858,7 @@ AVLDelete_GAP := function(tree,data)
       return fail;
     fi;
   fi;
-  
+
   # let's first find the right position in the tree:
   # and: remember the nodes where the Rank entry is decremented in case we
   #      find an "equal" element
@@ -868,12 +868,12 @@ AVLDelete_GAP := function(tree,data)
                    # from nodes[i] by walking one step path[i]
   n := 1;          # this is the length of "nodes"
   ranksubs := EmptyPlist(10);# nothing done so far, list of Rank-modified nodes
-  
+
   repeat
-    
+
     # what is the next step?
     c := compare(data,AVLData(tree,p));
-    
+
     if c <> 0 then  # only if data not found!
       if c < 0 then       # data < AVLData(tree,p)
         AVLSetRank(tree,p,AVLRank(tree,p) - 1);
@@ -886,7 +886,7 @@ AVLDelete_GAP := function(tree,data)
       n := n + 1;
       Add(path,c);
     fi;
-    
+
     if p = 0 then
       # error, we did not find data
       for i in ranksubs do
@@ -894,17 +894,17 @@ AVLDelete_GAP := function(tree,data)
       od;
       return fail;
     fi;
-    
+
   until c = 0;   # until we find the right node
   # now data is equal to AVLData(tree,p,) so this node p must be removed.
   # the tree must be modified between tree![6] and nodes[n] along path
   # Ranks are already done up there
-  
+
   # now we have to search a neighbour, we modify "nodes" and "path" but not n!
   m := n;
   if AVLBalFactor(tree,p) < 0 then   # search to the left
     l := AVLLeft(tree,p);   # must be a node!
-    AVLSetRank(tree,p,AVLRank(tree,p) - 1);   
+    AVLSetRank(tree,p,AVLRank(tree,p) - 1);
     # we will delete in left subtree!
     Add(nodes,l);
     m := m + 1;
@@ -922,7 +922,7 @@ AVLDelete_GAP := function(tree,data)
     m := m + 1;
     Add(path,1);
     while AVLLeft(tree,l) <> 0 do
-      AVLSetRank(tree,l,AVLRank(tree,l) - 1); 
+      AVLSetRank(tree,l,AVLRank(tree,l) - 1);
       # we will delete in left subtree!
       l := AVLLeft(tree,l);
       Add(nodes,l);
@@ -931,7 +931,7 @@ AVLDelete_GAP := function(tree,data)
     od;
     c := 1;        # we got successor
   else   # equal depths
-    if AVLLeft(tree,p) <> 0 then  
+    if AVLLeft(tree,p) <> 0 then
       l := AVLLeft(tree,p);
       AVLSetRank(tree,p,AVLRank(tree,p) - 1);
       Add(nodes,l);
@@ -946,17 +946,17 @@ AVLDelete_GAP := function(tree,data)
       c := -1;     # we got predecessor
     else           # we got an end node
       l := p;
-      c := 0;      
+      c := 0;
     fi;
   fi;
   # l points now to a neighbour, in case c = -1 to the predecessor, in case
   # c = 1 to the successor, or to p itself in case c = 0
   # "nodes" and "path" is updated, but n could be < m
-  
+
   # Copy Data from l up to p: order is NOT modified
-  AVLSetData(tree,p,AVLData(tree,l));   
+  AVLSetData(tree,p,AVLData(tree,l));
      # works for m = n, i.e. if p is end node
-  
+
   # Delete node at l = nodes[m] by modifying nodes[m-1]:
   # Note: nodes[m] has maximal one subtree!
   if c <= 0 then
@@ -971,7 +971,7 @@ AVLDelete_GAP := function(tree,data)
   fi;
   tree![3] := tree![3] - 1;
   old := AVLFreeNode(tree,l);
-  
+
   # modify balance factors:
   # the subtree nodes[m-1] has become shorter at its left (resp. right)
   # subtree, if path[m-1]=-1 (resp. +1). We have to react according to
@@ -1014,11 +1014,11 @@ AVLIndexDelete_GAP := function(tree,index)
   #  tree is a AVL
   # returns fail if index is out of range, otherwise the deleted key;
   local p, path, nodes, n, offset, c, m, l, r, x;
-  
+
   if index < 1 or index > tree![3] then
     return fail;
   fi;
-  
+
   p := tree![6];
   if p = 0 then   # Nothing to delete or find
     return fail;
@@ -1031,7 +1031,7 @@ AVLIndexDelete_GAP := function(tree,index)
     AVLFreeNode(tree,p);
     return x;
   fi;
-  
+
   # let's first find the right position in the tree:
   path := EmptyPlist(10);     # here all steps are recorded: -1:left, +1:right
   nodes := EmptyPlist(10);
@@ -1039,9 +1039,9 @@ AVLIndexDelete_GAP := function(tree,index)
                    # from nodes[i] by walking one step path[i]
   n := 1;          # this is the length of "nodes"
   offset := 0;     # number of "smaller" nodes than subtree in whole tree
-  
+
   repeat
-    
+
     # what is the next step?
     if index = offset+AVLRank(tree,p) then
       c := 0;   # we found our node!
@@ -1051,7 +1051,7 @@ AVLIndexDelete_GAP := function(tree,index)
     else
       c := +1;  # we have to go right
     fi;
-    
+
     if c <> 0 then  # only if data not found!
       if c < 0 then       # data < AVLData(tree,p)
         AVLSetRank(tree,p,AVLRank(tree,p) - 1);
@@ -1064,17 +1064,17 @@ AVLIndexDelete_GAP := function(tree,index)
       n := n + 1;
       Add(path,c);
     fi;
-    
+
   until c = 0;   # until we find the right node
   # now index is right, so this node p must be removed.
   # the tree must be modified between tree.First and nodes[n] along path
   # Ranks are already done up there
-  
+
   # now we have to search a neighbour, we modify "nodes" and "path" but not n!
   m := n;
   if AVLBalFactor(tree,p) < 0 then   # search to the left
     l := AVLLeft(tree,p);   # must be a node!
-    AVLSetRank(tree,p,AVLRank(tree,p) - 1);   
+    AVLSetRank(tree,p,AVLRank(tree,p) - 1);
     # we will delete in left subtree!
     Add(nodes,l);
     m := m + 1;
@@ -1092,7 +1092,7 @@ AVLIndexDelete_GAP := function(tree,index)
     m := m + 1;
     Add(path,1);
     while AVLLeft(tree,l) <> 0 do
-      AVLSetRank(tree,l,AVLRank(tree,l) - 1);  
+      AVLSetRank(tree,l,AVLRank(tree,l) - 1);
       # we will delete in left subtree!
       l := AVLLeft(tree,l);
       Add(nodes,l);
@@ -1101,9 +1101,9 @@ AVLIndexDelete_GAP := function(tree,index)
     od;
     c := 1;        # we got successor
   else   # equal depths
-    if AVLLeft(tree,p) <> 0 then  
+    if AVLLeft(tree,p) <> 0 then
       l := AVLLeft(tree,p);
-      AVLSetRank(tree,p,AVLRank(tree,p) - 1);  
+      AVLSetRank(tree,p,AVLRank(tree,p) - 1);
       # we will delete in left subtree!
       Add(nodes,l);
       m := m + 1;
@@ -1117,17 +1117,17 @@ AVLIndexDelete_GAP := function(tree,index)
       c := -1;     # we got predecessor
     else           # we got an end node
       l := p;
-      c := 0;      
+      c := 0;
     fi;
   fi;
   # l points now to a neighbour, in case c = -1 to the predecessor, in case
   # c = 1 to the successor, or to p itself in case c = 0
   # "nodes" and "path" is updated, but n could be < m
-  
+
   # Copy Data from l up to p: order is NOT modified
-  AVLSetData(tree,p,AVLData(tree,l));   
+  AVLSetData(tree,p,AVLData(tree,l));
   # works for m = n, i.e. if p is end node
-  
+
   # Delete node at l = nodes[m] by modifying nodes[m-1]:
   # Note: nodes[m] has maximal one subtree!
   if c <= 0 then
@@ -1142,7 +1142,7 @@ AVLIndexDelete_GAP := function(tree,index)
   fi;
   tree![3] := tree![3] - 1;
   AVLFreeNode(tree,l);
-  
+
   # modify balance factors:
   # the subtree nodes[m-1] has become shorter at its left (resp. right)
   # subtree, if path[m-1]=-1 (resp. +1). We have to react according to
@@ -1180,15 +1180,15 @@ fi;
 
 
 AVLToList_GAP := function(tree)
-  # walks recursively through the tree and builds a list, where every entry 
-  # belongs to a node in the order of the tree and each entry is a list, 
-  # containing the data as first entry, the depth in the tree as second 
+  # walks recursively through the tree and builds a list, where every entry
+  # belongs to a node in the order of the tree and each entry is a list,
+  # containing the data as first entry, the depth in the tree as second
   # and the balance factor as third. Mainly for test purposes.
 
   local l, DoRecursion;
-  
+
   l := EmptyPlist(tree![3]);
-  
+
   DoRecursion := function(p,depth)
     # does the work
     if AVLLeft(tree,p) <> 0 then
@@ -1199,7 +1199,7 @@ AVLToList_GAP := function(tree)
       DoRecursion(AVLRight(tree,p),depth+1);
     fi;
   end;
-  
+
   DoRecursion(tree![6],1);
   return l;
 end;
@@ -1213,19 +1213,19 @@ BindGlobal( "AVLTest", function(tree)
   # walks recursively through the tree and tests its balancedness. Returns
   # the depth or the subtree where the tree is not balanced. Mainly for test
   # purposes. Returns tree if the NumberOfNodes is not correct.
-  
+
   local error, DoRecursion, depth;
-  
+
   error := false;
-  
+
   DoRecursion := function(p)
     # does the work, returns false, if an error is detected in the subtree
     # and a list with the depth of the tree and the number of nodes in it.
     local ldepth, rdepth;
-    
+
     if AVLLeft(tree,p) <> 0 then
       ldepth := DoRecursion(AVLLeft(tree,p));
-      if ldepth = false then 
+      if ldepth = false then
         return false;
       fi;
     else
@@ -1239,7 +1239,7 @@ BindGlobal( "AVLTest", function(tree)
     else
       rdepth := [0,0];
     fi;
-    if AbsInt(rdepth[1]-ldepth[1] > 1) or 
+    if AbsInt(rdepth[1]-ldepth[1] > 1) or
        AVLBalFactor(tree,p) <> rdepth[1]-ldepth[1] or
        AVLRank(tree,p) <> ldepth[2] + 1 then
       error := p;
@@ -1248,17 +1248,17 @@ BindGlobal( "AVLTest", function(tree)
       return [Maximum(ldepth[1],rdepth[1])+1,ldepth[2]+rdepth[2]+1];
     fi;
   end;
-  
+
   if tree![6] = 0 then
     return rec( depth := 0, ok := true );
   else
     depth := DoRecursion(tree![6]);
     if depth = false then
-      return rec( badsubtree := error, ok := false );  
+      return rec( badsubtree := error, ok := false );
                                 # set from within DoRecursion
     else
       if depth[2] = tree![3] then
-        return rec( depth := depth[1], ok := true );      
+        return rec( depth := depth[1], ok := true );
                     # Number of Nodes is correct!
       else
         return rec( badsubtree := tree![6], ok := false);
@@ -1290,10 +1290,10 @@ AVLFindIndex_GAP := function(tree,data)
   od;
   return fail;
 end ;
-if IsBound(AVLFindIndex_C) then 
-    InstallGlobalFunction(AVLFindIndex, AVLFindIndex_C); 
+if IsBound(AVLFindIndex_C) then
+    InstallGlobalFunction(AVLFindIndex, AVLFindIndex_C);
 else
-    InstallGlobalFunction(AVLFindIndex, AVLFindIndex_GAP); 
+    InstallGlobalFunction(AVLFindIndex, AVLFindIndex_GAP);
 fi;
 
 InstallOtherMethod( ELM_LIST, "for an avl tree and an index",
@@ -1305,8 +1305,8 @@ InstallOtherMethod( Position, "for an avl tree, an object, and an index",
   function( t, x, pos )
     local i,j;
     i := AVLFindIndex(t,x);
-    if i = fail or i <= pos then 
-        return fail; 
+    if i = fail or i <= pos then
+        return fail;
     else
         return i;
     fi;
@@ -1327,7 +1327,7 @@ InstallOtherMethod( Length, "for an avl tree",
   function( t )
     return t![3];
   end );
-  
+
 InstallOtherMethod( ADD_LIST, "for an avl tree and an object",
   [ IsAVLTree and IsAVLTreeFlatRep and IsMutable, IsObject ],
   function( t, x )
@@ -1346,7 +1346,7 @@ InstallOtherMethod( IN, "for an object and an avl tree",
     return AVLFind(t,x) <> fail;
   end );
 
-        
+
 ##
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by

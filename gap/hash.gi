@@ -14,7 +14,7 @@
 #############################################################################
 
 InstallGlobalFunction( InitHT, function(len, hfun, eqfun)
-  return rec(els := [],        # the elements to hash 
+  return rec(els := [],        # the elements to hash
              vals := [],       # a value for each element, "true" not stored
              len := len,       # the length of the hash
              nr := 0,          # number of elements in hash
@@ -36,7 +36,7 @@ InstallGlobalFunction( NewHT, function(sample,len)
   fi;
   eqfun := ApplicableMethod(\=,[sample,sample]);
   if eqfun = fail then eqfun := EQ; fi;
-  if len < 11 then len := 11; fi;  # to avoid complete fillup! 
+  if len < 11 then len := 11; fi;  # to avoid complete fillup!
   ht := InitHT(len,hfun,eqfun);
   ht.cangrow := true;
   return ht;
@@ -239,7 +239,7 @@ InstallMethod( HTCreate, "for an object and an options record",
 
 # We first to tree hashes and then standard hash tables:
 
-InstallMethod(ViewObj, "for tree hash tables", 
+InstallMethod(ViewObj, "for tree hash tables",
   [IsHashTab and IsTreeHashTabRep],
   function(ht)
     Print("<tree hash table len=",ht!.len," used=",ht!.nr," colls=",
@@ -285,15 +285,15 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
     else
         r := AVLAdd(t,x,true);
     fi;
-    if r <> fail then 
-        ht!.nr := ht!.nr + 1; 
+    if r <> fail then
+        ht!.nr := ht!.nr + 1;
         return h;
     else
         return fail;
     fi;
 end );
 if IsBound(HTAdd_TreeHash_C) then
-    InstallMethod( HTAdd, 
+    InstallMethod( HTAdd,
       "for a tree hash table, an object and a value (C version)",
       [ IsTreeHashTabRep, IsObject, IsObject ], 1,
       HTAdd_TreeHash_C );
@@ -396,7 +396,7 @@ fi;
 
 # Now standard hash tables with the new interface:
 
-InstallMethod(ViewObj, "for hash tables", 
+InstallMethod(ViewObj, "for hash tables",
   [IsHashTab and IsHashTabRep],
   function(ht)
     Print("<hash table obj len=",ht!.len," used=",ht!.nr," colls=",
@@ -432,7 +432,7 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
         ht!.collisions := ht!.collisions + 1;
         h := h+g;
         if h>ht!.len then h := h - ht!.len; fi;
-        if not(IsBound(ht!.alert)) and 
+        if not(IsBound(ht!.alert)) and
            QuoInt(ht!.collisions,ht!.accesses) > 100 then
           # We have a problem!
           Info(InfoDataStructures,1,"Alarm: Collision warning: Collisions: ",
@@ -713,13 +713,13 @@ InstallMethod( ChooseHashFunction, "for integers", [IsInt,IsInt],
   function(p,hashlen)
     return rec( func := ORB_HashFunctionForIntegers, data := [hashlen] );
   end );
-    
+
 InstallGlobalFunction( ORB_HashFunctionForMemory,
 function(x,data)
   return data[1](x!.el,data[2]);
 end );
 
-InstallMethod( ChooseHashFunction, "for memory objects", 
+InstallMethod( ChooseHashFunction, "for memory objects",
   [IsObjWithMemory, IsInt],
   function(p,hashlen)
     local hf;
@@ -748,7 +748,7 @@ end );
 
 InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
   function( x, data )
-    return (HashKeyBag( x, 0, 0, 
+    return (HashKeyBag( x, 0, 0,
                         GAPInfo.BytesPerVariable*(Length(x)+1)) mod data)+1;
   end );
 
@@ -763,7 +763,7 @@ InstallGlobalFunction( MakeHashFunctionForPlainFlatList,
                 data := len );
   end );
 
-InstallMethod( ChooseHashFunction, "for permutations", 
+InstallMethod( ChooseHashFunction, "for permutations",
   [IsPerm, IsInt],
   function(p,hashlen)
     return rec( func := ORB_HashFunctionForPermutations, data := hashlen );
@@ -820,7 +820,7 @@ InstallGlobalFunction( ORB_HashFunctionForMatList,
     od;
     return res+1;
   end );
-    
+
 InstallMethod( ChooseHashFunction, "for lists of matrices",
   [IsList, IsInt],
   function( l, hashlen )
@@ -828,13 +828,13 @@ InstallMethod( ChooseHashFunction, "for lists of matrices",
     local r;
     if ForAll(l,IsMatrix) then
         r := ChooseHashFunction( l[1], hashlen );
-        return rec( func := ORB_HashFunctionForMatList, 
+        return rec( func := ORB_HashFunctionForMatList,
                     data := [101,hashlen,r] );
     fi;
     TryNextMethod();
   end );
 
-InstallMethod( ChooseHashFunction, 
+InstallMethod( ChooseHashFunction,
   "for finite field vectors over big finite fields",
   [IsList, IsInt],
   function( l, hashlen )

@@ -27,7 +27,7 @@ DeclareRepresentation("IsLinkedListCacheRep", IsCache,
 DeclareCategory("IsCacheNode", IsNonAtomicComponentObjectRep);
 DeclareRepresentation("IsLinkedListCacheNodeRep", IsCacheNode,
   [ "next", "prev", "ob", "mem" ] );
-BindGlobal( "LinkedListCacheNodeType", 
+BindGlobal( "LinkedListCacheNodeType",
   NewType( CacheNodesFamily, IsLinkedListCacheNodeRep and IsMutable) );
 
 DeclareOperation("LinkedListCache", [IsInt]);

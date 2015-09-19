@@ -11,24 +11,24 @@
 ## Implementation of Priority Queues using the AVL trees defined in GAPDataa
 ##
 #T XXX this doesn't work because the AVL trees don't support entries
-#T XXX With equal ids  
+#T XXX With equal ids
 InstallMethod(NewPriorityQueue,
         "for IsAVLTreePrioQRep and a sample object",
         [ IsAVLTreePrioQRep, IsObject ],
 function( filter, sample )
     local result, t;
-    
+
     #T Make a way to pass options records
-    #T here. In particular allocation and 
+    #T here. In particular allocation and
     #T comparison functions
-    #T Maybe the Key type should also be sampled? 
+    #T Maybe the Key type should also be sampled?
     #T Look into AVLTree code how that can be accomplished
     result := [ AVLTree() ];
-    
+
     t := NewType(CollectionsFamily(FamilyObj(sample)), filter and IsPositionalObjectRep);
-    
+
     Objectify(t, result);
-    
+
     return result;
 end);
 
@@ -53,7 +53,7 @@ InstallMethod( Peek,
 function(queue, prio, obj)
     return AVLIndexLookupAdd(queue![1], prio, obj);
 end);
-    
+
 InstallMethod( ViewObj,
         "for IsAVLTreePrioQRep",
         [ IsAVLTreePrioQRep ],
@@ -70,6 +70,6 @@ function(queue)
   Print("<priority queue>");
 end);
 
-       
-        
+
+
 

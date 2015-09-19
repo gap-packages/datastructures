@@ -5,7 +5,7 @@
 **  Copyright (C) 2009  Max Neunhoeffer
 **  This file is free software, see license information at the end.
 **
-**  Exported to the GAPData package by Markus Pfeiffer 2014 
+**  Exported to the GAPData package by Markus Pfeiffer 2014
 */
 
 #include <stdlib.h>
@@ -109,9 +109,9 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     /* Count collision: */
     AssPRec(ht,RNam_collisions,
             INTOBJ_INT(INT_INTOBJ(ElmPRec(ht,RNam_collisions))+1));
-    
+
     /* Now check whether it is an AVLTree or not: */
-    if (TNUM_OBJ(tmp) != T_POSOBJ || 
+    if (TNUM_OBJ(tmp) != T_POSOBJ ||
         (TYPE_POSOBJ(tmp) != AVLTreeTypeMutable &&
          TYPE_POSOBJ(tmp) != AVLTreeType)) {
         r = NEW_PREC(2);   /* This might trigger a garbage collection */
@@ -172,11 +172,11 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
         return Fail;
 
     /* Now check whether it is an AVLTree or not: */
-    if (TNUM_OBJ(t) != T_POSOBJ || 
+    if (TNUM_OBJ(t) != T_POSOBJ ||
         (TYPE_POSOBJ(t) != AVLTreeType &&
          TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
-            if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) 
+            if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L)
                 return ELM_PLIST(vals,h);
             else
                 return True;
@@ -263,7 +263,7 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
 
     /* Now check whether it is an AVLTree or not: */
-    if (TNUM_OBJ(t) != T_POSOBJ || 
+    if (TNUM_OBJ(t) != T_POSOBJ ||
         (TYPE_POSOBJ(t) != AVLTreeType &&
          TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {

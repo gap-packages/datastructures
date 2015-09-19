@@ -68,8 +68,8 @@ InstallGlobalFunction( CacheObject,
     Objectify( LinkedListCacheNodeType, r );
     c!.head := r;
     c!.memory := c!.memory + mem;
-    if c!.tail = fail then 
-        c!.tail := r; 
+    if c!.tail = fail then
+        c!.tail := r;
     else
         r!.next!.prev := r;
     fi;
@@ -86,8 +86,8 @@ InstallGlobalFunction( EnforceCachelimit,
         s := c!.tail;
         c!.memory := c!.memory - s!.mem;
         c!.tail := s!.prev;
-        if s!.prev = fail then 
-            c!.head := fail; 
+        if s!.prev = fail then
+            c!.head := fail;
         else
             s!.prev!.next := fail;
         fi;

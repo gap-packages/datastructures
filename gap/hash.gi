@@ -752,10 +752,29 @@ InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
                         GAPInfo.BytesPerVariable*(Length(x)+1)) mod data)+1;
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForTransformations,
-function(t,data)
-  return ORB_HashFunctionForPlainFlatList(t![1],data);
-end );
+if IsBound(HASH_FUNC_FOR_TRANS) then
+    InstallGlobalFunction( ORB_HashFunctionForTransformations, HASH_FUNC_FOR_TRANS);
+elif IsBound(IsTrans2Rep) and IsBound(IsTrans4Rep) then 
+  InstallGlobalFunction( ORB_HashFunctionForTransformations, 
+  function(t, data)
+    local deg;
+      deg:=DegreeOfTransformation(t);
+      if IsTrans4Rep(t) then
+        if deg<=65536 then 
+          TrimTransformation(t, deg);
+        else
+          return HashKeyBag(t,255,0,4*deg) mod data + 1;  
+        fi; 
+      fi; 
+      return HashKeyBag(t,255,0,2*deg) mod data + 1;  
+  end);
+else
+#XXX Under which circumstances would this even work?
+  InstallGlobalFunction( ORB_HashFunctionForTransformations,
+    function(t,data)
+      return ORB_HashFunctionForPlainFlatList(t![1],data);
+    end );
+fi;
 
 InstallGlobalFunction( MakeHashFunctionForPlainFlatList,
   function( len )

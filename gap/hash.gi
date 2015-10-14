@@ -770,11 +770,11 @@ InstallMethod( ChooseHashFunction, "for permutations",
   end );
 
 
-# InstallMethod( ChooseHashFunction, "for transformations",
-#  [IsTransformationRep, IsInt],
-#  function(t,hashlen)
-#    return rec( func := ORB_HashFunctionForTransformations, data := hashlen );
-#  end );
+InstallMethod( ChooseHashFunction, "for transformations",
+  [IsTransformation, IsInt],
+  function(t,hashlen)
+    return rec( func := ORB_HashFunctionForTransformations, data := hashlen );
+  end );
 
 InstallGlobalFunction( ORB_HashFunctionForIntList,
 function(v,data)

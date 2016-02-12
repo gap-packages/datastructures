@@ -1,3 +1,11 @@
+/*
+ * Datastructures: GAP package providing common datastructures.
+ * Licensed under the GPL 2 or later.
+ *
+ * This file contains an AVL tree implementation,
+ * Copyright (C) 2009-2013  Max Neunhoeffer
+ */
+
 #ifndef AVLTREE_H
 #define AVLTREE_H
 

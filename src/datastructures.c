@@ -3,22 +3,12 @@
  * Licensed under the GPL 2 or later.
  */
 
-#include <stdlib.h>
-#include <stdint.h>
+#include "datastructures.h"
 
-#include "src/compiled.h"          /* GAP headers                */
 #include "avltree.h"
 #include "hashtable.h"
 
 /*F * * * * * * * * * * * * * initialize package * * * * * * * * * * * * * * */
-
-typedef Obj (* GVarFuncType)(/*arguments*/);
-
-#define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
-  {#name, nparam, \
-   params, \
-   (GVarFuncType)name, \
-   srcfile ":Func" #name }
 
 
 

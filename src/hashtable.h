@@ -6,8 +6,10 @@
  *  Copyright (C) 2009-2013  Max Neunhoeffer
  */
 
-#ifndef __HASHTABLE_H
-#define __HASHTABLE_H
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+
+#include "src/compiled.h" /* GAP headers */
 
 extern Obj HTGrow;
 

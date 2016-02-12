@@ -9,6 +9,8 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
+#include "src/compiled.h" /* GAP headers */
+
 /* Interface for AVLTrees */
 extern Obj AVLTreeType;
 extern Obj AVLTreeTypeMutable;

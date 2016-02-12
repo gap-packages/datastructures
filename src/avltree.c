@@ -6,10 +6,7 @@
  *  Copyright (C) 2009-2013  Max Neunhoeffer
  */
 
-#include <stdlib.h>
-#include <stdint.h>
-
-#include "src/compiled.h"          /* GAP headers                */
+#include "avltree.h"
 
 #undef PACKAGE
 #undef PACKAGE_BUGREPORT

@@ -212,16 +212,6 @@ Dependencies := rec(
 
 AvailabilityTest := ReturnTrue,
 
-BannerString := Concatenation(
-    "----------------------------------------------------------------\n",
-    "Loading datastructures ", ~.Version, "\n",
-    "by ",
-    JoinStringsWithSeparator( List( Filtered( ~.Persons, r -> r.IsAuthor ),
-                                    r -> Concatenation(
-        r.FirstNames, " ", r.LastName, " (", r.WWWHome, ")\n" ) ), "   " ),
-    "For help, type: ?datastructures package \n",
-    "----------------------------------------------------------------\n" ),
-
 TestFile := "tst/testall.g",
 
 Keywords := ["data structures", "algorithms"]

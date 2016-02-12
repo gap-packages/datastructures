@@ -2,7 +2,7 @@
 ##
 ##  PackageInfo.g for the package `datastructures'               Markus Pfeiffer
 ##
-##  (created from the GAP example package, which is based on Frank L¸beck's
+##  (created from the GAP example package, which is based on Frank L√ºbeck's
 ##   PackageInfo.g template file)
 ##
 SetPackageInfo( rec(
@@ -86,12 +86,12 @@ Persons := [
        WWWHome       := "http://www.quendi.de/math.php",
        PostalAddress := Concatenation( "AG Algebra\n",
                                        "Mathematisches Institut\n",
-                                       "Justus-Liebig-Universit‰t Gieﬂen\n",
-                                       "Arndtstraﬂe 2\n",
-                                       "35392 Gieﬂen\n",
+                                       "Justus-Liebig-Universit√§t Gie√üen\n",
+                                       "Arndtstra√üe 2\n",
+                                       "35392 Gie√üen\n",
                                        "Germany" ),
-       Place         := "Gieﬂen, Germany",
-       Institution   := "Justus-Liebig-Universit‰t Gieﬂen"
+       Place         := "Gie√üen, Germany",
+       Institution   := "Justus-Liebig-Universit√§t Gie√üen"
      ),
   rec(
     IsAuthor := true,
@@ -124,15 +124,15 @@ Persons := [
     Institution   := "RWTH Aachen"
   ),
   rec(
-    LastName      := "Neunhˆffer",
+    LastName      := "Neunh√∂ffer",
     FirstNames    := "Max",
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "max@9hoeffer.de",
     WWWHome       := "http://www-groups.mcs.st-and.ac.uk/~neunhoef",
     PostalAddress := Concatenation( [
-                       "Gustav-Freytag-Straﬂe 40\n",
-                       "50354 H¸rth\n",
+                       "Gustav-Freytag-Stra√üe 40\n",
+                       "50354 H√ºrth\n",
                        "Germany" ] ),
     #Place         := "St Andrews",
     #Institution   := "University of St Andrews"

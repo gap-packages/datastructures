@@ -222,7 +222,7 @@ BannerString := Concatenation(
     "For help, type: ?datastructures package \n",
     "----------------------------------------------------------------\n" ),
 
-TestFile := "tst/testall.tst",
+TestFile := "tst/testall.g",
 
 Keywords := ["data structures", "algorithms"]
 

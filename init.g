@@ -8,10 +8,10 @@
 #R  Read the declaration files.
 ##
 
-if (not IsBound(__GAPDATA_C)) and ("datastructures" in SHOW_STAT()) then
+if (not IsBound(__DATASTRUCTURES_C)) and ("datastructures" in SHOW_STAT()) then
   LoadStaticModule("datastructures");
 fi;
-if (not IsBound(__GAPDATA_C)) and
+if (not IsBound(__DATASTRUCTURES_C)) and
    (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") <> fail) then
   LoadDynamicModule(Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so"));
 fi;

@@ -91,7 +91,7 @@ static Int InitLibrary ( StructInitInfo *module )
     }
 
     tmp = NEW_PREC(0);
-    gvar = GVarName("__GAPDATA_C"); AssGVar( gvar, tmp ); MakeReadOnlyGVar(gvar);
+    gvar = GVarName("__DATASTRUCTURES_C"); AssGVar( gvar, tmp ); MakeReadOnlyGVar(gvar);
 
     /* return success                                                      */
     return 0;
@@ -106,7 +106,7 @@ static StructInitInfo module = {
 #else
  /* type        = */ MODULE_DYNAMIC,
 #endif
- /* name        = */ "gapdata",
+ /* name        = */ "datastructures",
  /* revision_c  = */ 0,
  /* revision_h  = */ 0,
  /* version     = */ 0,
@@ -126,7 +126,7 @@ StructInitInfo * Init__Dynamic ( void )
 }
 #endif
 
-StructInitInfo * Init__orb ( void )
+StructInitInfo * Init__datastructures ( void )
 {
   return &module;
 }

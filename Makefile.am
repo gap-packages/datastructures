@@ -8,9 +8,10 @@ lib_LTLIBRARIES = datastructures.la
 datastructures_la_SOURCES = \
     src/avltree.c \
     src/avltree.h \
-    src/gapdata.c \
+    src/datastructures.c \
     src/hashtable.c \
     src/hashtable.h
+
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12
 datastructures_la_LDFLAGS = -module -avoid-version -Bsymbolic

@@ -1,5 +1,6 @@
-gap> LoadPackage("data", false);
-true
+gap> START_TEST("datastructures package: avl.tst");
+
+#
 gap> n := 10000;;
 gap> t := AVLTree();;
 gap> valList := EmptyPlist(n);;
@@ -47,3 +48,6 @@ true
 gap> ss := AVLToList(t);;
 gap> List(ss, x -> x[1]) = valSet;
 true
+
+#
+gap> STOP_TEST( "datastructures package: avl.tst", 10000);

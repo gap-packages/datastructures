@@ -9,6 +9,7 @@ datastructures_la_SOURCES = \
     src/avltree.c \
     src/avltree.h \
     src/datastructures.c \
+    src/hashfun.c \
     src/hashtable-avl.c \
     src/hashtable-avl.h
 

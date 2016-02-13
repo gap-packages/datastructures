@@ -7,12 +7,14 @@
 
 #include "avltree.h"
 #include "hashtable-avl.h"
+#include "hashfun.h"
 
 
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
     &AVLTreeModule,
     &HashTableModule,
+    &HashFunModule,
 };
 
 #define ITERATE_SUBMODULE(func) \

@@ -33,6 +33,7 @@ ReadPackage("datastructures", "gap/prioq.gd");
 ReadPackage("datastructures", "gap/lqueue.gd");
 # AVL trees
 ReadPackage("datastructures", "gap/avltree.gd");
+ReadPackage("datastructures", "gap/hashfun.gd");
 ReadPackage("datastructures", "gap/hash.gd");
 ReadPackage("datastructures", "gap/cache.gd");
 ReadPackage("datastructures", "gap/dllist.gd");

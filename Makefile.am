@@ -9,8 +9,8 @@ datastructures_la_SOURCES = \
     src/avltree.c \
     src/avltree.h \
     src/datastructures.c \
-    src/hashtable.c \
-    src/hashtable.h
+    src/hashtable-avl.c \
+    src/hashtable-avl.h
 
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12

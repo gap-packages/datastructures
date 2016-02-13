@@ -6,7 +6,7 @@
  *  Copyright (C) 2009-2013  Max Neunhoeffer
  */
 
-#include "hashtable.h"
+#include "hashtable-avl.h"
 #include "avltree.h"
 
 Obj HTGrow;         /* Operation function imported from the library */

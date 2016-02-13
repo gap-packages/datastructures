@@ -6,7 +6,7 @@
 #include "datastructures.h"
 
 #include "avltree.h"
-#include "hashtable.h"
+#include "hashtable-avl.h"
 
 
 // List of datastructure submodules

@@ -48,7 +48,6 @@ DeclareOperation( "HTGrow", [ IsHashTab, IsObject ] );
 
 DeclareOperation( "ChooseHashFunction", [IsObject, IsInt] );
 
-DeclareGlobalFunction( "ORB_HashFunctionReturn1" );
 DeclareGlobalFunction( "ORB_HashFunctionForShortGF2Vectors" );
 DeclareGlobalFunction( "ORB_HashFunctionForShort8BitVectors" );
 DeclareGlobalFunction( "ORB_HashFunctionForGF2Vectors" );
@@ -63,7 +62,9 @@ DeclareGlobalFunction( "ORB_HashFunctionModWrapper" );
 DeclareGlobalFunction( "ORB_HashFunctionForMatList" );
 DeclareGlobalFunction( "ORB_HashFunctionForPlainFlatList" );
 DeclareGlobalFunction( "ORB_HashFunctionForTransformations" );
+DeclareGlobalFunction( "ORB_HashFunctionForPartialPerms" );
 DeclareGlobalFunction( "MakeHashFunctionForPlainFlatList" );
+
 
 ##
 ##  This program is free software: you can redistribute it and/or modify

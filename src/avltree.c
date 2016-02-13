@@ -603,7 +603,6 @@ Int AVLFind( Obj t, Obj d )
 
   /* now at last we do have to rebalance at nodes[q] because the tree has
      gotten out of balance: */
-  shrink;   /* not used */
   AVLRebalance(tree,nodes[q],&p,&shrink);
 
   /* finishing touch: link new root of subtree (p) to t: */
@@ -738,7 +737,6 @@ Int AVLFind( Obj t, Obj d )
 
   /* now at last we do have to rebalance at nodes[q] because the tree has
      gotten out of balance: */
-  shrink;   /* not used */
   AVLRebalance(tree,nodes[q],&p,&shrink);
 
   /* finishing touch: link new root of subtree (p) to t: */

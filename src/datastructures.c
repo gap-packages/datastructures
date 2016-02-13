@@ -9,6 +9,7 @@
 #include "binaryheap.h"
 #include "hashtable-avl.h"
 #include "hashfun.h"
+#include "hash_pcql.h"
 
 
 // List of datastructure submodules
@@ -17,6 +18,7 @@ static struct DatastructuresModule *submodules[] = {
     &BinaryHeapModule,
     &HashTableModule,
     &HashFunModule,
+    &PCQLHashModule,
 };
 
 #define ITERATE_SUBMODULE(func) \

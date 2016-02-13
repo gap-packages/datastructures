@@ -12,6 +12,8 @@ datastructures_la_SOURCES = \
     src/binaryheap.h \
     src/datastructures.c \
     src/hashfun.c \
+    src/hash_pcql.c \
+    src/hash_pcql.h \
     src/hashtable-avl.c \
     src/hashtable-avl.h
 

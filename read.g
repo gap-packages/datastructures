@@ -23,6 +23,9 @@ ReadPackage("datastructures", "gap/dllist.gi");
 ReadPackage("datastructures", "gap/binaryheap.gi");
 ReadPackage("datastructures", "gap/pairingheap.gi");
 
+# PCQL hash
+ReadPackage("datastructures", "gap/hash_pcql.gi");
+
 
 # ReadPackage("datastructures", "gap/cache2.gi");
 

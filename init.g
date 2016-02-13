@@ -44,6 +44,10 @@ ReadPackage("datastructures", "gap/binaryheap.gi");
 # Pairing Heaps
 ReadPackage("datastructures", "gap/pairingheap.gd");
 
+# PCQL hash
+ReadPackage("datastructures", "gap/hash_pcql.gd");
+
+
 # ReadPackage("datastructures", "gap/cache2.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

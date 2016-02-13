@@ -63,7 +63,7 @@ static StructInitInfo module = {
     .postRestore = PostRestore,
 };
 
-StructInitInfo * Init__Dynamic ( void )
+StructInitInfo * Init__Dynamic( void )
 {
     return &module;
 }

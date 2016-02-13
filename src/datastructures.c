@@ -6,6 +6,7 @@
 #include "datastructures.h"
 
 #include "avltree.h"
+#include "binaryheap.h"
 #include "hashtable-avl.h"
 #include "hashfun.h"
 
@@ -13,6 +14,7 @@
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
     &AVLTreeModule,
+    &BinaryHeapModule,
     &HashTableModule,
     &HashFunModule,
 };

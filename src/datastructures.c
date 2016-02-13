@@ -56,25 +56,14 @@ static Int PostRestore( StructInitInfo *module )
 *F  InitInfopl()  . . . . . . . . . . . . . . . . . table of init functions
 */
 static StructInitInfo module = {
-#ifdef ORBSTATIC
-    .type        = MODULE_STATIC,
-#else
     .type        = MODULE_DYNAMIC,
-#endif
     .name        = "datastructures",
     .initKernel  = InitKernel,
     .initLibrary = InitLibrary,
     .postRestore = PostRestore,
 };
 
-#ifndef ORBSTATIC
 StructInitInfo * Init__Dynamic ( void )
-{
-    return &module;
-}
-#endif
-
-StructInitInfo * Init__datastructures ( void )
 {
     return &module;
 }

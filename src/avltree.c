@@ -1086,30 +1086,29 @@ Int AVLFind( Obj t, Obj d )
 }
 
 
-/******************************************************************************
-*V  GVarFuncs . . . . . . . . . . . . . . . . . . list of functions to export
-*/
-static StructGVarFunc GVarFuncs [] = {
-
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLCmp_C, 2, "a, b"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLNewNode_C, 1, "t"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFreeNode_C, 2, "tree, n"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFind_C, 2, "tree, data"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexFind_C, 2, "tree, i"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLFindIndex_C, 2, "tree, data"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLLookup_C, 2, "tree, data"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndex_C, 2, "tree, i"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexLookup_C, 2, "tree, i"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLRebalance_C, 2, "tree, q"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLAdd_C, 3, "tree, data, value"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexAdd_C, 4, "tree, data, value, index"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLDelete_C, 2, "tree, data"),
-    GVAR_FUNC_TABLE_ENTRY("avltree.c", AVLIndexDelete_C, 2, "tree, index"),
+//
+// Submodule declaration
+//
+static StructGVarFunc GVarFuncs[] = {
+    GVARFUNC("avltree.c", AVLCmp_C, 2, "a, b"),
+    GVARFUNC("avltree.c", AVLNewNode_C, 1, "t"),
+    GVARFUNC("avltree.c", AVLFreeNode_C, 2, "tree, n"),
+    GVARFUNC("avltree.c", AVLFind_C, 2, "tree, data"),
+    GVARFUNC("avltree.c", AVLIndexFind_C, 2, "tree, i"),
+    GVARFUNC("avltree.c", AVLFindIndex_C, 2, "tree, data"),
+    GVARFUNC("avltree.c", AVLLookup_C, 2, "tree, data"),
+    GVARFUNC("avltree.c", AVLIndex_C, 2, "tree, i"),
+    GVARFUNC("avltree.c", AVLIndexLookup_C, 2, "tree, i"),
+    GVARFUNC("avltree.c", AVLRebalance_C, 2, "tree, q"),
+    GVARFUNC("avltree.c", AVLAdd_C, 3, "tree, data, value"),
+    GVARFUNC("avltree.c", AVLIndexAdd_C, 4, "tree, data, value, index"),
+    GVARFUNC("avltree.c", AVLDelete_C, 2, "tree, data"),
+    GVARFUNC("avltree.c", AVLIndexDelete_C, 2, "tree, index"),
 
     { 0 }
 };
 
-static Int InitKernel( void )
+static Int InitKernel(void)
 {
     InitHdlrFuncsFromTable( GVarFuncs );
 
@@ -1119,7 +1118,7 @@ static Int InitKernel( void )
     return 0;
 }
 
-static Int InitLibrary( void )
+static Int InitLibrary(void)
 {
     InitGVarFuncsFromTable(GVarFuncs);
     return 0;

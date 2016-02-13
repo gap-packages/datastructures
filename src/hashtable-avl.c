@@ -9,7 +9,7 @@
 #include "hashtable-avl.h"
 #include "avltree.h"
 
-Obj HTGrow;         /* Operation function imported from the library */
+static Obj HTGrow;         /* Operation function imported from the library */
 
 static Int RNam_accesses = 0;
 static Int RNam_collisions = 0;
@@ -232,27 +232,26 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 }
 
 
-
-/******************************************************************************
-*V  GVarFuncs . . . . . . . . . . . . . . . . . . list of functions to export
-*/
-static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
-    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
-    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
-    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
+//
+// Submodule declaration
+//
+static StructGVarFunc GVarFuncs[] = {
+    GVARFUNC("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
+    GVARFUNC("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
 
     { 0 }
 };
 
-static Int InitKernel( void )
+static Int InitKernel(void)
 {
     InitHdlrFuncsFromTable( GVarFuncs );
     ImportFuncFromLibrary( "HTGrow", &HTGrow );
     return 0;
 }
 
-static Int PostRestore( void )
+static Int PostRestore(void)
 {
     RNam_accesses = RNamName("accesses");
     RNam_collisions = RNamName("collisions");
@@ -269,7 +268,7 @@ static Int PostRestore( void )
     return 0;
 }
 
-static Int InitLibrary( void )
+static Int InitLibrary(void)
 {
     InitGVarFuncsFromTable(GVarFuncs);
     

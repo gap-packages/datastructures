@@ -276,3 +276,35 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     SetAVLValue(t,h,v);
     return old;
 }
+
+
+
+/******************************************************************************
+*V  GVarFuncs . . . . . . . . . . . . . . . . . . list of functions to export
+*/
+static StructGVarFunc GVarFuncs [] = {
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
+    GVAR_FUNC_TABLE_ENTRY("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
+
+    { 0 }
+};
+
+static Int InitKernel( void )
+{
+    InitHdlrFuncsFromTable( GVarFuncs );
+    ImportFuncFromLibrary( "HTGrow", &HTGrow );
+    return 0;
+}
+
+static Int InitLibrary( void )
+{
+    InitGVarFuncsFromTable(GVarFuncs);
+    return 0;
+}
+
+struct DatastructuresModule HashTableModule = {
+    .initKernel  = InitKernel,
+    .initLibrary = InitLibrary,
+};

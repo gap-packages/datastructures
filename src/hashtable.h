@@ -9,7 +9,9 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include "src/compiled.h" /* GAP headers */
+#include "datastructures.h"
+
+extern struct DatastructuresModule HashTableModule;
 
 extern Obj HTGrow;
 

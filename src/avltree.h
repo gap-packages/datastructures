@@ -9,7 +9,10 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
-#include "src/compiled.h" /* GAP headers */
+#include "datastructures.h"
+
+// Submodule declaration
+extern struct DatastructuresModule AVLTreeModule;
 
 /* Interface for AVLTrees */
 extern Obj AVLTreeType;

@@ -30,3 +30,6 @@ ReadPackage("datastructures", "gap/binaryheap.gd");
 
 # Pairing heaps
 ReadPackage("datastructures", "gap/pairingheap.gd");
+
+# hashmap
+ReadPackage("datastructures", "gap/hashmap.gd");

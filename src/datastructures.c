@@ -7,10 +7,13 @@
 
 #include "binaryheap.h"
 
+#include "hashmap.h"
+
 
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
     &BinaryHeapModule,
+    &HashmapModule,
 };
 
 #define ITERATE_SUBMODULE(func) \

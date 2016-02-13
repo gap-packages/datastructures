@@ -8,6 +8,8 @@ lib_LTLIBRARIES = datastructures.la
 datastructures_la_SOURCES = \
     src/binaryheap.c \
     src/binaryheap.h \
+    src/hashmap.c \
+    src/hashmap.h \
     src/datastructures.c
 
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H

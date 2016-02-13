@@ -8,22 +8,6 @@
 
 #include "avltree.h"
 
-#undef PACKAGE
-#undef PACKAGE_BUGREPORT
-#undef PACKAGE_NAME
-#undef PACKAGE_STRING
-#undef PACKAGE_TARNAME
-#undef PACKAGE_URL
-#undef PACKAGE_VERSION
-
-#include "pkgconfig.h"             /* our own configure results */
-
-/* Note that SIZEOF_VOID_P comes from GAP's config.h whereas
- * SIZEOF_VOID_PP comes from pkgconfig.h! */
-#if SIZEOF_VOID_PP != SIZEOF_VOID_P
-#error GAPs word size is different from ours, 64bit/32bit mismatch
-#endif
-
 /* This file corresponds to orb/gap/avltree.gi, it imlements some of
  * its functionality on the C level for better performance. */
 

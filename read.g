@@ -19,6 +19,7 @@ ReadPackage("datastructures", "gap/hash.gi");
 ReadPackage("datastructures", "gap/cache.gi");
 ReadPackage("datastructures", "gap/dllist.gi");
 
+ReadPackage("datastructures", "gap/binaryheap.gi");
 ReadPackage("datastructures", "gap/pairingheap.gi");
 
 

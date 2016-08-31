@@ -11,6 +11,6 @@
 
 #include "datastructures.h"
 
-extern struct DatastructuresModule HashTableModule;
+extern struct DatastructuresModule DS_HashTableModule;
 
 #endif

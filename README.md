@@ -6,6 +6,10 @@ existing code and improving on it, in particular in view of HPC-GAP.
 
 The datastructures package consists of two parts: Interface declarations and implementations.
 
+While in the beta-phase we make no promises as to the stability of the interfaces
+or complexity promises, or documentation. Feel free to contribute your favourite datastructure
+and its implementation to this package using a pull-request.
+
 Interface Declarations
 ======================
 

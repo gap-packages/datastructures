@@ -13,7 +13,7 @@
 ##
 #############################################################################
 
-InstallGlobalFunction( InitHT, function(len, hfun, eqfun)
+InstallGlobalFunction( InitDS_HT, function(len, hfun, eqfun)
   return rec(els := [],        # the elements to hash
              vals := [],       # a value for each element, "true" not stored
              len := len,       # the length of the hash
@@ -28,7 +28,7 @@ InstallGlobalFunction( InitHT, function(len, hfun, eqfun)
             );
 end );
 
-InstallGlobalFunction( NewHT, function(sample,len)
+InstallGlobalFunction( NewDS_HT, function(sample,len)
   local eqfun,hfun,ht;
   hfun := ChooseHashFunction(sample,len);
   if hfun = fail then
@@ -37,7 +37,7 @@ InstallGlobalFunction( NewHT, function(sample,len)
   eqfun := ApplicableMethod(\=,[sample,sample]);
   if eqfun = fail then eqfun := EQ; fi;
   if len < 11 then len := 11; fi;  # to avoid complete fillup!
-  ht := InitHT(len,hfun,eqfun);
+  ht := InitDS_HT(len,hfun,eqfun);
   ht.cangrow := true;
   return ht;
 end );
@@ -63,13 +63,13 @@ InstallMethod(ViewObj, "for hash tables", [IsRecord],
     fi;
   end);
 
-InstallGlobalFunction( AddHT, function(ht, x, val)
+InstallGlobalFunction( AddDS_HT, function(ht, x, val)
   local h,g;
   ht.accesses := ht.accesses + 1;
   if ht.nr * 10 > ht.len * 8 then
     if IsBound(ht.cangrow) then
       Info(InfoDataStructures,3,"Hash table too full, growing...");
-      GrowHT(ht,x);
+      GrowDS_HT(ht,x);
     else
       Info(InfoDataStructures,1,"Hash table too full, cannot grow...");
       return fail;
@@ -90,8 +90,8 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
         if not(IsBound(ht.cangrow)) then
           ht.alert := true;
         else
-          GrowHT(ht,x);
-          return AddHT(ht,x,val);
+          GrowDS_HT(ht,x);
+          return AddDS_HT(ht,x,val);
         fi;
       fi;
     until not(IsBound(ht.els[h]));
@@ -102,7 +102,7 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
   return h;
 end );
 
-InstallGlobalFunction( ValueHT, function(ht, x)
+InstallGlobalFunction( ValueDS_HT, function(ht, x)
   local h,g;
   ht.accesses := ht.accesses + 1;
   h := ht.hf(x,ht.hfd);
@@ -126,7 +126,7 @@ InstallGlobalFunction( ValueHT, function(ht, x)
   return fail;
 end );
 
-InstallGlobalFunction( GrowHT, function(ht,x)
+InstallGlobalFunction( GrowDS_HT, function(ht,x)
   local i,oldels,oldlen,oldvals;
 
   oldels := ht.els;
@@ -138,7 +138,7 @@ InstallGlobalFunction( GrowHT, function(ht,x)
   ht.len := NextPrimeInt(ht.len * 2+1);
   Info(InfoDataStructures,2,"Growing hash table to length ",ht.len," !!!");
   if IsBound(ht.hfbig) and IsBound(ht.htdbig) then
-      ht.hf := ORB_HashFunctionModWrapper;
+      ht.hf := DS_HashFunctionModWrapper;
       ht.hfd := [ht.hfbig,ht.hfdbig,ht.len];
   else
       ht.hf := ChooseHashFunction(x,ht.len);
@@ -152,9 +152,9 @@ InstallGlobalFunction( GrowHT, function(ht,x)
   for i in [1..oldlen] do
       if IsBound(oldels[i]) then
           if IsBound(oldvals[i]) then
-              AddHT(ht,oldels[i],oldvals[i]);
+              AddDS_HT(ht,oldels[i],oldvals[i]);
           else
-              AddHT(ht,oldels[i],true);
+              AddDS_HT(ht,oldels[i],true);
           fi;
       fi;
   od;
@@ -163,31 +163,31 @@ end );
 
 # The new interface for hashes:
 
-InstallMethod( HTCreate, "for an object",
+InstallMethod( DS_HTCreate, "for an object",
   [ IsObject ],
   function( x )
-    return HTCreate(x,rec());
+    return DS_HTCreate(x,rec());
   end );
 
-InstallMethod( HTCreate, "for an object and an options record",
+InstallMethod( DS_HTCreate, "for an object and an options record",
   [ IsObject, IsRecord ],
   function( x, opt )
     local ht,ty,hfun,cangrow;
     ht := ShallowCopy(opt);
     if IsBound(ht.hashlen) then
-        ty := HashTabType;
+        ty := DS_HashTabType;
         ht.len := ht.hashlen;
     elif IsBound(ht.treehashsize) then
-        ty := TreeHashTabType;
+        ty := DS_TreeHashTabType;
         ht.len := ht.treehashsize;
     elif IsBound(ht.treehashtab) then
-        ty := TreeHashTabType;
+        ty := DS_TreeHashTabType;
         ht.len := 100003;
     elif IsBound(ht.hashtab) then
-        ty := HashTabType;
+        ty := DS_HashTabType;
         ht.len := 10007;
     else
-        ty := TreeHashTabType;
+        ty := DS_TreeHashTabType;
         ht.len := 100003;
     fi;
 
@@ -210,7 +210,7 @@ InstallMethod( HTCreate, "for an object and an options record",
     ht.vals := [];
     ht.nr := 0;
     if IsBound(ht.forflatplainlists) then
-        ht.hf := ORB_HashFunctionForPlainFlatList;
+        ht.hf := DS_HashFunctionForPlainFlatList;
         ht.hfd := ht.len;
         ht.cangrow := cangrow;
     elif not(IsBound(ht.hf) and IsBound(ht.hfd)) then
@@ -227,10 +227,10 @@ InstallMethod( HTCreate, "for an object and an options record",
     fi;
     ht.collisions := 0;
     ht.accesses := 0;
-    if IsIdenticalObj(ty,TreeHashTabType) and not(IsBound(ht.cmpfunc)) then
-        ht.cmpfunc := AVLCmp;
+    if IsIdenticalObj(ty,DS_TreeHashTabType) and not(IsBound(ht.cmpfunc)) then
+        ht.cmpfunc := DS_AVLCmp;
     fi;
-    if IsIdenticalObj(ty,HashTabType) and not(IsBound(ht.eqf)) then
+    if IsIdenticalObj(ty,DS_HashTabType) and not(IsBound(ht.eqf)) then
         ht.eqf := EQ;
     fi;
     Objectify(ty,ht);
@@ -240,7 +240,7 @@ InstallMethod( HTCreate, "for an object and an options record",
 # We first to tree hashes and then standard hash tables:
 
 InstallMethod(ViewObj, "for tree hash tables",
-  [IsHashTab and IsTreeHashTabRep],
+  [IsDS_HashTab and IsDS_TreeHashTabRep],
   function(ht)
     Print("<tree hash table len=",ht!.len," used=",ht!.nr," colls=",
           ht!.collisions," accs=",ht!.accesses);
@@ -251,14 +251,14 @@ InstallMethod(ViewObj, "for tree hash tables",
     fi;
   end);
 
-InstallMethod( HTAdd, "for a tree hash table, an object and a value",
-  [ IsTreeHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTAdd, "for a tree hash table, an object and a value",
+  [ IsDS_TreeHashTabRep, IsObject, IsObject ],
   function(ht, x, val)
     local h,t,r;
     ht!.accesses := ht!.accesses + 1;
     if ht!.cangrow and ht!.nr > ht!.len * 10 then
         Info(InfoDataStructures,3,"Tree hash table too full, growing...");
-        HTGrow(ht,x);
+        DS_HTGrow(ht,x);
     fi;
     h := ht!.hf(x,ht!.hfd);
     if not(IsBound(ht!.els[h])) then
@@ -269,21 +269,21 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
     fi;
     ht!.collisions := ht!.collisions + 1;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         # Exactly one element there!
-        t := AVLTree(rec(cmpfunc := ht!.cmpfunc, allocsize := 3));
+        t := DS_AVLTree(rec(cmpfunc := ht!.cmpfunc, allocsize := 3));
         if IsBound(ht!.vals[h]) then
-            AVLAdd(t,ht!.els[h],ht!.vals[h]);
+            DS_AVLAdd(t,ht!.els[h],ht!.vals[h]);
             Unbind(ht!.vals[h]);
         else
-            AVLAdd(t,ht!.els[h],true);
+            DS_AVLAdd(t,ht!.els[h],true);
         fi;
         ht!.els[h] := t;
     fi;
     if val <> true then
-        r := AVLAdd(t,x,val);
+        r := DS_AVLAdd(t,x,val);
     else
-        r := AVLAdd(t,x,true);
+        r := DS_AVLAdd(t,x,true);
     fi;
     if r <> fail then
         ht!.nr := ht!.nr + 1;
@@ -292,16 +292,16 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
         return fail;
     fi;
 end );
-if IsBound(HTAdd_TreeHash_C) then
-    InstallMethod( HTAdd,
+if IsBound(DS_HTAdd_TreeHash_C) then
+    InstallMethod( DS_HTAdd,
       "for a tree hash table, an object and a value (C version)",
-      [ IsTreeHashTabRep, IsObject, IsObject ], 1,
-      HTAdd_TreeHash_C );
+      [ IsDS_TreeHashTabRep, IsObject, IsObject ], 1,
+      DS_HTAdd_TreeHash_C );
 fi;
 
 
-InstallMethod( HTValue, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject ],
+InstallMethod( DS_HTValue, "for a tree hash table and an object",
+  [ IsDS_TreeHashTabRep, IsObject ],
   function(ht, x)
     local h,t;
     ht!.accesses := ht!.accesses + 1;
@@ -310,7 +310,7 @@ InstallMethod( HTValue, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 return ht!.vals[h];
@@ -320,16 +320,16 @@ InstallMethod( HTValue, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    return AVLLookup(t,x);
+    return DS_AVLLookup(t,x);
 end );
-if IsBound(HTValue_TreeHash_C) then
-    InstallMethod( HTValue, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject ], 1,
-      HTValue_TreeHash_C );
+if IsBound(DS_HTValue_TreeHash_C) then
+    InstallMethod( DS_HTValue, "for a tree hash table and an object (C version)",
+      [ IsDS_TreeHashTabRep, IsObject ], 1,
+      DS_HTValue_TreeHash_C );
 fi;
 
-InstallMethod( HTDelete, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject ],
+InstallMethod( DS_HTDelete, "for a tree hash table and an object",
+  [ IsDS_TreeHashTabRep, IsObject ],
   function(ht, x)
     local h,t,v;
     h := ht!.hf(x,ht!.hfd);
@@ -337,7 +337,7 @@ InstallMethod( HTDelete, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 v := ht!.vals[h];
@@ -351,18 +351,18 @@ InstallMethod( HTDelete, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    v := AVLDelete(t,x);
+    v := DS_AVLDelete(t,x);
     if v <> fail then ht!.nr := ht!.nr - 1; fi;
     return v;
 end );
-if IsBound(HTDelete_TreeHash_C) then
-    InstallMethod( HTDelete, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject ], 1,
-      HTDelete_TreeHash_C );
+if IsBound(DS_HTDelete_TreeHash_C) then
+    InstallMethod( DS_HTDelete, "for a tree hash table and an object (C version)",
+      [ IsDS_TreeHashTabRep, IsObject ], 1,
+      DS_HTDelete_TreeHash_C );
 fi;
 
-InstallMethod( HTUpdate, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTUpdate, "for a tree hash table and an object",
+  [ IsDS_TreeHashTabRep, IsObject, IsObject ],
   function( ht, x, v )
     local h,t,o;
     h := ht!.hf(x,ht!.hfd);
@@ -370,7 +370,7 @@ InstallMethod( HTUpdate, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 o := ht!.vals[h];
@@ -382,22 +382,22 @@ InstallMethod( HTUpdate, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    h := AVLFind(t,x);
+    h := DS_AVLFind(t,x);
     if h = fail then return fail; fi;
-    o := AVLValue(t,h);
-    AVLSetValue(t,h,v);
+    o := DS_AVLValue(t,h);
+    DS_AVLSetValue(t,h,v);
     return o;
 end );
-if IsBound(HTUpdate_TreeHash_C) then
-    InstallMethod( HTUpdate, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject, IsObject ], 1,
-      HTUpdate_TreeHash_C );
+if IsBound(DS_HTUpdate_TreeHash_C) then
+    InstallMethod( DS_HTUpdate, "for a tree hash table and an object (C version)",
+      [ IsDS_TreeHashTabRep, IsObject, IsObject ], 1,
+      DS_HTUpdate_TreeHash_C );
 fi;
 
 # Now standard hash tables with the new interface:
 
 InstallMethod(ViewObj, "for hash tables",
-  [IsHashTab and IsHashTabRep],
+  [IsDS_HashTab and IsDS_HashTabRep],
   function(ht)
     Print("<hash table obj len=",ht!.len," used=",ht!.nr," colls=",
           ht!.collisions," accs=",ht!.accesses);
@@ -410,15 +410,15 @@ InstallMethod(ViewObj, "for hash tables",
     fi;
   end);
 
-InstallMethod(HTAdd, "for a hash table, an object and a value",
-  [ IsHashTabRep, IsObject, IsObject ],
+InstallMethod(DS_HTAdd, "for a hash table, an object and a value",
+  [ IsDS_HashTabRep, IsObject, IsObject ],
   function(ht, x, val)
     local h,g;
     ht!.accesses := ht!.accesses + 1;
     if ht!.nr * 10 > ht!.len * 8 then
       if IsBound(ht!.cangrow) then
         Info(InfoDataStructures,3,"Hash table too full, growing...");
-        HTGrow(ht,x);
+        DS_HTGrow(ht,x);
       else
         Info(InfoDataStructures,1,"Hash table too full, cannot grow...");
         return fail;
@@ -440,8 +440,8 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
           if not(IsBound(ht!.cangrow)) then
             ht!.alert := true;
           else
-            HTGrow(ht,x);
-            return HTAdd(ht,x,val);
+            DS_HTGrow(ht,x);
+            return DS_HTAdd(ht,x,val);
           fi;
         fi;
       until not(IsBound(ht!.els[h]));
@@ -452,8 +452,8 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
     return h;
 end );
 
-InstallMethod( HTValue, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTValue, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
   function(ht, x)
     local h,g;
     ht!.accesses := ht!.accesses + 1;
@@ -478,15 +478,15 @@ InstallMethod( HTValue, "for a hash table and an object",
     return fail;
 end );
 
-InstallMethod( HTDelete, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTDelete, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
   function( ht, x )
-    Error("Hash tables do not support HTDelete, use a tree hash table");
+    Error("Hash tables do not support DS_HTDelete, use a tree hash table");
     return fail;
   end );
 
-InstallMethod( HTUpdate, "for a hash table, an object and a value",
-  [ IsHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTUpdate, "for a hash table, an object and a value",
+  [ IsDS_HashTabRep, IsObject, IsObject ],
   function( ht, x, v )
     local old,h,g;
 
@@ -515,8 +515,8 @@ InstallMethod( HTUpdate, "for a hash table, an object and a value",
     return fail;
 end );
 
-InstallMethod( HTGrow, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject],
+InstallMethod( DS_HTGrow, "for a tree hash table and an object",
+  [ IsDS_TreeHashTabRep, IsObject],
   function(ht,x)
     local i,j,oldels,oldlen,oldvals,pos,t;
     oldels := ht!.els;
@@ -531,7 +531,7 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
     if IsBound(ht!.forflatplainlists) then
         ht!.hfd := ht!.len;
     elif IsBound(ht!.hfbig) and IsBound(ht!.htdbig) then
-        ht!.hf := ORB_HashFunctionModWrapper;
+        ht!.hf := DS_HashFunctionModWrapper;
         ht!.hfd := [ht!.hfbig,ht!.hfdbig,ht!.len];
     else
         ht!.hf := ChooseHashFunction(x,ht!.len);
@@ -545,24 +545,24 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
     for i in [1..oldlen] do
         if IsBound(oldels[i]) then
             t := oldels[i];
-            if not(IsAVLTree(t)) then
+            if not(IsDS_AVLTree(t)) then
                 if IsBound(oldvals[i]) then
-                    HTAdd(ht,t,oldvals[i]);
+                    DS_HTAdd(ht,t,oldvals[i]);
                 else
-                    HTAdd(ht,t,true);
+                    DS_HTAdd(ht,t,true);
                 fi;
             else
                 for j in [1..Length(t)] do
-                    pos := AVLIndexFind(t,j);
-                    HTAdd(ht,AVLData(t,pos),AVLValue(t,pos));
+                    pos := DS_AVLIndexFind(t,j);
+                    DS_HTAdd(ht,DS_AVLData(t,pos),DS_AVLValue(t,pos));
                 od;
             fi;
         fi;
     od;
   end );
 
-InstallMethod( HTGrow, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTGrow, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
 function(ht,x)
   local i,oldels,oldlen,oldvals;
 
@@ -577,7 +577,7 @@ function(ht,x)
   if IsBound(ht!.forflatplainlists) then
       ht!.hfd := ht!.len;
   elif IsBound(ht!.hfbig) and IsBound(ht!.htdbig) then
-      ht!.hf := ORB_HashFunctionModWrapper;
+      ht!.hf := DS_HashFunctionModWrapper;
       ht!.hfd := [ht!.hfbig,ht!.hfdbig,ht!.len];
   else
       ht!.hf := ChooseHashFunction(x,ht!.len);
@@ -591,9 +591,9 @@ function(ht,x)
   for i in [1..oldlen] do
       if IsBound(oldels[i]) then
           if IsBound(oldvals[i]) then
-              HTAdd(ht,oldels[i],oldvals[i]);
+              DS_HTAdd(ht,oldels[i],oldvals[i]);
           else
-              HTAdd(ht,oldels[i],true);
+              DS_HTAdd(ht,oldels[i],true);
           fi;
       fi;
   od;
@@ -603,22 +603,22 @@ end );
 
 # First a few hash functions:
 
-InstallGlobalFunction( ORB_HashFunctionForShortGF2Vectors,
+InstallGlobalFunction( DS_HashFunctionForShortGF2Vectors,
 function(v,data)
   return NumberFFVector(v,2) mod data[1] + 1;
 end );
 
-InstallGlobalFunction( ORB_HashFunctionForShort8BitVectors,
+InstallGlobalFunction( DS_HashFunctionForShort8BitVectors,
 function(v,data)
   return NumberFFVector(v,data[2]) mod data[1] + 1;
 end );
 
-InstallGlobalFunction( ORB_HashFunctionForGF2Vectors,
+InstallGlobalFunction( DS_HashFunctionForGF2Vectors,
 function(v,data)
   return HashKeyBag(v,101,2*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
 end );
 
-InstallGlobalFunction( ORB_HashFunctionFor8BitVectors,
+InstallGlobalFunction( DS_HashFunctionFor8BitVectors,
 function(v,data)
   return HashKeyBag(v,101,3*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
 end );
@@ -640,10 +640,10 @@ InstallMethod( ChooseHashFunction, "for compressed gf2 vectors",
     # "official" length, therefore we *must not* use the last, half-used
     # byte. This inevitably leads to collisions!
     if bytelen <= 8 then
-        return rec( func := ORB_HashFunctionForShortGF2Vectors,
+        return rec( func := DS_HashFunctionForShortGF2Vectors,
                     data := [hashlen] );
     else
-        return rec( func := ORB_HashFunctionForGF2Vectors,
+        return rec( func := DS_HashFunctionForGF2Vectors,
                     data := [hashlen,bytelen] );
     fi;
   end );
@@ -665,15 +665,15 @@ InstallMethod( ChooseHashFunction, "for compressed 8bit vectors",
     # "official" length, therefore we *must not* use the last, half-used
     # byte. This inevitably leads to collisions!
     if bytelen <= 8 then
-        return rec( func := ORB_HashFunctionForShort8BitVectors,
+        return rec( func := DS_HashFunctionForShort8BitVectors,
                     data := [hashlen,q] );
     else
-        return rec( func := ORB_HashFunctionFor8BitVectors,
+        return rec( func := DS_HashFunctionFor8BitVectors,
                     data := [hashlen,bytelen] );
     fi;
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForCompressedMats,
+InstallGlobalFunction( DS_HashFunctionForCompressedMats,
 function(x,data)
   local i,res;
   res := 0;
@@ -689,7 +689,7 @@ InstallMethod( ChooseHashFunction, "for compressed gf2 matrices",
     local data;
     data := [hashlen,ChooseHashFunction(p[1],hashlen),
              PowerMod(2,Length(p[1]),hashlen)];
-    return rec( func := ORB_HashFunctionForCompressedMats,
+    return rec( func := DS_HashFunctionForCompressedMats,
                 data := data );
   end );
 
@@ -700,21 +700,21 @@ InstallMethod( ChooseHashFunction, "for compressed 8bit matrices",
     q := Q_VEC8BIT(p[1]);
     data := [hashlen,ChooseHashFunction(p[1],hashlen),
              PowerMod(q,Length(p[1]),hashlen)];
-    return rec( func := ORB_HashFunctionForCompressedMats,
+    return rec( func := DS_HashFunctionForCompressedMats,
                 data := data );
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForIntegers,
+InstallGlobalFunction( DS_HashFunctionForIntegers,
 function(x,data)
   return x mod data[1] + 1;
 end );
 
 InstallMethod( ChooseHashFunction, "for integers", [IsInt,IsInt],
   function(p,hashlen)
-    return rec( func := ORB_HashFunctionForIntegers, data := [hashlen] );
+    return rec( func := DS_HashFunctionForIntegers, data := [hashlen] );
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForMemory,
+InstallGlobalFunction( DS_HashFunctionForMemory,
 function(x,data)
   return data[1](x!.el,data[2]);
 end );
@@ -724,10 +724,10 @@ InstallMethod( ChooseHashFunction, "for memory objects",
   function(p,hashlen)
     local hf;
     hf := ChooseHashFunction(p!.el,hashlen);
-    return rec( func := ORB_HashFunctionForMemory, data := [hf.func,hf.data] );
+    return rec( func := DS_HashFunctionForMemory, data := [hf.func,hf.data] );
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForPermutations,
+InstallGlobalFunction( DS_HashFunctionForPermutations,
 function(p,data)
   local l;
   l:=LARGEST_MOVED_POINT_PERM(p);
@@ -746,16 +746,16 @@ function(p,data)
    return HashKeyBag(p,255,0,2*l) mod data + 1;
 end );
 
-InstallGlobalFunction( ORB_HashFunctionForPlainFlatList,
+InstallGlobalFunction( DS_HashFunctionForPlainFlatList,
   function( x, data )
     return (HashKeyBag( x, 0, 0,
                         GAPInfo.BytesPerVariable*(Length(x)+1)) mod data)+1;
   end );
 
 if IsBound(HASH_FUNC_FOR_TRANS) then
-    InstallGlobalFunction( ORB_HashFunctionForTransformations, HASH_FUNC_FOR_TRANS);
+    InstallGlobalFunction( DS_HashFunctionForTransformations, HASH_FUNC_FOR_TRANS);
 elif IsBound(IsTrans2Rep) and IsBound(IsTrans4Rep) then 
-  InstallGlobalFunction( ORB_HashFunctionForTransformations, 
+  InstallGlobalFunction( DS_HashFunctionForTransformations, 
   function(t, data)
     local deg;
       deg:=DegreeOfTransformation(t);
@@ -770,32 +770,32 @@ elif IsBound(IsTrans2Rep) and IsBound(IsTrans4Rep) then
   end);
 else
 #XXX Under which circumstances would this even work?
-  InstallGlobalFunction( ORB_HashFunctionForTransformations,
+  InstallGlobalFunction( DS_HashFunctionForTransformations,
     function(t,data)
-      return ORB_HashFunctionForPlainFlatList(t![1],data);
+      return DS_HashFunctionForPlainFlatList(t![1],data);
     end );
 fi;
 
-InstallGlobalFunction( MakeHashFunctionForPlainFlatList,
+InstallGlobalFunction( DS_MakeHashFunctionForPlainFlatList,
   function( len )
-    return rec( func := ORB_HashFunctionForPlainFlatList,
+    return rec( func := DS_HashFunctionForPlainFlatList,
                 data := len );
   end );
 
 InstallMethod( ChooseHashFunction, "for permutations",
   [IsPerm, IsInt],
   function(p,hashlen)
-    return rec( func := ORB_HashFunctionForPermutations, data := hashlen );
+    return rec( func := DS_HashFunctionForPermutations, data := hashlen );
   end );
 
 
 InstallMethod( ChooseHashFunction, "for transformations",
   [IsTransformation, IsInt],
   function(t,hashlen)
-    return rec( func := ORB_HashFunctionForTransformations, data := hashlen );
+    return rec( func := DS_HashFunctionForTransformations, data := hashlen );
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForIntList,
+InstallGlobalFunction( DS_HashFunctionForIntList,
 function(v,data)
   local i,res;
   res := 0;
@@ -809,28 +809,28 @@ InstallMethod( ChooseHashFunction, "for short int lists",
   [IsList, IsInt],
   function(p,hashlen)
     if ForAll(p,IsInt) then
-        return rec(func := ORB_HashFunctionForIntList, data := [101,hashlen]);
+        return rec(func := DS_HashFunctionForIntList, data := [101,hashlen]);
     fi;
     TryNextMethod();
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForNBitsPcWord,
+InstallGlobalFunction( DS_HashFunctionForNBitsPcWord,
 function(v,data)
-  return ORB_HashFunctionForIntList(ExtRepOfObj(v),data);
+  return DS_HashFunctionForIntList(ExtRepOfObj(v),data);
 end );
 
 InstallMethod( ChooseHashFunction, "for N bits Pc word rep",
   [IsNBitsPcWordRep, IsInt],
   function(p,hashlen)
-    return rec(func := ORB_HashFunctionForNBitsPcWord, data := [101,hashlen]);
+    return rec(func := DS_HashFunctionForNBitsPcWord, data := [101,hashlen]);
   end );
 
-InstallGlobalFunction( ORB_HashFunctionModWrapper,
+InstallGlobalFunction( DS_HashFunctionModWrapper,
   function(p,data)
     return data[1](p,data[2]) mod data[3];
   end );
 
-InstallGlobalFunction( ORB_HashFunctionForMatList,
+InstallGlobalFunction( DS_HashFunctionForMatList,
   function(ob,data)
     local i,m,res;
     res := 0;
@@ -847,7 +847,7 @@ InstallMethod( ChooseHashFunction, "for lists of matrices",
     local r;
     if ForAll(l,IsMatrix) then
         r := ChooseHashFunction( l[1], hashlen );
-        return rec( func := ORB_HashFunctionForMatList,
+        return rec( func := DS_HashFunctionForMatList,
                     data := [101,hashlen,r] );
     fi;
     TryNextMethod();
@@ -861,7 +861,7 @@ InstallMethod( ChooseHashFunction,
     if NestingDepthA(l) = 1 and Length(l) > 0 and IsFFE(l[1]) then
         f := Field(l);
         q := Size(f);
-        return rec( func := ORB_HashFunctionForShort8BitVectors,
+        return rec( func := DS_HashFunctionForShort8BitVectors,
                     data := [hashlen,q] );
     fi;
     TryNextMethod();

@@ -18,23 +18,23 @@
 # Generic caching code:
 ########################
 
-BindGlobal( "CacheNodesFamily", NewFamily( "CacheNodesFamily" ) );
-BindGlobal( "CachesFamily", CollectionsFamily( CacheNodesFamily ) );
+BindGlobal( "DS_CacheNodesFamily", NewFamily( "DS_CacheNodesFamily" ) );
+BindGlobal( "DS_CachesFamily", CollectionsFamily( DS_CacheNodesFamily ) );
 
-DeclareCategory("IsCache", IsNonAtomicComponentObjectRep);
-DeclareRepresentation("IsLinkedListCacheRep", IsCache,
+DeclareCategory("IsDS_Cache", IsNonAtomicComponentObjectRep);
+DeclareRepresentation("IsDS_LinkedListCacheRep", IsDS_Cache,
   [ "head", "tail", "nrobs", "memory", "memorylimit" ]);
-DeclareCategory("IsCacheNode", IsNonAtomicComponentObjectRep);
-DeclareRepresentation("IsLinkedListCacheNodeRep", IsCacheNode,
+DeclareCategory("IsDS_CacheNode", IsNonAtomicComponentObjectRep);
+DeclareRepresentation("IsDS_LinkedListCacheNodeRep", IsDS_CacheNode,
   [ "next", "prev", "ob", "mem" ] );
-BindGlobal( "LinkedListCacheNodeType",
-  NewType( CacheNodesFamily, IsLinkedListCacheNodeRep and IsMutable) );
+BindGlobal( "DS_LinkedListCacheNodeType",
+  NewType( DS_CacheNodesFamily, IsDS_LinkedListCacheNodeRep and IsMutable) );
 
-DeclareOperation("LinkedListCache", [IsInt]);
-DeclareOperation("ClearCache", [IsCache]);
-DeclareGlobalFunction("CacheObject");
-DeclareGlobalFunction("EnforceCachelimit");
-DeclareGlobalFunction("UseCacheObject");
+DeclareOperation("DS_LinkedListCache", [IsInt]);
+DeclareOperation("DS_ClearCache", [IsDS_Cache]);
+DeclareGlobalFunction("DS_CacheObject");
+DeclareGlobalFunction("DS_EnforceCachelimit");
+DeclareGlobalFunction("DS_UseCacheObject");
 
 
 ##

@@ -13,9 +13,9 @@ PackageName := "datastructures",
 ##  one line.
 Subtitle := "datastructures is a collection of standard data structures for the GAP programming language",
 
-Version := "0.0.0",
+Version := "0.0.1",
 ##
-Date := "31/12/2013",
+Date := "31/08/2016",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
@@ -24,10 +24,7 @@ Date := "31/12/2013",
 ##  <!ENTITY RELEASEDATE "31 December 2013">
 ##  <#/GAPDoc>
 
-PackageWWWHome :=
-  Concatenation( "http://www-groups.mcs.st-andrews.ac.uk/~markusp/",
-      LowercaseString( ~.PackageName ), "/" ),
-
+PackageWWWHome := "http://datastructures.github.io/",
 ArchiveURL := Concatenation( ~.PackageWWWHome, "datastructures-", ~.Version ),
 
 ArchiveFormats := ".tar.gz",

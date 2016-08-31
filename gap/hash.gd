@@ -18,52 +18,53 @@
 # Generic hashing code:
 ########################
 
-DeclareGlobalFunction( "InitHT" );
-DeclareGlobalFunction( "NewHT" );
-DeclareGlobalFunction( "AddHT" );
-DeclareGlobalFunction( "ValueHT" );
-DeclareGlobalFunction( "GrowHT" );
+DeclareGlobalFunction( "InitDS_HT" );
+DeclareGlobalFunction( "NewDS_HT" );
+DeclareGlobalFunction( "AddDS_HT" );
+DeclareGlobalFunction( "ValueDS_HT" );
+DeclareGlobalFunction( "GrowDS_HT" );
 
-BindGlobal( "HashTabFamily", NewFamily("HashTabFamily") );
-DeclareCategory( "IsHashTab", IsNonAtomicComponentObjectRep and
+BindGlobal( "DS_HashTabFamily", NewFamily("DS_HashTabFamily") );
+DeclareCategory( "IsDS_HashTab", IsNonAtomicComponentObjectRep and
                               IsComponentObjectRep);
-DeclareRepresentation( "IsHashTabRep", IsHashTab, [] );
-DeclareRepresentation( "IsTreeHashTabRep", IsHashTab, [] );
-BindGlobal( "HashTabType", NewType(HashTabFamily,IsHashTabRep and IsMutable) );
-BindGlobal( "TreeHashTabType",
-  NewType(HashTabFamily,IsTreeHashTabRep and IsMutable) );
+DeclareRepresentation( "IsDS_HashTabRep", IsDS_HashTab, [] );
+DeclareRepresentation( "IsDS_TreeHashTabRep", IsDS_HashTab, [] );
+BindGlobal( "DS_HashTabType", NewType(DS_HashTabFamily,IsDS_HashTabRep and IsMutable) );
+BindGlobal( "DS_TreeHashTabType",
+  NewType(DS_HashTabFamily,IsDS_TreeHashTabRep and IsMutable) );
 
-DeclareOperation( "HTCreate", [ IsObject, IsRecord ] );
-DeclareOperation( "HTCreate", [ IsObject ] );
-DeclareOperation( "HTAdd", [ IsHashTab, IsObject, IsObject ] );
-DeclareOperation( "HTValue", [ IsHashTab, IsObject ] );
-DeclareOperation( "HTDelete", [ IsHashTab, IsObject ] );
-DeclareOperation( "HTUpdate", [ IsHashTab, IsObject, IsObject ] );
-DeclareOperation( "HTGrow", [ IsHashTab, IsObject ] );
+DeclareOperation( "DS_HTCreate", [ IsObject, IsRecord ] );
+DeclareOperation( "DS_HTCreate", [ IsObject ] );
+DeclareOperation( "DS_HTAdd", [ IsDS_HashTab, IsObject, IsObject ] );
+DeclareOperation( "DS_HTValue", [ IsDS_HashTab, IsObject ] );
+DeclareOperation( "DS_HTDelete", [ IsDS_HashTab, IsObject ] );
+DeclareOperation( "DS_HTUpdate", [ IsDS_HashTab, IsObject, IsObject ] );
+DeclareOperation( "DS_HTGrow", [ IsDS_HashTab, IsObject ] );
 
 
 #########################################################################
 # Infrastructure for choosing hash functions looking at example objects:
 #########################################################################
 
+# Duplicate in ORB, but probably fine to leave this name
 DeclareOperation( "ChooseHashFunction", [IsObject, IsInt] );
 
-DeclareGlobalFunction( "ORB_HashFunctionReturn1" );
-DeclareGlobalFunction( "ORB_HashFunctionForShortGF2Vectors" );
-DeclareGlobalFunction( "ORB_HashFunctionForShort8BitVectors" );
-DeclareGlobalFunction( "ORB_HashFunctionForGF2Vectors" );
-DeclareGlobalFunction( "ORB_HashFunctionFor8BitVectors" );
-DeclareGlobalFunction( "ORB_HashFunctionForCompressedMats" );
-DeclareGlobalFunction( "ORB_HashFunctionForIntegers" );
-DeclareGlobalFunction( "ORB_HashFunctionForMemory" );
-DeclareGlobalFunction( "ORB_HashFunctionForPermutations" );
-DeclareGlobalFunction( "ORB_HashFunctionForIntList" );
-DeclareGlobalFunction( "ORB_HashFunctionForNBitsPcWord" );
-DeclareGlobalFunction( "ORB_HashFunctionModWrapper" );
-DeclareGlobalFunction( "ORB_HashFunctionForMatList" );
-DeclareGlobalFunction( "ORB_HashFunctionForPlainFlatList" );
-DeclareGlobalFunction( "ORB_HashFunctionForTransformations" );
-DeclareGlobalFunction( "MakeHashFunctionForPlainFlatList" );
+DeclareGlobalFunction( "DS_HashFunctionReturn1" );
+DeclareGlobalFunction( "DS_HashFunctionForShortGF2Vectors" );
+DeclareGlobalFunction( "DS_HashFunctionForShort8BitVectors" );
+DeclareGlobalFunction( "DS_HashFunctionForGF2Vectors" );
+DeclareGlobalFunction( "DS_HashFunctionFor8BitVectors" );
+DeclareGlobalFunction( "DS_HashFunctionForCompressedMats" );
+DeclareGlobalFunction( "DS_HashFunctionForIntegers" );
+DeclareGlobalFunction( "DS_HashFunctionForMemory" );
+DeclareGlobalFunction( "DS_HashFunctionForPermutations" );
+DeclareGlobalFunction( "DS_HashFunctionForIntList" );
+DeclareGlobalFunction( "DS_HashFunctionForNBitsPcWord" );
+DeclareGlobalFunction( "DS_HashFunctionModWrapper" );
+DeclareGlobalFunction( "DS_HashFunctionForMatList" );
+DeclareGlobalFunction( "DS_HashFunctionForPlainFlatList" );
+DeclareGlobalFunction( "DS_HashFunctionForTransformations" );
+DeclareGlobalFunction( "DS_MakeHashFunctionForPlainFlatList" );
 
 ##
 ##  This program is free software: you can redistribute it and/or modify

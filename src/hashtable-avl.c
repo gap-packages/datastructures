@@ -2,14 +2,14 @@
  * Datastructures: GAP package providing common datastructures.
  * Licensed under the GPL 2 or later.
  *
- * This file contains a (pseudo) hash table based on an AVL tree,
+ * This file contains a (pseudo) hash table based on an DS_AVL tree,
  *  Copyright (C) 2009-2013  Max Neunhoeffer
  */
 
 #include "hashtable-avl.h"
 #include "avltree.h"
 
-static Obj HTGrow;         /* Operation function imported from the library */
+static Obj DS_HTGrow;         /* Operation function imported from the library */
 
 static Int RNam_accesses = 0;
 static Int RNam_collisions = 0;
@@ -23,7 +23,7 @@ static Int RNam_allocsize = 0;
 static Int RNam_cangrow = 0;
 static Int RNam_len = 0;
 
-Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj DS_HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -41,7 +41,7 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     if (ElmPRec(ht,RNam_cangrow) == True &&
         INT_INTOBJ(ElmPRec(ht,RNam_nr))/10 > INT_INTOBJ(ElmPRec(ht,RNam_len)))
     {
-        CALL_2ARGS(HTGrow,ht,x);
+        CALL_2ARGS(DS_HTGrow,ht,x);
     }
 
     /* Compute hash value: */
@@ -66,19 +66,19 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     AssPRec(ht,RNam_collisions,
             INTOBJ_INT(INT_INTOBJ(ElmPRec(ht,RNam_collisions))+1));
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(tmp) != T_POSOBJ ||
-        (TYPE_POSOBJ(tmp) != AVLTreeTypeMutable &&
-         TYPE_POSOBJ(tmp) != AVLTreeType)) {
+        (TYPE_POSOBJ(tmp) != DS_AVLTreeTypeMutable &&
+         TYPE_POSOBJ(tmp) != DS_AVLTreeType)) {
         r = NEW_PREC(2);   /* This might trigger a garbage collection */
         AssPRec(r,RNam_cmpfunc,ElmPRec(ht,RNam_cmpfunc));
         AssPRec(r,RNam_allocsize,INTOBJ_INT(3));
-        t = CALL_1ARGS(AVLTree,r);
+        t = CALL_1ARGS(DS_AVLTree,r);
         if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
-            AVLAdd_C(self,t,tmp,ELM_PLIST(vals,h));
+            DS_AVLAdd_C(self,t,tmp,ELM_PLIST(vals,h));
             UNB_LIST(vals,h);
         } else {
-            AVLAdd_C(self,t,tmp,True);
+            DS_AVLAdd_C(self,t,tmp,True);
         }
         SET_ELM_PLIST(els,h,t);
         CHANGED_BAG(els);
@@ -86,9 +86,9 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 
     /* Finally add value into tree: */
     if (v != True) {
-        r = AVLAdd_C(self,t,x,v);
+        r = DS_AVLAdd_C(self,t,x,v);
     } else {
-        r = AVLAdd_C(self,t,x,True);
+        r = DS_AVLAdd_C(self,t,x,True);
     }
 
     if (r != Fail) {
@@ -98,7 +98,7 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
 }
 
-Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj DS_HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -124,10 +124,10 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L)
                 return ELM_PLIST(vals,h);
@@ -137,12 +137,12 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
         return Fail;
     }
 
-    h = AVLFind(t,x);
+    h = DS_AVLFind(t,x);
     if (h == 0) return Fail;
-    return AVLValue(t,h);
+    return DS_AVLValue(t,h);
 }
 
-Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj DS_HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -164,10 +164,10 @@ Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
                 v = ELM_PLIST(vals,h);
@@ -180,14 +180,14 @@ Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
         return Fail;
     }
 
-    v = AVLDelete_C(self,t,x);
+    v = DS_AVLDelete_C(self,t,x);
     if (v != Fail)
         AssPRec(ht,RNam_nr,INTOBJ_INT(INT_INTOBJ(ElmPRec(ht,RNam_nr))-1));
 
     return v;
 }
 
-Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj DS_HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -209,10 +209,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
                 old = ELM_PLIST(vals,h);
@@ -224,10 +224,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
     }
 
-    h = AVLFind(t,x);
+    h = DS_AVLFind(t,x);
     if (h == 0) return Fail;
-    old = AVLValue(t,h);
-    SetAVLValue(t,h,v);
+    old = DS_AVLValue(t,h);
+    SetDS_AVLValue(t,h,v);
     return old;
 }
 
@@ -236,10 +236,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 // Submodule declaration
 //
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
-    GVARFUNC("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
-    GVARFUNC("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
-    GVARFUNC("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
+    GVARFUNC("hashtable.c", DS_HTAdd_TreeHash_C, 3, "treehash, x, v"),
+    GVARFUNC("hashtable.c", DS_HTValue_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", DS_HTDelete_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", DS_HTUpdate_TreeHash_C, 3, "treehash, x, v"),
 
     { 0 }
 };
@@ -247,7 +247,7 @@ static StructGVarFunc GVarFuncs[] = {
 static Int InitKernel(void)
 {
     InitHdlrFuncsFromTable( GVarFuncs );
-    ImportFuncFromLibrary( "HTGrow", &HTGrow );
+    ImportFuncFromLibrary( "DS_HTGrow", &DS_HTGrow );
     return 0;
 }
 
@@ -276,7 +276,7 @@ static Int InitLibrary(void)
     return PostRestore();
 }
 
-struct DatastructuresModule HashTableModule = {
+struct DatastructuresModule DS_HashTableModule = {
     .initKernel  = InitKernel,
     .initLibrary = InitLibrary,
     .postRestore = PostRestore,

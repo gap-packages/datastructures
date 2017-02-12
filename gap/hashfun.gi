@@ -32,8 +32,8 @@ end );
 InstallGlobalFunction( DATA_HashFunctionForGF2Vectors,
 function(v)
     local bytelen;
-    bytelen := QuoInt(Length(p), 8);
-    return HashKeyBag(v, 101, 2*GAPInfo.BytesPerVariable, QuoInt(Length(v), 8));
+    bytelen := QuoInt(Length(v), 8);
+    return HashKeyBag(v, 101, 2*GAPInfo.BytesPerVariable, bytelen);
 end );
 
 InstallMethod( ChooseHashFunction, "for compressed gf2 vectors",
@@ -49,7 +49,12 @@ function(p)
     # Second note: For the following to be correct, you MUST NOT
     # use the returned hash function on shorter or longer
     # vectors than the example vector.
+
     # TODO: perhaps add an assertion check to verify that?
+    
+    # TODO: perhaps we can "fix" GAP to clear the bits?
+    # but perhaps there is a reason (e.g. performance) why it doesn't do that
+    # already.
     if bytelen <= 8 then
         return DATA_HashFunctionForShortGF2Vectors;
     else
@@ -62,12 +67,18 @@ end );
 #
 InstallGlobalFunction( DATA_HashFunctionForShort8BitVectors,
 function(v)
-    return NumberFFVector(v, data[2]);
+    # FIXME: either need data[2], or (better) a native C implementation
+    # which also takes care of the trailing "dirty bits"
+    #return NumberFFVector(v, data[2]);
+    return fail;
 end );
 
 InstallGlobalFunction( DATA_HashFunctionFor8BitVectors,
 function(v)
-    return HashKeyBag(v, 101, 3 * GAPInfo.BytesPerVariable, data[2]);
+    # FIXME: either need data[2], or (better) a native C implementation
+    # which also takes care of the trailing "dirty bits"
+    #return HashKeyBag(v, 101, 3 * GAPInfo.BytesPerVariable, data[2]);
+    return fail;
 end );
 
 
@@ -82,11 +93,15 @@ function(p)
         qq := qq * q;
         i := i + 1;
     od;
+    # Compute i := LogInt(256, q)
+
     # i is now the number of field elements per byte
     bytelen := QuoInt(Length(p),i);
     # Note that unfortunately 8bit vectors are not "clean" after their
     # "official" length, therefore we *must not* use the last, half-used
     # byte. This inevitably leads to collisions!
+
+# TODO: verify this. possibly work around it in GAP...
     if bytelen <= 8 then
         return rec( func := DATA_HashFunctionForShort8BitVectors,
                     data := [hashlen,q] );

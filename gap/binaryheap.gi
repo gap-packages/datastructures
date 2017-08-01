@@ -22,11 +22,11 @@
 #
 
 BinaryHeap_IsEmpty := function(heap)
-    return Length(heap.data) = 0;
+    return Length(heap![2]) = 0;
 end;
 
 BinaryHeap_Size := function(heap)
-    return Length(heap.data);
+    return Length(heap![2]);
 end;
 
 # TODO: iterator; view/print; Random; ...
@@ -36,8 +36,8 @@ end;
 
 # Alternative name: Peek
 BinaryHeap_FindMax := function(heap)
-    if Length(heap.data) = 0 then return fail; fi; # alternative: error
-    return heap.data[1];
+    if Length(heap![2]) = 0 then return fail; fi; # alternative: error
+    return heap![1][1];
 end;
 
 _BinaryHeap_BubbleUp := function(data, isLess, i, elm)
@@ -55,7 +55,7 @@ end;
 
 # Alternative name: Push / Add
 _BinaryHeap_Insert_GAP := function(heap, elm)
-    _BinaryHeap_BubbleUp(heap.data, heap.isLess, Length(heap.data) + 1, elm);
+    _BinaryHeap_BubbleUp(heap![2], heap![1].isLess, Length(heap![2]) + 1, elm);
 end;
 
 if IsBound(_BinaryHeap_Insert_C) then
@@ -66,8 +66,8 @@ fi;
 
 _BinaryHeap_ReplaceMax_GAP := function(heap, elm)
     local data, isLess, i, left, right;
-    data := heap.data;
-    isLess := heap.isLess;
+    data := heap![2];
+    isLess := heap![1];
     i := 1;
     # treat the head slot as a hole that we bubble down
     while 2 * i <= Length(data) do
@@ -95,7 +95,7 @@ fi;
 # Alternative name: Pop / Remove
 BinaryHeap_RemoveMax := function(heap)
     local val, data;
-    data := heap.data;
+    data := heap![2];
 
     if Length(data) = 0 then
         return fail; # alternative: error
@@ -110,16 +110,17 @@ end;
 
 
 BinaryHeap_IsValid := function(heap)
-    local data, i, left, right;
-    data := heap.data;
+    local isLess, data, i, left, right;
+    isLess := heap![1];
+    data := heap![2];
     for i in [1..Length(data)] do
         left := 2 * i;
         right := left + 1;
-        if left <= Length(data) and heap.isLess(data[i], data[left]) then
+        if left <= Length(data) and isLess(data[i], data[left]) then
             Print("data[",i,"] = ",data[i], " < ",data[left]," = data[",left,"]\n");
             return false;
         fi;
-        if right <= Length(data) and heap.isLess(data[i], data[right]) then
+        if right <= Length(data) and isLess(data[i], data[right]) then
             Print("data[",i,"] = ",data[i], " < ",data[right]," = data[",right,"]\n");
             return false;
         fi;
@@ -146,11 +147,9 @@ BinaryHeap_Create := function(arg)
         Error("Wrong number of arguments");
     fi;
 
-    heap := rec( isLess := isLess, data := [] );
+    heap := [ isLess, [] ];
     for x in data do
         BinaryHeap_Insert(heap, x);
     od;
     return heap;
 end;
-
-

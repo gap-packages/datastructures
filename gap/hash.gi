@@ -228,7 +228,7 @@ InstallMethod( HTCreate, "for an object and an options record",
     ht.collisions := 0;
     ht.accesses := 0;
     if IsIdenticalObj(ty,TreeHashTabType) and not(IsBound(ht.cmpfunc)) then
-        ht.cmpfunc := AVLCmp;
+        ht.cmpfunc := DS_AVLCmp;
     fi;
     if IsIdenticalObj(ty,HashTabType) and not(IsBound(ht.eqf)) then
         ht.eqf := EQ;
@@ -269,21 +269,21 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
     fi;
     ht!.collisions := ht!.collisions + 1;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         # Exactly one element there!
-        t := AVLTree(rec(cmpfunc := ht!.cmpfunc, allocsize := 3));
+        t := DS_AVLTree(rec(cmpfunc := ht!.cmpfunc, allocsize := 3));
         if IsBound(ht!.vals[h]) then
-            AVLAdd(t,ht!.els[h],ht!.vals[h]);
+            DS_AVLAdd(t,ht!.els[h],ht!.vals[h]);
             Unbind(ht!.vals[h]);
         else
-            AVLAdd(t,ht!.els[h],true);
+            DS_AVLAdd(t,ht!.els[h],true);
         fi;
         ht!.els[h] := t;
     fi;
     if val <> true then
-        r := AVLAdd(t,x,val);
+        r := DS_AVLAdd(t,x,val);
     else
-        r := AVLAdd(t,x,true);
+        r := DS_AVLAdd(t,x,true);
     fi;
     if r <> fail then
         ht!.nr := ht!.nr + 1;
@@ -310,7 +310,7 @@ InstallMethod( HTValue, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 return ht!.vals[h];
@@ -320,7 +320,7 @@ InstallMethod( HTValue, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    return AVLLookup(t,x);
+    return DS_AVLLookup(t,x);
 end );
 if IsBound(HTValue_TreeHash_C) then
     InstallMethod( HTValue, "for a tree hash table and an object (C version)",
@@ -337,7 +337,7 @@ InstallMethod( HTDelete, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 v := ht!.vals[h];
@@ -351,7 +351,7 @@ InstallMethod( HTDelete, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    v := AVLDelete(t,x);
+    v := DS_AVLDelete(t,x);
     if v <> fail then ht!.nr := ht!.nr - 1; fi;
     return v;
 end );
@@ -370,7 +370,7 @@ InstallMethod( HTUpdate, "for a tree hash table and an object",
         return fail;
     fi;
     t := ht!.els[h];
-    if not(IsAVLTree(t)) then
+    if not(IsDS_AVLTree(t)) then
         if ht!.cmpfunc(x,t) = 0 then
             if IsBound(ht!.vals[h]) then
                 o := ht!.vals[h];
@@ -382,10 +382,10 @@ InstallMethod( HTUpdate, "for a tree hash table and an object",
         fi;
         return fail;
     fi;
-    h := AVLFind(t,x);
+    h := DS_AVLFind(t,x);
     if h = fail then return fail; fi;
-    o := AVLValue(t,h);
-    AVLSetValue(t,h,v);
+    o := DS_AVLValue(t,h);
+    DS_AVLSetValue(t,h,v);
     return o;
 end );
 if IsBound(HTUpdate_TreeHash_C) then
@@ -545,7 +545,7 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
     for i in [1..oldlen] do
         if IsBound(oldels[i]) then
             t := oldels[i];
-            if not(IsAVLTree(t)) then
+            if not(IsDS_AVLTree(t)) then
                 if IsBound(oldvals[i]) then
                     HTAdd(ht,t,oldvals[i]);
                 else
@@ -553,8 +553,8 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
                 fi;
             else
                 for j in [1..Length(t)] do
-                    pos := AVLIndexFind(t,j);
-                    HTAdd(ht,AVLData(t,pos),AVLValue(t,pos));
+                    pos := DS_AVLIndexFind(t,j);
+                    HTAdd(ht,DS_AVLData(t,pos),DS_AVLValue(t,pos));
                 od;
             fi;
         fi;

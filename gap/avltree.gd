@@ -17,12 +17,12 @@
 ##
 #############################################################################
 
-BindGlobal( "AVLTreeFamily", NewFamily("AVLTreeFamily") );
-DeclareCategory( "IsAVLTree", IsPositionalObjectRep );
-DeclareRepresentation( "IsAVLTreeFlatRep", IsAVLTree, [] );
-BindGlobal( "AVLTreeType", NewType(AVLTreeFamily,IsAVLTreeFlatRep) );
-BindGlobal( "AVLTreeTypeMutable", NewType(AVLTreeFamily,
-                                          IsAVLTreeFlatRep and IsMutable) );
+BindGlobal( "DS_AVLTreeFamily", NewFamily("DS_AVLTreeFamily") );
+DeclareCategory( "IsDS_AVLTree", IsPositionalObjectRep );
+DeclareRepresentation( "IsDS_AVLTreeFlatRep", IsDS_AVLTree, [] );
+BindGlobal( "DS_AVLTreeType", NewType(DS_AVLTreeFamily,IsDS_AVLTreeFlatRep) );
+BindGlobal( "DS_AVLTreeTypeMutable", NewType(DS_AVLTreeFamily,
+                                          IsDS_AVLTreeFlatRep and IsMutable) );
 
 # All of the following functions exist on the GAP level and some of
 # them on the C level for speedup. The GAP versions have "_GAP" appended
@@ -30,32 +30,32 @@ BindGlobal( "AVLTreeTypeMutable", NewType(AVLTreeFamily,
 # nothing appended is the one to be used, it is assigned to the C
 # version if it is there and otherwise to the GAP version.
 
-DeclareGlobalFunction( "AVLCmp" );
-DeclareGlobalFunction( "AVLTree" );
-DeclareGlobalFunction( "AVLNewNode" );
-DeclareGlobalFunction( "AVLFreeNode" );
-DeclareGlobalFunction( "AVLData" );
-DeclareGlobalFunction( "AVLSetData" );
-DeclareGlobalFunction( "AVLLeft" );
-DeclareGlobalFunction( "AVLSetLeft" );
-DeclareGlobalFunction( "AVLRight" );
-DeclareGlobalFunction( "AVLSetRight" );
-DeclareGlobalFunction( "AVLRank" );
-DeclareGlobalFunction( "AVLSetRank" );
-DeclareGlobalFunction( "AVLBalFactor" );
-DeclareGlobalFunction( "AVLSetBalFactor" );
-DeclareGlobalFunction( "AVLValue" );
-DeclareGlobalFunction( "AVLSetValue" );
-DeclareGlobalFunction( "AVLFind" );
-DeclareGlobalFunction( "AVLFindIndex" );
-DeclareGlobalFunction( "AVLLookup" );
-DeclareGlobalFunction( "AVLIndex" );
-DeclareGlobalFunction( "AVLIndexFind" );
-DeclareGlobalFunction( "AVLRebalance" );
-DeclareGlobalFunction( "AVLIndexLookup" );
-DeclareGlobalFunction( "AVLAdd" );
-DeclareGlobalFunction( "AVLIndexAdd" );
-DeclareGlobalFunction( "AVLDelete" );
-DeclareGlobalFunction( "AVLIndexDelete" );
-DeclareGlobalFunction( "AVLToList" );
+DeclareGlobalFunction( "DS_AVLCmp" );
+DeclareGlobalFunction( "DS_AVLTree" );
+DeclareGlobalFunction( "DS_AVLNewNode" );
+DeclareGlobalFunction( "DS_AVLFreeNode" );
+DeclareGlobalFunction( "DS_AVLData" );
+DeclareGlobalFunction( "DS_AVLSetData" );
+DeclareGlobalFunction( "DS_AVLLeft" );
+DeclareGlobalFunction( "DS_AVLSetLeft" );
+DeclareGlobalFunction( "DS_AVLRight" );
+DeclareGlobalFunction( "DS_AVLSetRight" );
+DeclareGlobalFunction( "DS_AVLRank" );
+DeclareGlobalFunction( "DS_AVLSetRank" );
+DeclareGlobalFunction( "DS_AVLBalFactor" );
+DeclareGlobalFunction( "DS_AVLSetBalFactor" );
+DeclareGlobalFunction( "DS_AVLValue" );
+DeclareGlobalFunction( "DS_AVLSetValue" );
+DeclareGlobalFunction( "DS_AVLFind" );
+DeclareGlobalFunction( "DS_AVLFindIndex" );
+DeclareGlobalFunction( "DS_AVLLookup" );
+DeclareGlobalFunction( "DS_AVLIndex" );
+DeclareGlobalFunction( "DS_AVLIndexFind" );
+DeclareGlobalFunction( "DS_AVLRebalance" );
+DeclareGlobalFunction( "DS_AVLIndexLookup" );
+DeclareGlobalFunction( "DS_AVLAdd" );
+DeclareGlobalFunction( "DS_AVLIndexAdd" );
+DeclareGlobalFunction( "DS_AVLDelete" );
+DeclareGlobalFunction( "DS_AVLIndexDelete" );
+DeclareGlobalFunction( "DS_AVLToList" );
 

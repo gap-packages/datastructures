@@ -6,11 +6,11 @@
  *  Copyright (C) 2009-2013  Max Neunhoeffer
  */
 
-#ifndef HASHTABLE_H
-#define HASHTABLE_H
+#ifndef DS_HASHTABLE_H
+#define DS_HASHTABLE_H
 
 #include "datastructures.h"
 
-extern struct DatastructuresModule HashTableModule;
+extern struct DatastructuresModule DS_HashTableModule;
 
 #endif

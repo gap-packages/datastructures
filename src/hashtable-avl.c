@@ -9,7 +9,7 @@
 #include "hashtable-avl.h"
 #include "avltree.h"
 
-static Obj HTGrow;         /* Operation function imported from the library */
+static Obj DS_HTGrow;         /* Operation function imported from the library */
 
 static Int RNam_accesses = 0;
 static Int RNam_collisions = 0;
@@ -23,7 +23,7 @@ static Int RNam_allocsize = 0;
 static Int RNam_cangrow = 0;
 static Int RNam_len = 0;
 
-Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj DS_HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -41,7 +41,7 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     if (ElmPRec(ht,RNam_cangrow) == True &&
         INT_INTOBJ(ElmPRec(ht,RNam_nr))/10 > INT_INTOBJ(ElmPRec(ht,RNam_len)))
     {
-        CALL_2ARGS(HTGrow,ht,x);
+        CALL_2ARGS(DS_HTGrow,ht,x);
     }
 
     /* Compute hash value: */
@@ -98,7 +98,7 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
 }
 
-Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj DS_HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -142,7 +142,7 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
     return DS_AVLValue(t,h);
 }
 
-Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
+Obj DS_HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
 {
     Obj els;
     Obj vals;
@@ -187,7 +187,7 @@ Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
     return v;
 }
 
-Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
+Obj DS_HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 {
     Obj els;
     Obj vals;
@@ -236,10 +236,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 // Submodule declaration
 //
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC("hashtable.c", HTAdd_TreeHash_C, 3, "treehash, x, v"),
-    GVARFUNC("hashtable.c", HTValue_TreeHash_C, 2, "treehash, x"),
-    GVARFUNC("hashtable.c", HTDelete_TreeHash_C, 2, "treehash, x"),
-    GVARFUNC("hashtable.c", HTUpdate_TreeHash_C, 3, "treehash, x, v"),
+    GVARFUNC("hashtable.c", DS_HTAdd_TreeHash_C, 3, "treehash, x, v"),
+    GVARFUNC("hashtable.c", DS_HTValue_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", DS_HTDelete_TreeHash_C, 2, "treehash, x"),
+    GVARFUNC("hashtable.c", DS_HTUpdate_TreeHash_C, 3, "treehash, x, v"),
 
     { 0 }
 };
@@ -247,7 +247,7 @@ static StructGVarFunc GVarFuncs[] = {
 static Int InitKernel(void)
 {
     InitHdlrFuncsFromTable( GVarFuncs );
-    ImportFuncFromLibrary( "HTGrow", &HTGrow );
+    ImportFuncFromLibrary( "DS_HTGrow", &DS_HTGrow );
     return 0;
 }
 
@@ -276,7 +276,7 @@ static Int InitLibrary(void)
     return PostRestore();
 }
 
-struct DatastructuresModule HashTableModule = {
+struct DatastructuresModule DS_HashTableModule = {
     .initKernel  = InitKernel,
     .initLibrary = InitLibrary,
     .postRestore = PostRestore,

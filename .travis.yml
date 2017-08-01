@@ -1,12 +1,12 @@
+dist: trusty
+language: c
 os:
   - linux
-language: c
 compiler:
   - gcc
   - clang
 env:
   - COMPILE=true
-  - COMPILE=false
 branches:
   only:
     - master

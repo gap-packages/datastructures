@@ -6,17 +6,17 @@ gap> G := GL(3,5);; v := One(G)[1];;
 gap> orb := Orbit(G,v);;
 
 #
-gap> ht := HTCreate(v, rec(hashlen := 1000));
+gap> ht := DS_HTCreate(v, rec(hashlen := 1000));
 <hash table obj len=1000 used=0 colls=0 accs=0 (can grow)>
 
 #
 gap> for i in [1..Length(orb)] do
->     HTAdd(ht, orb[i], i);
+>     DS_HTAdd(ht, orb[i], i);
 > od;
 
 #
 gap> for i in [1..Length(orb)] do
->     if HTValue(ht, orb[i]) <> i then
+>     if DS_HTValue(ht, orb[i]) <> i then
 >         Error("lookup in orb failed at ", i);
 >     fi;
 > od;
@@ -24,12 +24,12 @@ gap> for i in [1..Length(orb)] do
 #
 gap> orb2 := Set(orb);;
 gap> for i in [1..Length(orb2)] do
->     HTUpdate(ht, orb2[i], i);
+>     DS_HTUpdate(ht, orb2[i], i);
 > od;
 
 #
 gap> for i in [1..Length(orb2)] do
->     if HTValue(ht, orb2[i]) <> i then
+>     if DS_HTValue(ht, orb2[i]) <> i then
 >         Error("lookup in orb2 failed at ", i);
 >     fi;
 > od;

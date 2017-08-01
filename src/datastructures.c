@@ -11,8 +11,8 @@
 
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
-    &AVLTreeModule,
-    &HashTableModule,
+    &DS_AVLTreeModule,
+    &DS_HashTableModule,
 };
 
 #define ITERATE_SUBMODULE(func) \

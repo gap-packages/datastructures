@@ -18,24 +18,24 @@
 # Generic caching code:
 ########################
 
-InstallMethod( LinkedListCache, "for an integer", [ IsInt ],
+InstallMethod( DS_LinkedListCache, "for an integer", [ IsInt ],
   function(memorylimit)
     local c;
     c := rec(head := fail, tail := fail, nrobs := 0,
              memory := 0, memorylimit := memorylimit);
-    Objectify(NewType(CachesFamily,IsLinkedListCacheRep and IsMutable),c);
+    Objectify(NewType(DS_CachesFamily,IsDS_LinkedListCacheRep and IsMutable),c);
     return c;
 end );
 
 InstallMethod( ViewObj, "for a linked list cache object",
-  [ IsCache and IsLinkedListCacheRep ],
+  [ IsDS_Cache and IsDS_LinkedListCacheRep ],
   function(c)
     Print("<linked list cache with ",c!.nrobs," objects using ",
           c!.memory," <= ",c!.memorylimit," bytes>");
   end );
 
 InstallMethod( Display, "for a linked list cache object",
-  [ IsCache and IsLinkedListCacheRep ],
+  [ IsDS_Cache and IsDS_LinkedListCacheRep ],
   function(c)
     local cn,i;
     cn := c!.head;
@@ -52,8 +52,8 @@ InstallMethod( Display, "for a linked list cache object",
     Print(">\n");
   end );
 
-InstallMethod( ClearCache, "for a linked list cache object",
-  [ IsCache and IsLinkedListCacheRep ],
+InstallMethod( DS_ClearCache, "for a linked list cache object",
+  [ IsDS_Cache and IsDS_LinkedListCacheRep ],
   function(c)
     c!.head := fail;
     c!.tail := fail;
@@ -61,11 +61,11 @@ InstallMethod( ClearCache, "for a linked list cache object",
     c!.memory := 0;
   end );
 
-InstallGlobalFunction( CacheObject,
+InstallGlobalFunction( DS_CacheObject,
   function( c, ob, mem )
     local r;
     r := rec( ob := ob, next := c!.head, prev := fail, mem := mem );
-    Objectify( LinkedListCacheNodeType, r );
+    Objectify( DS_LinkedListCacheNodeType, r );
     c!.head := r;
     c!.memory := c!.memory + mem;
     if c!.tail = fail then
@@ -74,11 +74,11 @@ InstallGlobalFunction( CacheObject,
         r!.next!.prev := r;
     fi;
     c!.nrobs := c!.nrobs + 1;
-    EnforceCachelimit(c);
+    DS_EnforceCachelimit(c);
     return r;
   end );
 
-InstallGlobalFunction( EnforceCachelimit,
+InstallGlobalFunction( DS_EnforceCachelimit,
   function(c)
     local s;
     # Delete something if memory usage too high:
@@ -98,19 +98,19 @@ InstallGlobalFunction( EnforceCachelimit,
 
 
 InstallMethod( ViewObj, "for a linked list cache node",
-  [ IsCacheNode and IsLinkedListCacheNodeRep ],
+  [ IsDS_CacheNode and IsDS_LinkedListCacheNodeRep ],
   function( cn )
     Print("<linked list cache node ob=");
     ViewObj(cn!.ob);
     Print(" mem=",cn!.mem,">");
   end );
 
-InstallGlobalFunction( UseCacheObject,
+InstallGlobalFunction( DS_UseCacheObject,
   function( c, r )
     local s;
     if r!.prev = false then
         # the object is no longer in the cache, we cache it again:
-        # note that we cannot use CacheObject, because we want to retain
+        # note that we cannot use DS_CacheObject, because we want to retain
         # the cache node r itself!
         r!.prev := fail;
         r!.next := c!.head;
@@ -122,7 +122,7 @@ InstallGlobalFunction( UseCacheObject,
             r!.next!.prev := r;
         fi;
         c!.nrobs := c!.nrobs + 1;
-        EnforceCachelimit(c);
+        DS_EnforceCachelimit(c);
         return;
     fi;
     if r!.prev = fail then return; fi;   # nothing to do

@@ -128,7 +128,8 @@ BinaryHeap_IsValid := function(heap)
     return true;
 end;
 
-BinaryHeap_Create := function(arg)
+InstallGlobalFunction(BinaryHeap,
+function(arg...)
     local isLess, data, heap, x;
 
     isLess := \<;
@@ -147,9 +148,27 @@ BinaryHeap_Create := function(arg)
         Error("Wrong number of arguments");
     fi;
 
-    heap := [ isLess, [] ];
+    heap := Objectify( PairingHeapTypeMutable, [ isLess, [] ] );
+
     for x in data do
         BinaryHeap_Insert(heap, x);
     od;
     return heap;
-end;
+end);
+
+InstallMethod(Pop
+             , "for a binary heap in plain representation"
+             , [IsBinaryHeapFlatRep]
+             , BinaryHeap_RemoveMax);
+
+InstallMethod(Peek
+             , "for a binary heap in plain representation"
+             , [IsBinaryHeapFlatRep]
+             , BinaryHeap_FindMax);
+
+InstallMethod(ViewObj
+             , "for a binary heap in flat representation"
+function(heap)
+    Print("<binary heap with ", Length(h![2]), " entries>");
+end);
+

@@ -12,6 +12,9 @@
 
 #include "binaryheap.h"
 
+#define DS_BINARYHEAP_ISLESS(heap)  ADDR_OBJ(heap)[0]
+#define DS_BINARYHEAP_DATA(heap)    ADDR_OBJ(heap)[1]
+
 typedef Obj (* GVarFuncType)(/*arguments*/);
 
 #define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
@@ -88,8 +91,8 @@ static Int _BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i) {
 
 Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm) {
   GAP_ASSERT(IS_PREC_REP(heap));
-  Obj data = ElmPRec(heap, s_data_RNam);
-  Obj isLess = ElmPRec(heap, s_isLess_RNam);
+  Obj data = DS_BINARYHEAP_DATA(heap);
+  Obj isLess = DS_BINARYHEAP_ISLESS(heap);
 
   if (!IS_DENSE_PLIST(data))
     ErrorQuit("<data> is not a dense plist", 0L, 0L);
@@ -105,8 +108,8 @@ Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm) {
 
 Obj _BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm) {
   GAP_ASSERT(IS_PREC_REP(heap));
-  Obj data = ElmPRec(heap, s_data_RNam);
-  Obj isLess = ElmPRec(heap, s_isLess_RNam);
+  Obj data = DS_BINARYHEAP_DATA(heap);
+  Obj isLess = DS_BINARYHEAP_ISLESS(heap);
 
   if (!IS_DENSE_PLIST(data))
     ErrorQuit("<data> is not a dense plist", 0L, 0L);
@@ -129,12 +132,6 @@ static StructGVarFunc GVarFuncs[] = {
 
 static Int InitKernel(void) {
   InitHdlrFuncsFromTable(GVarFuncs);
-  return 0;
-}
-
-static Int PostRestore(void) {
-  s_isLess_RNam = RNamName("isLess");
-  s_data_RNam = RNamName("data");
   return 0;
 }
 

@@ -96,7 +96,7 @@ Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm) {
 
   Int len = LEN_PLIST(data);
   if (len == 0)
-    s(data, 1, elm);
+    AssPlist(data, 1, elm);
   else
     _BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
 

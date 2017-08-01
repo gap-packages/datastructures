@@ -1,8 +1,10 @@
-#!/bin/sh -e
+#!/bin/sh 
+
+set -xe
 
 git clone --depth=2 https://github.com/gap-system/gap.git gapsrc
 pwd
-( cd gapsrc && sh autogen.sh && ./configure --with-gmp=system && make configure && make -j && make bootstrap-pkg-minimal)
+( cd gapsrc && sh autogen.sh && ./configure && make -j && make bootstrap-pkg-minimal )
 pwd
 ( ./autogen.sh && ./configure --with-gaproot=gapsrc ${PKGOPTS} && make )
 pwd

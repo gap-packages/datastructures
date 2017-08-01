@@ -66,19 +66,19 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     AssPRec(ht,RNam_collisions,
             INTOBJ_INT(INT_INTOBJ(ElmPRec(ht,RNam_collisions))+1));
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(tmp) != T_POSOBJ ||
-        (TYPE_POSOBJ(tmp) != AVLTreeTypeMutable &&
-         TYPE_POSOBJ(tmp) != AVLTreeType)) {
+        (TYPE_POSOBJ(tmp) != DS_AVLTreeTypeMutable &&
+         TYPE_POSOBJ(tmp) != DS_AVLTreeType)) {
         r = NEW_PREC(2);   /* This might trigger a garbage collection */
         AssPRec(r,RNam_cmpfunc,ElmPRec(ht,RNam_cmpfunc));
         AssPRec(r,RNam_allocsize,INTOBJ_INT(3));
-        t = CALL_1ARGS(AVLTree,r);
+        t = CALL_1ARGS(DS_AVLTree,r);
         if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
-            AVLAdd_C(self,t,tmp,ELM_PLIST(vals,h));
+            DS_AVLAdd_C(self,t,tmp,ELM_PLIST(vals,h));
             UNB_LIST(vals,h);
         } else {
-            AVLAdd_C(self,t,tmp,True);
+            DS_AVLAdd_C(self,t,tmp,True);
         }
         SET_ELM_PLIST(els,h,t);
         CHANGED_BAG(els);
@@ -86,9 +86,9 @@ Obj HTAdd_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
 
     /* Finally add value into tree: */
     if (v != True) {
-        r = AVLAdd_C(self,t,x,v);
+        r = DS_AVLAdd_C(self,t,x,v);
     } else {
-        r = AVLAdd_C(self,t,x,True);
+        r = DS_AVLAdd_C(self,t,x,True);
     }
 
     if (r != Fail) {
@@ -124,10 +124,10 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L)
                 return ELM_PLIST(vals,h);
@@ -137,9 +137,9 @@ Obj HTValue_TreeHash_C(Obj self, Obj ht, Obj x)
         return Fail;
     }
 
-    h = AVLFind(t,x);
+    h = DS_AVLFind(t,x);
     if (h == 0) return Fail;
-    return AVLValue(t,h);
+    return DS_AVLValue(t,h);
 }
 
 Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
@@ -164,10 +164,10 @@ Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
                 v = ELM_PLIST(vals,h);
@@ -180,7 +180,7 @@ Obj HTDelete_TreeHash_C(Obj self, Obj ht, Obj x)
         return Fail;
     }
 
-    v = AVLDelete_C(self,t,x);
+    v = DS_AVLDelete_C(self,t,x);
     if (v != Fail)
         AssPRec(ht,RNam_nr,INTOBJ_INT(INT_INTOBJ(ElmPRec(ht,RNam_nr))-1));
 
@@ -209,10 +209,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
     if (t == 0L)  /* Unbound entry! */
         return Fail;
 
-    /* Now check whether it is an AVLTree or not: */
+    /* Now check whether it is an DS_AVLTree or not: */
     if (TNUM_OBJ(t) != T_POSOBJ ||
-        (TYPE_POSOBJ(t) != AVLTreeType &&
-         TYPE_POSOBJ(t) != AVLTreeTypeMutable)) {
+        (TYPE_POSOBJ(t) != DS_AVLTreeType &&
+         TYPE_POSOBJ(t) != DS_AVLTreeTypeMutable)) {
         if (CALL_2ARGS(ElmPRec(ht,RNam_cmpfunc),x,t) == INTOBJ_INT(0)) {
             if (LEN_PLIST(vals) >= h && ELM_PLIST(vals,h) != 0L) {
                 old = ELM_PLIST(vals,h);
@@ -224,10 +224,10 @@ Obj HTUpdate_TreeHash_C(Obj self, Obj ht, Obj x, Obj v)
         return Fail;
     }
 
-    h = AVLFind(t,x);
+    h = DS_AVLFind(t,x);
     if (h == 0) return Fail;
-    old = AVLValue(t,h);
-    SetAVLValue(t,h,v);
+    old = DS_AVLValue(t,h);
+    SetDS_AVLValue(t,h,v);
     return old;
 }
 

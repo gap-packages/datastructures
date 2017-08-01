@@ -11,7 +11,7 @@
 
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
-    &AVLTreeModule,
+    &DS_AVLTreeModule,
     &HashTableModule,
 };
 

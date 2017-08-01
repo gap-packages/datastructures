@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gap-packages/crypting.svg?branch=master)](https://travis-ci.org/gap-packages/datastructures)
+
 The datastructures GAP package
 ==============================
 

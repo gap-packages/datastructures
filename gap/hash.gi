@@ -13,7 +13,7 @@
 ##
 #############################################################################
 
-InstallGlobalFunction( InitHT, function(len, hfun, eqfun)
+InstallGlobalFunction( InitDS_HT, function(len, hfun, eqfun)
   return rec(els := [],        # the elements to hash
              vals := [],       # a value for each element, "true" not stored
              len := len,       # the length of the hash
@@ -28,7 +28,7 @@ InstallGlobalFunction( InitHT, function(len, hfun, eqfun)
             );
 end );
 
-InstallGlobalFunction( NewHT, function(sample,len)
+InstallGlobalFunction( NewDS_HT, function(sample,len)
   local eqfun,hfun,ht;
   hfun := ChooseHashFunction(sample,len);
   if hfun = fail then
@@ -37,7 +37,7 @@ InstallGlobalFunction( NewHT, function(sample,len)
   eqfun := ApplicableMethod(\=,[sample,sample]);
   if eqfun = fail then eqfun := EQ; fi;
   if len < 11 then len := 11; fi;  # to avoid complete fillup!
-  ht := InitHT(len,hfun,eqfun);
+  ht := InitDS_HT(len,hfun,eqfun);
   ht.cangrow := true;
   return ht;
 end );
@@ -63,13 +63,13 @@ InstallMethod(ViewObj, "for hash tables", [IsRecord],
     fi;
   end);
 
-InstallGlobalFunction( AddHT, function(ht, x, val)
+InstallGlobalFunction( AddDS_HT, function(ht, x, val)
   local h,g;
   ht.accesses := ht.accesses + 1;
   if ht.nr * 10 > ht.len * 8 then
     if IsBound(ht.cangrow) then
       Info(InfoDataStructures,3,"Hash table too full, growing...");
-      GrowHT(ht,x);
+      GrowDS_HT(ht,x);
     else
       Info(InfoDataStructures,1,"Hash table too full, cannot grow...");
       return fail;
@@ -90,8 +90,8 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
         if not(IsBound(ht.cangrow)) then
           ht.alert := true;
         else
-          GrowHT(ht,x);
-          return AddHT(ht,x,val);
+          GrowDS_HT(ht,x);
+          return AddDS_HT(ht,x,val);
         fi;
       fi;
     until not(IsBound(ht.els[h]));
@@ -102,7 +102,7 @@ InstallGlobalFunction( AddHT, function(ht, x, val)
   return h;
 end );
 
-InstallGlobalFunction( ValueHT, function(ht, x)
+InstallGlobalFunction( ValueDS_HT, function(ht, x)
   local h,g;
   ht.accesses := ht.accesses + 1;
   h := ht.hf(x,ht.hfd);
@@ -126,7 +126,7 @@ InstallGlobalFunction( ValueHT, function(ht, x)
   return fail;
 end );
 
-InstallGlobalFunction( GrowHT, function(ht,x)
+InstallGlobalFunction( GrowDS_HT, function(ht,x)
   local i,oldels,oldlen,oldvals;
 
   oldels := ht.els;
@@ -152,9 +152,9 @@ InstallGlobalFunction( GrowHT, function(ht,x)
   for i in [1..oldlen] do
       if IsBound(oldels[i]) then
           if IsBound(oldvals[i]) then
-              AddHT(ht,oldels[i],oldvals[i]);
+              AddDS_HT(ht,oldels[i],oldvals[i]);
           else
-              AddHT(ht,oldels[i],true);
+              AddDS_HT(ht,oldels[i],true);
           fi;
       fi;
   od;
@@ -163,31 +163,31 @@ end );
 
 # The new interface for hashes:
 
-InstallMethod( HTCreate, "for an object",
+InstallMethod( DS_HTCreate, "for an object",
   [ IsObject ],
   function( x )
-    return HTCreate(x,rec());
+    return DS_HTCreate(x,rec());
   end );
 
-InstallMethod( HTCreate, "for an object and an options record",
+InstallMethod( DS_HTCreate, "for an object and an options record",
   [ IsObject, IsRecord ],
   function( x, opt )
     local ht,ty,hfun,cangrow;
     ht := ShallowCopy(opt);
     if IsBound(ht.hashlen) then
-        ty := HashTabType;
+        ty := DS_HashTabType;
         ht.len := ht.hashlen;
     elif IsBound(ht.treehashsize) then
-        ty := TreeHashTabType;
+        ty := TreeDS_HashTabType;
         ht.len := ht.treehashsize;
     elif IsBound(ht.treehashtab) then
-        ty := TreeHashTabType;
+        ty := TreeDS_HashTabType;
         ht.len := 100003;
     elif IsBound(ht.hashtab) then
-        ty := HashTabType;
+        ty := DS_HashTabType;
         ht.len := 10007;
     else
-        ty := TreeHashTabType;
+        ty := TreeDS_HashTabType;
         ht.len := 100003;
     fi;
 
@@ -227,10 +227,10 @@ InstallMethod( HTCreate, "for an object and an options record",
     fi;
     ht.collisions := 0;
     ht.accesses := 0;
-    if IsIdenticalObj(ty,TreeHashTabType) and not(IsBound(ht.cmpfunc)) then
+    if IsIdenticalObj(ty,TreeDS_HashTabType) and not(IsBound(ht.cmpfunc)) then
         ht.cmpfunc := DS_AVLCmp;
     fi;
-    if IsIdenticalObj(ty,HashTabType) and not(IsBound(ht.eqf)) then
+    if IsIdenticalObj(ty,DS_HashTabType) and not(IsBound(ht.eqf)) then
         ht.eqf := EQ;
     fi;
     Objectify(ty,ht);
@@ -240,7 +240,7 @@ InstallMethod( HTCreate, "for an object and an options record",
 # We first to tree hashes and then standard hash tables:
 
 InstallMethod(ViewObj, "for tree hash tables",
-  [IsHashTab and IsTreeHashTabRep],
+  [IsDS_HashTab and IsTreeDS_HashTabRep],
   function(ht)
     Print("<tree hash table len=",ht!.len," used=",ht!.nr," colls=",
           ht!.collisions," accs=",ht!.accesses);
@@ -251,14 +251,14 @@ InstallMethod(ViewObj, "for tree hash tables",
     fi;
   end);
 
-InstallMethod( HTAdd, "for a tree hash table, an object and a value",
-  [ IsTreeHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTAdd, "for a tree hash table, an object and a value",
+  [ IsTreeDS_HashTabRep, IsObject, IsObject ],
   function(ht, x, val)
     local h,t,r;
     ht!.accesses := ht!.accesses + 1;
     if ht!.cangrow and ht!.nr > ht!.len * 10 then
         Info(InfoDataStructures,3,"Tree hash table too full, growing...");
-        HTGrow(ht,x);
+        DS_HTGrow(ht,x);
     fi;
     h := ht!.hf(x,ht!.hfd);
     if not(IsBound(ht!.els[h])) then
@@ -292,16 +292,16 @@ InstallMethod( HTAdd, "for a tree hash table, an object and a value",
         return fail;
     fi;
 end );
-if IsBound(HTAdd_TreeHash_C) then
-    InstallMethod( HTAdd,
+if IsBound(DS_HTAdd_TreeHash_C) then
+    InstallMethod( DS_HTAdd,
       "for a tree hash table, an object and a value (C version)",
-      [ IsTreeHashTabRep, IsObject, IsObject ], 1,
-      HTAdd_TreeHash_C );
+      [ IsTreeDS_HashTabRep, IsObject, IsObject ], 1,
+      DS_HTAdd_TreeHash_C );
 fi;
 
 
-InstallMethod( HTValue, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject ],
+InstallMethod( DS_HTValue, "for a tree hash table and an object",
+  [ IsTreeDS_HashTabRep, IsObject ],
   function(ht, x)
     local h,t;
     ht!.accesses := ht!.accesses + 1;
@@ -322,14 +322,14 @@ InstallMethod( HTValue, "for a tree hash table and an object",
     fi;
     return DS_AVLLookup(t,x);
 end );
-if IsBound(HTValue_TreeHash_C) then
-    InstallMethod( HTValue, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject ], 1,
-      HTValue_TreeHash_C );
+if IsBound(DS_HTValue_TreeHash_C) then
+    InstallMethod( DS_HTValue, "for a tree hash table and an object (C version)",
+      [ IsTreeDS_HashTabRep, IsObject ], 1,
+      DS_HTValue_TreeHash_C );
 fi;
 
-InstallMethod( HTDelete, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject ],
+InstallMethod( DS_HTDelete, "for a tree hash table and an object",
+  [ IsTreeDS_HashTabRep, IsObject ],
   function(ht, x)
     local h,t,v;
     h := ht!.hf(x,ht!.hfd);
@@ -355,14 +355,14 @@ InstallMethod( HTDelete, "for a tree hash table and an object",
     if v <> fail then ht!.nr := ht!.nr - 1; fi;
     return v;
 end );
-if IsBound(HTDelete_TreeHash_C) then
-    InstallMethod( HTDelete, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject ], 1,
-      HTDelete_TreeHash_C );
+if IsBound(DS_HTDelete_TreeHash_C) then
+    InstallMethod( DS_HTDelete, "for a tree hash table and an object (C version)",
+      [ IsTreeDS_HashTabRep, IsObject ], 1,
+      DS_HTDelete_TreeHash_C );
 fi;
 
-InstallMethod( HTUpdate, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTUpdate, "for a tree hash table and an object",
+  [ IsTreeDS_HashTabRep, IsObject, IsObject ],
   function( ht, x, v )
     local h,t,o;
     h := ht!.hf(x,ht!.hfd);
@@ -388,16 +388,16 @@ InstallMethod( HTUpdate, "for a tree hash table and an object",
     DS_AVLSetValue(t,h,v);
     return o;
 end );
-if IsBound(HTUpdate_TreeHash_C) then
-    InstallMethod( HTUpdate, "for a tree hash table and an object (C version)",
-      [ IsTreeHashTabRep, IsObject, IsObject ], 1,
-      HTUpdate_TreeHash_C );
+if IsBound(DS_HTUpdate_TreeHash_C) then
+    InstallMethod( DS_HTUpdate, "for a tree hash table and an object (C version)",
+      [ IsTreeDS_HashTabRep, IsObject, IsObject ], 1,
+      DS_HTUpdate_TreeHash_C );
 fi;
 
 # Now standard hash tables with the new interface:
 
 InstallMethod(ViewObj, "for hash tables",
-  [IsHashTab and IsHashTabRep],
+  [IsDS_HashTab and IsDS_HashTabRep],
   function(ht)
     Print("<hash table obj len=",ht!.len," used=",ht!.nr," colls=",
           ht!.collisions," accs=",ht!.accesses);
@@ -410,15 +410,15 @@ InstallMethod(ViewObj, "for hash tables",
     fi;
   end);
 
-InstallMethod(HTAdd, "for a hash table, an object and a value",
-  [ IsHashTabRep, IsObject, IsObject ],
+InstallMethod(DS_HTAdd, "for a hash table, an object and a value",
+  [ IsDS_HashTabRep, IsObject, IsObject ],
   function(ht, x, val)
     local h,g;
     ht!.accesses := ht!.accesses + 1;
     if ht!.nr * 10 > ht!.len * 8 then
       if IsBound(ht!.cangrow) then
         Info(InfoDataStructures,3,"Hash table too full, growing...");
-        HTGrow(ht,x);
+        DS_HTGrow(ht,x);
       else
         Info(InfoDataStructures,1,"Hash table too full, cannot grow...");
         return fail;
@@ -440,8 +440,8 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
           if not(IsBound(ht!.cangrow)) then
             ht!.alert := true;
           else
-            HTGrow(ht,x);
-            return HTAdd(ht,x,val);
+            DS_HTGrow(ht,x);
+            return DS_HTAdd(ht,x,val);
           fi;
         fi;
       until not(IsBound(ht!.els[h]));
@@ -452,8 +452,8 @@ InstallMethod(HTAdd, "for a hash table, an object and a value",
     return h;
 end );
 
-InstallMethod( HTValue, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTValue, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
   function(ht, x)
     local h,g;
     ht!.accesses := ht!.accesses + 1;
@@ -478,15 +478,15 @@ InstallMethod( HTValue, "for a hash table and an object",
     return fail;
 end );
 
-InstallMethod( HTDelete, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTDelete, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
   function( ht, x )
-    Error("Hash tables do not support HTDelete, use a tree hash table");
+    Error("Hash tables do not support DS_HTDelete, use a tree hash table");
     return fail;
   end );
 
-InstallMethod( HTUpdate, "for a hash table, an object and a value",
-  [ IsHashTabRep, IsObject, IsObject ],
+InstallMethod( DS_HTUpdate, "for a hash table, an object and a value",
+  [ IsDS_HashTabRep, IsObject, IsObject ],
   function( ht, x, v )
     local old,h,g;
 
@@ -515,8 +515,8 @@ InstallMethod( HTUpdate, "for a hash table, an object and a value",
     return fail;
 end );
 
-InstallMethod( HTGrow, "for a tree hash table and an object",
-  [ IsTreeHashTabRep, IsObject],
+InstallMethod( DS_HTGrow, "for a tree hash table and an object",
+  [ IsTreeDS_HashTabRep, IsObject],
   function(ht,x)
     local i,j,oldels,oldlen,oldvals,pos,t;
     oldels := ht!.els;
@@ -547,22 +547,22 @@ InstallMethod( HTGrow, "for a tree hash table and an object",
             t := oldels[i];
             if not(IsDS_AVLTree(t)) then
                 if IsBound(oldvals[i]) then
-                    HTAdd(ht,t,oldvals[i]);
+                    DS_HTAdd(ht,t,oldvals[i]);
                 else
-                    HTAdd(ht,t,true);
+                    DS_HTAdd(ht,t,true);
                 fi;
             else
                 for j in [1..Length(t)] do
                     pos := DS_AVLIndexFind(t,j);
-                    HTAdd(ht,DS_AVLData(t,pos),DS_AVLValue(t,pos));
+                    DS_HTAdd(ht,DS_AVLData(t,pos),DS_AVLValue(t,pos));
                 od;
             fi;
         fi;
     od;
   end );
 
-InstallMethod( HTGrow, "for a hash table and an object",
-  [ IsHashTabRep, IsObject ],
+InstallMethod( DS_HTGrow, "for a hash table and an object",
+  [ IsDS_HashTabRep, IsObject ],
 function(ht,x)
   local i,oldels,oldlen,oldvals;
 
@@ -591,9 +591,9 @@ function(ht,x)
   for i in [1..oldlen] do
       if IsBound(oldels[i]) then
           if IsBound(oldvals[i]) then
-              HTAdd(ht,oldels[i],oldvals[i]);
+              DS_HTAdd(ht,oldels[i],oldvals[i]);
           else
-              HTAdd(ht,oldels[i],true);
+              DS_HTAdd(ht,oldels[i],true);
           fi;
       fi;
   od;

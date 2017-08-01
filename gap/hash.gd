@@ -18,28 +18,28 @@
 # Generic hashing code:
 ########################
 
-DeclareGlobalFunction( "InitHT" );
-DeclareGlobalFunction( "NewHT" );
-DeclareGlobalFunction( "AddHT" );
-DeclareGlobalFunction( "ValueHT" );
-DeclareGlobalFunction( "GrowHT" );
+DeclareGlobalFunction( "InitDS_HT" );
+DeclareGlobalFunction( "NewDS_HT" );
+DeclareGlobalFunction( "AddDS_HT" );
+DeclareGlobalFunction( "ValueDS_HT" );
+DeclareGlobalFunction( "GrowDS_HT" );
 
-BindGlobal( "HashTabFamily", NewFamily("HashTabFamily") );
-DeclareCategory( "IsHashTab", IsNonAtomicComponentObjectRep and
+BindGlobal( "DS_HashTabFamily", NewFamily("DS_HashTabFamily") );
+DeclareCategory( "IsDS_HashTab", IsNonAtomicComponentObjectRep and
                               IsComponentObjectRep);
-DeclareRepresentation( "IsHashTabRep", IsHashTab, [] );
-DeclareRepresentation( "IsTreeHashTabRep", IsHashTab, [] );
-BindGlobal( "HashTabType", NewType(HashTabFamily,IsHashTabRep and IsMutable) );
-BindGlobal( "TreeHashTabType",
-  NewType(HashTabFamily,IsTreeHashTabRep and IsMutable) );
+DeclareRepresentation( "IsDS_HashTabRep", IsDS_HashTab, [] );
+DeclareRepresentation( "IsTreeDS_HashTabRep", IsDS_HashTab, [] );
+BindGlobal( "DS_HashTabType", NewType(DS_HashTabFamily,IsDS_HashTabRep and IsMutable) );
+BindGlobal( "TreeDS_HashTabType",
+  NewType(DS_HashTabFamily,IsTreeDS_HashTabRep and IsMutable) );
 
-DeclareOperation( "HTCreate", [ IsObject, IsRecord ] );
-DeclareOperation( "HTCreate", [ IsObject ] );
-DeclareOperation( "HTAdd", [ IsHashTab, IsObject, IsObject ] );
-DeclareOperation( "HTValue", [ IsHashTab, IsObject ] );
-DeclareOperation( "HTDelete", [ IsHashTab, IsObject ] );
-DeclareOperation( "HTUpdate", [ IsHashTab, IsObject, IsObject ] );
-DeclareOperation( "HTGrow", [ IsHashTab, IsObject ] );
+DeclareOperation( "DS_HTCreate", [ IsObject, IsRecord ] );
+DeclareOperation( "DS_HTCreate", [ IsObject ] );
+DeclareOperation( "DS_HTAdd", [ IsDS_HashTab, IsObject, IsObject ] );
+DeclareOperation( "DS_HTValue", [ IsDS_HashTab, IsObject ] );
+DeclareOperation( "DS_HTDelete", [ IsDS_HashTab, IsObject ] );
+DeclareOperation( "DS_HTUpdate", [ IsDS_HashTab, IsObject, IsObject ] );
+DeclareOperation( "DS_HTGrow", [ IsDS_HashTab, IsObject ] );
 
 
 #########################################################################

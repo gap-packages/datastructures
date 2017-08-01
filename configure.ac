@@ -9,8 +9,12 @@ AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
 AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE([enable])
 
-AC_PROG_CC
+dnl
+dnl Set the language
+dnl
+AC_PROG_CC_C99
 AM_PROG_AR
+AC_LANG([C])
 
 LT_INIT([disable-static dlopen win32-dll])
 

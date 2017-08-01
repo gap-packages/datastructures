@@ -8,7 +8,12 @@ lib_LTLIBRARIES = datastructures.la
 datastructures_la_SOURCES = \
     src/avltree.c \
     src/avltree.h \
+    src/binaryheap.c \
+    src/binaryheap.h \
     src/datastructures.c \
+    src/hashfun.c \
+    src/hash_pcql.c \
+    src/hash_pcql.h \
     src/hashtable-avl.c \
     src/hashtable-avl.h
 

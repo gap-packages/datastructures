@@ -6,14 +6,16 @@ compiler:
   - gcc
   - clang
 env:
-  - COMPILE=true
+  global:
+    - GAPROOT=gaproot
 branches:
   only:
     - master
 addons:
   apt_packages:
     - libgmp3-dev
+before_script:
+  - scripts/build_gap.sh
 script:
-  - sh scripts/travis_build.sh
-  - gapsrc/bin/gap.sh tst/testall.g
-
+  - scripts/build_pkg.sh
+  - $GAPROOT/bin/gap.sh tst/testall.g

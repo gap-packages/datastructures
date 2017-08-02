@@ -9,11 +9,13 @@
 
 #include <src/gaputils.h>
 
+#include "hashfunctions.h"
 
 // List of datastructure submodules
 static struct DatastructuresModule *submodules[] = {
     &BinaryHeapModule,
     &HashmapModule,
+    &HashFunctionsModule,
 };
 
 #define ITERATE_SUBMODULE(func) \

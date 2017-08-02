@@ -17,3 +17,4 @@ ReadPackage("datastructures", "gap/pairingheap.gi");
 ReadPackage("datastructures", "gap/hashmap.gi");
 
 ReadPackage("datastructures", "gap/stack.gi");
+ReadPackage("datastructures", "gap/hashfunctions.gi");

@@ -30,3 +30,6 @@ ReadPackage("datastructures", "gap/hashmap.gd");
 
 # Stacks
 ReadPackage("datastructures", "gap/stack.gd");
+
+# Hash functions
+ReadPackage("datastructures", "gap/hashfunctions.gd");

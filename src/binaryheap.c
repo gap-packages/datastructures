@@ -10,6 +10,7 @@
  *   <https://stackoverflow.com/questions/6531543>
  */
 
+#include "src/compiled.h"
 #include "binaryheap.h"
 
 #define DS_BINARYHEAP_ISLESS(heap) ELM_PLIST(heap, 1)
@@ -30,6 +31,15 @@
 // But in DS_BinaryHeap_ReplaceMax_C(), it can be less than that.
 static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 {
+    Int useLt;
+
+    if (isLess == LtOper) {
+        useLt = 1;
+    }
+    else {
+        useLt = 0;
+    }
+
     if (LEN_PLIST(data) < i) {
         GROW_PLIST(data, i);
         SET_LEN_PLIST(data, i);
@@ -37,8 +47,14 @@ static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 
     while (i > 1) {
         Obj parent = ELM_PLIST(data, i >> 1);
-        if (False == CALL_2ARGS(isLess, parent, elm))
-            break;
+        if (useLt) {
+            if (0 == LT(parent, elm))
+                break;
+        }
+        else {
+            if (False == CALL_2ARGS(isLess, parent, elm))
+                break;
+        }
         SET_ELM_PLIST(data, i, parent);
         i >>= 1;
     }
@@ -53,6 +69,15 @@ static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 static Int DS_BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
 {
     Int len = LEN_PLIST(data);
+    Int useLt;
+
+    if (isLess == LtOper) {
+        useLt = 1;
+    }
+    else {
+        useLt = 0;
+    }
+
     while (2 * i <= len) {
         // get positions of the children of <i>
         Int left = 2 * i;
@@ -69,13 +94,25 @@ static Int DS_BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
         // otherwise, compare left and right child, and move the larger one up
         Obj leftObj = ELM_PLIST(data, left);
         Obj rightObj = ELM_PLIST(data, right);
-        if (True == CALL_2ARGS(isLess, rightObj, leftObj)) {
-            SET_ELM_PLIST(data, i, leftObj);
-            i = left;
+        if (useLt) {
+            if (0 != LT(rightObj, leftObj)) {
+                SET_ELM_PLIST(data, i, leftObj);
+                i = left;
+            }
+            else {
+                SET_ELM_PLIST(data, i, rightObj);
+                i = right;
+            }
         }
         else {
-            SET_ELM_PLIST(data, i, rightObj);
-            i = right;
+            if (True == CALL_2ARGS(isLess, rightObj, leftObj)) {
+                SET_ELM_PLIST(data, i, leftObj);
+                i = left;
+            }
+            else {
+                SET_ELM_PLIST(data, i, rightObj);
+                i = right;
+            }
         }
     }
 
@@ -94,7 +131,8 @@ Obj DS_BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
     if (len == 0) {
         AssPlist(data, 1, elm);
         RetypeBag(data, T_PLIST_DENSE);
-    } else {
+    }
+    else {
         DS_BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
     }
     return 0;
@@ -118,10 +156,8 @@ Obj DS_BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(
-        "binaryheap.c", DS_BinaryHeap_Insert_C, 2, "heap, elm"),
-    GVARFUNC(
-        "binaryheap.c", DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
+    GVARFUNC("binaryheap.c", DS_BinaryHeap_Insert_C, 2, "heap, elm"),
+    GVARFUNC("binaryheap.c", DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
     { 0 }
 };
 

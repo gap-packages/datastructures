@@ -21,9 +21,7 @@
 ## TODO:
 ##
 ##  - implement decrease priority
-##  - implement tests
 ##  - do benchmarks and consider more efficient implementations
-##  - custom comparison function for priorities
 ##
 InstallGlobalFunction(PairingHeap,
 function(arg...)
@@ -69,7 +67,7 @@ function(heap, data)
     if heap![1] = 0 then
         heap![3] := [data, 1, []];
         heap![1] := 1;
-    elif heap![2](heap![3][1], data) then
+    elif heap![2](data, heap![3][1]) then
         Add(heap![3][3], [data,1,[]]);
         heap![3][2] := heap![3][2] + 1;
         heap![1] := heap![3][2];
@@ -79,34 +77,6 @@ function(heap, data)
     fi;
 end);
 
-meld := function(isLess, x, y)
-    if isLess(x[1],y[1]) then
-        Add(x[3], y);
-        x[2] := x[2] + y[2];
-        return x;
-    else
-        Add(y[3], x);
-        y[2] := x[2] + y[2];
-        return y;
-    fi;
-end;
-
-merge_pairs := function(isLess, heaps)
-    local h, res;
-
-    if Length(heaps) = 0 then
-        return [0,0,0];
-    else
-        res := heaps[1];
-
-        for h in heaps{[2..Length(heaps)]} do
-            res := meld(isLess, res, h);
-        od;
-
-        return res;
-    fi;
-end;
-
 InstallGlobalFunction(PairingHeapPeek,
 function(heap)
     return heap![3][1];
@@ -114,14 +84,42 @@ end);
 
 InstallGlobalFunction(PairingHeapPop,
 function(heap)
-    local res;
+    local res, merge_pairs, meld;
+
+    meld := function(isLess, x, y)
+        if isLess(y[1],x[1]) then
+            Add(x[3], y);
+            x[2] := x[2] + y[2];
+            return x;
+        else
+            Add(y[3], x);
+            y[2] := x[2] + y[2];
+            return y;
+        fi;
+    end;
+
+    merge_pairs := function(isLess, heaps)
+        local h, res;
+
+        if Length(heaps) = 0 then
+            return [0,0,0];
+        else
+            res := heaps[1];
+
+            for h in heaps{[2..Length(heaps)]} do
+                res := meld(isLess, res, h);
+            od;
+
+            return res;
+        fi;
+    end;
 
     if heap![1] = 0 then
         res := fail;
     else
         res := heap![3][1];
         heap![3] := merge_pairs(heap![2], heap![3][3]);
-        heap![1] := heap![3][1];
+        heap![1] := heap![3][2];
     fi;
 
     return res;
@@ -141,6 +139,11 @@ InstallMethod(Peek
         , "for a pairing heap in plain representation"
         , [IsPairingHeapFlatRep]
         , PairingHeapPeek);
+
+InstallMethod(Size
+        , "for a pairing heap in plain representation"
+        , [IsPairingHeapFlatRep]
+        , h -> h![1]);
 
 InstallMethod( ViewObj,
         "for a pairing heap in flat representation",

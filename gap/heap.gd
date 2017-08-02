@@ -25,8 +25,6 @@ DeclareOperation("Pop", [IsHeap]);
 # Merge two heaps (of the same type)
 DeclareOperation("Merge", [IsHeap, IsHeap]);
 
-DeclareAttribute("Size", IsHeap);
-
 DeclareGlobalFunction("TestHeap");
 
 

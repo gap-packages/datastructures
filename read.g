@@ -14,17 +14,8 @@ SetInfoLevel( InfoDataStructures, 1 );
 
 ReadPackage("datastructures", "gap/lqueue.gi");
 
-ReadPackage("datastructures", "gap/avltree.gi");
-ReadPackage("datastructures", "gap/hash.gi");
 ReadPackage("datastructures", "gap/heap.gi");
-ReadPackage("datastructures", "gap/cache.gi");
 ReadPackage("datastructures", "gap/dllist.gi");
 
 ReadPackage("datastructures", "gap/binaryheap.gi");
 ReadPackage("datastructures", "gap/pairingheap.gi");
-
-
-# ReadPackage("datastructures", "gap/cache2.gi");
-
-#E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
-

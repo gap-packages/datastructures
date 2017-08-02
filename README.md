@@ -23,7 +23,6 @@ The datastructures package declares interfaces for the following datastructures
 * heaps
 * priority queues
 * hashtables
-* caches
 * dictionaries
 
 Implementations
@@ -32,11 +31,3 @@ Implementations
 Queues
 ------
 List queues based on Reimer Behrends' implementation in HPC-GAP
-
-AVL Trees
----------
-Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller
-
-Caches
-------
-Originally part of the orb package, written by Max Neunhöffer, Felix Noeske, and Jürgen Müller

@@ -6,13 +6,9 @@ GAPINSTALLLIB = $(abs_top_srcdir)/$(BINARCHDIR)/datastructures.so
 lib_LTLIBRARIES = datastructures.la
 
 datastructures_la_SOURCES = \
-    src/avltree.c \
-    src/avltree.h \
     src/binaryheap.c \
     src/binaryheap.h \
-    src/datastructures.c \
-    src/hashtable-avl.c \
-    src/hashtable-avl.h
+    src/datastructures.c
 
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12

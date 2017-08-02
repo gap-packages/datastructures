@@ -26,9 +26,9 @@
 // and don't perform actual swaps. That's a simple optimization.
 //
 // Note that for normal insertions into the heap, as performed by
-// _BinaryHeap_Insert_C(), <i> will be equal to the length of <data> plus 1.
-// But in _BinaryHeap_ReplaceMax_C(), it can be less than that.
-static void _BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
+// DS_BinaryHeap_Insert_C(), <i> will be equal to the length of <data> plus 1.
+// But in DS_BinaryHeap_ReplaceMax_C(), it can be less than that.
+static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 {
     if (LEN_PLIST(data) < i) {
         GROW_PLIST(data, i);
@@ -50,7 +50,7 @@ static void _BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 // "Bubble down" helper used for extraction: Given a heap <data> (represented
 // by a GAP plist), and a comparison operation <isLess>, start with a "hole"
 // or "bubble" at position <i>, and push it down through the heap.
-static Int _BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
+static Int DS_BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
 {
     Int len = LEN_PLIST(data);
     while (2 * i <= len) {
@@ -82,7 +82,7 @@ static Int _BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
     return i;
 }
 
-Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
+Obj DS_BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -95,12 +95,12 @@ Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
         AssPlist(data, 1, elm);
         RetypeBag(data, T_PLIST_DENSE);
     } else {
-        _BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
+        DS_BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
     }
     return 0;
 }
 
-Obj _BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
+Obj DS_BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -109,19 +109,19 @@ Obj _BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
         ErrorQuit("<data> is not a dense plist", 0L, 0L);
 
     // treat the head slot as a hole that we move down into a leaf
-    Int i = _BinaryHeap_BubbleDown_C(data, isLess, 1);
+    Int i = DS_BinaryHeap_BubbleDown_C(data, isLess, 1);
 
     // insert the new element into the leaf-hole and move it up
-    _BinaryHeap_BubbleUp_C(data, isLess, i, elm);
+    DS_BinaryHeap_BubbleUp_C(data, isLess, i, elm);
 
     return 0;
 }
 
 static StructGVarFunc GVarFuncs[] = {
     GVARFUNC(
-        "binaryheap.c", _BinaryHeap_Insert_C, 2, "heap, elm"),
+        "binaryheap.c", DS_BinaryHeap_Insert_C, 2, "heap, elm"),
     GVARFUNC(
-        "binaryheap.c", _BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
+        "binaryheap.c", DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
     { 0 }
 };
 

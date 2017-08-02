@@ -40,7 +40,7 @@ BinaryHeap_FindMax := function(heap)
     return heap![2][1];
 end;
 
-_BinaryHeap_BubbleUp := function(data, isLess, i, elm)
+DS_Heap_BubbleUp := function(data, isLess, i, elm)
     local parent;
     while i > 1 do
         parent := QuoInt(i, 2);
@@ -54,17 +54,17 @@ _BinaryHeap_BubbleUp := function(data, isLess, i, elm)
 end;
 
 # Alternative name: Push / Add
-_BinaryHeap_Insert_GAP := function(heap, elm)
-    _BinaryHeap_BubbleUp(heap![2], heap![1], Length(heap![2]) + 1, elm);
+DS_Heap_Insert_GAP := function(heap, elm)
+    DS_Heap_BubbleUp(heap![2], heap![1], Length(heap![2]) + 1, elm);
 end;
 
-if IsBound(_BinaryHeap_Insert_C) then
-	BinaryHeap_Insert := _BinaryHeap_Insert_C;
+if IsBound(DS_Heap_Insert_C) then
+	BinaryHeap_Insert := DS_Heap_Insert_C;
 else
-	BinaryHeap_Insert := _BinaryHeap_Insert_GAP;
+	BinaryHeap_Insert := DS_Heap_Insert_GAP;
 fi;
 
-_BinaryHeap_ReplaceMax_GAP := function(heap, elm)
+DS_Heap_ReplaceMax_GAP := function(heap, elm)
     local data, isLess, i, left, right;
     data := heap![2];
     isLess := heap![1];
@@ -83,13 +83,13 @@ _BinaryHeap_ReplaceMax_GAP := function(heap, elm)
     od;
 
     # Insert the new element into the hole bubble it up.
-    _BinaryHeap_BubbleUp(data, isLess, i, elm);
+    DS_Heap_BubbleUp(data, isLess, i, elm);
 end;
 
-if IsBound(_BinaryHeap_ReplaceMax_C) then
-	BinaryHeap_ReplaceMax := _BinaryHeap_ReplaceMax_C;
+if IsBound(DS_Heap_ReplaceMax_C) then
+	BinaryHeap_ReplaceMax := DS_Heap_ReplaceMax_C;
 else
-	BinaryHeap_ReplaceMax := _BinaryHeap_ReplaceMax_GAP;
+	BinaryHeap_ReplaceMax := DS_Heap_ReplaceMax_GAP;
 fi;
 
 # Alternative name: Pop / Remove

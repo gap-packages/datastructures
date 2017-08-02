@@ -19,6 +19,9 @@
 /doc/*.toc
 /doc/manual.pdf
 
+/doc/datastructures.xml
+/doc/title.xml
+
 .deps/
 .dirstamp
 .libs/

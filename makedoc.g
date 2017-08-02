@@ -8,8 +8,9 @@ fi;
 
 AutoDoc(
     rec(
-        scaffold := rec( MainPage := false ),
-        gapdoc := rec( main := "main" ),
+        scaffold := rec(
+            includes := [ "hash.xml", "cache.xml", "avl.xml" ]
+        )
     )
 );
 PrintTo("VERSION", GAPInfo.PackageInfoCurrent.Version);

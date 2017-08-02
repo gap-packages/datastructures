@@ -12,9 +12,6 @@
 
 #include "binaryheap.h"
 
-#define DS_BINARYHEAP_ISLESS(heap)  ADDR_OBJ(heap)[0]
-#define DS_BINARYHEAP_DATA(heap)    ADDR_OBJ(heap)[1]
-
 typedef Obj (* GVarFuncType)(/*arguments*/);
 
 #define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
@@ -23,9 +20,8 @@ typedef Obj (* GVarFuncType)(/*arguments*/);
    (GVarFuncType)name, \
    srcfile ":Func" #name }
 
-
-static UInt s_isLess_RNam = 0;
-static UInt s_data_RNam = 0;
+#define DS_BINARYHEAP_ISLESS(heap)  ADDR_OBJ(heap)[0]
+#define DS_BINARYHEAP_DATA(heap)    ADDR_OBJ(heap)[1]
 
 // "Bubble-up" helper used for insertion: Given a heap <data> (represented by
 // a GAP plist), and a comparison operation <isLess>, insert the <elm> at
@@ -132,6 +128,10 @@ static StructGVarFunc GVarFuncs[] = {
 
 static Int InitKernel(void) {
   InitHdlrFuncsFromTable(GVarFuncs);
+  return 0;
+}
+
+static Int PostRestore(void) {
   return 0;
 }
 

@@ -12,13 +12,6 @@
 
 #include "binaryheap.h"
 
-typedef Obj (*GVarFuncType)(/*arguments*/);
-
-#define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params)                 \
-    {                                                                        \
-        #name, nparam, params, (GVarFuncType) name, srcfile ":Func" #name    \
-    }
-
 #define DS_BINARYHEAP_ISLESS(heap) ELM_PLIST(heap, 1)
 #define DS_BINARYHEAP_DATA(heap) ELM_PLIST(heap, 2)
 
@@ -125,9 +118,9 @@ Obj _BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVAR_FUNC_TABLE_ENTRY(
+    GVARFUNC(
         "binaryheap.c", _BinaryHeap_Insert_C, 2, "heap, elm"),
-    GVAR_FUNC_TABLE_ENTRY(
+    GVARFUNC(
         "binaryheap.c", _BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
     { 0 }
 };

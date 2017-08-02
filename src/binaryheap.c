@@ -19,8 +19,8 @@ typedef Obj (*GVarFuncType)(/*arguments*/);
         #name, nparam, params, (GVarFuncType) name, srcfile ":Func" #name    \
     }
 
-#define DS_BINARYHEAP_ISLESS(heap) ADDR_OBJ(heap)[0]
-#define DS_BINARYHEAP_DATA(heap) ADDR_OBJ(heap)[1]
+#define DS_BINARYHEAP_ISLESS(heap) ELM_PLIST(heap, 1)
+#define DS_BINARYHEAP_DATA(heap) ELM_PLIST(heap, 2)
 
 // "Bubble-up" helper used for insertion: Given a heap <data> (represented by
 // a GAP plist), and a comparison operation <isLess>, insert the <elm> at
@@ -69,6 +69,7 @@ static Int _BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
         // and exit
         if (right > len) {
             SET_ELM_PLIST(data, i, ELM_PLIST(data, left));
+            i = left;
             break;    // next iteration would stop anyway
         }
 
@@ -90,7 +91,6 @@ static Int _BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
 
 Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
 {
-    GAP_ASSERT(IS_PREC_REP(heap));
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
 
@@ -98,17 +98,16 @@ Obj _BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
         ErrorQuit("<data> is not a dense plist", 0L, 0L);
 
     Int len = LEN_PLIST(data);
-    if (len == 0)
-        AssPlist(data, 1, elm);
-    else
+    if (len == 0) {
+        AssPlistEmpty(data, 1, elm);
+    } else {
         _BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
-
+    }
     return 0;
 }
 
 Obj _BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
 {
-    GAP_ASSERT(IS_PREC_REP(heap));
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
 

@@ -37,7 +37,7 @@ end;
 # Alternative name: Peek
 BinaryHeap_FindMax := function(heap)
     if Length(heap![2]) = 0 then return fail; fi; # alternative: error
-    return heap![1][1];
+    return heap![2][1];
 end;
 
 _BinaryHeap_BubbleUp := function(data, isLess, i, elm)
@@ -55,7 +55,7 @@ end;
 
 # Alternative name: Push / Add
 _BinaryHeap_Insert_GAP := function(heap, elm)
-    _BinaryHeap_BubbleUp(heap![2], heap![1].isLess, Length(heap![2]) + 1, elm);
+    _BinaryHeap_BubbleUp(heap![2], heap![1], Length(heap![2]) + 1, elm);
 end;
 
 if IsBound(_BinaryHeap_Insert_C) then
@@ -83,7 +83,7 @@ _BinaryHeap_ReplaceMax_GAP := function(heap, elm)
     od;
 
     # Insert the new element into the hole bubble it up.
-    _BinaryHeap_BubbleUp(heap.data, heap.isLess, i, elm);
+    _BinaryHeap_BubbleUp(data, isLess, i, elm);
 end;
 
 if IsBound(_BinaryHeap_ReplaceMax_C) then
@@ -148,13 +148,18 @@ function(arg...)
         Error("Wrong number of arguments");
     fi;
 
-    heap := Objectify( PairingHeapTypeMutable, [ isLess, [] ] );
+    heap := Objectify( BinaryHeapTypeMutable, [ isLess, [] ] );
 
     for x in data do
         BinaryHeap_Insert(heap, x);
     od;
     return heap;
 end);
+
+InstallMethod(Push
+             , "for a binary heap in plain representation"
+             , [IsBinaryHeapFlatRep, IsObject]
+             , BinaryHeap_Insert);
 
 InstallMethod(Pop
              , "for a binary heap in plain representation"
@@ -166,9 +171,15 @@ InstallMethod(Peek
              , [IsBinaryHeapFlatRep]
              , BinaryHeap_FindMax);
 
+InstallMethod(Size
+             , "for a binary heap in plain representation"
+             , [IsBinaryHeapFlatRep]
+             , BinaryHeap_Size);
+
 InstallMethod(ViewObj
              , "for a binary heap in flat representation"
+             , [IsBinaryHeapFlatRep],
 function(heap)
-    Print("<binary heap with ", Length(h![2]), " entries>");
+    Print("<binary heap with ", Length(heap![2]), " entries>");
 end);
 

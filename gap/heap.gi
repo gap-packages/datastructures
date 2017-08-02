@@ -5,6 +5,8 @@ function(con)
           , data, ord
           , extract
           , range
+          , compare
+          , obj
           , nrelts;
     nrelts := 10000;
     range := [-nrelts..nrelts];
@@ -41,6 +43,28 @@ function(con)
 
     if extract <> ord then
         Error("The data did not come out of the heap in the correct order");
+    fi;
+
+    Print("Trying to put booleans into heap\n");
+    heap := con();
+    Push(heap, true);
+    Push(heap, false);
+    Pop(heap);
+    Pop(heap);
+
+    Print("Creating Heap With Comparison\n");
+    compare := function(a,b) return a[15] > b[15]; end; 
+   
+    range := [-100, 100];
+    for d in [1..nrelts] do
+       obj := [];
+       obj[15] := Random(range);
+       Push(heap, obj);
+    od;
+ 
+    Print("After adding ", nrelts, " elements heap has size ", Size(heap), "\n");
+    if Size(heap) <> nrelts then
+        Error("Heap does not have the correct size.");
     fi;
 
     Print("Tests end.");

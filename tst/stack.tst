@@ -22,6 +22,13 @@ true
 gap> Pop(s);
 fail
 
+# Push & Peek
+gap> Push(s, 15);
+gap> Peek(s);
+15
+gap> Size(s);
+1
+
 #
 gap> STOP_TEST( "datastructures package: stack.tst", 10000);
 

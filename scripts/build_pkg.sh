@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-set -x
-set -e
+set -ex
 
 # build this package
 ./autogen.sh
 ./configure --with-gaproot=$GAPROOT
-make
+make -j4 V=1
 
 # ... and link it into GAP pkg dir
 ls

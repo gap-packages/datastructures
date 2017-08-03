@@ -7,15 +7,23 @@ compiler:
   - clang
 env:
   global:
+    - CFLAGS="-fprofile-arcs -ftest-coverage -O2"
+    - LDFLAGS="-fprofile-arcs"
     - GAPROOT=gaproot
+    - COVDIR=coverage
+
 branches:
   only:
     - master
 addons:
   apt_packages:
     - libgmp3-dev
+
 before_script:
   - scripts/build_gap.sh
 script:
   - scripts/build_pkg.sh
-  - $GAPROOT/bin/gap.sh tst/testall.g
+  - scripts/run_tests.sh
+after_script:
+  - bash scripts/gather-coverage.sh
+  - bash <(curl -s https://codecov.io/bash)

@@ -16,6 +16,7 @@ ReadPackage("datastructures", "gap/lqueue.gi");
 
 ReadPackage("datastructures", "gap/avltree.gi");
 ReadPackage("datastructures", "gap/hash.gi");
+ReadPackage("datastructures", "gap/heap.gi");
 ReadPackage("datastructures", "gap/cache.gi");
 ReadPackage("datastructures", "gap/dllist.gi");
 

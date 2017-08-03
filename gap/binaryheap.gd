@@ -14,3 +14,15 @@
 #
 # #
 # DeclareAttribute("Size", IsHeap);
+
+DeclareRepresentation( "IsBinaryHeapFlatRep", IsHeap and IsPositionalObjectRep, []);
+BindGlobal( "BinaryHeapType", NewType(HeapFamily, IsBinaryHeapFlatRep));
+BindGlobal( "BinaryHeapTypeMutable", NewType(HeapFamily,
+                                              IsBinaryHeapFlatRep and IsMutable));
+
+DeclareGlobalFunction("BinaryHeap");
+DeclareGlobalFunction("BinaryHeapPush");
+DeclareGlobalFunction("BinaryHeapPeek");
+DeclareGlobalFunction("BinaryHeapPop");
+DeclareGlobalFunction("BinaryHeapSize");
+DeclareGlobalFunction("BinaryHeapMergePairs");

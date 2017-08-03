@@ -54,7 +54,7 @@ function(arg...)
     heap := Objectify(PairingHeapTypeMutable, [0, isLess, []]);
 
     for x in data do
-        BinaryHeap_Insert(heap, x);
+        PairingHeapPush(heap, x);
     od;
     return heap;
 end);

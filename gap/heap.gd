@@ -85,7 +85,6 @@ DeclareOperation("Merge", [IsHeap, IsHeap]);
 #! then runs some basic tests on it, such as inserting a number of elements and
 #! checking that the same elements can be popped off in the same order.
 #! @Arguments constructor
-#! @Returns nothing
 DeclareGlobalFunction("TestHeap");
 
 #! @EndSection

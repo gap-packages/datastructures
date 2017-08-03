@@ -17,6 +17,13 @@ function(s,o)
     Add(s![1], o);
 end);
 
+InstallMethod(Peek
+             , "for a stack"
+             , [IsStack],
+function(s)
+    return s![1][Length(s![1])];
+end);
+
 InstallMethod(Pop
              , "for a stack"
              , [IsStack],

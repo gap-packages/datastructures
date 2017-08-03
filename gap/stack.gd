@@ -17,10 +17,6 @@
 DeclareCategory("IsStack", IsCollection);
 BindGlobal( "StackFamily", NewFamily("StackFamily") );
 
-#TODO Do we want to use constructors?
-# Arguments are a heap filter, a comparison function, and maybe some data?
-DeclareConstructor("NewStack", [IsStack]);
-
 #! @Description
 #! Puts the object <A>object</A> a new object onto <A>stack</A>.
 #!

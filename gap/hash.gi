@@ -142,6 +142,10 @@ InstallGlobalFunction( GrowDS_HT, function(ht,x)
       ht.hfd := [ht.hfbig,ht.hfdbig,ht.len];
   else
       ht.hf := ChooseHashFunction(x,ht.len);
+      if ht.hf = fail then
+          Error("Could not find hash function for sample object");
+          return fail;
+      fi;
       ht.hfd := ht.hf.data;
       ht.hf := ht.hf.func;
   fi;
@@ -535,6 +539,10 @@ InstallMethod( DS_HTGrow, "for a tree hash table and an object",
         ht!.hfd := [ht!.hfbig,ht!.hfdbig,ht!.len];
     else
         ht!.hf := ChooseHashFunction(x,ht!.len);
+        if ht!.hf = fail then
+            Error("Could not find hash function for sample object");
+            return fail;
+        fi;
         ht!.hfd := ht!.hf.data;
         ht!.hf := ht!.hf.func;
     fi;
@@ -623,10 +631,10 @@ function(v,data)
   return HashKeyBag(v,101,3*GAPInfo.BytesPerVariable,data[2]) mod data[1] + 1;
 end );
 
-InstallMethod( ChooseHashFunction, "failure method if all fails",
+InstallMethod( ChooseHashFunction, "failure method",
   [IsObject,IsInt],
   function(p,hashlen)
-    Error("Could not guess a suitable hash function");
+    return fail;
   end );
 
 # Now the choosing methods for compressed vectors:
@@ -788,7 +796,6 @@ InstallMethod( ChooseHashFunction, "for permutations",
     return rec( func := ORB_HashFunctionForPermutations, data := hashlen );
   end );
 
-
 InstallMethod( ChooseHashFunction, "for transformations",
   [IsTransformation, IsInt],
   function(t,hashlen)
@@ -866,6 +873,39 @@ InstallMethod( ChooseHashFunction,
     fi;
     TryNextMethod();
   end );
+
+if IsBound(HASH_FUNC_FOR_PPERM) then 
+    InstallGlobalFunction( ORB_HashFunctionForPartialPerms, HASH_FUNC_FOR_PPERM);
+elif IsBound(IsPPerm2Rep) and IsBound(IsPPerm4Rep) then
+  InstallGlobalFunction( ORB_HashFunctionForPartialPerms, 
+  function(t, data)
+    local codeg;
+    if IsPPerm4Rep(t) then 
+      codeg:=CodegreeOfPartialPerm(t);
+      if codeg<65536 then 
+        TrimPartialPerm(t);
+      else
+        return HashKeyBag(t,255,4,4*DegreeOfPartialPerm(t)) mod data + 1;
+      fi;
+    fi;
+    return HashKeyBag(t,255,2,2*DegreeOfPartialPerm(t)) mod data + 1;
+  end);
+fi;
+
+if IsBound(IsPartialPerm) then
+  InstallMethod( ChooseHashFunction, "for partial perms",
+    [IsPartialPerm, IsInt],
+    function(t,hashlen)
+      return rec( func := ORB_HashFunctionForPartialPerms, data := hashlen );
+    end );
+fi;
+
+InstallMethod(ChooseHashFunction, "for a blist and pos int",
+[IsBlistRep, IsPosInt],
+  function(x, hashlen)
+  return rec(func := HASH_FUNC_FOR_BLIST,
+             data := hashlen);
+end);
 
 ##
 ##  This program is free software: you can redistribute it and/or modify

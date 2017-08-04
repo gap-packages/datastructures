@@ -50,7 +50,7 @@ function(arg...)
         Error("Wrong number of arguments");
     fi;
 
-    heap := Objectify( BinaryHeapTypeMutable, [ isLess, [] ] );
+    heap := Objectify( BinaryHeapType, [ isLess, [] ] );
 
     for x in data do
         DS_BinaryHeap_Insert(heap, x);

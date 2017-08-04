@@ -26,10 +26,6 @@
 
 
 
-
-// Helper macro for computing the size of a (static!) array
-#define ARRAYSIZE(x) ((int)(sizeof(x) / sizeof(x[0])))
-
 // Helper macro to simplify initialization of StructGVarFunc records
 #define GVARFUNC(name, nparam, params) \
   {#name, nparam, params, (GVarFuncType)name, __FILE__ ":" #name }

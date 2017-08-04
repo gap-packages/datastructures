@@ -17,7 +17,7 @@ static struct DatastructuresModule *submodules[] = {
 };
 
 #define ITERATE_SUBMODULE(func) \
-    for (int i = 0; i < ARRAYSIZE(submodules); ++i) { \
+    for (int i = 0; i < ARRAY_SIZE(submodules); ++i) { \
         if (submodules[i]->func) { \
             Int retVal = submodules[i]->func(); \
             if (retVal != 0) \

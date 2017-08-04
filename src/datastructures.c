@@ -4,10 +4,10 @@
  */
 
 #include "datastructures.h"
-
 #include "binaryheap.h"
-
 #include "hashmap.h"
+
+#include <src/gaputils.h>
 
 
 // List of datastructure submodules

@@ -103,6 +103,25 @@ gap> badHashmap := DS_Hash_Create( x -> "hash", \=, 5 );;
 gap> DS_Hash_Contains(badHashmap, 1);
 Error, <hashfun> must return a small int
 
+#
+# test reserving capacity
+#
+gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
+<hash map obj capacity=16 used=0>
+gap> for i in [1..1200] do DS_Hash_SetValue(hashmap, i, i^2); od;
+gap> hashmap;
+<hash map obj capacity=2048 used=1200>
+
+# trying to shrink does nothing
+gap> DS_Hash_Reserve(hashmap, 200);
+gap> hashmap;
+<hash map obj capacity=2048 used=1200>
+
+# reserving more space works
+gap> DS_Hash_Reserve(hashmap, 3000);
+gap> hashmap;
+<hash map obj capacity=4096 used=1200>
+
 ##########################################
 #
 # Test hashmap with string keys
@@ -112,7 +131,8 @@ gap> hashfun := function(str)
 >     Assert(0, IsStringRep(str));
 >     return HashKeyBag(str, 0, 0, -1);
 > end;;
-gap> hashmap := DS_Hash_Create( hashfun, \=, 20 );;
+gap> hashmap := DS_Hash_Create( hashfun, \=, 20 );
+<hash map obj capacity=32 used=0>
 gap> DS_Hash_Capacity(hashmap);
 32
 

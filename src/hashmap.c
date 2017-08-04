@@ -117,15 +117,25 @@ static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
                                   create);
 }
 
+//
+// Resize the keys and values stores to a new capacity.
+//
+// The caller is responsible for checking that the new capacity
+// is sufficient to allow all elements to be stored, and that
+// it is a power of 2.
+//
 static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 {
-    // Pr("_DS_Hash_Resize_intern(%d)\n", new_capacity, 0L);
+    GAP_ASSERT(new_capacity >= 16);
+    GAP_ASSERT(0 == (new_capacity & (new_capacity - 1))); // power of 2?
 
     Obj old_keys = ELM_PLIST(ht, POS_KEYS);
     Obj old_vals = ELM_PLIST(ht, POS_VALUES);
 
     Int old_capacity = LEN_PLIST(old_keys);
     Int old_size = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+
+    GAP_ASSERT(new_capacity >= old_size);
 
     Obj keys = NEW_PLIST(T_PLIST, new_capacity);
     SET_LEN_PLIST(keys, new_capacity);
@@ -162,16 +172,16 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 
         new_size++;
     }
-    // Strictly speaking, we should call CHANGED_BAG inside the loop.
-    // However, as we copy elements from existing lists, all the objects
-    // are already known to GASMAN. So it is safe to delay the
-    // notification as no objects can be lost.
-    // FIXME: Verify the above claim!
+
+    // Strictly speaking, we should call CHANGED_BAG inside the loop. However,
+    // as we copy elements from existing lists, all the objects are already
+    // known to GASMAN. So it is safe to delay the notification as no objects
+    // can be lost.
     CHANGED_BAG(keys);
     CHANGED_BAG(values);
 
     if (old_size != new_size)
-        ErrorQuit("_DS_Hash_Resize_intern: unexpected size change", 0L, 0L);
+        ErrorQuit("_DS_Hash_Resize_intern: unexpected size change (was %d, now %d)", old_size, new_size);
 
     // ... and store the result
     SET_ELM_PLIST(ht, POS_USED, INTOBJ_INT(new_size));
@@ -182,21 +192,21 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
     CHANGED_BAG(ht);
 }
 
+// This helper function check if the table is very full, and if so,
+// reallocates it. This may increase the capacity, but not necessarily:
+// if the table contains many deleted items, the capacity could stay
+// unchanged.
 static void _DS_GrowIfNecessary(Obj ht)
 {
-    Int size = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+    Int used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
     Int deleted = INT_INTOBJ(ELM_PLIST(ht, POS_DELETED));
 
     Obj keys = ELM_PLIST(ht, POS_KEYS);
 
     Int capacity = LEN_PLIST(keys);
-    GAP_ASSERT(capacity >= 16);
-    GAP_ASSERT(0 == (capacity & (capacity - 1)));    // power of 2?
-
-    if ((size + deleted) * LOADFACTOR_DENOMINATOR >
+    if ((used + deleted) * LOADFACTOR_DENOMINATOR >
         capacity * LOADFACTOR_NUMERATOR) {
-        capacity = 16;
-        while (capacity < 2 * size)
+        while (used * LOADFACTOR_DENOMINATOR > capacity * LOADFACTOR_NUMERATOR)
             capacity <<= 1;
         _DS_Hash_Resize_intern(ht, capacity);
     }
@@ -345,11 +355,29 @@ Obj DS_Hash_Value(Obj self, Obj ht, Obj key)
     return ELM_PLIST(values, idx);
 }
 
-
-Obj DS_Hash_Resize(Obj self, Obj ht, Obj new_capacity)
+Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 {
     DS_RequireHash(ht);
-    _DS_Hash_Resize_intern(ht, INT_INTOBJ(new_capacity));
+    if (!IS_POS_INTOBJ(new_capacity)) {
+        ErrorQuit("<new_capacity> must be a small positive integer", 0, 0);
+    }
+
+    Int c = LEN_PLIST(ELM_PLIST(ht, POS_KEYS));
+    Int requestedCapacity = INT_INTOBJ(new_capacity);
+    if (c >= requestedCapacity)
+        return 0;
+
+    // round up to a power of 2
+    while (c < requestedCapacity)
+        c <<= 1;
+
+    // Make sure capacity is big enough to contain all its elements
+    // while staying under the load factor
+    Int used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+    while (used * LOADFACTOR_DENOMINATOR > c * LOADFACTOR_NUMERATOR)
+        c <<= 1;
+
+    _DS_Hash_Resize_intern(ht, c);
     return 0;
 }
 
@@ -400,7 +428,7 @@ static StructGVarFunc GVarFuncs[] = {
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Contains, 2, "ht, key"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Value, 2, "ht, key"),
 
-    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Resize, 2, "ht, new_capacity"),
+    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Reserve, 2, "ht, new_capacity"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_SetValue, 3, "ht, key, val"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
 

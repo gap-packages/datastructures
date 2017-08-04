@@ -67,5 +67,5 @@ function(con)
         Error("Heap does not have the correct size.");
     fi;
 
-    Print("Tests end.");
+    Print("Tests end.\n");
 end);

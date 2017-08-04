@@ -69,6 +69,10 @@ gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
 true
 gap> hashmap[567];
 2
+gap> DS_Hash_AccumulateValue(hashmap, 567, 5, PROD);
+true
+gap> hashmap[567];
+10
 
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));

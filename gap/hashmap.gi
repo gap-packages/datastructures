@@ -35,7 +35,7 @@ InstallOtherMethod( Unbind\[\],
     [ IsHashMapRep, IsObject ],
     DS_Hash_Delete);
 
-InstallOtherMethod( IsEmpty,
+InstallOtherMethod( Size,
     "for a hashmap",
     [ IsHashMapRep ],
-    ht -> DS_Hash_Used(ht) = 0);
+    ht -> DS_Hash_Used(ht));

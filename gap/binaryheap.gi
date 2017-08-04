@@ -11,43 +11,6 @@
 # simplicity, low constant (in O-notation) and cache friendliness.
 #
 
-BinaryHeap_IsEmpty := function(heap)
-    return Length(heap![2]) = 0;
-end;
-
-BinaryHeap_Size := function(heap)
-    return Length(heap![2]);
-end;
-
-# TODO: iterator; view/print; Random; ...
-# DecreaseKey ?
-# Merge ?
-
-
-# Alternative name: Peek
-BinaryHeap_FindMax := function(heap)
-    if Length(heap![2]) = 0 then return fail; fi; # alternative: error
-    return heap![2][1];
-end;
-
-
-# Alternative name: Pop / Remove
-BinaryHeap_RemoveMax := function(heap)
-    local val, data;
-    data := heap![2];
-
-    if Length(data) = 0 then
-        return fail; # alternative: error
-    elif Length(data) = 1 then
-        return Remove(data);
-    fi;
-
-    val := data[1];
-    DS_BinaryHeap_ReplaceMax_C(heap, Remove(data));
-    return val;
-end;
-
-
 BinaryHeap_IsValid := function(heap)
     local isLess, data, i, left, right;
     isLess := heap![1];
@@ -90,34 +53,55 @@ function(arg...)
     heap := Objectify( BinaryHeapTypeMutable, [ isLess, [] ] );
 
     for x in data do
-        DS_BinaryHeap_Insert_C(heap, x);
+        DS_BinaryHeap_Insert(heap, x);
     od;
     return heap;
 end);
 
-InstallMethod(Push
-             , "for a binary heap in plain representation"
-             , [IsBinaryHeapFlatRep, IsObject]
-             , DS_BinaryHeap_Insert_C);
+InstallMethod(Push,
+    "for a binary heap in plain representation",
+    [IsBinaryHeapFlatRep, IsObject],
+    DS_BinaryHeap_Insert);
 
-InstallMethod(Pop
-             , "for a binary heap in plain representation"
-             , [IsBinaryHeapFlatRep]
-             , BinaryHeap_RemoveMax);
+InstallMethod(Pop,
+    "for a binary heap in plain representation",
+    [IsBinaryHeapFlatRep],
+function(heap)
+    local val, data;
+    data := heap![2];
 
-InstallMethod(Peek
-             , "for a binary heap in plain representation"
-             , [IsBinaryHeapFlatRep]
-             , BinaryHeap_FindMax);
+    if Length(data) = 0 then
+        return fail; # alternative: error
+    elif Length(data) = 1 then
+        return Remove(data);
+    fi;
 
-InstallMethod(Size
-             , "for a binary heap in plain representation"
-             , [IsBinaryHeapFlatRep]
-             , BinaryHeap_Size);
+    val := data[1];
+    DS_BinaryHeap_ReplaceMax(heap, Remove(data));
+    return val;
+end);
 
-InstallMethod(ViewObj
-             , "for a binary heap in flat representation"
-             , [IsBinaryHeapFlatRep],
+InstallMethod(Peek,
+    "for a binary heap in plain representation",
+    [IsBinaryHeapFlatRep],
+function(heap)
+    if Length(heap![2]) = 0 then
+        return fail; # alternative: error
+    fi;
+    return heap![2][1];
+end);
+
+InstallMethod(Size,
+    "for a binary heap in plain representation",
+    [IsBinaryHeapFlatRep],
+function(heap)
+    return Length(heap![2]);
+end);
+
+
+InstallMethod(ViewObj,
+    "for a binary heap in flat representation",
+    [IsBinaryHeapFlatRep],
 function(heap)
     Print("<binary heap with ", Length(heap![2]), " entries>");
 end);

@@ -27,18 +27,11 @@
 // and don't perform actual swaps. That's a simple optimization.
 //
 // Note that for normal insertions into the heap, as performed by
-// DS_BinaryHeap_Insert_C(), <i> will be equal to the length of <data> plus 1.
-// But in DS_BinaryHeap_ReplaceMax_C(), it can be less than that.
-static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
+// DS_BinaryHeap_Insert(), <i> will be equal to the length of <data> plus 1.
+// But in DS_BinaryHeap_ReplaceMax(), it can be less than that.
+static void DS_BinaryHeap_BubbleUp(Obj data, Obj isLess, Int i, Obj elm)
 {
-    Int useLt;
-
-    if (isLess == LtOper) {
-        useLt = 1;
-    }
-    else {
-        useLt = 0;
-    }
+    const Int useLt = (isLess == LtOper);
 
     if (LEN_PLIST(data) < i) {
         GROW_PLIST(data, i);
@@ -66,17 +59,10 @@ static void DS_BinaryHeap_BubbleUp_C(Obj data, Obj isLess, Int i, Obj elm)
 // "Bubble down" helper used for extraction: Given a heap <data> (represented
 // by a GAP plist), and a comparison operation <isLess>, start with a "hole"
 // or "bubble" at position <i>, and push it down through the heap.
-static Int DS_BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
+static Int DS_BinaryHeap_BubbleDown(Obj data, Obj isLess, Int i)
 {
-    Int len = LEN_PLIST(data);
-    Int useLt;
-
-    if (isLess == LtOper) {
-        useLt = 1;
-    }
-    else {
-        useLt = 0;
-    }
+    const Int useLt = (isLess == LtOper);
+    const Int len = LEN_PLIST(data);
 
     while (2 * i <= len) {
         // get positions of the children of <i>
@@ -94,32 +80,21 @@ static Int DS_BinaryHeap_BubbleDown_C(Obj data, Obj isLess, Int i)
         // otherwise, compare left and right child, and move the larger one up
         Obj leftObj = ELM_PLIST(data, left);
         Obj rightObj = ELM_PLIST(data, right);
-        if (useLt) {
-            if (0 != LT(rightObj, leftObj)) {
-                SET_ELM_PLIST(data, i, leftObj);
-                i = left;
-            }
-            else {
-                SET_ELM_PLIST(data, i, rightObj);
-                i = right;
-            }
+        if (useLt ? LT(rightObj, leftObj)
+                  : (True == CALL_2ARGS(isLess, rightObj, leftObj))) {
+            SET_ELM_PLIST(data, i, leftObj);
+            i = left;
         }
         else {
-            if (True == CALL_2ARGS(isLess, rightObj, leftObj)) {
-                SET_ELM_PLIST(data, i, leftObj);
-                i = left;
-            }
-            else {
-                SET_ELM_PLIST(data, i, rightObj);
-                i = right;
-            }
+            SET_ELM_PLIST(data, i, rightObj);
+            i = right;
         }
     }
 
     return i;
 }
 
-Obj DS_BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
+Obj DS_BinaryHeap_Insert(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -133,12 +108,12 @@ Obj DS_BinaryHeap_Insert_C(Obj self, Obj heap, Obj elm)
         RetypeBag(data, T_PLIST_DENSE);
     }
     else {
-        DS_BinaryHeap_BubbleUp_C(data, isLess, len + 1, elm);
+        DS_BinaryHeap_BubbleUp(data, isLess, len + 1, elm);
     }
     return 0;
 }
 
-Obj DS_BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
+Obj DS_BinaryHeap_ReplaceMax(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -147,17 +122,17 @@ Obj DS_BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
         ErrorQuit("<data> is not a dense plist", 0L, 0L);
 
     // treat the head slot as a hole that we move down into a leaf
-    Int i = DS_BinaryHeap_BubbleDown_C(data, isLess, 1);
+    Int i = DS_BinaryHeap_BubbleDown(data, isLess, 1);
 
     // insert the new element into the leaf-hole and move it up
-    DS_BinaryHeap_BubbleUp_C(data, isLess, i, elm);
+    DS_BinaryHeap_BubbleUp(data, isLess, i, elm);
 
     return 0;
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_BinaryHeap_Insert_C, 2, "heap, elm"),
-    GVARFUNC(DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
+    GVARFUNC(DS_BinaryHeap_Insert, 2, "heap, elm"),
+    GVARFUNC(DS_BinaryHeap_ReplaceMax, 2, "heap, elm"),
     { 0 }
 };
 

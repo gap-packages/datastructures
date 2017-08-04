@@ -4,10 +4,7 @@ gap> START_TEST("hashmap.tst");
 #
 # Test hashmap with integer keys
 #
-gap> hashfun := IdFunc;;
-gap> hashmap := DS_Hash_Create( hashfun, \=, 5 );;
-gap> DS_Hash_Capacity(hashmap);
-16
+gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );;
 
 # add stuff
 gap> for i in [1..1000] do
@@ -37,6 +34,46 @@ gap> DS_Hash_Delete(hashmap, 567);
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 [ 100, 567 ]
+
+#
+gap> IsBound(hashmap[100]);
+false
+gap> IsBound(hashmap[200]);
+true
+gap> IsBound(hashmap[567]);
+false
+
+#
+gap> hashmap[100] := 42;
+42
+
+#
+gap> IsBound(hashmap[100]);
+true
+gap> IsBound(hashmap[200]);
+true
+gap> IsBound(hashmap[567]);
+false
+
+# verify
+gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
+[ 567 ]
+
+#
+gap> hashmap[567];
+fail
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+false
+gap> hashmap[567];
+1
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+true
+gap> hashmap[567];
+2
+
+# verify
+gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
+[  ]
 
 ##########################################
 #

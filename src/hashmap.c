@@ -202,7 +202,7 @@ static void _DS_GrowIfNecessary(Obj ht)
     }
 }
 
-static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, int acc)
+static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
 {
     if (key == Fail)
         ErrorQuit("<key> must not be equal to 'fail'", 0L, 0L);
@@ -224,17 +224,21 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, int acc)
 
     if (old_k != Fail && old_k != 0) {
         // key is already in the hash, just update the value
-        if (acc) {
+        if (accufunc) {
             if (LEN_PLIST(values) < idx)
-                ErrorQuit("This should not happen!", 0L, 0L);
+                ErrorQuit("internal error: hash index out of bounds", 0L, 0L);
             Obj old_v = ELM_PLIST(values, idx);
-            Obj new_v;
-            if (!ARE_INTOBJS(old_v, val) || !SUM_INTOBJS(new_v, old_v, val))
-                new_v = SUM(old_v, val);
-            val = new_v;
+            if (accufunc == SumOper) {
+                Obj new_v;
+                if (!ARE_INTOBJS(old_v, val) || !SUM_INTOBJS(new_v, old_v, val))
+                    new_v = SUM(old_v, val);
+                val = new_v;
+            } else {
+                val = CALL_2ARGS(accufunc, old_v, val);
+            }
         }
         AssPlist(values, idx, val);
-        if (acc)
+        if (accufunc)
             return True;
     }
     else {
@@ -246,7 +250,7 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, int acc)
         CHANGED_BAG(values);
     }
 
-    return acc ? False : INTOBJ_INT(idx);
+    return accufunc ? False : INTOBJ_INT(idx);
 }
 
 static void DS_RequireHash(Obj ht)
@@ -355,10 +359,13 @@ Obj DS_Hash_SetValue(Obj self, Obj ht, Obj key, Obj val)
     return _DS_Hash_SetOrAccValue(ht, key, val, 0);
 }
 
-Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val)
+Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
 {
     DS_RequireHash(ht);
-    return _DS_Hash_SetOrAccValue(ht, key, val, 1);
+    if (TNUM_OBJ(accufunc) != T_FUNCTION) {
+        ErrorQuit("<accufunc> must be a function", 0, 0);
+    }
+    return _DS_Hash_SetOrAccValue(ht, key, val, accufunc);
 }
 
 Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
@@ -395,7 +402,7 @@ static StructGVarFunc GVarFuncs[] = {
 
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Resize, 2, "ht, new_capacity"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_SetValue, 3, "ht, key, val"),
-    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_AccumulateValue, 3, "ht, key, val"),
+    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
 
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Delete, 2, "ht, key"),
 

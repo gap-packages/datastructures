@@ -4,12 +4,11 @@ gap> START_TEST("hashmap.tst");
 #
 # Test hashmap with integer keys
 #
-gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );;
+gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
+<hash map obj capacity=16 used=0>
 
 # add stuff
-gap> for i in [1..1000] do
->     DS_Hash_SetValue(hashmap, i, i^2);
-> od;
+gap> for i in [1..1000] do DS_Hash_SetValue(hashmap, i, i^2); od;
 
 # query it back
 gap> ForAll([1..1000], i -> DS_Hash_Value(hashmap, i) = i^2);
@@ -74,6 +73,35 @@ gap> hashmap[567];
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 [  ]
+
+#
+# Test error handling
+#
+gap> DS_Hash_Create( fail, \=, 5 );
+Error, <hashfunc> must be a function
+gap> DS_Hash_Create( IdFunc, fail, 5 );
+Error, <eqfunc> must be a function
+gap> DS_Hash_Create( IdFunc, \=, fail );
+Error, <capacity> must be a small positive integer
+
+#
+gap> DS_Hash_Value(fail, 1);
+Error, <ht> must be a hashmap object
+gap> DS_Hash_Value(hashmap, fail);
+Error, <key> must not be equal to 'fail'
+gap> DS_Hash_Contains(hashmap, fail);
+Error, <key> must not be equal to 'fail'
+gap> DS_Hash_SetValue(hashmap, fail, 0);
+Error, <key> must not be equal to 'fail'
+gap> DS_Hash_SetValue(hashmap, 0, fail);
+Error, <val> must not be equal to 'fail'
+gap> DS_Hash_Reserve(hashmap, fail);
+Error, <new_capacity> must be a small positive integer
+
+#
+gap> badHashmap := DS_Hash_Create( x -> "hash", \=, 5 );;
+gap> DS_Hash_Contains(badHashmap, 1);
+Error, <hashfun> must return a small int
 
 ##########################################
 #

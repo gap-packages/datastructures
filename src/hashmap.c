@@ -101,7 +101,7 @@ static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
 
     Obj hash = CALL_1ARGS(hashfun, key);
     if (!IS_INTOBJ(hash))
-        ErrorQuit("hashfun failed to return a small int", 0L, 0L);
+        ErrorQuit("<hashfun> must return a small int", 0L, 0L);
 
     Obj eqfun = ELM_PLIST(ht, POS_EQFUNC);
     GAP_ASSERT(eqfun && TNUM_OBJ(eqfun) == T_FUNCTION);
@@ -146,7 +146,7 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 
         Obj hash = CALL_1ARGS(hashfun, k);
         if (!IS_INTOBJ(hash))
-            ErrorQuit("hashfun failed to return a small int", 0L, 0L);
+            ErrorQuit("<hashfun> must return a small int", 0L, 0L);
 
         // Insert the element from the old table into the new table.
         // Since we know that no key exists twice in the old table, we

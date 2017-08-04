@@ -31,11 +31,8 @@
 #define ARRAYSIZE(x) ((int)(sizeof(x) / sizeof(x[0])))
 
 // Helper macro to simplify initialization of StructGVarFunc records
-#define GVARFUNC(srcfile, name, nparam, params) \
-  {#name, nparam, \
-   params, \
-   (GVarFuncType)name, \
-   srcfile ":Func" #name }
+#define GVARFUNC(name, nparam, params) \
+  {#name, nparam, params, (GVarFuncType)name, __FILE__ ":" #name }
 
 // This typedef is used by the GVARFUNC macro.
 typedef Obj (* GVarFuncType)(/*arguments*/);

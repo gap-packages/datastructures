@@ -9,14 +9,6 @@
 #include "src/ariths.h"
 #include "src/intfuncs.h"
 
-typedef Obj (*GVarFuncType)(/*arguments*/);
-
-#define GVAR_FUNC_TABLE_ENTRY(name, nparam, params)                 \
-    {                                                                        \
-        #name, nparam, params, (GVarFuncType) name, __FILE__ ":Func" #name    \
-    }
-
-
 enum {
     // offsets in the hashmap positional object
     POS_HASHFUNC = 1,
@@ -430,21 +422,21 @@ Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
 
 
 static StructGVarFunc GVarFuncs[] = {
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Create, 3, "hashfunc, eqfunc, capacity"),
+    GVARFUNC(DS_Hash_Create, 3, "hashfunc, eqfunc, capacity"),
 
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Capacity, 1, "ht"),
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Used, 1, "ht"),
+    GVARFUNC(DS_Hash_Capacity, 1, "ht"),
+    GVARFUNC(DS_Hash_Used, 1, "ht"),
 
-    GVAR_FUNC_TABLE_ENTRY(_DS_Hash_Lookup, 2, "ht, key"),
-    GVAR_FUNC_TABLE_ENTRY(_DS_Hash_LookupCreate, 2, "ht, key"),
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Contains, 2, "ht, key"),
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Value, 2, "ht, key"),
+    GVARFUNC(_DS_Hash_Lookup, 2, "ht, key"),
+    GVARFUNC(_DS_Hash_LookupCreate, 2, "ht, key"),
+    GVARFUNC(DS_Hash_Contains, 2, "ht, key"),
+    GVARFUNC(DS_Hash_Value, 2, "ht, key"),
 
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Reserve, 2, "ht, capacity"),
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_SetValue, 3, "ht, key, val"),
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
+    GVARFUNC(DS_Hash_Reserve, 2, "ht, capacity"),
+    GVARFUNC(DS_Hash_SetValue, 3, "ht, key, val"),
+    GVARFUNC(DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
 
-    GVAR_FUNC_TABLE_ENTRY(DS_Hash_Delete, 2, "ht, key"),
+    GVARFUNC(DS_Hash_Delete, 2, "ht, key"),
 
     { 0 }
 };

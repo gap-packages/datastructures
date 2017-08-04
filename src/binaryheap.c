@@ -156,8 +156,8 @@ Obj DS_BinaryHeap_ReplaceMax_C(Obj self, Obj heap, Obj elm)
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC("binaryheap.c", DS_BinaryHeap_Insert_C, 2, "heap, elm"),
-    GVARFUNC("binaryheap.c", DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
+    GVARFUNC(DS_BinaryHeap_Insert_C, 2, "heap, elm"),
+    GVARFUNC(DS_BinaryHeap_ReplaceMax_C, 2, "heap, elm"),
     { 0 }
 };
 

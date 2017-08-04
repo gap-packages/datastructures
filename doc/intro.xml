@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Intro">
+<Heading>Introduction</Heading>
+
+<Section>
+<Heading>Purpose and goals of this package</Heading>
+
+TODO
+
+</Section>
+
+
+<Section>
+<Heading>Overview over this manual</Heading>
+
+TODO
+
+</Section>
+
+
+<Section Label="feedback">
+<Heading>Feedback</Heading>
+
+For bug reports, feature requests and suggestions, please use our
+<URL Text="issue tracker">https://github.com/gap-packages/datastructures/issues</URL>.
+
+</Section>
+
+
+</Chapter>
+

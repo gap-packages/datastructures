@@ -8,6 +8,6 @@ fi;
 
 AutoDoc(rec(
         autodoc := true,
-        scaffold := true,
+        scaffold := rec( includes := [ "intro.xml" ] ),
     ));
 PrintTo("VERSION", GAPInfo.PackageInfoCurrent.Version);

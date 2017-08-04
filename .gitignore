@@ -19,7 +19,9 @@
 /doc/*.toc
 /doc/manual.pdf
 
-/doc/*.xml
+/doc/datastructures.xml
+/doc/title.xml
+/doc/_*.xml
 
 .deps/
 .dirstamp

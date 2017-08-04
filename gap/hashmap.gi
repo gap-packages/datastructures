@@ -3,11 +3,6 @@
 ##  Implementation of a hashmap for GAP.
 ##
 
-DS_Hash_IsEmpty := function(ht)
-    return DS_Hash_Used(ht) = 0;
-end;
-
-
 InstallMethod(ViewObj, "for hashmaps",
     [ IsHashMapRep ],
 function(ht)

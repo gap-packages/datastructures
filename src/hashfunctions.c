@@ -92,6 +92,28 @@ Obj DATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
     return HashValueToObjInt(HashFuncForTrans(trans));
 }
 
+Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
+{
+    /* check the argument                                                  */
+    if (!IS_STRING(string)) {
+        ErrorMayQuit("DATA_HASH_FUNC_FOR_STRING: <string> must be a "
+                     "string (not a %s)",
+                     (Int)TNAM_OBJ(string), 0L);
+    }
+
+    if(!IS_STRING_REP(string))
+    {
+        string = CopyToStringRep(string);
+    }
+
+
+    UInt len = GET_LEN_STRING(string);
+    UInt1* ptr = CHARS_STRING(string);
+
+    UInt hashval = HASHKEY_MEM_NC(ptr, 2782, len);
+    return HashValueToObjInt(hashval);
+}
+
 Int DataHashFuncForInt(Obj i)
 {
     GAP_ASSERT(TNUM_OBJ(i) == T_INTPOS || TNUM_OBJ(i) == T_INTNEG);
@@ -224,6 +246,7 @@ Obj DATA_HASH_FUNC_RECURSIVE(Obj self, Obj obj)
 // Submodule declaration
 //
 static StructGVarFunc GVarFuncs[] = {
+    GVARFUNC(DATA_HASH_FUNC_FOR_STRING, 1, "string"),
     GVARFUNC(DATA_HASH_FUNC_FOR_TRANS, 1, "trans"),
     GVARFUNC(DATA_HASH_FUNC_FOR_PPERM, 1, "pperm"),
     GVARFUNC(DATA_HASH_FUNC_FOR_PERM, 1, "perm"),

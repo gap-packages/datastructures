@@ -1,5 +1,4 @@
-# Test the plain hash tables derived from the orb package
-gap> START_TEST("datastructures package: stack.tst");
+gap> START_TEST("stack.tst");
 
 # Generate some test data
 gap> l := List([1..1000], x -> Random([-10000..10000]));;
@@ -30,5 +29,4 @@ gap> Size(s);
 1
 
 #
-gap> STOP_TEST( "datastructures package: stack.tst", 10000);
-
+gap> STOP_TEST("stack.tst", 1);

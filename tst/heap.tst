@@ -1,5 +1,4 @@
-# Test heaps
-gap> START_TEST("datastructures package: heap.tst");
+gap> START_TEST("heap.tst");
 
 # Binary Heap
 gap> TestHeap(BinaryHeap);
@@ -24,4 +23,4 @@ After adding 10000 elements heap has size 10000
 Tests end.
 
 #
-gap> STOP_TEST( "datastructures package: heap.tst", 10000);
+gap> STOP_TEST("heap.tst", 1);

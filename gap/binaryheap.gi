@@ -1,16 +1,6 @@
 #
 # This file contains a GAP implementation of a binary max-heap.
 #
-# Currently, a binary heap is a record with the following member:
-# - data: the actual heap, represented as a GAP list
-# - isLess: a function comparing two heap elements, by default \<
-#
-# Most functions also have a C implementation. If available, we
-# use the C function, otherwise (e.g. if the package has not been
-# compiled) we fall back to the GAP implementation.
-#
-#
-#
 # Some hints for writing efficient binary heap implementations:
 # <http://stackoverflow.com/questions/6531543>
 #

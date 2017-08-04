@@ -77,31 +77,55 @@ gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 #
 # Test error handling
 #
-gap> DS_Hash_Create( fail, \=, 5 );
-Error, <hashfunc> must be a function
-gap> DS_Hash_Create( IdFunc, fail, 5 );
-Error, <eqfunc> must be a function
-gap> DS_Hash_Create( IdFunc, \=, fail );
-Error, <capacity> must be a small positive integer
 
-#
+# test input validation for DS_Hash_Create
+gap> DS_Hash_Create( fail, \=, 5 );
+Error, <hashfunc> must be a function (not a boolean or fail)
+gap> DS_Hash_Create( IdFunc, fail, 5 );
+Error, <eqfunc> must be a function (not a boolean or fail)
+gap> DS_Hash_Create( IdFunc, \=, fail );
+Error, <capacity> must be a small positive integer (not a boolean or fail)
+
+# test input validation for DS_Hash_Value
 gap> DS_Hash_Value(fail, 1);
-Error, <ht> must be a hashmap object
+Error, <ht> must be a hashmap object (not a boolean or fail)
 gap> DS_Hash_Value(hashmap, fail);
 Error, <key> must not be equal to 'fail'
+
+# test input validation for DS_Hash_Contains
+gap> DS_Hash_Contains(fail, 1);
+Error, <ht> must be a hashmap object (not a boolean or fail)
 gap> DS_Hash_Contains(hashmap, fail);
 Error, <key> must not be equal to 'fail'
+
+# test input validation for DS_Hash_SetValue
+gap> DS_Hash_SetValue(fail, 0, 0);
+Error, <ht> must be a hashmap object (not a boolean or fail)
 gap> DS_Hash_SetValue(hashmap, fail, 0);
 Error, <key> must not be equal to 'fail'
 gap> DS_Hash_SetValue(hashmap, 0, fail);
 Error, <val> must not be equal to 'fail'
+
+# test input validation for DS_Hash_SetValue
+gap> DS_Hash_Reserve(fail, 100);
+Error, <ht> must be a hashmap object (not a boolean or fail)
 gap> DS_Hash_Reserve(hashmap, fail);
-Error, <new_capacity> must be a small positive integer
+Error, <capacity> must be a small positive integer (not a boolean or fail)
+
+# test input validation for DS_Hash_AccumulateValue
+gap> DS_Hash_AccumulateValue(fail, 567, 1, SUM);
+Error, <ht> must be a hashmap object (not a boolean or fail)
+gap> DS_Hash_AccumulateValue(hashmap, fail, 1, SUM);
+Error, <key> must not be equal to 'fail'
+gap> DS_Hash_AccumulateValue(hashmap, 567, fail, SUM);
+Error, <val> must not be equal to 'fail'
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, fail);
+Error, <accufunc> must be a function (not a boolean or fail)
 
 #
 gap> badHashmap := DS_Hash_Create( x -> "hash", \=, 5 );;
 gap> DS_Hash_Contains(badHashmap, 1);
-Error, <hashfun> must return a small int
+Error, <hashfun> must return a small int (not a list (string))
 
 #
 # test reserving capacity

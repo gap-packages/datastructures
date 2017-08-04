@@ -94,14 +94,15 @@ static Int _DS_Hash_Lookup_intern(const Obj ht,
 static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
 {
     if (key == Fail)
-        ErrorQuit("<key> must not be equal to 'fail'", 0L, 0L);
+        ErrorQuit("<key> must not be equal to 'fail'", 0, 0);
 
     Obj hashfun = ELM_PLIST(ht, POS_HASHFUNC);
     GAP_ASSERT(hashfun && TNUM_OBJ(hashfun) == T_FUNCTION);
 
     Obj hash = CALL_1ARGS(hashfun, key);
     if (!IS_INTOBJ(hash))
-        ErrorQuit("<hashfun> must return a small int", 0L, 0L);
+        ErrorQuit("<hashfun> must return a small int (not a %s)",
+                  (Int)TNAM_OBJ(hash), 0L);
 
     Obj eqfun = ELM_PLIST(ht, POS_EQFUNC);
     GAP_ASSERT(eqfun && TNUM_OBJ(eqfun) == T_FUNCTION);
@@ -127,7 +128,7 @@ static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
 static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 {
     GAP_ASSERT(new_capacity >= 16);
-    GAP_ASSERT(0 == (new_capacity & (new_capacity - 1))); // power of 2?
+    GAP_ASSERT(0 == (new_capacity & (new_capacity - 1)));    // power of 2?
 
     Obj old_keys = ELM_PLIST(ht, POS_KEYS);
     Obj old_vals = ELM_PLIST(ht, POS_VALUES);
@@ -156,7 +157,8 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 
         Obj hash = CALL_1ARGS(hashfun, k);
         if (!IS_INTOBJ(hash))
-            ErrorQuit("<hashfun> must return a small int", 0L, 0L);
+            ErrorQuit("<hashfun> must return a small int (not a %s)",
+                      (Int)TNAM_OBJ(hash), 0L);
 
         // Insert the element from the old table into the new table.
         // Since we know that no key exists twice in the old table, we
@@ -181,7 +183,8 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
     CHANGED_BAG(values);
 
     if (old_size != new_size)
-        ErrorQuit("_DS_Hash_Resize_intern: unexpected size change (was %d, now %d)", old_size, new_size);
+        ErrorQuit("PANIC: unexpected size change (was %d, now %d)", old_size,
+                  new_size);
 
     // ... and store the result
     SET_ELM_PLIST(ht, POS_USED, INTOBJ_INT(new_size));
@@ -206,7 +209,8 @@ static void _DS_GrowIfNecessary(Obj ht)
     Int capacity = LEN_PLIST(keys);
     if ((used + deleted) * LOADFACTOR_DENOMINATOR >
         capacity * LOADFACTOR_NUMERATOR) {
-        while (used * LOADFACTOR_DENOMINATOR > capacity * LOADFACTOR_NUMERATOR)
+        while (used * LOADFACTOR_DENOMINATOR >
+               capacity * LOADFACTOR_NUMERATOR)
             capacity <<= 1;
         _DS_Hash_Resize_intern(ht, capacity);
     }
@@ -240,10 +244,12 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
             Obj old_v = ELM_PLIST(values, idx);
             if (accufunc == SumOper) {
                 Obj new_v;
-                if (!ARE_INTOBJS(old_v, val) || !SUM_INTOBJS(new_v, old_v, val))
+                if (!ARE_INTOBJS(old_v, val) ||
+                    !SUM_INTOBJS(new_v, old_v, val))
                     new_v = SUM(old_v, val);
                 val = new_v;
-            } else {
+            }
+            else {
                 val = CALL_2ARGS(accufunc, old_v, val);
             }
         }
@@ -266,7 +272,8 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
 static void DS_RequireHash(Obj ht)
 {
     if (TNUM_OBJ(ht) != T_POSOBJ || TYPE_POSOBJ(ht) != HashMapType) {
-        ErrorQuit("<ht> must be a hashmap object", 0, 0);
+        ErrorQuit("<ht> must be a hashmap object (not a %s)",
+                  (Int)TNAM_OBJ(ht), 0);
     }
 }
 
@@ -278,13 +285,16 @@ static void DS_RequireHash(Obj ht)
 Obj DS_Hash_Create(Obj self, Obj hashfunc, Obj eqfunc, Obj capacity)
 {
     if (TNUM_OBJ(hashfunc) != T_FUNCTION) {
-        ErrorQuit("<hashfunc> must be a function", 0, 0);
+        ErrorQuit("<hashfunc> must be a function (not a %s)",
+                  (Int)TNAM_OBJ(hashfunc), 0);
     }
     if (TNUM_OBJ(eqfunc) != T_FUNCTION) {
-        ErrorQuit("<eqfunc> must be a function", 0, 0);
+        ErrorQuit("<eqfunc> must be a function (not a %s)",
+                  (Int)TNAM_OBJ(eqfunc), 0);
     }
     if (!IS_POS_INTOBJ(capacity)) {
-        ErrorQuit("<capacity> must be a small positive integer", 0, 0);
+        ErrorQuit("<capacity> must be a small positive integer (not a %s)",
+                  (Int)TNAM_OBJ(capacity), 0);
     }
 
     // convert capacity into integer and round up to a power of 2
@@ -359,7 +369,8 @@ Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 {
     DS_RequireHash(ht);
     if (!IS_POS_INTOBJ(new_capacity)) {
-        ErrorQuit("<new_capacity> must be a small positive integer", 0, 0);
+        ErrorQuit("<capacity> must be a small positive integer (not a %s)",
+                  (Int)TNAM_OBJ(new_capacity), 0);
     }
 
     Int c = LEN_PLIST(ELM_PLIST(ht, POS_KEYS));
@@ -391,7 +402,8 @@ Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
 {
     DS_RequireHash(ht);
     if (TNUM_OBJ(accufunc) != T_FUNCTION) {
-        ErrorQuit("<accufunc> must be a function", 0, 0);
+        ErrorQuit("<accufunc> must be a function (not a %s)",
+                  (Int)TNAM_OBJ(accufunc), 0);
     }
     return _DS_Hash_SetOrAccValue(ht, key, val, accufunc);
 }
@@ -428,7 +440,7 @@ static StructGVarFunc GVarFuncs[] = {
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Contains, 2, "ht, key"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Value, 2, "ht, key"),
 
-    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Reserve, 2, "ht, new_capacity"),
+    GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_Reserve, 2, "ht, capacity"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_SetValue, 3, "ht, key, val"),
     GVAR_FUNC_TABLE_ENTRY("hashmap.c", DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
 

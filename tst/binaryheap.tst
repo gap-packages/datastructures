@@ -16,21 +16,30 @@ Tests end.
 #
 gap> heap := BinaryHeap( {x,y} -> x > y, [ 1..10 ] );
 <binary heap with 10 entries>
-gap> list := [];; while not IsEmpty(heap) do Add(list, Pop(heap)); od;
+gap> list := [];; while not IsEmpty(heap) do
+>   Assert(0, BinaryHeap_IsValid(heap));
+>   Add(list, Pop(heap));
+> od;
 gap> list;
 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 
 # usual less, but "in disguise"
 gap> heap := BinaryHeap( {x,y} -> x < y, [ 1..10 ] );
 <binary heap with 10 entries>
-gap> list := [];; while not IsEmpty(heap) do Add(list, Pop(heap)); od;
+gap> list := [];; while not IsEmpty(heap) do
+>   Assert(0, BinaryHeap_IsValid(heap));
+>   Add(list, Pop(heap));
+> od;
 gap> list;
 [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
 
 # standard comparison
 gap> heap := BinaryHeap( \<, [ 1..10 ] );
 <binary heap with 10 entries>
-gap> list := [];; while not IsEmpty(heap) do Add(list, Pop(heap)); od;
+gap> list := [];; while not IsEmpty(heap) do
+>   Assert(0, BinaryHeap_IsValid(heap));
+>   Add(list, Pop(heap));
+> od;
 gap> list;
 [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
 

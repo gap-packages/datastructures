@@ -6,8 +6,9 @@ compiler:
   - gcc
   - clang
 env:
+  - CFLAGS="-fprofile-arcs -ftest-coverage -O2"
+  - CFLAGS="-fprofile-arcs -ftest-coverage"
   global:
-    - CFLAGS="-fprofile-arcs -ftest-coverage -O2"
     - LDFLAGS="-fprofile-arcs"
     - GAPROOT=gaproot
     - COVDIR=coverage

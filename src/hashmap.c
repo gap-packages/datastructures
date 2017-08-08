@@ -459,5 +459,4 @@ static Int InitLibrary(void)
 struct DatastructuresModule HashmapModule = {
     .initKernel = InitKernel,
     .initLibrary = InitLibrary,
-    .postRestore = 0,
 };

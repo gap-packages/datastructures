@@ -142,21 +142,13 @@ static Int InitKernel(void)
     return 0;
 }
 
-static Int PostRestore(void)
-{
-    return 0;
-}
-
 static Int InitLibrary(void)
 {
     InitGVarFuncsFromTable(GVarFuncs);
-
-    // make sure PostRestore() is always run when we are loaded
-    return PostRestore();
+    return 0;
 }
 
 struct DatastructuresModule BinaryHeapModule = {
     .initKernel = InitKernel,
     .initLibrary = InitLibrary,
-    .postRestore = PostRestore,
 };

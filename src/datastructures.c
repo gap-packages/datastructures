@@ -49,12 +49,6 @@ static Int InitLibrary( StructInitInfo *module )
     return 0;
 }
 
-static Int PostRestore( StructInitInfo *module )
-{
-    ITERATE_SUBMODULE(postRestore);
-    return 0;
-}
-
 /******************************************************************************
 *F  InitInfopl()  . . . . . . . . . . . . . . . . . table of init functions
 */
@@ -63,7 +57,6 @@ static StructInitInfo module = {
     .name        = "datastructures",
     .initKernel  = InitKernel,
     .initLibrary = InitLibrary,
-    .postRestore = PostRestore,
 };
 
 StructInitInfo * Init__Dynamic(void)

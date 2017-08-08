@@ -43,9 +43,6 @@ typedef Obj (* GVarFuncType)(/*arguments*/);
 struct DatastructuresModule {
     Int (* initKernel)(void);       // initialise kernel data structures
     Int (* initLibrary)(void);      // initialise library data structures
-    //Int (* preSave)(void);          // function to call before saving workspace
-    //Int (* postSave)(void);         // function to call after saving workspace
-    Int (* postRestore)(void);      // function to call after restoring workspace
 };
 
 #endif

@@ -56,6 +56,7 @@ Int DataHashFuncForPerm(Obj perm)
         return HASHKEY_BAG_NC(perm, 1, 0, max_point * 4);
     }
 }
+
 Obj DATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
 {
     /* check the argument                                                  */
@@ -101,14 +102,13 @@ Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
                      (Int)TNAM_OBJ(string), 0L);
     }
 
-    if(!IS_STRING_REP(string))
-    {
+    if (!IS_STRING_REP(string)) {
         string = CopyToStringRep(string);
     }
 
 
-    UInt len = GET_LEN_STRING(string);
-    UInt1* ptr = CHARS_STRING(string);
+    UInt    len = GET_LEN_STRING(string);
+    UInt1 * ptr = CHARS_STRING(string);
 
     UInt hashval = HASHKEY_MEM_NC(ptr, 2782, len);
     return HashValueToObjInt(hashval);
@@ -117,12 +117,10 @@ Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
 Int DataHashFuncForInt(Obj i)
 {
     GAP_ASSERT(TNUM_OBJ(i) == T_INTPOS || TNUM_OBJ(i) == T_INTNEG);
-    if (TNUM_OBJ(i) == T_INTPOS)
-    {
+    if (TNUM_OBJ(i) == T_INTPOS) {
         return HASHKEY_WHOLE_BAG_NC(i, 293479);
     }
-    else
-    {
+    else {
         return HASHKEY_WHOLE_BAG_NC(i, 193492);
     }
 }

@@ -149,6 +149,5 @@ static Int InitLibrary(void)
 }
 
 struct DatastructuresModule BinaryHeapModule = {
-    .initKernel = InitKernel,
-    .initLibrary = InitLibrary,
+    .initKernel = InitKernel, .initLibrary = InitLibrary,
 };

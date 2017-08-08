@@ -16,7 +16,7 @@
 #undef PACKAGE_URL
 #undef PACKAGE_VERSION
 
-#include "pkgconfig.h"             /* our own configure results */
+#include "pkgconfig.h" /* our own configure results */
 
 /* Note that SIZEOF_VOID_P comes from GAP's config.h whereas
  * SIZEOF_VOID_PP comes from pkgconfig.h! */
@@ -25,13 +25,14 @@
 #endif
 
 
-
 // Helper macro to simplify initialization of StructGVarFunc records
-#define GVARFUNC(name, nparam, params) \
-  {#name, nparam, params, (GVarFuncType)name, __FILE__ ":" #name }
+#define GVARFUNC(name, nparam, params)                                       \
+    {                                                                        \
+        #name, nparam, params, (GVarFuncType) name, __FILE__ ":" #name       \
+    }
 
 // This typedef is used by the GVARFUNC macro.
-typedef Obj (* GVarFuncType)(/*arguments*/);
+typedef Obj (*GVarFuncType)(/*arguments*/);
 
 
 // To improve code separation, each data structure implementation can
@@ -41,8 +42,8 @@ typedef Obj (* GVarFuncType)(/*arguments*/);
 // The functions should return 0 to indicate success, or any other value
 // to signal an initialization error.
 struct DatastructuresModule {
-    Int (* initKernel)(void);       // initialise kernel data structures
-    Int (* initLibrary)(void);      // initialise library data structures
+    Int (*initKernel)(void);     // initialise kernel data structures
+    Int (*initLibrary)(void);    // initialise library data structures
 };
 
 #endif

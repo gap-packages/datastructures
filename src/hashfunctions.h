@@ -15,7 +15,15 @@ extern struct DatastructuresModule HashFunctionsModule;
 
 
 // Hash two integers together
-static inline UInt HashCombine2(UInt hash1, UInt hash2);
+static inline UInt HashCombine2(UInt hash1, UInt hash2)
+{
+    return 184950419 * hash1 + hash2;
+}
+
+static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
+{
+    return 79504963 * hash1 + 3287951041 * hash2 + hash3;
+}
 
 // Transform a UInt into a signed GAP intermediate integer, shrinking
 // the size of the number as required
@@ -55,34 +63,5 @@ static UInt ShuffleUInt(UInt key)
 #endif
     return key;
 }
-
-
-#ifdef SYS_IS_64_BIT
-
-static inline UInt HashCombine2(UInt hash1, UInt hash2)
-{
-    return 36287171667649 * hash1 + 3287951041 * hash2;
-}
-
-static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
-{
-    return 36287171667649 * hash1 + 3287951041 * hash2 + 2827328283 * hash3;
-}
-
-
-#else
-
-static inline UInt HashCombine2(UInt hash1, UInt hash2)
-{
-    return 184950419 * hash1 + 79504963 * hash2;
-}
-
-static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
-{
-    return 184950419 * hash1 + 79504963 * hash2 + 293874 * hash3;
-}
-
-#endif
-
 
 #endif

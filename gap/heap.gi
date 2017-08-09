@@ -24,6 +24,7 @@ function(con)
     for d in data do
         Push(heap, d);
     od;
+    Assert(0, Peek(heap) = MaximumList(data));
 
     Print("After adding ", nrelts, " elements heap has size ", Size(heap), "\n");
     if Size(heap) <> nrelts then
@@ -49,8 +50,12 @@ function(con)
     heap := con();
     Push(heap, true);
     Push(heap, false);
-    Pop(heap);
-    Pop(heap);
+    Assert(0, Peek(heap) = false);
+    Assert(0, Pop(heap) = false);
+    Assert(0, Peek(heap) = true);
+    Assert(0, Pop(heap) = true);
+    Assert(0, Peek(heap) = fail);
+    Assert(0, Pop(heap) = fail);
 
     Print("Creating Heap With Comparison\n");
     compare := function(a,b) return a[15] > b[15]; end; 

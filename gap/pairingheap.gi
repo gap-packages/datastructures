@@ -79,6 +79,9 @@ end);
 
 InstallGlobalFunction(PairingHeapPeek,
 function(heap)
+    if heap![1] = 0 then
+        return fail;
+    fi;
     return heap![3][1];
 end);
 

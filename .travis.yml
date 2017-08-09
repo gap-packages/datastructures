@@ -21,7 +21,7 @@ matrix:
     - env: CFLAGS="-O2"
       compiler: gcc
     - env: CFLAGS=""  # test build w/o optimization
-    #- env: ABI=32 # TODO: disable 32bit test
+    - env: ABI=32
 
 branches:
   only:

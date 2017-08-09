@@ -13,7 +13,7 @@
 #!
 #! @Description
 #! Category of hashmaps
-DeclareCategory( "IsHashMap", IsObject);
+DeclareCategory( "IsHashMap", IsObject and IsFinite );
 BindGlobal( "HashMapFamily", NewFamily("HashMapFamily") );
 
 DeclareRepresentation( "IsHashMapRep", IsHashMap and IsPositionalObjectRep, [] );

@@ -39,3 +39,8 @@ InstallOtherMethod( Size,
     "for a hashmap",
     [ IsHashMapRep ],
     ht -> DS_Hash_Used(ht));
+
+InstallOtherMethod( IsEmpty,
+    "for a hashmap",
+    [ IsHashMapRep ],
+    ht -> DS_Hash_Used(ht) = 0);

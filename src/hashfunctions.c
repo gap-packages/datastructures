@@ -183,30 +183,29 @@ Int BasicRecursiveHashForPRec(Obj obj)
 
 Int BasicPrimitiveHash(Obj obj)
 {
-    if (IS_INTOBJ(obj)) {
+    switch (TNUM_OBJ(obj)){
+    case T_INT:
         return (Int)obj;
-    }
-    else if (TNUM_OBJ(obj) == T_CHAR) {
+    case T_CHAR:
         return *(UChar *)ADDR_OBJ(obj);
-    }
-    else if (TNUM_OBJ(obj) == T_BOOL) {
+    case T_BOOL:
         if (obj == True)
             return 1;
         else if (obj == False)
             return 2;
         else if (obj == Fail)
             return 3;
-    }
-    else if (TNUM_OBJ(obj) == T_INTPOS || TNUM_OBJ(obj) == T_INTNEG) {
+    case T_INTPOS:
+    case T_INTNEG:
         return DataHashFuncForInt(obj);
-    }
-    else if (IS_PERM2(obj) || IS_PERM4(obj)) {
+    case T_PERM2:
+    case T_PERM4:
         return DataHashFuncForPerm(obj);
-    }
-    else if (IS_PPERM(obj)) {
+    case T_PPERM2:
+    case T_PPERM4:
         return HashFuncForPPerm(obj);
-    }
-    else if (IS_TRANS(obj)) {
+    case T_TRANS2:
+    case T_TRANS4:
         return HashFuncForTrans(obj);
     }
 

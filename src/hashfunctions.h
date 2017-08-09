@@ -35,7 +35,27 @@ static inline Obj HashValueToObjInt(UInt uhash)
 // HashUInt(1) + HashUInt(3) should not be equal to
 // HashUInt(2) + HashUInt(2)
 // From: http://www.concentric.net/~Ttwang/tech/inthash.htm
-static UInt ShuffleUInt(UInt key);
+static UInt ShuffleUInt(UInt key)
+{
+#ifdef SYS_IS_64_BIT
+    key = (~key) + (key << 21);    // key = (key << 21) - key - 1;
+    key = key ^ (key >> 24);
+    key = (key + (key << 3)) + (key << 8);    // key * 265
+    key = key ^ (key >> 14);
+    key = (key + (key << 2)) + (key << 4);    // key * 21
+    key = key ^ (key >> 28);
+    key = key + (key << 31);
+#else
+    key = ~key + (key << 15);    // key = (key << 15) - key - 1;
+    key = key ^ (key >> 12);
+    key = key + (key << 2);
+    key = key ^ (key >> 4);
+    key = key * 2057;    // key = (key + (key << 3)) + (key << 11);
+    key = key ^ (key >> 16);
+#endif
+    return key;
+}
+
 
 #ifdef SYS_IS_64_BIT
 
@@ -49,17 +69,6 @@ static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
     return 36287171667649 * hash1 + 3287951041 * hash2 + 2827328283 * hash3;
 }
 
-static UInt ShuffleUInt(UInt key)
-{
-    key = (~key) + (key << 21);    // key = (key << 21) - key - 1;
-    key = key ^ (key >> 24);
-    key = (key + (key << 3)) + (key << 8);    // key * 265
-    key = key ^ (key >> 14);
-    key = (key + (key << 2)) + (key << 4);    // key * 21
-    key = key ^ (key >> 28);
-    key = key + (key << 31);
-    return key;
-}
 
 #else
 
@@ -71,17 +80,6 @@ static inline UInt HashCombine2(UInt hash1, UInt hash2)
 static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
 {
     return 184950419 * hash1 + 79504963 * hash2 + 293874 * hash3;
-}
-
-UInt ShuffleUInt(UInt key)
-{
-    key = ~key + (key << 15);    // key = (key << 15) - key - 1;
-    key = key ^ (key >> 12);
-    key = key + (key << 2);
-    key = key ^ (key >> 4);
-    key = key * 2057;    // key = (key + (key << 3)) + (key << 11);
-    key = key ^ (key >> 16);
-    return key;
 }
 
 #endif

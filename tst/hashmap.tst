@@ -40,6 +40,10 @@ false
 gap> ForAny([1001..2000], i -> IsBound(hashmap[i]));
 false
 
+#
+# Test deleting entries of the hash map
+#
+
 # delete something via mid-level API and high-level API
 gap> DS_Hash_Delete(hashmap, 100);
 10000
@@ -86,6 +90,8 @@ gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 [ 567 ]
 
 #
+# Test DS_Hash_AccumulateValue
+#
 gap> hashmap[567];
 fail
 gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
@@ -112,6 +118,14 @@ true
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 [  ]
+
+#
+# test (rest of) high-level interface
+#
+gap> IsEmpty(hashmap);
+false
+gap> Size(hashmap);
+1000
 
 #
 # test low-level interface

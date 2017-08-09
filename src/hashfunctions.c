@@ -34,12 +34,12 @@ Obj SquashToPerm2(Obj perm, Int n)
     return squash;
 }
 
-// We have to handle two interesting cases here:
+// DataHashFuncForPerm cannot simply hash the bag for two reasons:
 // 1) Two equal permutations can have different numbers of fixed points
-// at the end, so we do not hash these
+// at the end, so do not hash those.
 // 2) A permutation might be a PERM4, but fit in a PERM2. In this case
 // we have to turn the permutation into a PERM2, to get a consistent
-// hash value
+// hash value. While this is expensive it should not happen too often.
 Int DataHashFuncForPerm(Obj perm)
 {
     GAP_ASSERT(TNUM_OBJ(perm) == T_PERM2 || TNUM_OBJ(perm) == T_PERM4);
@@ -59,7 +59,6 @@ Int DataHashFuncForPerm(Obj perm)
 
 Obj DATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
 {
-    /* check the argument                                                  */
     if (TNUM_OBJ(perm) != T_PERM2 && TNUM_OBJ(perm) != T_PERM4) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_PERM: <perm> must be a permutation "
                      "(not a %s)",
@@ -71,7 +70,6 @@ Obj DATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
 
 Obj DATA_HASH_FUNC_FOR_PPERM(Obj self, Obj pperm)
 {
-    /* check the argument                                                  */
     if (!IS_PPERM(pperm)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_PPERM: <pperm> must be a "
                      "partial permutation (not a %s)",
@@ -83,7 +81,6 @@ Obj DATA_HASH_FUNC_FOR_PPERM(Obj self, Obj pperm)
 
 Obj DATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
 {
-    /* check the argument                                                  */
     if (!IS_TRANS(trans)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_TRANS: <trans> must be a "
                      "transformation (not a %s)",
@@ -95,7 +92,6 @@ Obj DATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
 
 Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
 {
-    /* check the argument                                                  */
     if (!IS_STRING(string)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_STRING: <string> must be a "
                      "string (not a %s)",
@@ -110,12 +106,15 @@ Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
     UInt    len = GET_LEN_STRING(string);
     UInt1 * ptr = CHARS_STRING(string);
 
+    // 2782 is just a random number which fits in a 32-bit UInt.
     UInt hashval = HASHKEY_MEM_NC(ptr, 2782, len);
     return HashValueToObjInt(hashval);
 }
 
 Int DataHashFuncForInt(Obj i)
 {
+    // The two constants below are just random seed values
+    // They must be different so we hash x and -x to different values.
     GAP_ASSERT(TNUM_OBJ(i) == T_INTPOS || TNUM_OBJ(i) == T_INTNEG);
     if (TNUM_OBJ(i) == T_INTPOS) {
         return HASHKEY_WHOLE_BAG_NC(i, 293479);
@@ -127,7 +126,6 @@ Int DataHashFuncForInt(Obj i)
 
 Obj DATA_HASH_FUNC_FOR_INT(Obj self, Obj i)
 {
-    /* check the argument                                                  */
     if (TNUM_OBJ(i) != T_INT && TNUM_OBJ(i) != T_INTPOS &&
         TNUM_OBJ(i) != T_INTNEG) {
         ErrorMayQuit(
@@ -146,7 +144,7 @@ Int BasicRecursiveHash(Obj obj);
 Int BasicRecursiveHashForList(Obj obj)
 {
     GAP_ASSERT(IS_LIST(obj));
-    // This is just a randomly chosen number which fits in a 32-bit integer
+    // This is just a random number which fits in a 32-bit UInt.
     UInt current_hash = 2195952830;
     Int  len = LEN_LIST(obj);
     for (Int pos = 1; pos <= len; ++pos) {
@@ -166,6 +164,7 @@ Int BasicRecursiveHashForPRec(Obj obj)
 {
     GAP_ASSERT(IS_PREC_REP(obj));
 
+    // This is just a random number which fits in a 32-bit UInt.
     UInt current_hash = 1928498392;
 
     /* ensure record is sorted */

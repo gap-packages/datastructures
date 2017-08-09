@@ -182,18 +182,25 @@ Int BasicRecursiveHashForPRec(Obj obj)
 
 Int BasicPrimitiveHash(Obj obj)
 {
+    UInt hashval;
     switch (TNUM_OBJ(obj)){
     case T_INT:
         return (Int)obj;
     case T_CHAR:
-        return *(UChar *)ADDR_OBJ(obj);
+        hashval = *(UChar *)ADDR_OBJ(obj);
+        // Add a random 32-bit constant, to stop collisions with small ints
+        return hashval + 63588327;
     case T_BOOL:
+        // These are just a random numbers which fit in a 32-bit UInt,
+        // and will not collide with either small integers or chars.
         if (obj == True)
-            return 1;
+            return 36045033;
         else if (obj == False)
-            return 2;
+            return 36045034;
         else if (obj == Fail)
             return 3;
+        else
+            ErrorMayQuit("Invalid Boolean", 0L, 0L);
     case T_INTPOS:
     case T_INTNEG:
         return DataHashFuncForInt(obj);

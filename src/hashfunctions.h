@@ -73,7 +73,6 @@ static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
     return 184950419 * hash1 + 79504963 * hash2 + 293874 * hash3;
 }
 
-public
 UInt ShuffleUInt(UInt key)
 {
     key = ~key + (key << 15);    // key = (key << 15) - key - 1;

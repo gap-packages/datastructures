@@ -1,23 +1,31 @@
 dist: trusty
 language: c
-os:
-  - linux
-compiler:
-  - gcc
-  - clang
 env:
   global:
-    - CFLAGS="-fprofile-arcs -ftest-coverage -O2"
-    - LDFLAGS="-fprofile-arcs"
     - GAPROOT=gaproot
     - COVDIR=coverage
+
+addons:
+  apt_packages:
+    - libgmp-dev
+    - libreadline-dev
+    - libgmp-dev:i386
+    - libreadline-dev:i386
+    - gcc-multilib
+    - g++-multilib
+
+matrix:
+  include:
+    - env: CFLAGS="-O2"
+      compiler: clang
+    - env: CFLAGS="-O2"
+      compiler: gcc
+    - env: CFLAGS=""  # test build w/o optimization
+    #- env: ABI=32 # TODO: disable 32bit test
 
 branches:
   only:
     - master
-addons:
-  apt_packages:
-    - libgmp3-dev
 
 before_script:
   - scripts/build_gap.sh

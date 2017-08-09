@@ -9,6 +9,11 @@ cd $GAPROOT
 make -j4 V=1
 make bootstrap-pkg-minimal
 
+if [[ $ABI == 32 ]]
+then
+    CONFIGFLAGS="CFLAGS=-m32 LDFLAGS=-m32 LOPTS=-m32 CXXFLAGS=-m32"
+fi
+
 # build some packages...
 cd pkg
 

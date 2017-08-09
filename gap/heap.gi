@@ -1,6 +1,6 @@
 
 InstallGlobalFunction(TestHeap,
-function(con)
+function(con, order)
     local d, heap
           , data, ord
           , extract
@@ -13,18 +13,20 @@ function(con)
 
     data := List([1..nrelts], x -> Random(range));
     # we expect heaps to be max-heaps
-    ord := Reversed(SortedList(data));
+    ord := ShallowCopy(data);
+    Sort(ord, order);
+    ord := Reversed(ord);
 
     # Make a heap that just uses \< and has no data
 
-    Print("Creating Heap\n");
-    heap := con();
+    Print("Creating heap\n");
+    heap := con(order);
 
     Print("Adding some random data\n");
     for d in data do
         Push(heap, d);
     od;
-    Assert(0, Peek(heap) = MaximumList(data));
+    Assert(0, Peek(heap) = ord[1]);
 
     Print("After adding ", nrelts, " elements heap has size ", Size(heap), "\n");
     if Size(heap) <> nrelts then
@@ -32,7 +34,10 @@ function(con)
     fi;
 
     Print("Popping all data out of heap\n");
-    extract := List([1..nrelts], x -> Pop(heap));
+    extract := [];
+    while not IsEmpty(heap) do
+        Add(extract, Pop(heap));
+    od;
 
     if Size(heap) <> 0 then
         Error("Heap did not have correct size after popping all data off");
@@ -47,30 +52,25 @@ function(con)
     fi;
 
     Print("Trying to put booleans into heap\n");
-    heap := con();
+    heap := con(order);
+
     Push(heap, true);
     Push(heap, false);
-    Assert(0, Peek(heap) = false);
-    Assert(0, Pop(heap) = false);
-    Assert(0, Peek(heap) = true);
-    Assert(0, Pop(heap) = true);
+    Assert(0, Size(heap) = 2);
+
+    obj := Peek(heap);
+    Assert(0, obj in [true, false]);
+    Assert(0, Pop(heap) = obj);
+    Assert(0, Size(heap) = 1);
+
+    obj := Peek(heap);
+    Assert(0, obj in [true, false]);
+    Assert(0, Pop(heap) = obj);
+    Assert(0, Size(heap) = 0);
+
     Assert(0, Peek(heap) = fail);
     Assert(0, Pop(heap) = fail);
-
-    Print("Creating Heap With Comparison\n");
-    compare := function(a,b) return a[15] > b[15]; end; 
-   
-    range := [-100, 100];
-    for d in [1..nrelts] do
-       obj := [];
-       obj[15] := Random(range);
-       Push(heap, obj);
-    od;
- 
-    Print("After adding ", nrelts, " elements heap has size ", Size(heap), "\n");
-    if Size(heap) <> nrelts then
-        Error("Heap does not have the correct size.");
-    fi;
+    Assert(0, Size(heap) = 0);
 
     Print("Tests end.\n");
 end);

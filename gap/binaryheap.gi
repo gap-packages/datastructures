@@ -11,25 +11,6 @@
 # simplicity, low constant (in O-notation) and cache friendliness.
 #
 
-BinaryHeap_IsValid := function(heap)
-    local isLess, data, i, left, right;
-    isLess := heap![1];
-    data := heap![2];
-    for i in [1..Length(data)] do
-        left := 2 * i;
-        right := left + 1;
-        if left <= Length(data) and isLess(data[i], data[left]) then
-            Print("data[",i,"] = ",data[i], " < ",data[left]," = data[",left,"]\n");
-            return false;
-        fi;
-        if right <= Length(data) and isLess(data[i], data[right]) then
-            Print("data[",i,"] = ",data[i], " < ",data[right]," = data[",right,"]\n");
-            return false;
-        fi;
-    od;
-    return true;
-end;
-
 InstallGlobalFunction(BinaryHeap,
 function(arg...)
     local isLess, data, heap, x;

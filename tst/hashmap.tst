@@ -65,8 +65,12 @@ true
 gap> IsBound(hashmap[567]);
 false
 
-#
+# set previously deleted key again
 gap> hashmap[100] := 42;
+42
+
+# also override the value assigned to some still existing key
+gap> hashmap[200] := 42;
 42
 
 #

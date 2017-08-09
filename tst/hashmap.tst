@@ -2,7 +2,7 @@ gap> START_TEST("hashmap.tst");
 
 ##########################################
 #
-# Test hashmap with integer keys
+# Test hash map with integer keys
 #
 gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
 <hash map obj capacity=16 used=0>
@@ -14,7 +14,7 @@ gap> for i in [1..1000] do DS_Hash_SetValue(hashmap, i, i^2); od;
 gap> ForAll([1..1000], i -> DS_Hash_Value(hashmap, i) = i^2);
 true
 
-# check for presence of objects known to be contained in the hashmap
+# check for presence of objects known to be contained in the hash map
 gap> DS_Hash_Contains(hashmap, 42);
 true
 gap> IsBound(hashmap[42]);
@@ -26,7 +26,7 @@ true
 gap> ForAll([1..1000], i -> DS_Hash_Contains(hashmap, i));
 true
 
-# check for presence of objects known to be NOT contained in the hashmap
+# check for presence of objects known to be NOT contained in the hash map
 gap> DS_Hash_Contains(hashmap, 0);
 false
 gap> IsBound(hashmap[0]);
@@ -45,7 +45,7 @@ gap> DS_Hash_Delete(hashmap, 100);
 10000
 gap> Unbind(hashmap[567]);
 
-# attempt to delete something which never was in the hashmap
+# attempt to delete something which never was in the hash map
 gap> DS_Hash_Delete(hashmap, 3000);
 fail
 
@@ -148,7 +148,7 @@ gap> DS_Hash_Value(hashmap, fail);
 Error, <key> must not be equal to 'fail'
 
 # to get full test coverage, we also should at least once pass in
-# a positional object which isn't a hashmap
+# a positional object which isn't a hash map
 gap> IsPositionalObjectRep(infinity);
 true
 gap> DS_Hash_Value(infinity, 1);
@@ -227,7 +227,7 @@ gap> hashmap;
 
 ##########################################
 #
-# Test hashmap with string keys
+# Test hash map with string keys
 #
 #
 gap> hashfun := function(str)
@@ -249,11 +249,11 @@ gap> for i in [1..Length(keys)] do
 gap> ForAll([1..Length(keys)], i -> DS_Hash_Value(hashmap, keys[i]) = i^2);
 true
 
-# check for presence of objects known to be contained in the hashmap
+# check for presence of objects known to be contained in the hash map
 gap> ForAll(keys, key -> DS_Hash_Contains(hashmap, key));
 true
 
-# check for presence of objects known to be NOT contained in the hashmap
+# check for presence of objects known to be NOT contained in the hash map
 gap> DS_Hash_Contains(hashmap, "test");
 false
 gap> ForAny([1001..2000], i -> DS_Hash_Contains(hashmap, String(i)));
@@ -271,7 +271,7 @@ true
 
 ##########################################
 #
-# Test hashmap with non-standard equality,
+# Test hash map with non-standard equality,
 # namely: identity.
 #
 gap> hashmap := DS_Hash_Create( HANDLE_OBJ, IsIdenticalObj, 5 );

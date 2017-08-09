@@ -15,26 +15,35 @@ gap> ForAll([1..1000], i -> DS_Hash_Value(hashmap, i) = i^2);
 true
 
 # check for presence of objects known to be contained in the hashmap
+gap> DS_Hash_Contains(hashmap, 42);
+true
+gap> IsBound(hashmap[42]);
+true
+gap> hashmap[42] = 42^2;
+true
+gap> 42 in hashmap;
+true
 gap> ForAll([1..1000], i -> DS_Hash_Contains(hashmap, i));
 true
 
 # check for presence of objects known to be NOT contained in the hashmap
 gap> DS_Hash_Contains(hashmap, 0);
 false
+gap> IsBound(hashmap[0]);
+false
+gap> hashmap[0];
+fail
+gap> 0 in hashmap;
+false
 gap> ForAny([1001..2000], i -> DS_Hash_Contains(hashmap, i));
 false
-
-# check an entry that was never in there
-gap> IsBound(hashmap[3000]);
+gap> ForAny([1001..2000], i -> IsBound(hashmap[i]));
 false
-gap> hashmap[3000];
-fail
 
-# delete something
+# delete something via mid-level API and high-level API
 gap> DS_Hash_Delete(hashmap, 100);
 10000
-gap> DS_Hash_Delete(hashmap, 567);
-321489
+gap> Unbind(hashmap[567]);
 
 # attempt to delete something which never was in the hashmap
 gap> DS_Hash_Delete(hashmap, 3000);
@@ -87,10 +96,14 @@ gap> DS_Hash_AccumulateValue(hashmap, 567, 5, PROD);
 true
 gap> hashmap[567];
 10
-gap> DS_Hash_AccumulateValue(hashmap, 567, 10^20, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 2^60-1, SUM);
 true
-gap> hashmap[567];
-100000000000000000010
+gap> hashmap[567] = 2^60 + 9;
+true
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1/2, SUM);
+true
+gap> hashmap[567] = 2^60 + 9 + 1/2;
+true
 
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
@@ -129,6 +142,13 @@ gap> DS_Hash_Value(fail, 1);
 Error, <ht> must be a hashmap object (not a boolean or fail)
 gap> DS_Hash_Value(hashmap, fail);
 Error, <key> must not be equal to 'fail'
+
+# to get full test coverage, we also should at least once pass in
+# a positional object which isn't a hashmap
+gap> IsPositionalObjectRep(infinity);
+true
+gap> DS_Hash_Value(infinity, 1);
+Error, <ht> must be a hashmap object (not a object (positional))
 
 # test input validation for DS_Hash_Contains
 gap> DS_Hash_Contains(fail, 1);
@@ -182,7 +202,12 @@ Error, <hashfun> must return a small int (not a list (string))
 #
 gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
 <hash map obj capacity=16 used=0>
-gap> for i in [1..1200] do DS_Hash_SetValue(hashmap, i, i^2); od;
+gap> for i in [1..1400] do DS_Hash_SetValue(hashmap, i, i^2); od;
+gap> hashmap;
+<hash map obj capacity=2048 used=1400>
+
+# delete a few keys to make sure this case is handled, too
+gap> for i in [300..499] do DS_Hash_Delete(hashmap, i); od;
 gap> hashmap;
 <hash map obj capacity=2048 used=1200>
 
@@ -191,7 +216,7 @@ gap> DS_Hash_Reserve(hashmap, 200);
 gap> hashmap;
 <hash map obj capacity=2048 used=1200>
 
-# reserving more space works
+# reserving more space does something
 gap> DS_Hash_Reserve(hashmap, 3000);
 gap> hashmap;
 <hash map obj capacity=4096 used=1200>
@@ -239,6 +264,32 @@ gap> DS_Hash_Delete(hashmap, keys[567]);
 # verify
 gap> keys{[100,567]} = Filtered(keys, key -> not DS_Hash_Contains(hashmap, key));
 true
+
+##########################################
+#
+# Test hashmap with non-standard equality,
+# namely: identity.
+#
+gap> hashmap := DS_Hash_Create( HANDLE_OBJ, IsIdenticalObj, 5 );
+<hash map obj capacity=16 used=0>
+gap> hashmap["foo"] := 1;;
+gap> hashmap["foo"] := 2;;
+gap> "foo" in hashmap;
+false
+gap> DS_Hash_Contains(hashmap, "foo");
+false
+gap> hashmap["foo"];
+fail
+
+# now insert a key to which we keep a reference
+gap> foo:="foo";;
+gap> hashmap[foo] := 3;;
+gap> DS_Hash_Contains(hashmap, foo);
+true
+gap> foo in hashmap;
+true
+gap> hashmap[foo];
+3
 
 #
 gap> STOP_TEST( "hashmap.tst", 1);

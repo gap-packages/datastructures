@@ -24,11 +24,25 @@ false
 gap> ForAny([1001..2000], i -> DS_Hash_Contains(hashmap, i));
 false
 
+# check an entry that was never in there
+gap> IsBound(hashmap[3000]);
+false
+gap> hashmap[3000];
+fail
+
 # delete something
 gap> DS_Hash_Delete(hashmap, 100);
 10000
 gap> DS_Hash_Delete(hashmap, 567);
 321489
+
+# attempt to delete something which never was in the hashmap
+gap> DS_Hash_Delete(hashmap, 3000);
+fail
+
+# attempt to delete something already deleted
+gap> DS_Hash_Delete(hashmap, 100);
+fail
 
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
@@ -73,10 +87,30 @@ gap> DS_Hash_AccumulateValue(hashmap, 567, 5, PROD);
 true
 gap> hashmap[567];
 10
+gap> DS_Hash_AccumulateValue(hashmap, 567, 10^20, SUM);
+true
+gap> hashmap[567];
+100000000000000000010
 
 # verify
 gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 [  ]
+
+#
+# test low-level interface
+#
+gap> _DS_Hash_Lookup(hashmap, 3000);
+0
+gap> tmp:=List([1..1000], i->_DS_Hash_Lookup(hashmap,i));;
+gap> ForAll([1..1000], i -> hashmap![5][tmp[i]] = i);
+true
+
+#
+gap> ForAll([1..1000], i -> tmp[i] = _DS_Hash_LookupCreate(hashmap, i));
+true
+gap> i:=_DS_Hash_LookupCreate(hashmap, 3000);;
+gap> IsBound(hashmap![5][i]);
+false
 
 #
 # Test error handling
@@ -125,6 +159,18 @@ gap> DS_Hash_AccumulateValue(hashmap, 567, fail, SUM);
 Error, <val> must not be equal to 'fail'
 gap> DS_Hash_AccumulateValue(hashmap, 567, 1, fail);
 Error, <accufunc> must be a function (not a boolean or fail)
+
+# test input validation for _DS_Hash_Lookup
+gap> _DS_Hash_Lookup(hashmap, fail);
+Error, <key> must not be equal to 'fail'
+gap> _DS_Hash_Lookup(fail, 3000);
+Error, <ht> must be a hashmap object (not a boolean or fail)
+
+# test input validation for _DS_Hash_LookupCreate
+gap> _DS_Hash_LookupCreate(hashmap, fail);
+Error, <key> must not be equal to 'fail'
+gap> _DS_Hash_LookupCreate(fail, 3000);
+Error, <ht> must be a hashmap object (not a boolean or fail)
 
 #
 gap> badHashmap := DS_Hash_Create( x -> "hash", \=, 5 );;

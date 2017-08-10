@@ -4,6 +4,8 @@ gap> cHash([ [] ], [ "" ]);
 gap> cHash([ [1, ,2, 3], [1,2,3] ], [ [1, ,2, 3], [1,2,3] ]);
 gap> cHash(List([0..255], CHAR_INT), List([0..255], CHAR_INT));
 gap> cHash([ ['a', 'b', 'c'] ], [ "abc" ]);
+gap> cHash(Concatenation([true,false,fail], [-100..100], List([0..255], CHAR_INT)),
+>          Concatenation([true,false,fail], [-100..100], List([0..255], CHAR_INT)));
 gap> l := [ [1] ];;
 gap> for i in [2..100] do l[i] := [i, l[i-1] ]; od;;
 gap> cHash(l, DEEP_COPY_OBJ(l));

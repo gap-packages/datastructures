@@ -139,13 +139,16 @@ Obj DATA_HASH_FUNC_FOR_INT(Obj self, Obj i)
         return HashValueToObjInt(DataHashFuncForInt(i));
 }
 
-Int BasicRecursiveHash(Obj obj);
+static inline Int BasicRecursiveHash(Obj obj);
+
+// This is just a random number which fits in a 32-bit UInt.
+// It is used the base for hashing of lists
+enum { LIST_BASE_HASH = 2195952830L };
 
 Int BasicRecursiveHashForList(Obj obj)
 {
     GAP_ASSERT(IS_LIST(obj));
-    // This is just a random number which fits in a 32-bit UInt.
-    UInt current_hash = 2195952830;
+    UInt current_hash = LIST_BASE_HASH;
     Int  len = LEN_LIST(obj);
     for (Int pos = 1; pos <= len; ++pos) {
         Obj val = ELM0_LIST(obj, pos);
@@ -180,7 +183,7 @@ Int BasicRecursiveHashForPRec(Obj obj)
     return current_hash;
 }
 
-Int BasicPrimitiveHash(Obj obj)
+static inline Int BasicRecursiveHash(Obj obj)
 {
     UInt hashval;
     switch (TNUM_OBJ(obj)){
@@ -213,36 +216,62 @@ Int BasicPrimitiveHash(Obj obj)
     case T_TRANS2:
     case T_TRANS4:
         return HashFuncForTrans(obj);
+    case T_PREC:
+    case T_PREC+IMMUTABLE:
+        return BasicRecursiveHashForPRec(obj);
+    }
+
+    if (IS_LIST(obj)) {
+        return BasicRecursiveHashForList(obj);
     }
 
     ErrorMayQuit("Unable to hash %s", (Int)TNAM_OBJ(obj), 0L);
     return 0;
 }
 
-
-Obj DATA_HASH_FUNC_PRIMITIVE(Obj self, Obj obj)
-{
-    Int hash = BasicPrimitiveHash(obj);
-    return HashValueToObjInt(hash);
-}
-
-Int BasicRecursiveHash(Obj obj)
-{
-    if (IS_LIST(obj)) {
-        return BasicRecursiveHashForList(obj);
-    }
-    else if (IS_PREC_REP(obj)) {
-        return BasicRecursiveHashForPRec(obj);
-    }
-
-    // This will produce an error if it fails
-    return BasicPrimitiveHash(obj);
-}
-
-Obj DATA_HASH_FUNC_RECURSIVE(Obj self, Obj obj)
+Obj DATA_HASH_FUNC_RECURSIVE1(Obj self, Obj obj)
 {
     Int hash = BasicRecursiveHash(obj);
     return HashValueToObjInt(hash);
+}
+
+Obj DATA_HASH_FUNC_RECURSIVE2(Obj self, Obj obj1, Obj obj2)
+{
+    UInt hash1 = BasicRecursiveHash(obj1);
+    UInt hash2 = BasicRecursiveHash(obj2);
+
+    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
+    UInt listhash2 = HashCombine2(listhash1, hash2);
+    
+    return HashValueToObjInt(listhash2);
+}
+
+Obj DATA_HASH_FUNC_RECURSIVE3(Obj self, Obj obj1, Obj obj2, Obj obj3)
+{
+    Int hash1 = BasicRecursiveHash(obj1);
+    Int hash2 = BasicRecursiveHash(obj2);
+    Int hash3 = BasicRecursiveHash(obj3);
+
+    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
+    UInt listhash2 = HashCombine2(listhash1, hash2);
+    UInt listhash3 = HashCombine2(listhash2, hash3);
+
+    return HashValueToObjInt(listhash3);
+}
+
+Obj DATA_HASH_FUNC_RECURSIVE4(Obj self, Obj obj1, Obj obj2, Obj obj3, Obj obj4)
+{
+    Int hash1 = BasicRecursiveHash(obj1);
+    Int hash2 = BasicRecursiveHash(obj2);
+    Int hash3 = BasicRecursiveHash(obj3);
+    Int hash4 = BasicRecursiveHash(obj4);
+
+    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
+    UInt listhash2 = HashCombine2(listhash1, hash2);
+    UInt listhash3 = HashCombine2(listhash2, hash3);
+    UInt listhash4 = HashCombine2(listhash3, hash4);
+
+    return HashValueToObjInt(listhash4);
 }
 
 //
@@ -254,8 +283,6 @@ static StructGVarFunc GVarFuncs[] = {
     GVARFUNC(DATA_HASH_FUNC_FOR_PPERM, 1, "pperm"),
     GVARFUNC(DATA_HASH_FUNC_FOR_PERM, 1, "perm"),
     GVARFUNC(DATA_HASH_FUNC_FOR_INT, 1, "int"),
-    GVARFUNC(DATA_HASH_FUNC_PRIMITIVE, 1, "object"),
-    GVARFUNC(DATA_HASH_FUNC_RECURSIVE, 1, "object"),
     { 0 }
 };
 
@@ -268,6 +295,18 @@ static Int InitKernel(void)
 static Int InitLibrary(void)
 {
     InitGVarFuncsFromTable(GVarFuncs);
+
+    // We use DATA_HASH_FUNC_RECURSIVE1 both for handling one
+    // argument, and five or more arguments (where the arguments will
+    // be wrapped in a list by GAP
+    Obj gvar = NewFunctionC("DATA_HASH_FUNC_RECURSIVE", -1, "arg",
+                            DATA_HASH_FUNC_RECURSIVE1);
+    SET_HDLR_FUNC(gvar, 1, DATA_HASH_FUNC_RECURSIVE1);
+    SET_HDLR_FUNC(gvar, 2, DATA_HASH_FUNC_RECURSIVE2);
+    SET_HDLR_FUNC(gvar, 3, DATA_HASH_FUNC_RECURSIVE3);
+    SET_HDLR_FUNC(gvar, 4, DATA_HASH_FUNC_RECURSIVE4);
+    AssGVar(GVarName("DATA_HASH_FUNC_RECURSIVE"), gvar);
+
     return 0;
 }
 

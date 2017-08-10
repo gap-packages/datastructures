@@ -80,11 +80,4 @@ DeclareOperation("Pop", [IsHeap]);
 #! @Arguments heap1, heap2
 DeclareOperation("Merge", [IsHeap, IsHeap]);
 
-#! @Description
-#! Calls the function constructor to create a heap and
-#! then runs some basic tests on it, such as inserting a number of elements and
-#! checking that the same elements can be popped off in the same order.
-#! @Arguments constructor
-DeclareGlobalFunction("TestHeap");
-
 #! @EndSection

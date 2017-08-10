@@ -17,6 +17,8 @@ for f in DirectoryContents(d) do
 od;
 Print("Merging coverage results\n");
 r := MergeLineByLineProfiles(covs);;
+# HACK: remove any mentions of init.g from data
+r.line_info:=Filtered(r.line_info, x -> not EndsWith(x[1], "/init.g"));;
 Print("Outputting JSON\n");
 OutputJsonCoverage(r, "gap-coverage.json");;
 QUIT_GAP(0);

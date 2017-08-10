@@ -8,3 +8,5 @@ gap> l2 := List(l1, x ->  x * (2^20,2^20+1) * (2^20,2^20+1));;
 gap> ForAll(l2, IsPerm4Rep);
 true
 gap> cHash(l1, l2);
+gap> DATA_HASH_FUNC_FOR_PERM(6);
+Error, DATA_HASH_FUNC_FOR_PERM: <perm> must be a permutation (not a integer)

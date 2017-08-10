@@ -14,7 +14,7 @@
 #!
 #! @Description
 #! Category of heaps
-DeclareCategory("IsStack", IsCollection);
+DeclareCategory("IsStack", IsObject);
 BindGlobal( "StackFamily", NewFamily("StackFamily") );
 
 #! @Description

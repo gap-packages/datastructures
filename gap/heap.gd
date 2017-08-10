@@ -51,7 +51,7 @@
 
 #! @Description
 #! Category of heaps
-DeclareCategory("IsHeap", IsCollection);
+DeclareCategory("IsHeap", IsObject);
 BindGlobal( "HeapFamily", NewFamily("HeapFamily") );
 
 #TODO Do we want to use constructors?

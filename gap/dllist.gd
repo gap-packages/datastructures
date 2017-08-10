@@ -14,7 +14,7 @@
 BindGlobal( "DoublyLinkedListNodesFamily", NewFamily( "DoublyLinkedListNodesFamily" ) );
 BindGlobal( "DoublyLinkedListFamily", CollectionsFamily( DoublyLinkedListNodesFamily ) );
 
-DeclareCategory("IsDoublyLinkedList", IsNonAtomicComponentObjectRep and IsCollection);
+DeclareCategory("IsDoublyLinkedList", IsNonAtomicComponentObjectRep and IsObject);
 DeclareRepresentation("IsDoublyLinkedListRep", IsDoublyLinkedList,
         [ "head", "tail", "nrobs" ]);
 

@@ -18,7 +18,7 @@
 ##
 ## A queue only promises access at the front and at the back
 ##
-DeclareCategory("IsQueue", IsCollection);
+DeclareCategory("IsQueue", IsObject);
 
 # Hack because HPCGAP has a NewQueue
 DeclareConstructor("NewQueue_", [IsQueue, IsObject, IsPosInt]);
@@ -31,7 +31,7 @@ DeclareOperation("PopBack", [IsQueue]);
 DeclareOperation("PopFront", [IsQueue]);
 DeclareOperation("Pop", [IsQueue]);
 
-DeclareProperty("IsEmpty", IsQueue);
-DeclareAttribute("Length", IsQueue);
+#DeclareProperty("IsEmpty", IsQueue);
+#DeclareAttribute("Size", IsQueue);
 DeclareAttribute("Capacity", IsQueue);
 

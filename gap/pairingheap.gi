@@ -143,10 +143,15 @@ InstallMethod(Peek
         , [IsPairingHeapFlatRep]
         , PairingHeapPeek);
 
-InstallMethod(Size
+InstallOtherMethod(Size
         , "for a pairing heap in plain representation"
         , [IsPairingHeapFlatRep]
         , h -> h![1]);
+
+InstallOtherMethod(IsEmpty
+        , "for a pairing heap in plain representation"
+        , [IsPairingHeapFlatRep]
+        , h -> h![1] = 0);
 
 InstallMethod( ViewObj,
         "for a pairing heap in flat representation",

@@ -1,4 +1,5 @@
 gap> START_TEST("binaryheap.tst");
+gap> ReadPackage("datastructures", "tst/heaptest.g");;
 
 # run heap tests with binary heap constructor
 gap> TestHeap(BinaryHeap);

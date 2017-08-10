@@ -1,4 +1,5 @@
 gap> START_TEST("pairingheap.tst");
+gap> ReadPackage("datastructures", "tst/heaptest.g");;
 
 # run heap tests with pairing heap constructor
 gap> TestHeap(PairingHeap);

@@ -288,7 +288,7 @@ true
 # Test hash map with non-standard equality,
 # namely: identity.
 #
-gap> hashmap := DS_Hash_Create( HANDLE_OBJ, IsIdenticalObj, 5 );
+gap> hashmap := DS_Hash_Create( {x} -> (HANDLE_OBJ(x) mod 2^20), IsIdenticalObj, 5 );
 <hash map obj capacity=16 used=0>
 gap> hashmap["foo"] := 1;;
 gap> hashmap["foo"] := 2;;

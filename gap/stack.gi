@@ -44,16 +44,6 @@ InstallMethod(ViewObj
              , "for a stack"
              , [IsStack],
 function(s)
-    local l, i;
-
-    l := Length(s![1]);
-    Print("<stack:");
-    i := 1;
-    while (l > 0) and (i < 6) do
-        Print(" ", s![1][l]);
-        l := l-1;
-        i := i+1;
-    od;
-    Print(">");
+    Print("<stack with ", Length(s![1]), " entries>");
 end);
 

@@ -5,12 +5,14 @@ gap> l := List([1..1000], x -> Random([-10000..10000]));;
 
 # Make a stack
 gap> s := Stack();
-<stack:>
+<stack with 0 entries>
 
 # Push
 gap> for i in l do Push(s, i); od;
 gap> Size(s);
 1000
+gap> s;
+<stack with 1000 entries>
 
 # Pop
 gap> l2 := List([1..1000], x -> Pop(s));;

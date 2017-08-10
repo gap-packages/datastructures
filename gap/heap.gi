@@ -1,76 +1,85 @@
 
 InstallGlobalFunction(TestHeap,
-function(con, order)
-    local d, heap
-          , data, ord
-          , extract
-          , range
-          , compare
-          , obj
-          , nrelts;
-    nrelts := 10000;
+function(constructor)
+    local TestRemove, TestConstructorVariants,
+          nrelts, range, data;
+
+    # Given a heap that is supposed to contain <data>, verify that the
+    # heap produce the correct output when popping off data. Note: This
+    # test assumes that <data> does not contain 'fail'.
+    TestRemove := function(heap, data, order)
+        local extract, obj_peek, obj_pop, bad;
+        if Size(heap) <> Size(data) then
+            Error("Heap does not have the correct size.");
+        fi;
+
+        data := ShallowCopy(data);
+        Sort(data, {x,y} -> order(y,x));
+
+        extract := [];
+        while not IsEmpty(heap) do
+            obj_peek := Peek(heap);
+            obj_pop := Pop(heap);
+            if obj_peek <> obj_pop then
+                Error("Peek and Pop disagree");
+            fi;
+            Add(extract, obj_pop);
+        od;
+        Assert(0, Peek(heap) = fail);
+        Assert(0, Pop(heap) = fail);
+
+        if Size(extract) <> Size(data) then
+            Error("Heap produced ", Size(extract), " elements, expected ", Size(data));
+        fi;
+
+        if extract <> data then
+            bad := First([1..Length(data)], i->extract[i] <> data[i]);
+            Error("Heap gave bad output, first mismatch at position ",
+                bad, ": got ", extract[bad], " but expected ", data[bad]);
+        fi;
+
+    end;
+
+    TestConstructorVariants := function(data)
+        local heap, d, rev_order;
+
+        rev_order := {x,y} -> x > y;
+
+        # test default constructor
+        heap := constructor();
+        for d in data do
+            Push(heap, d);
+        od;
+        TestRemove(heap, data, \<);
+
+        # test constructor with initial data
+        heap := constructor(data);
+        TestRemove(heap, data, \<);
+
+        # test constructor with custom order
+        heap := constructor(rev_order);
+        for d in data do
+            Push(heap, d);
+        od;
+        TestRemove(heap, data, rev_order);
+
+        # test constructor with initial data and custom order
+        heap := constructor(rev_order, data);
+        TestRemove(heap, data, rev_order);
+    end;
+
+    # Test with a bunch of random integers
+    nrelts := 3000;
     range := [-nrelts..nrelts];
-
     data := List([1..nrelts], x -> Random(range));
-    # we expect heaps to be max-heaps
-    ord := ShallowCopy(data);
-    Sort(ord, order);
-    ord := Reversed(ord);
+    TestConstructorVariants(data);
 
-    # Make a heap that just uses \< and has no data
+    # Now test booleans
+    TestConstructorVariants([true, false]);
+    TestConstructorVariants([true, false, true, false, true]);
 
-    Print("Creating heap\n");
-    heap := con(order);
-
-    Print("Adding some random data\n");
-    for d in data do
-        Push(heap, d);
-    od;
-    Assert(0, Peek(heap) = ord[1]);
-
-    Print("After adding ", nrelts, " elements heap has size ", Size(heap), "\n");
-    if Size(heap) <> nrelts then
-        Error("Heap does not have the correct size.");
-    fi;
-
-    Print("Popping all data out of heap\n");
-    extract := [];
-    while not IsEmpty(heap) do
-        Add(extract, Pop(heap));
-    od;
-
-    if Size(heap) <> 0 then
-        Error("Heap did not have correct size after popping all data off");
-    fi;
-
-    if Position(extract, fail) <> fail then
-        Error("Extraction of elements failed\n");
-    fi;
-
-    if extract <> ord then
-        Error("The data did not come out of the heap in the correct order");
-    fi;
-
-    Print("Trying to put booleans into heap\n");
-    heap := con(order);
-
-    Push(heap, true);
-    Push(heap, false);
-    Assert(0, Size(heap) = 2);
-
-    obj := Peek(heap);
-    Assert(0, obj in [true, false]);
-    Assert(0, Pop(heap) = obj);
-    Assert(0, Size(heap) = 1);
-
-    obj := Peek(heap);
-    Assert(0, obj in [true, false]);
-    Assert(0, Pop(heap) = obj);
-    Assert(0, Size(heap) = 0);
-
-    Assert(0, Peek(heap) = fail);
-    Assert(0, Pop(heap) = fail);
-    Assert(0, Size(heap) = 0);
-
-    Print("Tests end.\n");
+    # Test with a bunch of strings
+    data := IDENTS_GVAR();
+    data := data{[200..1000]};
+    TestConstructorVariants(data);
 end);

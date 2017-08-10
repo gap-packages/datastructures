@@ -35,7 +35,7 @@ function(s)
     fi;
 end);
 
-InstallMethod(Size
+InstallOtherMethod(Size
               , "for a stack"
               , [IsStack]
               , s -> Length(s![1]));

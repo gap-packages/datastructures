@@ -72,13 +72,15 @@ function(heap)
     return heap![2][1];
 end);
 
-InstallMethod(Size,
+InstallOtherMethod(Size,
     "for a binary heap in plain representation",
     [IsBinaryHeapFlatRep],
-function(heap)
-    return Length(heap![2]);
-end);
+    heap -> Length(heap![2]));
 
+InstallOtherMethod(IsEmpty,
+    "for a binary heap in plain representation",
+    [IsBinaryHeapFlatRep],
+    heap -> Length(heap![2]) = 0);
 
 InstallMethod(ViewObj,
     "for a binary heap in flat representation",

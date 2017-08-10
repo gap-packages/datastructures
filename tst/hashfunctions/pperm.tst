@@ -9,3 +9,6 @@ gap> l2 := List(l1, x ->  x * (2^20,2^20+1) * (2^20,2^20+1));;
 gap> ForAll(l2, IsPPerm4Rep);
 true
 gap> cHash(l1, l2);
+gap> DATA_HASH_FUNC_FOR_PPERM(6);
+Error, DATA_HASH_FUNC_FOR_PPERM: <pperm> must be a partial permutation (not a \
+integer)

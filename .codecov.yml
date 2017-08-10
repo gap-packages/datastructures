@@ -11,3 +11,8 @@ coverage:
 comment:
   layout: "header, diff, changes, tree"
   behavior: default
+
+ignore:
+  - "init.g"    # omit init.g, otherwise codecov confuss it with GAP's init.g
+  - "tst/*"     # ignore test harness code
+  - "tst/**/*"  # ignore test harness code

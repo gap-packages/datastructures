@@ -1,3 +1,10 @@
+##
+#Y  Copyright (C) 2017 The GAP Group
+##
+
+
+InstallGlobalFunction(HashBasic, DATA_HASH_FUNC_RECURSIVE);
+
 InstallGlobalFunction(Hash_PermGroup_Complete,
     {G} -> DATA_HASH_FUNC_RECURSIVE(Set(GeneratorsSmallest(G))));
 

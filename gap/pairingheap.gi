@@ -161,10 +161,3 @@ function(h)
           , h![1]
           , " entries>");
 end);
-
-InstallMethod( PrintObj,
-        "for a pairing heap in flat representation",
-        [ IsPairingHeapFlatRep ],
-function(h)
-    Print("<pairing heap>");
-end);

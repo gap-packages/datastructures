@@ -5,8 +5,8 @@
 ##
 #Y  Copyright (C) 2013 The GAP Group
 ##
-##  This file implements queues. These can be used as FIFO queues,
-##  as deques, and as stacks.
+##  This file implements a deque based on a circular buffer. It can be used
+##  to implement FIFO queues as well as stacks.
 ##
 
 InstallGlobalFunction(PlistQueue,

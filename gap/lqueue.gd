@@ -13,6 +13,8 @@
 ## Imported into GAPdata by Markus Pfeiffer
 
 DeclareRepresentation("IsPlistQueueRep", IsQueue and IsPositionalObjectRep, []);
+BindGlobal( "PlistQueueFamily", NewFamily("PlistQueueFamily") );
+BindGlobal( "PlistQueueType", NewType(PlistQueueFamily, IsPlistQueueRep and IsMutable) );
 
 DeclareGlobalFunction("PlistQueue");
 

@@ -14,7 +14,7 @@ fi;
 ReadPackage("datastructures", "gap/queue.gd");
 ReadPackage("datastructures", "gap/heap.gd");
 
-# queues implemented by using lists
+# deque implemented using a circular buffer
 ReadPackage("datastructures", "gap/lqueue.gd");
 
 # doubly linked list

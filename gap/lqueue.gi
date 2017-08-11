@@ -85,7 +85,7 @@ function(queue, el)
     queue![QHEAD] := head;
   else
     PlistQueueExpand(queue);
-    head := Length(queue);
+    head := Size(queue);
     queue![QDATA][head] := el;
     queue![QHEAD] := head;
   fi;
@@ -208,7 +208,7 @@ InstallMethod(Pop,
 #  return queue![QHEAD] = queue![QTAIL];
 #end);
 
-InstallMethod(Length,
+InstallMethod(Size,
         "for IsPlistQueue",
         [IsPlistQueueRep],
 function(queue)
@@ -235,7 +235,7 @@ InstallMethod( ViewObj,
         [ IsPlistQueueRep ],
 function(queue)
     Print("<queue with ");
-    Print(Length(queue),"/",Capacity(queue));
+    Print(Size(queue),"/",Capacity(queue));
     Print(" entries>");
 end);
 
@@ -244,7 +244,7 @@ InstallMethod( PrintObj,
         [ IsPlistQueueRep ],
 function(queue)
   Print("<queue with ");
-  Print(Length(queue),"/",Capacity(queue));
+  Print(Size(queue),"/",Capacity(queue));
   Print(" entries: \n");
   Print(queue![QDATA]);
   Print(">");

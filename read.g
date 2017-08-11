@@ -9,7 +9,7 @@ SetInfoLevel( InfoDataStructures, 1 );
 ReadPackage("datastructures", "gap/lqueue.gi");
 
 ReadPackage("datastructures", "gap/heap.gi");
-ReadPackage("datastructures", "gap/dllist.gi");
+#ReadPackage("datastructures", "gap/dllist.gi");    # TODO: disabled for now
 
 ReadPackage("datastructures", "gap/binaryheap.gi");
 ReadPackage("datastructures", "gap/pairingheap.gi");

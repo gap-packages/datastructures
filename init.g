@@ -17,7 +17,8 @@ ReadPackage("datastructures", "gap/heap.gd");
 # queues implemented by using lists
 ReadPackage("datastructures", "gap/lqueue.gd");
 
-ReadPackage("datastructures", "gap/dllist.gd");
+# doubly linked list
+#ReadPackage("datastructures", "gap/dllist.gd");    # TODO: disabled for now
 
 # Binary heap
 ReadPackage("datastructures", "gap/binaryheap.gd");

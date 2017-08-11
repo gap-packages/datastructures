@@ -18,3 +18,8 @@ BindGlobal( "HashMapFamily", NewFamily("HashMapFamily") );
 
 DeclareRepresentation( "IsHashMapRep", IsHashMap and IsPositionalObjectRep, [] );
 BindGlobal( "HashMapType", NewType(HashMapFamily, IsHashMapRep and IsMutable) );
+
+
+#! Arguments [hashfunc[, eqfunc]] [capacity]
+#! Create a new hash map.
+DeclareGlobalFunction("HashMap");

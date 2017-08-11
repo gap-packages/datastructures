@@ -4,7 +4,7 @@ gap> START_TEST("hashmap.tst");
 #
 # Test hash map with integer keys
 #
-gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
+gap> hashmap := HashMap();
 <hash map obj capacity=16 used=0>
 
 # add stuff
@@ -147,6 +147,28 @@ false
 # Test error handling
 #
 
+# test input validation for HashMap
+gap> HashMap();
+<hash map obj capacity=16 used=0>
+gap> HashMap(IdFunc);
+<hash map obj capacity=16 used=0>
+gap> HashMap(20);
+<hash map obj capacity=32 used=0>
+gap> HashMap(IdFunc, \=);
+<hash map obj capacity=16 used=0>
+gap> HashMap(IdFunc, 20);
+<hash map obj capacity=32 used=0>
+
+#
+gap> HashMap(fail);
+Error, Invalid arguments
+gap> HashMap(IdFunc, fail);
+Error, Invalid arguments
+gap> HashMap(IdFunc, 2, \=);
+Error, Invalid arguments
+gap> HashMap(IdFunc, fail, 2);
+Error, Invalid arguments
+
 # test input validation for DS_Hash_Create
 gap> DS_Hash_Create( fail, \=, 5 );
 Error, <hashfunc> must be a function (not a boolean or fail)
@@ -244,14 +266,8 @@ gap> hashmap;
 # Test hash map with string keys
 #
 #
-gap> hashfun := function(str)
->     Assert(0, IsStringRep(str));
->     return HashKeyBag(str, 0, 0, -1);
-> end;;
-gap> hashmap := DS_Hash_Create( hashfun, \=, 20 );
-<hash map obj capacity=32 used=0>
-gap> DS_Hash_Capacity(hashmap);
-32
+gap> hashmap := HashMap();
+<hash map obj capacity=16 used=0>
 
 # add stuff
 gap> keys := List([1..1000], i -> String(HashKeyBag(2^100+i, 0,0,-1)));;
@@ -292,9 +308,11 @@ gap> hashmap := DS_Hash_Create( {x} -> (HANDLE_OBJ(x) mod 2^20), IsIdenticalObj,
 <hash map obj capacity=16 used=0>
 gap> hashmap["foo"] := 1;;
 gap> hashmap["foo"] := 2;;
+gap> DS_Hash_Contains(hashmap, "foo");
+false
 gap> "foo" in hashmap;
 false
-gap> DS_Hash_Contains(hashmap, "foo");
+gap> IsBound(hashmap["foo"]);
 false
 gap> hashmap["foo"];
 fail
@@ -305,6 +323,8 @@ gap> hashmap[foo] := 3;;
 gap> DS_Hash_Contains(hashmap, foo);
 true
 gap> foo in hashmap;
+true
+gap> IsBound(hashmap[foo]);
 true
 gap> hashmap[foo];
 3

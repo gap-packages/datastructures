@@ -1,18 +1,10 @@
-#############################################################################
-##
-#W  lqueue.gd                    GAP library                   Reimer Behrends
-##
-##
-#Y  Copyright (C) 2013 The GAP Group
-##
-##  This file implements a deque based on a circular buffer. It can be used
-##  to implement FIFO queues as well as stacks.
-##
-###
-##
-## Imported into GAPdata by Markus Pfeiffer
-
-DeclareRepresentation("IsPlistQueueRep", IsQueue and IsPositionalObjectRep, []);
+# lqueue.gd
+DeclareRepresentation("IsPlistQueueRep",
+                      IsQueue and IsPositionalObjectRep,
+                      []);
+BindGlobal( "PlistQueueFamily", NewFamily("PlistQueueFamily") );
+BindGlobal( "PlistQueueType",
+            NewType(PlistQueueFamily, IsPlistQueueRep and IsMutable) );
 
 DeclareGlobalFunction("PlistQueue");
 

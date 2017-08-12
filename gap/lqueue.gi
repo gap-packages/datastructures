@@ -1,9 +1,23 @@
 # lqueue.gi
 
-# Create a Queue based on a Plist.
-# Head points to head
-# Tail points to tail
+# This file implements double ended queues (deques) using a circular buffer
+# stored in a GAP plain list.
 #
+# The four positions in a queue Q have the following purpose
+#
+# Q[1] - head, the index in Q[4] of the first element in the queue
+# Q[2] - tail, the index in Q[4] of the last element in the queue
+# Q[3] - capacity, the allocated capacity in the queue
+# Q[4] - GAP Plain list with storage for capacity many entries
+#
+# When the queue fills up the capacity is doubled using PlistQueueExpand,
+# This is currently done when after pushing to the front or the back of the
+# queue fills the last free place. A new plist is allocated and all current
+# entries of the queue are copied into the new Plist with the head entry being
+# at index 1 and the tail entry being at entry "old capacity".
+#
+# The queue is empty if and only if head = tail and the entry that head and tail
+# point to in the storage list is unbound.
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
@@ -57,6 +71,7 @@ function(queue, el)
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
 
+  # If the queue is empty
   if not IsBound(queue![QDATA][head]) then
       queue![QDATA][head] := el;
   else
@@ -122,6 +137,26 @@ function(queue)
       fi;
   fi;
   return result;
+end);
+
+InstallGlobalFunction(PlistQueuePeekFront,
+function(queue)
+    local head;
+    head := queue![QHEAD];
+    if IsBound(queue![QDATA][head]) then
+        return queue![QDATA][head];
+    else
+    fi;
+end);
+
+InstallGlobalFunction(PlistQueuePeekBack,
+function(queue)
+    local tail;
+    tail := queue![QTAIL];
+    if IsBound(queue![QDATA][tail]) then
+        return queue![QDATA][tail];
+    else
+    fi;
 end);
 
 InstallGlobalFunction(PlistQueueExpand,

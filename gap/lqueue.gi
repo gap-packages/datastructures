@@ -146,6 +146,7 @@ function(queue)
     if IsBound(queue![QDATA][head]) then
         return queue![QDATA][head];
     else
+        return fail;
     fi;
 end);
 
@@ -156,6 +157,7 @@ function(queue)
     if IsBound(queue![QDATA][tail]) then
         return queue![QDATA][tail];
     else
+        return fail;
     fi;
 end);
 

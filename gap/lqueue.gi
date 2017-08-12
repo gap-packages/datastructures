@@ -1,13 +1,11 @@
-#############################################################################
-##
-#W  lqueue.gd                   GAP library                  Reimer Behrends
-##
-##
-#Y  Copyright (C) 2013 The GAP Group
-##
-##  This file implements a deque based on a circular buffer. It can be used
-##  to implement FIFO queues as well as stacks.
-##
+# lqueue.gi
+
+# Create a Queue based on a Plist.
+# Head points to head
+# Tail points to tail
+#
+#  |  |  |  |  |  |  |  |  | 
+#       ^- head        
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
@@ -22,11 +20,8 @@ function(arg)
   fi;
 
   result := [1, 1, capacity, EmptyPlist(capacity)];
-  for i in [1..capacity] do
-    result[4][i] := fail;
-  od;
-
-  t := NewType(CollectionsFamily(FamilyObj(IsObject)), filter and IsPositionalObjectRep);
+  t := NewType(CollectionsFamily(FamilyObj(IsObject)),
+               filter and IsPositionalObjectRep);
 
   Objectify(t, result);
 
@@ -39,27 +34,26 @@ InstallGlobalFunction(PlistQueuePushBack,
   head := queue![QHEAD];
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
-  if tail = last then
-    if head = 1 then
-      PlistQueueExpand(queue);
-      tail := queue![QTAIL];
+
+  # Special case for empty queue,
+  # head = tail and queue![QDATA][tail] is
+  # not bound
+  if not IsBound(queue![QDATA][tail]) then
       queue![QDATA][tail] := el;
-      tail := tail + 1;
-      queue![QTAIL] := tail;
-    else
-      queue![QTAIL] := 1;
-      queue![QDATA][last] := el;
-    fi;
-  elif tail + 1 <> head then
-    queue![QDATA][tail] := el;
-    tail := tail + 1;
-    queue![QTAIL] := tail;
   else
-    PlistQueueExpand(queue);
-    tail := queue![QTAIL];
-    queue![QDATA][tail] := el;
-    tail := tail + 1;
-    queue![QTAIL] := tail;
+      if tail = last then
+          tail := 1;
+      else
+          tail := tail + 1;
+      fi;
+      queue![QDATA][tail] := el;
+      queue![QTAIL] := tail;
+
+      # If queue is full expand
+      if ((head = 1) and (tail = last))
+         or (tail + 1 = head) then
+          PlistQueueExpand(queue);
+      fi;
   fi;
 end);
 
@@ -69,25 +63,22 @@ function(queue, el)
   head := queue![QHEAD];
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
-  if head = 1 then
-    if tail = last then
-      PlistQueueExpand(queue);
-      head := queue![QCAPACITY];
+
+  if not IsBound(queue![QDATA][head]) then
+      queue![QDATA][head] := el;
+  else
+      if head = 1 then
+          head := last;
+      else
+          head := head - 1;
+      fi;
       queue![QDATA][head] := el;
       queue![QHEAD] := head;
-    else
-      queue![QHEAD] := last;
-      queue![QDATA][last] := el;
-    fi;
-  elif tail + 1 <> head then
-    head := head - 1;
-    queue![QDATA][head] := el;
-    queue![QHEAD] := head;
-  else
-    PlistQueueExpand(queue);
-    head := Size(queue);
-    queue![QDATA][head] := el;
-    queue![QHEAD] := head;
+
+      if (head = 1 and tail = last)
+         or (tail + 1 = head) then
+          PlistQueueExpand(queue);
+      fi;
   fi;
 end);
 
@@ -97,20 +88,21 @@ function(queue)
   head := queue![QHEAD];
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
-  if head <> tail then
-    if head = last then
-      head := 1;
-      result := queue![QDATA][last];
-      queue![QDATA][last] := fail;
-    else
-      head := head + 1;
-      result := queue![QDATA][head-1];
-      queue![QDATA][head-1] := fail;
-    fi;
-    queue![QHEAD] := head;
-    return result;
+
+  # TODO: What if someone wants to store fails?
+  result := fail;
+
+  if IsBound(queue![QDATA][head]) then
+      result := queue![QDATA][head];
+      Unbind(queue![QDATA][head]);
+      if head = last then
+          head := 1;
+      else
+          head := head + 1;
+      fi;
+      queue![QHEAD] := head;
   fi;
-  return fail;
+  return result;
 end);
 
 InstallGlobalFunction(PlistQueuePopBack,
@@ -119,18 +111,20 @@ function(queue)
   head := queue![QHEAD];
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
-  if head <> tail then
-    if tail = 1 then
-      tail := last;
-    else
-      tail := tail - 1;
-    fi;
-    result := queue![QDATA][tail];
-    queue![QDATA][tail] := fail;
-    queue![QTAIL] := tail;
-    return result;
+
+  result := fail;
+
+  if IsBound(queue![QDATA][tail]) then
+      result := queue![QDATA][tail];
+      Unbind(queue![QDATA][tail]);
+      if tail = 1 then
+          tail := last;
+      else
+          tail := tail - 1;
+      fi;
+      queue![QTAIL] := tail;
   fi;
-  return fail;
+  return result;
 end);
 
 InstallGlobalFunction(PlistQueueExpand,
@@ -139,13 +133,14 @@ function(queue)
   head := queue![QHEAD];
   tail := queue![QTAIL];
   last := queue![QCAPACITY];
-  queue![QCAPACITY] := queue![QCAPACITY] * 2;
-  p := queue![QCAPACITY];
-  result := EmptyPlist(p);
-  while p > 0 do
-    result[p] := fail;
-    p := p - 1;
-  od;
+
+  # We double the capacity
+  # The increase could be a parameter
+  # of the queue
+  queue![QCAPACITY] := 2 * last;
+  result := EmptyPlist(2 * last);
+
+  # Copy data into new list.
   p := 1;
   while head <> tail do
     result[p] := queue![QDATA][head];
@@ -155,8 +150,10 @@ function(queue)
       head := 1;
     fi;
   od;
-  queue![QTAIL] := p;
+  result[p] := queue![QDATA][head];
 
+  queue![QHEAD] := 1;
+  queue![QTAIL] := p;
   queue![QDATA] := result;
 end);
 

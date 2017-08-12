@@ -110,7 +110,7 @@ Keywords := ["data structures", "algorithms"],
 AutoDoc := rec(
     TitlePage := rec(
         Copyright :=
-"""&copyright; 2015 by Markus Pfeiffer and the GAP group<P/>
+"""&copyright; 2015-17 by Chris Jefferson, Markus Pfeiffer, Max Horn, Reimer Behrends and others<P/>
 &datastructures; package is free software; 
 you can redistribute it and/or modify it under the terms of the 
 <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL> 

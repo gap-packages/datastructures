@@ -35,5 +35,7 @@ distclean-local:
 
 doc:	doc/manual.six
 
-doc/manual.six: doc/*.xml PackageInfo.g
-	($(GAPROOT)/bin/gap.sh -A makedoc.g)
+doc/manual.six: doc/*.xml gap/*.g* src/*.* PackageInfo.g
+	($(GAPROOT)/bin/gap.sh -A --quitonbreak < makedoc.g)
+
+.PHONY: doc

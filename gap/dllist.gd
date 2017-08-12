@@ -1,15 +1,16 @@
-#############################################################################
 ##
-##                             data package
-##  dllist.gd
-##                                                           Markus Pfeiffer
+##  Datastructures: GAP package providing common datastructures.
 ##
-##  Copyright 2013 by the authors.
-##  This file is free software, see license information at the end.
+##  Copyright (C) 2015-2017  The datastructures team.
+##  For list of the team members, please refer to the COPYRIGHT file.
+##
+##  This package is licensed under the GPL 2 or later, please refer
+##  to the COPYRIGHT.md and LICENSE files for details.
+##
+
 ##
 ##  Doubly linked lists.
 ##
-#############################################################################
 
 BindGlobal( "DoublyLinkedListNodesFamily", NewFamily( "DoublyLinkedListNodesFamily" ) );
 BindGlobal( "DoublyLinkedListFamily", CollectionsFamily( DoublyLinkedListNodesFamily ) );

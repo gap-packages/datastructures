@@ -7,9 +7,7 @@
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
-  local capacity, filter, result, i, t;
-
-  filter := IsPlistQueueRep;
+  local capacity, result;
 
   if Length(arg) = 0 then
     capacity := 64;
@@ -18,16 +16,13 @@ function(arg)
   fi;
 
   result := [1, 1, capacity, EmptyPlist(capacity)];
-  t := NewType(CollectionsFamily(FamilyObj(IsObject)),
-               filter and IsMutable and IsPositionalObjectRep);
-
-  Objectify(t, result);
+  Objectify(PlistQueueType, result);
 
   return result;
 end);
 
 InstallGlobalFunction(PlistQueuePushBack,
- function(queue,el)
+function(queue,el)
   local head, tail, last;
   head := queue![QHEAD];
   tail := queue![QTAIL];

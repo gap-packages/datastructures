@@ -12,6 +12,8 @@ DeclareGlobalFunction("PlistQueuePushFront");
 DeclareGlobalFunction("PlistQueuePushBack");
 DeclareGlobalFunction("PlistQueuePopFront");
 DeclareGlobalFunction("PlistQueuePopBack");
+DeclareGlobalFunction("PlistQueuePeekFront");
+DeclareGlobalFunction("PlistQueuePeekBack");
 
 DeclareGlobalFunction("PlistQueueExpand");
 DeclareGlobalFunction("PlistQueueHead");

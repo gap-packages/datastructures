@@ -4,8 +4,6 @@
 # Head points to head
 # Tail points to tail
 #
-#  |  |  |  |  |  |  |  |  | 
-#       ^- head        
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
@@ -21,7 +19,7 @@ function(arg)
 
   result := [1, 1, capacity, EmptyPlist(capacity)];
   t := NewType(CollectionsFamily(FamilyObj(IsObject)),
-               filter and IsPositionalObjectRep);
+               filter and IsMutable and IsPositionalObjectRep);
 
   Objectify(t, result);
 
@@ -95,10 +93,12 @@ function(queue)
   if IsBound(queue![QDATA][head]) then
       result := queue![QDATA][head];
       Unbind(queue![QDATA][head]);
-      if head = last then
-          head := 1;
-      else
-          head := head + 1;
+      if head <> tail then
+          if head = last then
+              head := 1;
+          else
+              head := head + 1;
+          fi;
       fi;
       queue![QHEAD] := head;
   fi;
@@ -117,12 +117,14 @@ function(queue)
   if IsBound(queue![QDATA][tail]) then
       result := queue![QDATA][tail];
       Unbind(queue![QDATA][tail]);
-      if tail = 1 then
-          tail := last;
-      else
-          tail := tail - 1;
+      if head <> tail then
+          if tail = 1 then
+              tail := last;
+          else
+              tail := tail - 1;
+          fi;
+          queue![QTAIL] := tail;
       fi;
-      queue![QTAIL] := tail;
   fi;
   return result;
 end);
@@ -202,7 +204,9 @@ InstallOtherMethod(IsEmpty,
        "for IsPlistQueue",
        [IsPlistQueueRep],
 function(queue)
- return Size(queue) = 0;
+    local head;
+    head := queue![QHEAD];
+    return not IsBound(queue![QDATA][head]);
 end);
 
 InstallOtherMethod(Size,
@@ -213,10 +217,14 @@ function(queue)
   head := queue![QHEAD];
   tail := queue![QTAIL];
 
-  if tail >= head then
-    return tail - head;
+  if not IsBound(queue![QDATA][head]) then
+      return 0;
   else
-    return Capacity(queue) - (head - tail);
+      if tail >= head then
+          return tail - head + 1;
+      else
+          return Capacity(queue) - (head - tail) + 1;
+      fi;
   fi;
 end);
 

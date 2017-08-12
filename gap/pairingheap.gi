@@ -64,6 +64,7 @@ end);
 
 InstallGlobalFunction(PairingHeapPush,
 function(heap, data)
+    local nl;
     if heap![1] = 0 then
         heap![3] := [data, 1, []];
         heap![1] := 1;
@@ -102,18 +103,23 @@ function(heap)
     end;
 
     merge_pairs := function(isLess, heaps)
-        local h, res;
+        local h, res, i, k, l;
 
-        if Length(heaps) = 0 then
+        l := Length(heaps);
+        if l = 0 then
             return [0,0,0];
+        elif l = 1 then
+            return heaps[1];
         else
-            res := heaps[1];
-
-            for h in heaps{[2..Length(heaps)]} do
-                res := meld(isLess, res, h);
+            res := [];
+            k := QuoInt(l,2);
+            for i in [1..k] do
+                res[i] := meld(isLess, heaps[2*i - 1], heaps[2*i]);
             od;
-
-            return res;
+            if l mod 2 = 1 then
+                res[k+1] := heaps[l];
+            fi;
+            return merge_pairs(isLess, res);
         fi;
     end;
 

@@ -1,28 +1,21 @@
-#############################################################################
-##
-#W  pairingheap.gi                    GAPData                   Markus Pfeiffer
-##
-##
-#Y  Copyright (C) 2014 The GAP Group
-##
-##  This file is free software, see license information at the end.
-##
-##  A fairly naive implementation of pairing heaps in GAP.
-##
-##  push and peek is O(1), pop is amortised O(log n), n is number of nodes
-##
-##  see
-##    Fredman, Sedgewick, Sleator, Tarjan (1986),
-##          "The pairing heap: a new form of self-adjusting heap"
-##          http://www.cs.cmu.edu/afs/cs.cmu.edu/user/sleator/www/papers/pairing-heaps.pdf
-##
-#############################################################################
-##
-## TODO:
-##
-##  - implement decrease priority
-##  - do benchmarks and consider more efficient implementations
-##
+# pairingheap.gi
+#
+#  A fairly naive implementation of pairing heaps in GAP.
+#
+#  push and peek is O(1), pop is amortised O(log n), n is number of nodes
+#
+#  see
+#    Fredman, Sedgewick, Sleator, Tarjan (1986),
+#          "The pairing heap: a new form of self-adjusting heap"
+#          http://www.cs.cmu.edu/afs/cs.cmu.edu/user/sleator/www/papers/pairing-heaps.pdf
+#
+
+#
+# TODO:
+#
+#  - implement decrease priority
+#  - do benchmarks and consider more efficient implementations
+#
 InstallGlobalFunction(PairingHeap,
 function(arg...)
     local isLess, data, heap, x;
@@ -59,9 +52,6 @@ function(arg...)
     return heap;
 end);
 
-# pair ing heap is a list [a, b, c, d] where a some data, b is the number of
-# things in the heap and d is a list of pairing heaps
-
 InstallGlobalFunction(PairingHeapPush,
 function(heap, data)
     local nl;
@@ -88,7 +78,7 @@ end);
 
 InstallGlobalFunction(PairingHeapPop,
 function(heap)
-    local res, merge_pairs, meld;
+    local res, merge_pairs, merge_pairs_nr, meld;
 
     meld := function(isLess, x, y)
         if isLess(y[1],x[1]) then
@@ -102,6 +92,42 @@ function(heap)
         fi;
     end;
 
+    # TODO: Find out whether recursive vs non-recursive
+    #       has any measurable benefits
+
+    # Non-recursive merge-pairs
+    merge_pairs_nr := function(isLess, heaps)
+        local l, res, tmp, k, s, i, r;
+
+        l := Length(heaps);
+
+        if l = 0 then
+            return [0,0,0];
+        elif l = 1 then
+            return heaps[1];
+        else
+            res := heaps;
+            k := l;
+            s := 1;
+
+            while k > 1 do
+                r := RemInt(k, 2);
+                k := QuoInt(k, 2);
+                s := 2*s;
+
+                for i in [1..k] do
+                    res[s*i] := meld(isLess, res[s*i - s/2], res[s*i]);
+                od;
+                if r = 1 then
+                    res[s * (k+1)] := res[s * (k+1) - s/2];
+                    k := k + 1;
+                fi;
+            od;
+            return res[s * k];
+        fi;
+    end;
+
+    # recursive merge-pairs
     merge_pairs := function(isLess, heaps)
         local h, res, i, k, l;
 

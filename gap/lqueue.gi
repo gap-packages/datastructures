@@ -26,7 +26,12 @@ function(arg)
     if Length(arg) = 0 then
         capacity := 64;
     elif Length(arg) = 1 then
+        if not IsPosInt(arg[1]) then
+            ErrorNoReturn("<capacity> must be a positive integer");
+        fi;
         capacity := arg[1];
+    else
+        ErrorNoReturn("usage: PlistQueue( [ <capacity> ])");
     fi;
 
     result := [1, 1, capacity, EmptyPlist(capacity)];
@@ -36,8 +41,13 @@ function(arg)
 end);
 
 InstallGlobalFunction(PlistQueuePushBack,
-function(queue,el)
+function(queue, item)
     local head, tail, last;
+
+    if item = fail then
+        ErrorNoReturn("<item> must not equal 'fail'");
+    fi;
+
     head := queue![QHEAD];
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
@@ -46,14 +56,14 @@ function(queue,el)
     # head = tail and queue![QDATA][tail] is
     # not bound
     if not IsBound(queue![QDATA][tail]) then
-        queue![QDATA][tail] := el;
+        queue![QDATA][tail] := item;
     else
         if tail = last then
             tail := 1;
         else
             tail := tail + 1;
         fi;
-        queue![QDATA][tail] := el;
+        queue![QDATA][tail] := item;
         queue![QTAIL] := tail;
 
         # If queue is full expand
@@ -65,22 +75,27 @@ function(queue,el)
 end);
 
 InstallGlobalFunction(PlistQueuePushFront,
-function(queue, el)
+function(queue, item)
     local head, tail, last;
+
+    if item = fail then
+        ErrorNoReturn("<item> must not equal 'fail'");
+    fi;
+
     head := queue![QHEAD];
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
 
     # If the queue is empty
     if not IsBound(queue![QDATA][head]) then
-        queue![QDATA][head] := el;
+        queue![QDATA][head] := item;
     else
         if head = 1 then
             head := last;
         else
             head := head - 1;
         fi;
-        queue![QDATA][head] := el;
+        queue![QDATA][head] := item;
         queue![QHEAD] := head;
 
         if (head = 1 and tail = last)

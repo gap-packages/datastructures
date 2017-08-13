@@ -1,12 +1,33 @@
+gap> q := PlistQueue(1000);
+<queue with 0/1000 entries>
+gap> q := PlistQueue(1000, "mist");
+Error, usage: PlistQueue( [ <capacity> ])
+gap> q := PlistQueue((1,2,3));
+Error, <capacity> must be a positive integer
 gap> q := PlistQueue();
 <queue with 0/64 entries>
+gap> PlistQueuePushFront(q, fail);
+Error, <item> must not equal 'fail'
+gap> PlistQueuePushBack(q, fail);
+Error, <item> must not equal 'fail'
 
 #
-gap> PushFront(q, 15);
-gap> PopFront(q);
+gap> PlistQueuePushFront(q, 15);
+gap> PlistQueuePeekFront(q);
 15
-gap> PushBack(q, 15);
-gap> PopBack(q);
+gap> PlistQueuePeekBack(q);
+15
+gap> PlistQueuePushBack(q,"mist");
+gap> PlistQueuePeekBack(q);
+"mist"
+gap> PlistQueuePopBack(q);
+"mist"
+gap> PlistQueuePeekBack(q);
+15
+gap> PlistQueuePopFront(q);
+15
+gap> PlistQueuePushBack(q, 15);
+gap> PlistQueuePopBack(q);
 15
 gap> Push(q, 15);
 gap> Pop(q);
@@ -16,7 +37,8 @@ true
 
 # test size, make sure it is bigger than
 # initial capacity so that expansion happens
-gap> N:=67;;
+gap> N:=1000;;
+gap> q := PlistQueue(QuoInt(N, 3));;
 
 # add at the front, pop at the back
 gap> for i in [1..N] do PushFront(q,i); od;

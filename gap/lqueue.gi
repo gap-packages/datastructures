@@ -8,13 +8,14 @@
 # Q[1] - head, the index in Q[4] of the first element in the queue
 # Q[2] - tail, the index in Q[4] of the last element in the queue
 # Q[3] - capacity, the allocated capacity in the queue
-# Q[4] - GAP Plain list with storage for capacity many entries
+# Q[4] - GAP plain list with storage for capacity many entries
 #
-# When the queue fills up the capacity is doubled using PlistQueueExpand,
-# This is currently done when after pushing to the front or the back of the
-# queue fills the last free place. A new plist is allocated and all current
-# entries of the queue are copied into the new Plist with the head entry being
-# at index 1 and the tail entry being at entry "old capacity".
+# Global variables QHEAD, QTAIL, QCAPACITY, and QDATA are bound to reflect
+# the above.
+#
+# When a push fills the queue, its capacity is doubled using PlistQueueExpand.
+# A new empty plist is allocated and all current entries of the queue are copied
+# into the new plist with the head entry at index 1.
 #
 # The queue is empty if and only if head = tail and the entry that head and tail
 # point to in the storage list is unbound.

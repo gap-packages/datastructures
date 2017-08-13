@@ -1,9 +1,11 @@
 gap> q := PlistQueue(1000);
 <queue with 0/1000 entries>
-gap> q := PlistQueue(1000, "mist");
+gap> q := PlistQueue(1000, "haar");
 Error, <factor> must be a rational greater than 1
 gap> q := PlistQueue((1,2,3));
 Error, <capacity> must be a positive integer
+gap> q := PlistQueue(1,2,3,4,5);
+Error, usage: PlistQueue( [ <capacity>, [ <factor> ] ])
 gap> q := PlistQueue();
 <queue with 0/64 entries>
 gap> PlistQueuePushFront(q, fail);
@@ -12,16 +14,20 @@ gap> PlistQueuePushBack(q, fail);
 Error, <item> must not equal 'fail'
 
 #
+gap> PlistQueuePeekFront(q);
+fail
+gap> PlistQueuePeekBack(q);
+fail
 gap> PlistQueuePushFront(q, 15);
 gap> PlistQueuePeekFront(q);
 15
 gap> PlistQueuePeekBack(q);
 15
-gap> PlistQueuePushBack(q,"mist");
+gap> PlistQueuePushBack(q,"haar");
 gap> PlistQueuePeekBack(q);
-"mist"
+"haar"
 gap> PlistQueuePopBack(q);
-"mist"
+"haar"
 gap> PlistQueuePeekBack(q);
 15
 gap> PlistQueuePopFront(q);

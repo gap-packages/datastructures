@@ -25,4 +25,5 @@ DeclareGlobalFunction("PlistQueueLength");
 BindGlobal("QHEAD", 1);
 BindGlobal("QTAIL", 2);
 BindGlobal("QCAPACITY", 3);
-BindGlobal("QDATA", 4);
+BindGlobal("QFACTOR", 4);
+BindGlobal("QDATA", 5);

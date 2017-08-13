@@ -1,7 +1,7 @@
 gap> q := PlistQueue(1000);
 <queue with 0/1000 entries>
 gap> q := PlistQueue(1000, "mist");
-Error, usage: PlistQueue( [ <capacity> ])
+Error, <factor> must be a rational greater than 1
 gap> q := PlistQueue((1,2,3));
 Error, <capacity> must be a positive integer
 gap> q := PlistQueue();
@@ -37,7 +37,7 @@ true
 
 # test size, make sure it is bigger than
 # initial capacity so that expansion happens
-gap> N:=1000;;
+gap> N := 1000;;
 gap> q := PlistQueue(QuoInt(N, 3));;
 
 # add at the front, pop at the back
@@ -99,3 +99,20 @@ gap> out3 := List([1..QuoInt(N, 3)], x -> PopFront(q));;
 gap> while not IsEmpty(q) do PopFront(q); od;
 gap> out1 = [N,N-1..N - QuoInt(N, 3) + 1];
 true
+
+# Test Resizing factor
+gap> q := PlistQueue(10, 3/2);
+<queue with 0/10 entries>
+gap> for i in [1..10] do PushBack(q, i); od;;
+gap> q;
+<queue with 10/15 entries>
+gap> for i in [11..20] do PushBack(q, i); od;;
+gap> q;
+<queue with 20/22 entries>
+gap> for i in [21..30] do PushBack(q, i); od;;
+gap> q;
+<queue with 30/33 entries>
+gap> out := [];; r := PopFront(q);; while r <> fail do Add(out, r); r := PopFront(q); od;;
+gap> out = [1..30];
+true
+

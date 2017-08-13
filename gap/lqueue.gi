@@ -22,20 +22,29 @@
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
-    local capacity, result;
+    local capacity, factor, result;
 
-    if Length(arg) = 0 then
-        capacity := 64;
-    elif Length(arg) = 1 then
+    if Length(arg) >= 3 then
+        ErrorNoReturn("usage: PlistQueue( [ <capacity>, [ <factor> ] ])");
+    fi;
+
+    capacity := 64;
+    factor := 2;
+
+    if Length(arg) >= 1 then
         if not IsPosInt(arg[1]) then
             ErrorNoReturn("<capacity> must be a positive integer");
         fi;
         capacity := arg[1];
-    else
-        ErrorNoReturn("usage: PlistQueue( [ <capacity> ])");
+    fi;
+    if Length(arg) >= 2 then
+        if not IsRat(arg[2]) or (arg[2] <= 1) then
+            ErrorNoReturn("<factor> must be a rational greater than 1");
+        fi;
+        factor := arg[2];
     fi;
 
-    result := [1, 1, capacity, EmptyPlist(capacity)];
+    result := [1, 1, capacity, factor, EmptyPlist(capacity)];
     Objectify(PlistQueueType, result);
 
     return result;
@@ -177,13 +186,20 @@ end);
 
 InstallGlobalFunction(PlistQueueExpand,
 function(queue)
-    local result, p, head, tail, last;
+    local result, p, head, tail, last, factor;
     head := queue![QHEAD];
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
+    factor := queue![QFACTOR];
 
-    queue![QCAPACITY] := 2 * last;
-    result := EmptyPlist(2 * last);
+    queue![QCAPACITY] := Int(factor * last);
+    if queue![QCAPACITY] = last then
+       # TODO: Maybe display a warning here
+       #       might require introducing an
+       #       InfoClass
+       queue![QCAPACITY] := last + 5;
+    fi; 
+    result := EmptyPlist(queue![QCAPACITY]);
 
     # Copy data into new list.
     p := 1;

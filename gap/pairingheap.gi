@@ -54,7 +54,6 @@ end);
 
 InstallGlobalFunction(PairingHeapPush,
 function(heap, data)
-    local nl;
     if heap![1] = 0 then
         heap![3] := [data, 1, []];
         heap![1] := 1;

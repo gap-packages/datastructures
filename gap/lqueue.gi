@@ -288,15 +288,3 @@ function(queue)
     Print(Size(queue),"/",Capacity(queue));
     Print(" entries>");
 end);
-
-InstallMethod( PrintObj,
-        "for a PlistQueue",
-        [ IsPlistQueueRep ],
-function(queue)
-    Print("<queue with ");
-    Print(Size(queue),"/",Capacity(queue));
-    Print(" entries: \n");
-    Print(queue![QDATA]);
-    Print(">");
-end);
-

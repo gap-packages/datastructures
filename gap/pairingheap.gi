@@ -78,7 +78,7 @@ end);
 
 InstallGlobalFunction(PairingHeapPop,
 function(heap)
-    local res, merge_pairs, merge_pairs_nr, meld;
+    local res, merge_pairs, meld;
 
     meld := function(isLess, x, y)
         if isLess(y[1],x[1]) then
@@ -92,12 +92,8 @@ function(heap)
         fi;
     end;
 
-    # TODO: Find out whether recursive vs non-recursive
-    #       has any measurable benefits
-
-    # Non-recursive merge-pairs
-    merge_pairs_nr := function(isLess, heaps)
-        local l, res, tmp, k, s, i, r;
+    merge_pairs := function(isLess, heaps)
+        local l, res, tmp, k, s, i, r, old_s;
 
         l := Length(heaps);
 
@@ -113,42 +109,21 @@ function(heap)
             while k > 1 do
                 r := RemInt(k, 2);
                 k := QuoInt(k, 2);
+                old_s := s;
                 s := 2*s;
 
-                for i in [1..k] do
-                    res[s*i] := meld(isLess, res[s*i - s/2], res[s*i]);
+                for i in [s, 2*s .. k*s] do
+                    res[i] := meld(isLess, res[i - old_s], res[i]);
                 od;
                 if r = 1 then
-                    res[s * (k+1)] := res[s * (k+1) - s/2];
+                    i := i + s;
+                    res[i] := res[i - old_s];
                     k := k + 1;
                 fi;
             od;
-            return res[s * k];
+            return res[i];
         fi;
     end;
-
-    # recursive merge-pairs
-    merge_pairs := function(isLess, heaps)
-        local h, res, i, k, l;
-
-        l := Length(heaps);
-        if l = 0 then
-            return [0,0,0];
-        elif l = 1 then
-            return heaps[1];
-        else
-            res := [];
-            k := QuoInt(l,2);
-            for i in [1..k] do
-                res[i] := meld(isLess, heaps[2*i - 1], heaps[2*i]);
-            od;
-            if l mod 2 = 1 then
-                res[k+1] := heaps[l];
-            fi;
-            return merge_pairs(isLess, res);
-        fi;
-    end;
-
     if heap![1] = 0 then
         res := fail;
     else

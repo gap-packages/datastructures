@@ -109,72 +109,70 @@ end);
 InstallGlobalFunction(PlistQueuePopFront,
 function(queue)
     local head, tail, last, result;
+
+    if IsEmpty(queue) then
+        return fail;
+    fi;
+
     head := queue![QHEAD];
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
 
-    # TODO: What if someone wants to store fails?
-    result := fail;
-
-    if IsBound(queue![QDATA][head]) then
-        result := queue![QDATA][head];
-        Unbind(queue![QDATA][head]);
-        if head <> tail then
-            if head = last then
-                head := 1;
-            else
-                head := head + 1;
-            fi;
+    result := queue![QDATA][head];
+    Unbind(queue![QDATA][head]);
+    if head <> tail then
+        if head = last then
+            head := 1;
+        else
+            head := head + 1;
         fi;
         queue![QHEAD] := head;
     fi;
+
     return result;
 end);
 
 InstallGlobalFunction(PlistQueuePopBack,
 function(queue)
     local head, tail, last, result;
+
+    if IsEmpty(queue) then
+        return fail;
+    fi;
+
     head := queue![QHEAD];
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
 
-    result := fail;
+    result := queue![QDATA][tail];
+    Unbind(queue![QDATA][tail]);
 
-    if IsBound(queue![QDATA][tail]) then
-        result := queue![QDATA][tail];
-        Unbind(queue![QDATA][tail]);
-        if head <> tail then
-            if tail = 1 then
-                tail := last;
-            else
-                tail := tail - 1;
-            fi;
-            queue![QTAIL] := tail;
+    if head <> tail then
+        if tail = 1 then
+            tail := last;
+        else
+            tail := tail - 1;
         fi;
+        queue![QTAIL] := tail;
     fi;
+
     return result;
 end);
 
 InstallGlobalFunction(PlistQueuePeekFront,
 function(queue)
-    local head;
-    head := queue![QHEAD];
-    if IsBound(queue![QDATA][head]) then
-        return queue![QDATA][head];
-    else
+    if IsEmpty(queue) then
         return fail;
     fi;
+    return queue![QDATA][queue![QHEAD]];
 end);
 
 InstallGlobalFunction(PlistQueuePeekBack,
 function(queue)
-    local tail;
-    tail := queue![QTAIL];
-    if IsBound(queue![QDATA][tail]) then
-        return queue![QDATA][tail];
-    else
+    if IsEmpty(queue) then
         return fail;
     fi;
+    return queue![QDATA][queue![QTAIL]];
 end);
 
 InstallGlobalFunction(PlistQueueExpand,
@@ -184,9 +182,6 @@ function(queue)
     tail := queue![QTAIL];
     last := queue![QCAPACITY];
 
-    # We double the capacity
-    # The increase could be a parameter
-    # of the queue
     queue![QCAPACITY] := 2 * last;
     result := EmptyPlist(2 * last);
 

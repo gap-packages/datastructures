@@ -71,7 +71,7 @@ TestHeap := function(constructor)
     end;
 
     # Test with a bunch of random integers
-    nrelts := 3000;
+    nrelts := 10000;
     range := [-nrelts..nrelts];
     data := List([1..nrelts], x -> Random(range));
     TestConstructorVariants(data);

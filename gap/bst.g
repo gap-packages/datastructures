@@ -139,3 +139,12 @@ end;
                     
     
           
+bstbench := function(n)
+    local  pi, l, t, i;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    t := EmptyBST();    
+    for i in l do
+        BSTInsert(t,i);
+    od;
+end;

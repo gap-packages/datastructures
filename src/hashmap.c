@@ -26,23 +26,6 @@ enum {
 
 static Obj HashMapType;    // Imported from the library
 
-static void IncrementPlistElm(Obj plist, Int idx)
-{
-    Obj val = ELM_PLIST(plist, idx);
-    if (!SUM_INTOBJS(val, val, INTOBJ_INT(1)))
-        ErrorMayQuit("PANIC: counter overflow in hashmap code", 0, 0);
-    SET_ELM_PLIST(plist, idx, val);
-}
-
-static void DecrementPlistElm(Obj plist, Int idx)
-{
-    Obj val = ELM_PLIST(plist, idx);
-    if (val <= INTOBJ_INT(0))
-        ErrorMayQuit("PANIC: counter underflow in hashmap code", 0, 0);
-    DIFF_INTOBJS(val, val, INTOBJ_INT(1));
-    SET_ELM_PLIST(plist, idx, val);
-}
-
 
 static Int _DS_Hash_Lookup_intern(const Obj ht,
                                   const Obj keys,
@@ -225,7 +208,7 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
     Obj old_k = ELM_PLIST(keys, idx);
     if (old_k == Fail) {
         // we are filling a 'deleted' slot
-        DecrementPlistElm(ht, POS_DELETED);
+        DS_DecrementCounterInPlist(ht, POS_DELETED, INTOBJ_INT(1));
     }
 
     if (old_k != Fail && old_k != 0) {
@@ -250,7 +233,7 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
             return True;
     }
     else {
-        IncrementPlistElm(ht, POS_USED);
+        DS_IncrementCounterInPlist(ht, POS_USED, INTOBJ_INT(1));
 
         SET_ELM_PLIST(keys, idx, key);
         SET_ELM_PLIST(values, idx, val);
@@ -414,8 +397,8 @@ Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
     SET_ELM_PLIST(keys, idx, Fail);
     SET_ELM_PLIST(values, idx, 0);
 
-    IncrementPlistElm(ht, POS_DELETED);
-    DecrementPlistElm(ht, POS_USED);
+    DS_IncrementCounterInPlist(ht, POS_DELETED, INTOBJ_INT(1));
+    DS_DecrementCounterInPlist(ht, POS_USED, INTOBJ_INT(1));
 
     return val;
 }

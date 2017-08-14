@@ -18,6 +18,10 @@ gap> PlistQueuePeekFront(q);
 fail
 gap> PlistQueuePeekBack(q);
 fail
+gap> PlistQueuePopBack(q);
+fail
+gap> PlistQueuePopFront(q);
+fail
 gap> PlistQueuePushFront(q, 15);
 gap> PlistQueuePeekFront(q);
 15
@@ -121,4 +125,17 @@ gap> q;
 gap> out := [];; r := PopFront(q);; while r <> fail do Add(out, r); r := PopFront(q); od;;
 gap> out = [1..30];
 true
+gap> q := PlistQueue(1, 11/10);
+<queue with 0/1 entries>
+gap> PushBack(q, 1);
+gap> q;
+<queue with 1/1 entries>
+gap> PushBack(q, 1);
+gap> q;
+<queue with 1/6 entries>
+gap> PlistQueuePeekBack(q);
+1
+gap> PlistQueuePeekFront(q);
+1
+
 

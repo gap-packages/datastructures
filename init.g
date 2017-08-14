@@ -25,7 +25,7 @@ ReadPackage("datastructures", "gap/queue.gd");
 ReadPackage("datastructures", "gap/heap.gd");
 
 # deque implemented using a circular buffer
-ReadPackage("datastructures", "gap/lqueue.gd");
+ReadPackage("datastructures", "gap/plistdeque.gd");
 
 # doubly linked list
 #ReadPackage("datastructures", "gap/dllist.gd");    # TODO: disabled for now

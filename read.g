@@ -16,7 +16,7 @@ DeclareInfoClass( "InfoDataStructures" );
 SetInfoLevel( InfoDataStructures, 1 );
 
 
-ReadPackage("datastructures", "gap/lqueue.gi");
+ReadPackage("datastructures", "gap/plistdeque.gi");
 
 ReadPackage("datastructures", "gap/heap.gi");
 #ReadPackage("datastructures", "gap/dllist.gi");    # TODO: disabled for now

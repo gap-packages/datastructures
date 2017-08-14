@@ -1,43 +1,43 @@
-gap> q := PlistQueue(1000);
-<queue with 0/1000 entries>
-gap> q := PlistQueue(1000, "haar");
+gap> q := PlistDeque(1000);
+<deque with 0/1000 entries>
+gap> q := PlistDeque(1000, "haar");
 Error, <factor> must be a rational greater than 1
-gap> q := PlistQueue((1,2,3));
+gap> q := PlistDeque((1,2,3));
 Error, <capacity> must be a positive integer
-gap> q := PlistQueue(1,2,3,4,5);
-Error, usage: PlistQueue( [ <capacity>, [ <factor> ] ])
-gap> q := PlistQueue();
-<queue with 0/64 entries>
-gap> PlistQueuePushFront(q, fail);
+gap> q := PlistDeque(1,2,3,4,5);
+Error, usage: PlistDeque( [ <capacity>, [ <factor> ] ])
+gap> q := PlistDeque();
+<deque with 0/64 entries>
+gap> PlistDequePushFront(q, fail);
 Error, <item> must not equal 'fail'
-gap> PlistQueuePushBack(q, fail);
+gap> PlistDequePushBack(q, fail);
 Error, <item> must not equal 'fail'
 
 #
-gap> PlistQueuePeekFront(q);
+gap> PlistDequePeekFront(q);
 fail
-gap> PlistQueuePeekBack(q);
+gap> PlistDequePeekBack(q);
 fail
-gap> PlistQueuePopBack(q);
+gap> PlistDequePopBack(q);
 fail
-gap> PlistQueuePopFront(q);
+gap> PlistDequePopFront(q);
 fail
-gap> PlistQueuePushFront(q, 15);
-gap> PlistQueuePeekFront(q);
+gap> PlistDequePushFront(q, 15);
+gap> PlistDequePeekFront(q);
 15
-gap> PlistQueuePeekBack(q);
+gap> PlistDequePeekBack(q);
 15
-gap> PlistQueuePushBack(q,"haar");
-gap> PlistQueuePeekBack(q);
+gap> PlistDequePushBack(q,"haar");
+gap> PlistDequePeekBack(q);
 "haar"
-gap> PlistQueuePopBack(q);
+gap> PlistDequePopBack(q);
 "haar"
-gap> PlistQueuePeekBack(q);
+gap> PlistDequePeekBack(q);
 15
-gap> PlistQueuePopFront(q);
+gap> PlistDequePopFront(q);
 15
-gap> PlistQueuePushBack(q, 15);
-gap> PlistQueuePopBack(q);
+gap> PlistDequePushBack(q, 15);
+gap> PlistDequePopBack(q);
 15
 gap> Push(q, 15);
 gap> Pop(q);
@@ -48,7 +48,7 @@ true
 # test size, make sure it is bigger than
 # initial capacity so that expansion happens
 gap> N := 1000;;
-gap> q := PlistQueue(QuoInt(N, 3));;
+gap> q := PlistDeque(QuoInt(N, 3));;
 
 # add at the front, pop at the back
 gap> for i in [1..N] do PushFront(q,i); od;
@@ -111,31 +111,31 @@ gap> out1 = [N,N-1..N - QuoInt(N, 3) + 1];
 true
 
 # Test Resizing factor
-gap> q := PlistQueue(10, 3/2);
-<queue with 0/10 entries>
+gap> q := PlistDeque(10, 3/2);
+<deque with 0/10 entries>
 gap> for i in [1..10] do PushBack(q, i); od;;
 gap> q;
-<queue with 10/15 entries>
+<deque with 10/15 entries>
 gap> for i in [11..20] do PushBack(q, i); od;;
 gap> q;
-<queue with 20/22 entries>
+<deque with 20/22 entries>
 gap> for i in [21..30] do PushBack(q, i); od;;
 gap> q;
-<queue with 30/33 entries>
+<deque with 30/33 entries>
 gap> out := [];; r := PopFront(q);; while r <> fail do Add(out, r); r := PopFront(q); od;;
 gap> out = [1..30];
 true
-gap> q := PlistQueue(1, 11/10);
-<queue with 0/1 entries>
+gap> q := PlistDeque(1, 11/10);
+<deque with 0/1 entries>
 gap> PushBack(q, 1);
 gap> q;
-<queue with 1/1 entries>
+<deque with 1/1 entries>
 gap> PushBack(q, 1);
 gap> q;
-<queue with 1/6 entries>
-gap> PlistQueuePeekBack(q);
+<deque with 1/6 entries>
+gap> PlistDequePeekBack(q);
 1
-gap> PlistQueuePeekFront(q);
+gap> PlistDequePeekFront(q);
 1
 
 

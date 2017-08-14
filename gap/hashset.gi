@@ -9,12 +9,12 @@
 ##
 
 ##
-##  Implementation of a hash map for GAP.
+##  Implementation of a hash set for GAP.
 ##
 
-InstallGlobalFunction(HashMap,
+InstallGlobalFunction(HashSet,
 function(arg...)
-    local hashfunc, eqfunc, capacity;
+    local hashfunc, eqfunc, capacity, res;
 
     hashfunc := HashBasic;
     eqfunc := \=;
@@ -33,47 +33,47 @@ function(arg...)
         Error("Invalid arguments");
     fi;
 
-    return DS_Hash_Create(hashfunc, eqfunc, capacity, false);
+    res := DS_Hash_Create(hashfunc, eqfunc, capacity, true);
+    return res;
 end);
 
-InstallMethod(ViewObj, "for hash maps",
-    [ IsHashMapRep ],
+InstallMethod(ViewObj, "for hashsets",
+    [ IsHashSetRep ],
 function(ht)
-    Print("<hash map obj capacity=",DS_Hash_Capacity(ht),
+    Print("<hash set obj capacity=",DS_Hash_Capacity(ht),
             " used=",DS_Hash_Used(ht),">");
 end);
 
-InstallOtherMethod(\[\],
-    "for a hash map and a key",
-    [ IsHashMapRep, IsObject ],
-    DS_Hash_Value); # TODO: raise an error if key is not bound
-
-InstallOtherMethod(\[\]\:\=,
-    "for a hash map, a key and a value",
-    [ IsHashMapRep, IsObject, IsObject ],
-    DS_Hash_SetValue);
+InstallOtherMethod(AddSet,
+    "for a hash set and a key",
+    [ IsHashSetRep, IsObject ],
+    DS_Hash_AddSet);
 
 InstallOtherMethod( \in,
-    "for a hash map and a key",
-    [ IsObject, IsHashMapRep ],
+    "for a hash set and a key",
+    [ IsObject, IsHashSetRep ],
     {key, ht} -> DS_Hash_Contains(ht, key));
 
-InstallOtherMethod( IsBound\[\],
-    "for a hash map and a key",
-    [ IsHashMapRep, IsObject ],
-    DS_Hash_Contains);
-
-InstallOtherMethod( Unbind\[\],
-    "for a hash map and a key",
-    [ IsHashMapRep, IsObject ],
+InstallOtherMethod( RemoveSet,
+    "for a hash set and a key",
+    [ IsHashSetRep, IsObject ],
     DS_Hash_Delete);
 
 InstallOtherMethod( Size,
-    "for a hash map",
-    [ IsHashMapRep ],
+    "for a hash set",
+    [ IsHashSetRep ],
     ht -> DS_Hash_Used(ht));
 
 InstallOtherMethod( IsEmpty,
-    "for a hash map",
-    [ IsHashMapRep ],
+    "for a hash set",
+    [ IsHashSetRep ],
     ht -> DS_Hash_Used(ht) = 0);
+
+# TODO: things we could implement (but do we want to?)
+# AsSet
+# UnitSet
+# Union
+# Intersection
+# ...
+#
+# But do we really want to???

@@ -170,12 +170,14 @@ gap> HashMap(IdFunc, fail, 2);
 Error, Invalid arguments
 
 # test input validation for DS_Hash_Create
-gap> DS_Hash_Create( fail, \=, 5 );
+gap> DS_Hash_Create( fail, \=, 5, true );
 Error, <hashfunc> must be a function (not a boolean or fail)
-gap> DS_Hash_Create( IdFunc, fail, 5 );
+gap> DS_Hash_Create( IdFunc, fail, 5, true );
 Error, <eqfunc> must be a function (not a boolean or fail)
-gap> DS_Hash_Create( IdFunc, \=, fail );
+gap> DS_Hash_Create( IdFunc, \=, fail, true );
 Error, <capacity> must be a small positive integer (not a boolean or fail)
+gap> DS_Hash_Create( IdFunc, \=, 5, fail );
+Error, <novalues> must be true or false (not a boolean or fail)
 
 # test input validation for DS_Hash_Value
 gap> DS_Hash_Value(fail, 1);
@@ -192,7 +194,7 @@ Error, <ht> must be a hashmap object (not a object (positional))
 
 # test input validation for DS_Hash_Contains
 gap> DS_Hash_Contains(fail, 1);
-Error, <ht> must be a hashmap object (not a boolean or fail)
+Error, <ht> must be a hashmap or hashset (not a boolean or fail)
 gap> DS_Hash_Contains(hashmap, fail);
 Error, <key> must not be equal to 'fail'
 
@@ -206,7 +208,7 @@ Error, <val> must not be equal to 'fail'
 
 # test input validation for DS_Hash_SetValue
 gap> DS_Hash_Reserve(fail, 100);
-Error, <ht> must be a hashmap object (not a boolean or fail)
+Error, <ht> must be a hashmap or hashset (not a boolean or fail)
 gap> DS_Hash_Reserve(hashmap, fail);
 Error, <capacity> must be a small positive integer (not a boolean or fail)
 
@@ -224,23 +226,23 @@ Error, <accufunc> must be a function (not a boolean or fail)
 gap> _DS_Hash_Lookup(hashmap, fail);
 Error, <key> must not be equal to 'fail'
 gap> _DS_Hash_Lookup(fail, 3000);
-Error, <ht> must be a hashmap object (not a boolean or fail)
+Error, <ht> must be a hashmap or hashset (not a boolean or fail)
 
 # test input validation for _DS_Hash_LookupCreate
 gap> _DS_Hash_LookupCreate(hashmap, fail);
 Error, <key> must not be equal to 'fail'
 gap> _DS_Hash_LookupCreate(fail, 3000);
-Error, <ht> must be a hashmap object (not a boolean or fail)
+Error, <ht> must be a hashmap or hashset (not a boolean or fail)
 
 #
-gap> badHashmap := DS_Hash_Create( x -> "hash", \=, 5 );;
+gap> badHashmap := HashMap( x -> "hash" );;
 gap> DS_Hash_Contains(badHashmap, 1);
 Error, <hashfun> must return a small int (not a list (string))
 
 #
 # test reserving capacity
 #
-gap> hashmap := DS_Hash_Create( IdFunc, \=, 5 );
+gap> hashmap := HashMap();
 <hash map obj capacity=16 used=0>
 gap> for i in [1..1400] do DS_Hash_SetValue(hashmap, i, i^2); od;
 gap> hashmap;
@@ -304,7 +306,7 @@ true
 # Test hash map with non-standard equality,
 # namely: identity.
 #
-gap> hashmap := DS_Hash_Create( {x} -> (HANDLE_OBJ(x) mod 2^20), IsIdenticalObj, 5 );
+gap> hashmap := HashMap( {x} -> (HANDLE_OBJ(x) mod 2^20), IsIdenticalObj );
 <hash map obj capacity=16 used=0>
 gap> hashmap["foo"] := 1;;
 gap> hashmap["foo"] := 2;;

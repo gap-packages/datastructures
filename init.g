@@ -39,6 +39,9 @@ ReadPackage("datastructures", "gap/pairingheap.gd");
 # hash maps
 ReadPackage("datastructures", "gap/hashmap.gd");
 
+# hash sets
+ReadPackage("datastructures", "gap/hashset.gd");
+
 # Stacks
 ReadPackage("datastructures", "gap/stack.gd");
 

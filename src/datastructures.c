@@ -12,6 +12,7 @@
 #include "datastructures.h"
 #include "binaryheap.h"
 #include "hashmap.h"
+#include "pairingheap.h"
 
 #include <src/gaputils.h>
 
@@ -19,7 +20,10 @@
 
 // List of datastructure submodules
 static struct DatastructuresModule * submodules[] = {
-    &BinaryHeapModule, &HashmapModule, &HashFunctionsModule,
+    &BinaryHeapModule,
+    &HashFunctionsModule,
+    &HashmapModule,
+    &PairingHeapModule,
 };
 
 #define ITERATE_SUBMODULE(func)                                              \

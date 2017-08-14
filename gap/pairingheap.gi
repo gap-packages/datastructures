@@ -87,60 +87,13 @@ end);
 
 InstallGlobalFunction(PairingHeapPop,
 function(heap)
-    local res, merge_pairs, meld;
-
-    meld := function(isLess, x, y)
-        if isLess(y[1],x[1]) then
-            Add(x[3], y);
-            x[2] := x[2] + y[2];
-            return x;
-        else
-            Add(y[3], x);
-            y[2] := x[2] + y[2];
-            return y;
-        fi;
-    end;
-
-    merge_pairs := function(isLess, heaps)
-        local l, res, tmp, k, s, i, r, old_s;
-
-        l := Length(heaps);
-
-        if l = 0 then
-            return [0,0,0];
-        elif l = 1 then
-            return heaps[1];
-        else
-            res := heaps;
-            k := l;
-            s := 1;
-
-            while k > 1 do
-                r := RemInt(k, 2);
-                k := QuoInt(k, 2);
-                old_s := s;
-                s := 2*s;
-
-                for i in [s, 2*s .. k*s] do
-                    res[i] := meld(isLess, res[i - old_s], res[i]);
-                od;
-                if r = 1 then
-                    i := i + s;
-                    res[i] := res[i - old_s];
-                    k := k + 1;
-                fi;
-            od;
-            return res[i];
-        fi;
-    end;
+    local res;
     if heap![1] = 0 then
-        res := fail;
-    else
-        res := heap![3][1];
-        heap![3] := merge_pairs(heap![2], heap![3][3]);
-        heap![1] := heap![3][2];
+        return fail;
     fi;
-
+    res := heap![3][1];
+    heap![3] := DS_merge_pairs(heap![2], heap![3][3]);
+    heap![1] := heap![3][2];
     return res;
 end);
 

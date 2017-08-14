@@ -51,4 +51,14 @@ struct DatastructuresModule {
     Int (*initLibrary)(void);    // initialise library data structures
 };
 
+
+// The following two helper functions increment resp. decrement the
+// entry <plist> at index <pos> by <inc> resp. <dec>. For this, <inc>
+// resp. <dec> as well as the value being modified must be non-negative
+// immediate integers. If `plist[pos]` were to become negative, or too
+// large to fit into an immediate error, an error is raised.
+extern void DS_IncrementCounterInPlist(Obj plist, Int pos, Obj inc);
+extern void DS_DecrementCounterInPlist(Obj plist, Int pos, Obj dec);
+
+
 #endif

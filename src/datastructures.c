@@ -31,6 +31,29 @@ static struct DatastructuresModule * submodules[] = {
         }                                                                    \
     }
 
+void DS_IncrementCounterInPlist(Obj plist, Int pos, Obj inc)
+{
+    Obj val = ELM_PLIST(plist, pos);
+    GAP_ASSERT(IS_INTOBJ(val));
+    GAP_ASSERT(IS_INTOBJ(inc));
+    GAP_ASSERT(inc >= INTOBJ_INT(0));
+    if (!SUM_INTOBJS(val, val, inc))
+        ErrorMayQuit("PANIC: counter overflow", 0, 0);
+    SET_ELM_PLIST(plist, pos, val);
+}
+
+void DS_DecrementCounterInPlist(Obj plist, Int pos, Obj dec)
+{
+    Obj val = ELM_PLIST(plist, pos);
+    GAP_ASSERT(IS_INTOBJ(val));
+    GAP_ASSERT(IS_INTOBJ(dec));
+    GAP_ASSERT(dec >= INTOBJ_INT(0));
+    if (val < dec)
+        ErrorMayQuit("PANIC: counter underflow", 0, 0);
+    DIFF_INTOBJS(val, val, dec);
+    SET_ELM_PLIST(plist, pos, val);
+}
+
 
 static Int InitKernel(StructInitInfo * module)
 {

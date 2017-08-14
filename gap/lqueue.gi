@@ -228,13 +228,6 @@ end);
 
 ## method installation
 
-InstallMethod(NewQueue_,
-        "for IsPlistQueueRep, a sample object, and a positive integer",
-        [IsPlistQueueRep, IsObject, IsPosInt],
-function(filter, sample, capacity)
-    return PlistQueue(capacity);
-end);
-
 InstallMethod(PushBack,
         "for IsPlistQueue and an object",
         [IsPlistQueueRep, IsObject],

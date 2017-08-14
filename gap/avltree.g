@@ -19,12 +19,7 @@ AVLInsert := function(avl, val)
             if not IsBound(avl[i]) then
                 avl[i] := [,val,,0];
                 avl[4] := avl[4]+dirn;
-                if avl[4] <> 0 then
-                    return 1;
-                else
-                    return 0;
-                fi;
-                
+                return AbsInt(avl[4]);
             else
                 deeper := avli(avl[i],val);
                 if not IsInt(deeper) then
@@ -33,12 +28,9 @@ AVLInsert := function(avl, val)
                 elif deeper = 0 then
                     return 0;
                 else
-                    if avl[4] = -dirn then
-                        avl[4] := 0;
-                        return 0;
-                    elif avl[4] = 0 then
-                        avl[4] := dirn;
-                        return 1;
+                    if avl[4] <> dirn then
+                        avl[4] := avl[4] + dirn;
+                        return AbsInt(avl[4]);                        
                     else
                         if avl[i][4] = dirn then
                             y := avl[i];

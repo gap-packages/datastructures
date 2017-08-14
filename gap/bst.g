@@ -155,3 +155,27 @@ bstbench2 := function(n)
         BSTDelete(t,i);
     od;
 end;
+
+BSTByOrderedList := function(l)
+    local  foo;
+    foo := function(l, from, to)
+        local  mid, left, right, node;
+        if from > to then
+            return fail;
+        fi;        
+        mid := QuoInt(from + to,2);
+        left := foo(l,from, mid-1);
+        right := foo(l, mid+1, to);
+        node := [,l[mid],];
+        if left <> fail then
+            node[1] := left;
+        fi;
+        if right <> fail then
+            node[3] := right;
+        fi;
+        return node;
+    end;
+    return [foo(l, 1, Length(l))];
+end;
+
+            

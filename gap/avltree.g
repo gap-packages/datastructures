@@ -116,51 +116,6 @@ end;
 
         
  
-AVLCheck := function(avl)
-    local  avlh;
-    avlh := function(b,ix)
-        local  child, hl, hr;
-        if not IsBound(b[ix]) then return 0; fi;
-        child := b[ix];        
-        hl := avlh(child,1);
-        hr := avlh(child,3);
-        if child[4] <> hr-hl then
-            Error("mismatch");
-        fi;
-        return 1 + Maximum(hl,hr);
-    end;
-    return avlh(avl,1);
-end;
-
-
-avlbench := function(n)
-    local  pi, l, t, i;
-    pi := Random(SymmetricGroup(n));
-    l := ListPerm(pi,n);
-    t := EmptyAVL();    
-    for i in l do
-        AVLInsert(t,i);
-    od;
-end;
-
-avlbench2 := function(n)
-    local  pi, l, t, i;
-    pi := Random(SymmetricGroup(n));
-    l := ListPerm(pi,n);
-    t := EmptyAVL();    
-    for i in l do
-        AVLInsert(t,i);
-    od;
-    pi := Random(SymmetricGroup(n));
-    l := ListPerm(pi,n);
-    for i in l do
-#        Print(i," ",t,"\n");        
-        AVLDelete(t,i);
-#        AVLCheck(t);
-        
-    od;
-        
-end;
 
     
 AVLDelete := function(avl, val)
@@ -421,14 +376,66 @@ end;
         
             
             
-           
-          
-
-    
-            
-        
-            
-          
+AddImbalances := function(bst)
+    local  avlh;
+    avlh := function(b,ix)
+        local  child, hl, hr;
+        if not IsBound(b[ix]) then return 0; fi;
+        child := b[ix];        
+        hl := avlh(child,1);
+        hr := avlh(child,3);
+        child[4] := hr-hl;
+        return 1 + Maximum(hl,hr);
+    end;
+    avlh(bst,1);
+end;
                     
     
           
+AVLCheck := function(avl)
+    local  avlh;
+    avlh := function(b,ix)
+        local  child, hl, hr;
+        if not IsBound(b[ix]) then return 0; fi;
+        child := b[ix];        
+        hl := avlh(child,1);
+        hr := avlh(child,3);
+        if child[4] <> hr-hl then
+            Error("mismatch");
+        fi;
+        return 1 + Maximum(hl,hr);
+    end;
+    avlh(avl,1);
+end;
+
+
+
+
+avlbench := function(n)
+    local  pi, l, t, i;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    t := EmptyAVL();    
+    for i in l do
+        AVLInsert(t,i);
+    od;
+end;
+
+avlbench2 := function(n)
+    local  pi, l, t, i;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    t := EmptyAVL();    
+    for i in l do
+        AVLInsert(t,i);
+    od;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    for i in l do
+#        Print(i," ",t,"\n");        
+        AVLDelete(t,i);
+#        AVLCheck(t);
+        
+    od;
+        
+end;

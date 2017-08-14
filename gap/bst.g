@@ -128,16 +128,7 @@ BSTImbalance := function(bst)
     end;
     return bsthi(bst,1)[2];
 end;
-
-    
-             
-
-    
-            
-        
-            
-          
-                    
+               
     
           
 bstbench := function(n)

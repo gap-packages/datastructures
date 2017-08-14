@@ -46,7 +46,7 @@ end;
 
 
 BSTDelete := function(bst, val)
-    local  res, ix, child, x;
+    local  res, ix, child, i, j, x, y;
     res := BSTFind(bst, val);
     if not res[3] then
         Error("Not present");
@@ -56,26 +56,27 @@ BSTDelete := function(bst, val)
     child := bst[ix];
     if IsBound(child[1]) then
         if IsBound(child[3]) then 
-            if Random([true, false]) then
-                x := child[1];
-                while IsBound(x[3]) do
-                    x := x[3];
-                od;
-                x[3] := child[3];
-                bst[ix] := child[1];                
-            else
-                x := child[3];
-                while IsBound(x[1]) do
-                    x := x[1];
-                od;
-                x[1] := child[1];
-                bst[ix] := child[3];                
+            i :=  Random([1,3]);
+            j := 4-i;
+            x := child[i];
+            if IsBound(x[j]) then
+                repeat
+                    y := x;                        
+                    x := x[j];
+                until not IsBound(x[j]);
+                if IsBound(x[i]) then
+                    y[j] := x[i];
+                else
+                    Unbind(y[j]);
+                fi;
+                
+                x[i] := child[i];
             fi;
+            x[j] := child[j];
+            bst[ix] := x;                
         else
             bst[ix] := child[1];        
         fi;
-        
-
     else 
         if IsBound(child[3]) then
             bst[ix] := child[3];
@@ -146,5 +147,20 @@ bstbench := function(n)
     t := EmptyBST();    
     for i in l do
         BSTInsert(t,i);
+    od;
+end;
+
+bstbench2 := function(n)
+    local  pi, l, t, i;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    t := EmptyBST();    
+    for i in l do
+        BSTInsert(t,i);
+    od;
+    pi := Random(SymmetricGroup(n));
+    l := ListPerm(pi,n);
+    for i in l do
+        BSTDelete(t,i);
     od;
 end;

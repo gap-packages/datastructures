@@ -11,9 +11,7 @@
 
 InstallGlobalFunction(PlistQueue,
 function(arg)
-  local capacity, filter, result, i, t;
-
-  filter := IsPlistQueueRep;
+  local capacity, result, i;
 
   if Length(arg) = 0 then
     capacity := 64;
@@ -26,9 +24,7 @@ function(arg)
     result[4][i] := fail;
   od;
 
-  t := NewType(CollectionsFamily(FamilyObj(IsObject)), filter and IsPositionalObjectRep);
-
-  Objectify(t, result);
+  Objectify(PlistQueueType, result);
 
   return result;
 end);

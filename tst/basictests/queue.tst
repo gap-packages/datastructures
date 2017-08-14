@@ -1,6 +1,7 @@
-gap> START_TEST("queue.tst");
 gap> q := PlistQueue();
 <queue with 0/64 entries>
+
+#
 gap> PushFront(q, 15);
 gap> PopFront(q);
 15
@@ -10,20 +11,56 @@ gap> PopBack(q);
 gap> Push(q, 15);
 gap> Pop(q);
 15
-gap> for i in [1..32] do
->       PushFront(q,i);
-> od;
-gap> for i in [1..32] do
->       Print(PopBack(q)," ");
-> od; Print("\n");
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-gap> for i in [1..32] do
->       PushFront(q,i);
-> od;
-gap> for i in [1..32] do
->       Print(PopFront(q)," ");
-> od; Print("\n");
-32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
+gap> IsEmpty(q);
+true
 
-#
-gap> STOP_TEST( "dqueue.tst", 1);
+# test size
+gap> N:=32;;
+
+# add at the front, pop at the back
+gap> for i in [1..N] do PushFront(q,i); od;
+gap> IsEmpty(q);
+false
+gap> Size(q) = N;
+true
+gap> out := List([1..N], x -> PopBack(q));;
+gap> out = [1..N];
+true
+gap> IsEmpty(q);
+true
+
+# add at the front, pop at the front
+gap> for i in [1..N] do PushFront(q,i); od;
+gap> IsEmpty(q);
+false
+gap> Size(q) = N;
+true
+gap> out := List([1..N], x -> PopFront(q));;
+gap> out = [N,N-1..1];
+true
+gap> IsEmpty(q);
+true
+
+# add at the back, pop at the front
+gap> for i in [1..N] do PushBack(q,i); od;
+gap> IsEmpty(q);
+false
+gap> Size(q) = N;
+true
+gap> out := List([1..N], x -> PopFront(q));;
+gap> out = [1..N];
+true
+gap> IsEmpty(q);
+true
+
+# add at the back, pop at the back
+gap> for i in [1..N] do PushBack(q,i); od;
+gap> IsEmpty(q);
+false
+gap> Size(q) = N;
+true
+gap> out := List([1..N], x -> PopBack(q));;
+gap> out = [N,N-1..1];
+true
+gap> IsEmpty(q);
+true

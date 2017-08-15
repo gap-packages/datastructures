@@ -36,10 +36,10 @@ function(arg...)
     return DS_Hash_Create(hashfunc, eqfunc, capacity, false);
 end);
 
-InstallMethod(ViewObj, "for hash maps",
+InstallMethod(ViewString, "for hash maps",
     [ IsHashMapRep ],
 function(ht)
-    Print("<hash map obj capacity=",DS_Hash_Capacity(ht),
+    return STRINGIFY("<hash map obj capacity=",DS_Hash_Capacity(ht),
             " used=",DS_Hash_Used(ht),">");
 end);
 

@@ -48,10 +48,10 @@ InstallOtherMethod(Size
               , [IsStack]
               , s -> Length(s![1]));
 
-InstallMethod(ViewObj
+InstallMethod(ViewString
              , "for a stack"
              , [IsStack],
 function(s)
-    Print("<stack with ", Length(s![1]), " entries>");
+    return STRINGIFY("<stack with ", Length(s![1]), " entries>");
 end);
 

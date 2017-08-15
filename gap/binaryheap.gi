@@ -91,10 +91,10 @@ InstallOtherMethod(IsEmpty,
     [IsBinaryHeapFlatRep],
     heap -> Length(heap![2]) = 0);
 
-InstallMethod(ViewObj,
+InstallMethod(ViewString,
     "for a binary heap in flat representation",
     [IsBinaryHeapFlatRep],
 function(heap)
-    Print("<binary heap with ", Length(heap![2]), " entries>");
+    return STRINGIFY("<binary heap with ", Length(heap![2]), " entries>");
 end);
 

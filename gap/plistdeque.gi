@@ -293,11 +293,11 @@ function(deque)
     return deque![QCAPACITY];
 end);
 
-InstallMethod( ViewObj,
+InstallMethod( ViewString,
         "for a PlistDeque",
         [ IsPlistDequeRep ],
 function(deque)
-    Print("<deque with ");
-    Print(Size(deque),"/",Capacity(deque));
-    Print(" entries>");
+    return STRINGIFY("<deque with "
+                    , Size(deque), "/", Capacity(deque)
+                    , " entries>");
 end);

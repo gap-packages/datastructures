@@ -13,6 +13,8 @@
 #include "binaryheap.h"
 #include "hashmap.h"
 #include "pairingheap.h"
+#include "skiplist.h"
+#include "bst.h"
 
 #include <src/gaputils.h>
 
@@ -24,6 +26,8 @@ static struct DatastructuresModule * submodules[] = {
     &HashFunctionsModule,
     &HashmapModule,
     &PairingHeapModule,
+    &SkiplistModule,
+    &BSTModule
 };
 
 #define ITERATE_SUBMODULE(func)                                              \

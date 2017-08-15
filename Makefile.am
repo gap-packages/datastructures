@@ -15,7 +15,9 @@ datastructures_la_SOURCES = \
     src/pairingheap.c \
     src/pairingheap.h \
     src/datastructures.c \
-    src/datastructures.h
+    src/datastructures.h \
+    src/skiplist.c \
+    src/bst.c
 
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12

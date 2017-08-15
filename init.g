@@ -23,6 +23,8 @@ fi;
 # interface definitions
 ReadPackage("datastructures", "gap/queue.gd");
 ReadPackage("datastructures", "gap/heap.gd");
+ReadPackage("datastructures", "gap/ordered.gd");
+
 
 # deque implemented using a circular buffer
 ReadPackage("datastructures", "gap/plistdeque.gd");
@@ -47,3 +49,4 @@ ReadPackage("datastructures", "gap/stack.gd");
 
 # Hash functions
 ReadPackage("datastructures", "gap/hashfunctions.gd");
+

@@ -15,6 +15,7 @@
 #include "pairingheap.h"
 #include "skiplist.h"
 #include "avl.h"
+#include "uf.h"
 
 #include <src/gaputils.h>
 
@@ -28,6 +29,7 @@ static struct DatastructuresModule * submodules[] = {
     &PairingHeapModule,
     &SkiplistModule,
     &AVLModule
+    &UFModule
 };
 
 #define ITERATE_SUBMODULE(func)                                              \

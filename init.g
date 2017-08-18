@@ -50,3 +50,5 @@ ReadPackage("datastructures", "gap/stack.gd");
 # Hash functions
 ReadPackage("datastructures", "gap/hashfunctions.gd");
 
+# Union-find
+ReadPackage("datastructures", "gap/union-find.gd");

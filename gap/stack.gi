@@ -15,7 +15,7 @@
 
 InstallGlobalFunction(Stack,
 function()
-    return Objectify(StackTypeMutable, [ [] ]);
+    return Objectify(StackType, [ [] ]);
 end);
 
 InstallMethod(Push

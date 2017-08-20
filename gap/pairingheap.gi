@@ -54,7 +54,7 @@ function(arg...)
     # node[1] data
     # node[2] number of nodes in the subheap
     # node[3] list of subheaps
-    heap := Objectify(PairingHeapTypeMutable, [0, isLess, []]);
+    heap := Objectify(PairingHeapType, [0, isLess, []]);
 
     for x in data do
         PairingHeapPush(heap, x);

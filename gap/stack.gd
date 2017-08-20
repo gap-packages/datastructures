@@ -43,9 +43,7 @@ DeclareOperation("Pop", [IsStack]);
 
 #
 DeclareRepresentation( "IsStackPlistRep", IsStack and IsPositionalObjectRep, []);
-BindGlobal( "StackType", NewType(StackFamily, IsStackPlistRep));
-BindGlobal( "StackTypeMutable", NewType(StackFamily,
-                                        IsStackPlistRep and IsMutable));
+BindGlobal( "StackType", NewType(StackFamily, IsStackPlistRep and IsMutable));
 
 
 DeclareGlobalFunction("Stack");

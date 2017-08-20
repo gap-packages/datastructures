@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gap-packages/crypting.svg?branch=master)](https://travis-ci.org/gap-packages/datastructures)
+[![Build Status](https://travis-ci.org/gap-packages/datastructures.svg?branch=master)](https://travis-ci.org/gap-packages/datastructures)
 [![Code Coverage](https://codecov.io/github/gap-packages/datastructures/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/datastructures)
 
 # The datastructures GAP package

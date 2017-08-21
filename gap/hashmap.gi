@@ -50,7 +50,7 @@ InstallOtherMethod(\[\],
 
 InstallOtherMethod(\[\]\:\=,
     "for a hash map, a key and a value",
-    [ IsHashMapRep, IsObject, IsObject ],
+    [ IsHashMapRep and IsMutable, IsObject, IsObject ],
     DS_Hash_SetValue);
 
 InstallOtherMethod( \in,
@@ -65,7 +65,7 @@ InstallOtherMethod( IsBound\[\],
 
 InstallOtherMethod( Unbind\[\],
     "for a hash map and a key",
-    [ IsHashMapRep, IsObject ],
+    [ IsHashMapRep and IsMutable, IsObject ],
     DS_Hash_Delete);
 
 InstallOtherMethod( Size,

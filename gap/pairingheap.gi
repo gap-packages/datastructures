@@ -99,12 +99,12 @@ end);
 
 InstallMethod(Push
         , "for a pairing heap in plain representation, and data"
-        , [IsPairingHeapFlatRep, IsObject]
+        , [IsPairingHeapFlatRep and IsMutable, IsObject]
         , PairingHeapPush);
 
 InstallMethod(Pop
         , "for a pairing heap in plain representation"
-        , [IsPairingHeapFlatRep]
+        , [IsPairingHeapFlatRep and IsMutable]
         , PairingHeapPop);
 
 InstallMethod(Peek

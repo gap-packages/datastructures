@@ -230,22 +230,22 @@ end);
 
 InstallMethod(PushBack,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
+        [IsPlistDequeRep and IsMutable, IsObject],
         PlistDequePushBack);
 
 InstallMethod(PushFront,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
+        [IsPlistDequeRep and IsMutable, IsObject],
         PlistDequePushFront);
 
 InstallMethod(PopFront,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
+        [IsPlistDequeRep and IsMutable],
         PlistDequePopFront);
 
 InstallMethod(PopBack,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
+        [IsPlistDequeRep and IsMutable],
         PlistDequePopBack);
 
 InstallOtherMethod(IsEmpty,

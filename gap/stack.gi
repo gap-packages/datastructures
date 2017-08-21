@@ -20,7 +20,7 @@ end);
 
 InstallMethod(Push
               , "for a stack"
-              , [IsStack, IsObject],
+              , [IsStack and IsMutable, IsObject],
 function(s,o)
     Add(s![1], o);
 end);
@@ -34,7 +34,7 @@ end);
 
 InstallMethod(Pop
              , "for a stack"
-             , [IsStack],
+             , [IsStack and IsMutable],
 function(s)
     if Length(s![1]) > 0 then
         return Remove(s![1]);

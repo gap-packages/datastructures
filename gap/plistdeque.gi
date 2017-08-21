@@ -13,10 +13,11 @@
 #
 # The four positions in a deque Q have the following purpose
 #
-# Q[1] - head, the index in Q[4] of the first element in the deque
-# Q[2] - tail, the index in Q[4] of the last element in the deque
+# Q[1] - head, the index in Q[5] of the first element in the deque
+# Q[2] - tail, the index in Q[5] of the last element in the deque
 # Q[3] - capacity, the allocated capacity in the deque
-# Q[4] - GAP plain list with storage for capacity many entries
+# Q[4] - FIXME: describe QFACTOR ... 
+# Q[5] - GAP plain list with storage for capacity many entries
 #
 # Global variables QHEAD, QTAIL, QCAPACITY, and QDATA are bound to reflect
 # the above.

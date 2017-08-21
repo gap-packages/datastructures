@@ -122,9 +122,9 @@ InstallOtherMethod(IsEmpty
         , [IsPairingHeapFlatRep]
         , h -> h![1] = 0);
 
-InstallMethod( ViewObj,
+InstallMethod(ViewObj,
         "for a pairing heap in flat representation",
-        [ IsPairingHeapFlatRep ],
+        [IsPairingHeapFlatRep],
 function(h)
     Print("<pairing heap with "
           , h![1]

@@ -77,3 +77,11 @@ InstallOtherMethod( IsEmpty,
     "for a hash map",
     [ IsHashMapRep ],
     ht -> DS_Hash_Used(ht) = 0);
+
+InstallMethod( PostMakeImmutable,
+    "for a hash map",
+    [ IsHashMapRep ],
+function(ht)
+    MakeImmutable(ht![5]);
+    MakeImmutable(ht![6]);
+end);

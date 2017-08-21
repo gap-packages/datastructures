@@ -98,3 +98,9 @@ function(heap)
     Print("<binary heap with ", Length(heap![2]), " entries>");
 end);
 
+InstallMethod(PostMakeImmutable,
+    "for a bineary heap",
+    [ IsBinaryHeapFlatRep ],
+function(heap)
+    MakeImmutable(heap![2]);
+end);

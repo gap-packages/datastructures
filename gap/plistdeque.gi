@@ -291,3 +291,10 @@ function(deque)
     Print(Size(deque),"/",Capacity(deque));
     Print(" entries>");
 end);
+
+InstallMethod(PostMakeImmutable,
+    "for IsPlistDeque",
+        [IsPlistDequeRep],
+function(deque)
+    MakeImmutable(deque![QDATA]);
+end);

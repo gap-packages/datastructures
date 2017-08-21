@@ -55,3 +55,9 @@ function(s)
     Print("<stack with ", Length(s![1]), " entries>");
 end);
 
+InstallMethod(PostMakeImmutable
+             , "for a stack"
+             , [IsStack],
+function(s)
+    MakeImmutable(s![1]);
+end);

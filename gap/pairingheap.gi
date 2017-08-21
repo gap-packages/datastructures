@@ -130,3 +130,10 @@ function(h)
           , h![1]
           , " entries>");
 end);
+
+InstallMethod(PostMakeImmutable,
+        "for a pairing heap",
+        [ IsPairingHeapFlatRep ],
+function(h)
+    MakeImmutable(h![3]);
+end);

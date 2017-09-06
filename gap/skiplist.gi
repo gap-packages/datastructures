@@ -35,6 +35,9 @@ SKIPLISTS.nullIterator := Iterator([]);
 #
 SKIPLISTS.defaultInvProb := 3;
 
+#
+# TODO fix Iterator and AsList for Standard/non-standard
+#
 
 #
 # Worker function for all the constructors
@@ -438,7 +441,7 @@ InstallMethod(String, [IsSkipListRep and IsOrderedSetDS],
     fi;
     if not IsEmpty(sl) then
         Add(s, ", ");
-        Add(s, String(AsListSorted(sl)));
+        Add(s, String(AsSortedList(sl)));
     fi;
     Add(s,")");
     return Concatenation(s);

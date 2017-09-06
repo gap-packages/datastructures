@@ -6,7 +6,7 @@ InstallMethod(IsEmpty, [IsOrderedSetDS], d -> Size(d) = 0);
 
 InstallMethod(Iterator, [IsOrderedSetDS], IteratorSorted);
 
-InstallMethod(AsListSorted, [IsOrderedSetDS], 
+InstallMethod(AsSortedList, [IsOrderedSetDS], 
         function(s)
     local  i, l, x;
     i := IteratorSorted(s);
@@ -36,3 +36,10 @@ end);
 
 InstallMethod(\=, [IsOrderedSetDS, IsOrderedSetDS], 
         IsIdenticalObj);
+
+InstallMethod(Length, [IsOrderedSetDS], Size);
+
+InstallMethod(ELM_LIST, [IsOrderedSetDS, IsPosInt],
+        function(os, n)
+    return AsList(os)[n];
+end);

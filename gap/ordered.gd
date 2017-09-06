@@ -68,6 +68,11 @@
 
 DeclareCategory("IsOrderedSetDS", IsObject);
 
+#! @Description
+#! Subcategory of Ordererd "sets" where the ordering is the default <
+
+DeclareCategory("IsStandardOrderedSetDS", IsOrderedSetDS);
+
 BindGlobal( "OrderedSetDSFamily", NewFamily("OrderedSetDSFamily") ); 
 
 #! @Description
@@ -137,13 +142,26 @@ DeclareOperation("IteratorSorted", [IsOrderedSetDS]);
 
 DeclareOperation("Iterator", [IsOrderedSetDS]);
 
-DeclareAttribute("AsListSorted", IsOrderedSetDS);
+DeclareAttribute("AsSSortedList", IsOrderedSetDS);
+
+DeclareAttribute("AsSortedList", IsOrderedSetDS);
 
 DeclareAttribute("AsList", IsOrderedSetDS);
 
 DeclareAttribute("EnumeratorSorted", IsOrderedSetDS);
 
+DeclareAttribute("Enumerator", IsOrderedSetDS);
+
 DeclareProperty ("IsEmpty", IsOrderedSetDS);
+
+DeclareAttribute("Length", IsOrderedSetDS);
+
+DeclareOperation("ELM_LIST", [IsOrderedSetDS, IsPosInt]);
+
+DeclareOperation("Position", [IsOrderedSetDS, IsObject, IsInt]);
+
+DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject]);
+DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject, IsFunction]);
 
 
 # TODO - maps, cursors, Union and Intersection, Reversed 

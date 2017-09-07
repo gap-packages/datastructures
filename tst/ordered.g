@@ -9,17 +9,17 @@
 osdsworkout := function(s, l1, l2)
     local  count, x, iter, sl1;
     if not IsEmpty(s) then
-        Print("Initial DS not empty");
+        Error("Initial DS not empty");
         return false;
     fi;   
     if Size(s) <> 0 then
-        Print("Initial size not zero");
+        Error("Initial size not zero");
     fi;
     count := 0;
     for x in l1 do 
         AddSet(s,x);
         if not x in s then
-            Print("add didn't add");
+            Error("add didn't add");
             return false;            
         fi;
         count := count+1;
@@ -31,7 +31,7 @@ osdsworkout := function(s, l1, l2)
     for x in l1 do 
         AddSet(s,x);
         if not x in s then
-            Print("add actually removed");
+            Error("add actually removed");
             return false;            
         fi;
         if Size(s) <> count then
@@ -39,37 +39,37 @@ osdsworkout := function(s, l1, l2)
             return false;
         fi;
     od;
-    iter := IteratorSorted(s);
+    iter := Iterator(s);
     sl1 := ShallowCopy(l1);
     Sort(sl1, LessFunction(s));
     count := 1;    
     for x in iter do
         if count > Length(sl1) then
-            Print("too many objects");
+            Error("too many objects");
             return false;
         fi;
         if sl1[count] <> x then
-            Print("Wrong object");
+            Error("Wrong object");
             return false;            
         fi;
         count := count+1;        
     od;
     if count <> Length(sl1) + 1 then
-        Print("Final count doesn't match");
+        Error("Final count doesn't match");
         return false;
     fi;   
     count := Size(s);    
     for x in l2 do 
         if 1 <> RemoveSet(s,x) then
-            Print("missing entry\n");
+            Error("missing entry\n");
             return false;            
         fi;
         if 0 <> RemoveSet(s,x) then
-            Print("removed twice\n");
+            Error("removed twice\n");
             return false;            
         fi;
         if x in s then
-            Print("Still there after remove");
+            Error("Still there after remove");
             return false;
         fi;
         count := count-1;
@@ -79,7 +79,7 @@ osdsworkout := function(s, l1, l2)
         fi;        
     od;
     if not IsEmpty(s) then
-        Print("not empty at end");
+        Error("not empty at end");
         return false;        
     fi;
     return true;    
@@ -132,7 +132,7 @@ end;
 osdstestconstruct := function(type)
     local s;
     s := OrderedSetDS(type, {a,b} -> b < a, [1..100], GlobalMersenneTwister);
-    if AsListSorted(s) <> [100,99..1] then
+    if AsSortedList(s) <> [100,99..1] then
         Print("Failed fun, data, rs\n");        
         return false;
     fi;
@@ -142,12 +142,12 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, [1..100], GlobalMersenneTwister);
-    if AsListSorted(s) <> [1..100] then
+    if AsSortedList(s) <> [1..100] then
         Print("Failed data, rs\n");        
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> b < a, [1..100]);
-    if AsListSorted(s) <> [100,99..1] then
+    if AsSortedList(s) <> [100,99..1] then
         Print("Failed fun, data\n");        
         return false;
     fi;
@@ -157,7 +157,7 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, [1..100]);
-    if AsListSorted(s) <> [1..100] then
+    if AsSortedList(s) <> [1..100] then
         Print("Failed data\n");        
         return false;
     fi;
@@ -177,13 +177,13 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> Int(a) < Int(b), Iterator(List([1..100],String)));
-    if not AsListSorted(s) = List([1..100],String)  then
+    if not AsSortedList(s) = List([1..100],String)  then
         Print("Failed fun, iter\n");        
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> Int(a) < Int(b), Iterator(List([1..100],String)), 
                  GlobalMersenneTwister);
-    if not AsListSorted(s) = List([1..100],String)  then
+    if not AsSortedList(s) = List([1..100],String)  then
         Print("Failed fun, iter, rs\n");        
         return false;
     fi;

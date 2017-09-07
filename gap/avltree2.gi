@@ -937,13 +937,13 @@ end);
 # This is needed, just as for BSTs when l is to be deleted but has two children
 # It's more complicated than for BSTs because we need to rebalance and do bookkeeping as we come up
 #
-AVL2.Remove_Extremal := function(l, dirn)   
-    local  i, j, hi, hj, flags, res, im, res2;
+ AVL2.Remove_Extremal := function(l, dirn)   
+    local  i, j, hi, hj, flags, k, res, newext, im, res2;
     #
     # This removes the dirn-most node of the tree rooted at l. 
-    # it returns a triple [<change in height>, <node removed>, <new root node>]
+    # it returns a 4-tuple  [<change in height>, <node removed>, <new root node>, <new extremal node>]
     # if in fact it deletes the only node in the subtree below l, it returns fail 
-    # in the third component
+    # in the third component and no fourth component
     #
     if dirn = 0 then
         i := 1;
@@ -961,11 +961,26 @@ AVL2.Remove_Extremal := function(l, dirn)
         #
         # Found it
         #
-        if hj(flags) then
-            return [-1,l,l[j]];
+        #
+        if not hj(flags) then
+            #
+            # Node we are removing is a leaf. 
+            # So no thread pointers point to it
+            #
+            return [-1, l, fail];
         else
-            return [-1,l,fail];
+            #
+            # Node we are removing has a child, so one thread pointer points to it
+            # We have to find the node containing that pointer and return it, so the 
+            # calling routine can adjust that thread pointer
+            #
+            k := l[j];
+            while hi(k[4]) do
+                k := k[i];
+            od;
+            return [-1, l, l[j], k];
         fi;
+        
     fi;
     
     #
@@ -974,10 +989,18 @@ AVL2.Remove_Extremal := function(l, dirn)
     res := AVL2.Remove_Extremal(l[i],dirn);
     
     if res[3] <> fail then
+        #
+        # There's still a subtree below us, so attach it.
+        #
         l[i] := res[3];
+        newext := res[4];        
     else
         #
-        # Thread pointer
+        # We just deleted the only node in our i-subtree
+        # so the i child is replaced by a thread pointer
+        # the node we deleted must have been the i-most node, so will
+        # have had a thread pointer in place of its i child which
+        # tells us where to link to
         #
         l[i] := res[2][i];           
         if dirn = 0 then
@@ -985,6 +1008,10 @@ AVL2.Remove_Extremal := function(l, dirn)
         else
             flags := AVL2.setHasRight(flags, false);
         fi;
+        #
+        # In this case we are the new extremal node, and our j
+        #
+        newext := l;        
     fi;
     
     
@@ -1002,18 +1029,18 @@ AVL2.Remove_Extremal := function(l, dirn)
         im := AVL2.getImbalance(flags);
         if im = dirn then
             l[4] := AVL2.setImbalance(flags,1);
-            return [-1, res[2], l];
+            return [-1, res[2], l, newext];
         elif im = 1 then
             l[4] := AVL2.setImbalance(flags,2-dirn);
-            return [0, res[2], l];
+            return [0, res[2], l, newext];
         else
             l[4] := flags;    
             res2 := AVL2.Trinode(l);            
-            return [res2[1],res[2],res2[2]];
+            return [res2[1],res[2],res2[2],newext];
         fi;
     else
         l[4] := flags;    
-        return [0, res[2],l];                
+        return [0, res[2],l, newext];                
     fi;   
 end;
 
@@ -1022,7 +1049,7 @@ end;
 #
 
 AVL2.RemoveThisNode := function(node, remove_extremal, trinode)
-    local  flags, im, res;
+    local  flags, im, res, l;
     #
     # Very similar to the BST case. By careful choices we avoid the need to 
     # restructure at this point, but we do need to do book-keeping
@@ -1038,41 +1065,45 @@ AVL2.RemoveThisNode := function(node, remove_extremal, trinode)
             # We "steal" a neighbouring value from a subtree
             # if they are of unequal height, choose the higher
             # If equal go left. We don't need to alternate as we do
-            # for BSTs because these trees cannot become unbalanced
+            # for BSTs because these trees cannot become too unbalanced
             #
             im := AVL2.getImbalance(flags);            
             if  im = 2 then
-                res := remove_extremal(node[3],-1);
+                res := remove_extremal(node[3],0);
                 #
                 # Since we have two children and we are working on the higher one, it 
                 # cannot entirely vanish
                 #
                 Assert(2, res[3] <> fail);
-                node[3] := res[3];                        
+                node[3] := res[3];
+                res[4][1] := node;                
             else
-                res := remove_extremal(node[1],1);
+                res := remove_extremal(node[1],2);
                 if res[3] = fail then
                     #
                     # Child was a singleton node, which we have deleted, need 
                     # to link up thread pointer
                     #
-                    node[1] := res[2][1];
+                    if IsBound(node[1][1]) then
+                        node[1] := node[1][1];
+                    else
+                        Unbind(node[1]);
+                    fi;
+                    
                     flags := AVL2.setHasLeft(flags, false);                    
                 else
-                    node[1] := res[3];                        
+                    node[1] := res[3];                    
+                    res[4][3] := node;                    
                 fi;
                 
             fi;
-            #
-            # Install the stolen value
-            #
             node[2] := res[2][2];
             
             
             # Adjust balance
             #
             if res[1] <> 0 then
-                if im <> 0 then
+                if im <> 1 then
                     #
                     # Not balanced before, so now we are
                     #
@@ -1093,6 +1124,22 @@ AVL2.RemoveThisNode := function(node, remove_extremal, trinode)
             #
             # left only
             #
+            
+            #
+            # Since we only have one child there is one link pointer that points to me
+            # so I need to find and fix it.
+            #
+            l := node[1];
+            while AVL2.hasRight(l[4]) do
+                l := l[3];
+            od;
+            Assert(2, IsIdenticalObj(l[3], node));
+            if IsBound(node[3]) then
+                l[3] := node[3];            
+            else
+                Unbind(l[3]);
+            fi;
+            
             return [-1,node[1]];
         fi;
     else                
@@ -1100,6 +1147,17 @@ AVL2.RemoveThisNode := function(node, remove_extremal, trinode)
             #
             # right only
             #
+            l := node[3];
+            while AVL2.hasLeft(l[4]) do
+                l := l[1];
+            od;
+            Assert(2, IsIdenticalObj(l[1], node));
+            if IsBound(node[1]) then            
+                l[1] := node[1];            
+            else
+                Unbind(l[1]);
+            fi;
+            
             return [-1, node[3]];                    
         else
             #
@@ -1230,25 +1288,53 @@ InstallMethod(RemoveSet, [IsAVLTreeRep and IsOrderedSetDS and IsMutable, IsObjec
     return 1;    
 end);
             
-if false then
+
 
 #
 # Utility to compute actual imbalances of every node and Assert that the
 # stored data is correct
 #
           
-AVL.AVLCheck := function(avl)
-    local  avlh;
-    avlh := function(b,ix)
-        local  child, hl, hr;
-        if not IsBound(b[ix]) then return 0; fi;
-        child := b[ix];        
-        hl := avlh(child,1);
-        hr := avlh(child,3);
-        Assert(1,IsBound(child[4]) and child[4] = hr - hl);
-        return 1 + Maximum(hl,hr);
+AVL2.AVLCheck := function(avl)
+    local  avlh, l;
+    avlh := function(node)
+        local  p, resl, resr;
+        Assert(1, IsBound(node[2]));
+        p := Position(l, node[2]);
+        Assert(1, p <> fail);            
+        Assert(1, IsBound(node[4]));
+        if AVL2.hasLeft(node[4]) then
+            Assert(1, IsBound(node[1]));            
+            resl := avlh(node[1]);
+        else
+            resl := [0,0];
+            if p = 1 then
+                Assert(1,not IsBound(node[1]));
+            else
+                Assert(1, IsBound(node[1]));            
+                Assert(1,node[1][2] = l[p-1]);
+            fi;
+        fi;
+        if AVL2.hasRight(node[4]) then
+            Assert(1, IsBound(node[3]));            
+            resr := avlh(node[3]);
+        else
+            resr := [0,0];
+            if p = Length(l) then
+                Assert(1,not IsBound(node[3]));
+            else
+                Assert(1, IsBound(node[3]));            
+                Assert(1,node[3][2] = l[p+1]);
+            fi;
+        fi;
+        Assert(1,AVL2.getImbalance(node[4]) = resr[1]-resl[1] + 1);
+        Assert(1,AVL2.getSubtreeSize(node[4]) = resr[2] + resl[2] + 1);
+        return [1 + Maximum(resr[1], resl[1]), 1 + resl[2] + resr[2]];
     end;
-    avlh(avl!.lists,1);
+    if not IsEmpty(avl) then
+        l := AsList(avl);
+        avlh(avl!.lists[1]);
+    fi;
 end;
 
 
@@ -1257,5 +1343,6 @@ end;
 
 
 
-fi;
+
+
 

@@ -139,7 +139,7 @@ static Obj DS_AVL2_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinod
         deeper = DS_AVL2_ADDSET_INNER((Obj)0, child, val, less, trinode);
 	if (deeper == INTOBJ_INT(0)) {
 	  /* we just have to increase the size of subtree */
-	  SET_ELM_PLIST(avl, AVL2_FLAGS, INTOBJ_INT(INT_INTOBJ(ELM_PLIST(avl, AVL2_FLAGS)) + 0x10));
+	  SET_ELM_PLIST(avl, AVL2_FLAGS, INTOBJ_INT(flags + 0x10));
 	  return INTOBJ_INT(0);
         }
         if (deeper == Fail)
@@ -156,7 +156,7 @@ static Obj DS_AVL2_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinod
             }
         } 
 	SET_ELM_PLIST(avl, i, deeper);
-	SET_ELM_PLIST(avl, AVL2_FLAGS, ELM_PLIST(avl, AVL2_FLAGS) + 0x10);
+	SET_ELM_PLIST(avl, AVL2_FLAGS, INTOBJ_INT(flags + 0x10));
 	CHANGED_BAG(avl);
 	return INTOBJ_INT(0);
     }

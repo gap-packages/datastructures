@@ -50,12 +50,12 @@ end);
 
 InstallMethod(Push,
     "for a binary heap in plain representation",
-    [IsBinaryHeapFlatRep, IsObject],
+    [IsBinaryHeapFlatRep and IsMutable, IsObject],
     DS_BinaryHeap_Insert);
 
 InstallMethod(Pop,
     "for a binary heap in plain representation",
-    [IsBinaryHeapFlatRep],
+    [IsBinaryHeapFlatRep and IsMutable],
 function(heap)
     local val, data;
     data := heap![2];
@@ -98,3 +98,9 @@ function(heap)
     Print("<binary heap with ", Length(heap![2]), " entries>");
 end);
 
+InstallMethod(PostMakeImmutable,
+    "for a bineary heap",
+    [ IsBinaryHeapFlatRep ],
+function(heap)
+    MakeImmutable(heap![2]);
+end);

@@ -54,7 +54,7 @@ function(arg...)
     # node[1] data
     # node[2] number of nodes in the subheap
     # node[3] list of subheaps
-    heap := Objectify(PairingHeapTypeMutable, [0, isLess, []]);
+    heap := Objectify(PairingHeapType, [0, isLess, []]);
 
     for x in data do
         PairingHeapPush(heap, x);
@@ -99,12 +99,12 @@ end);
 
 InstallMethod(Push
         , "for a pairing heap in plain representation, and data"
-        , [IsPairingHeapFlatRep, IsObject]
+        , [IsPairingHeapFlatRep and IsMutable, IsObject]
         , PairingHeapPush);
 
 InstallMethod(Pop
         , "for a pairing heap in plain representation"
-        , [IsPairingHeapFlatRep]
+        , [IsPairingHeapFlatRep and IsMutable]
         , PairingHeapPop);
 
 InstallMethod(Peek
@@ -122,11 +122,18 @@ InstallOtherMethod(IsEmpty
         , [IsPairingHeapFlatRep]
         , h -> h![1] = 0);
 
-InstallMethod( ViewObj,
+InstallMethod(ViewObj,
         "for a pairing heap in flat representation",
-        [ IsPairingHeapFlatRep ],
+        [IsPairingHeapFlatRep],
 function(h)
     Print("<pairing heap with "
           , h![1]
           , " entries>");
+end);
+
+InstallMethod(PostMakeImmutable,
+        "for a pairing heap",
+        [ IsPairingHeapFlatRep ],
+function(h)
+    MakeImmutable(h![3]);
 end);

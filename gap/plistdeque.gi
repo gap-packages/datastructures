@@ -13,10 +13,11 @@
 #
 # The four positions in a deque Q have the following purpose
 #
-# Q[1] - head, the index in Q[4] of the first element in the deque
-# Q[2] - tail, the index in Q[4] of the last element in the deque
+# Q[1] - head, the index in Q[5] of the first element in the deque
+# Q[2] - tail, the index in Q[5] of the last element in the deque
 # Q[3] - capacity, the allocated capacity in the deque
-# Q[4] - GAP plain list with storage for capacity many entries
+# Q[4] - FIXME: describe QFACTOR ... 
+# Q[5] - GAP plain list with storage for capacity many entries
 #
 # Global variables QHEAD, QTAIL, QCAPACITY, and QDATA are bound to reflect
 # the above.
@@ -230,33 +231,23 @@ end);
 
 InstallMethod(PushBack,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
+        [IsPlistDequeRep and IsMutable, IsObject],
         PlistDequePushBack);
 
 InstallMethod(PushFront,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
+        [IsPlistDequeRep and IsMutable, IsObject],
         PlistDequePushFront);
-
-InstallMethod(Push,
-        "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
-        PlistDequePushBack);
 
 InstallMethod(PopFront,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
+        [IsPlistDequeRep and IsMutable],
         PlistDequePopFront);
 
 InstallMethod(PopBack,
         "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
+        [IsPlistDequeRep and IsMutable],
         PlistDequePopBack);
-
-InstallMethod(Pop,
-        "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
-        PlistDequePopFront);
 
 InstallOtherMethod(IsEmpty,
         "for IsPlistDeque",
@@ -293,11 +284,18 @@ function(deque)
     return deque![QCAPACITY];
 end);
 
-InstallMethod( ViewObj,
-        "for a PlistDeque",
-        [ IsPlistDequeRep ],
+InstallMethod(ViewObj,
+        "for IsPlistDeque",
+        [IsPlistDequeRep],
 function(deque)
     Print("<deque with ");
     Print(Size(deque),"/",Capacity(deque));
     Print(" entries>");
+end);
+
+InstallMethod(PostMakeImmutable,
+    "for IsPlistDeque",
+        [IsPlistDequeRep],
+function(deque)
+    MakeImmutable(deque![QDATA]);
 end);

@@ -15,12 +15,12 @@
 
 InstallGlobalFunction(Stack,
 function()
-    return Objectify(StackTypeMutable, [ [] ]);
+    return Objectify(StackType, [ [] ]);
 end);
 
 InstallMethod(Push
               , "for a stack"
-              , [IsStack, IsObject],
+              , [IsStack and IsMutable, IsObject],
 function(s,o)
     Add(s![1], o);
 end);
@@ -34,7 +34,7 @@ end);
 
 InstallMethod(Pop
              , "for a stack"
-             , [IsStack],
+             , [IsStack and IsMutable],
 function(s)
     if Length(s![1]) > 0 then
         return Remove(s![1]);
@@ -55,3 +55,9 @@ function(s)
     Print("<stack with ", Length(s![1]), " entries>");
 end);
 
+InstallMethod(PostMakeImmutable
+             , "for a stack"
+             , [IsStack],
+function(s)
+    MakeImmutable(s![1]);
+end);

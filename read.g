@@ -16,6 +16,7 @@ DeclareInfoClass( "InfoDataStructures" );
 SetInfoLevel( InfoDataStructures, 1 );
 
 
+ReadPackage("datastructures", "gap/queue.gi");
 ReadPackage("datastructures", "gap/plistdeque.gi");
 
 ReadPackage("datastructures", "gap/heap.gi");

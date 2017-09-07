@@ -171,7 +171,7 @@ Int BasicRecursiveHashForList(Obj obj)
 
 Int BasicRecursiveHashForPRec(Obj obj)
 {
-    GAP_ASSERT(IS_PREC_REP(obj));
+    GAP_ASSERT(IS_PREC(obj));
 
     // This is just a random number which fits in a 32-bit UInt.
     UInt current_hash = 1928498392;

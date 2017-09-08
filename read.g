@@ -36,10 +36,6 @@ ReadPackage("datastructures", "gap/ordered.gi");
 # Skiplists
 ReadPackage("datastructures", "gap/skiplist.gi");
 
-# BSTs (not self-balancing)
-
-# ReadPackage("datastructures", "gap/bst.gi");
-
 # AVL trees (self-balancing)
-ReadPackage("datastructures", "gap/avltree2.gi");
+ReadPackage("datastructures", "gap/avltree.gi");
 

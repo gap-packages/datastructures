@@ -27,6 +27,7 @@ SKIPLISTS := rec();
 IsSkipListRep := NewRepresentation("IsSkipListRep", IsComponentObjectRep, []);
 
 SKIPLISTS.SkipListDefaultType :=  NewType(OrderedSetDSFamily, IsSkipListRep and IsOrderedSetDS and IsMutable);
+SKIPLISTS.SkipListStandardType :=  NewType(OrderedSetDSFamily, IsSkipListRep and IsStandardOrderedSetDS and IsMutable);
 SKIPLISTS.nullIterator := Iterator([]);
 #
 # This controls the relative sizes of the lists (i.e. how likely each entry is to be promoted to the next list above
@@ -35,17 +36,20 @@ SKIPLISTS.nullIterator := Iterator([]);
 #
 SKIPLISTS.defaultInvProb := 3;
 
-#
-# TODO fix Iterator and AsList for Standard/non-standard
-#
 
 #
 # Worker function for all the constructors
 #
 SKIPLISTS.NewSkipList := 
   function(isLess, iter, rs, invprob)
-    local  s, x;
-    s :=  Objectify( SKIPLISTS.SkipListDefaultType,     rec(
+    local  s, x, type;
+    if isLess = \< then
+        type := SKIPLISTS.SkipListStandardType;
+    else
+        type := SKIPLISTS.SkipListDefaultType;
+    fi;
+    
+    s :=  Objectify( type,     rec(
                   lists := [fail],
                   isLess := isLess,
                   invprob := invprob,
@@ -79,17 +83,17 @@ end);
 
 InstallMethod(OrderedSetDS, [IsSkipListRep and IsMutable and IsOrderedSetDS, IsListOrCollection],
 function(type, data)
-    return SKIPLISTS.NewSkipList(\<, IteratorSorted(data), GlobalMersenneTwister, SKIPLISTS.defaultInvProb);
+    return SKIPLISTS.NewSkipList(\<, Iterator(data), GlobalMersenneTwister, SKIPLISTS.defaultInvProb);
 end);
 
 InstallMethod(OrderedSetDS, [IsSkipListRep and IsMutable and IsOrderedSetDS, IsListOrCollection, IsRandomSource],
 function(type, data, rs)
-    return SKIPLISTS.NewSkipList(\<, IteratorSorted(data), rs, SKIPLISTS.defaultInvProb);
+    return SKIPLISTS.NewSkipList(\<, Iterator(data), rs, SKIPLISTS.defaultInvProb);
 end);
 
 InstallMethod(OrderedSetDS, [IsSkipListRep and IsMutable and IsOrderedSetDS, IsOrderedSetDS],
 function(type, os)
-    return SKIPLISTS.NewSkipList(\<, IteratorSorted(os), GlobalMersenneTwister, SKIPLISTS.defaultInvProb);
+    return SKIPLISTS.NewSkipList(\<, Iterator(os), GlobalMersenneTwister, SKIPLISTS.defaultInvProb);
 end);
 
 InstallMethod(OrderedSetDS, [IsSkipListRep and IsMutable and IsOrderedSetDS, IsFunction, IsListOrCollection],
@@ -368,7 +372,7 @@ end);
 #
         
 
-InstallMethod(IteratorSorted, [IsSkipListRep and IsOrderedSetDS],
+InstallMethod(Iterator, [IsSkipListRep and IsOrderedSetDS],
         function(sl)
     return IteratorByFunctions(rec(
                ptr := sl!.lists,
@@ -441,7 +445,7 @@ InstallMethod(String, [IsSkipListRep and IsOrderedSetDS],
     fi;
     if not IsEmpty(sl) then
         Add(s, ", ");
-        Add(s, String(AsSortedList(sl)));
+        Add(s, String(AsList(sl)));
     fi;
     Add(s,")");
     return Concatenation(s);

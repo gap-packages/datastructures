@@ -132,7 +132,7 @@ end;
 osdstestconstruct := function(type)
     local s;
     s := OrderedSetDS(type, {a,b} -> b < a, [1..100], GlobalMersenneTwister);
-    if AsSortedList(s) <> [100,99..1] then
+    if AsList(s) <> [100,99..1] then
         Print("Failed fun, data, rs\n");        
         return false;
     fi;
@@ -142,12 +142,12 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, [1..100], GlobalMersenneTwister);
-    if AsSortedList(s) <> [1..100] then
+    if AsList(s) <> [1..100] then
         Print("Failed data, rs\n");        
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> b < a, [1..100]);
-    if AsSortedList(s) <> [100,99..1] then
+    if AsList(s) <> [100,99..1] then
         Print("Failed fun, data\n");        
         return false;
     fi;
@@ -157,7 +157,7 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, [1..100]);
-    if AsSortedList(s) <> [1..100] then
+    if AsList(s) <> [1..100] then
         Print("Failed data\n");        
         return false;
     fi;
@@ -177,13 +177,13 @@ osdstestconstruct := function(type)
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> Int(a) < Int(b), Iterator(List([1..100],String)));
-    if not AsSortedList(s) = List([1..100],String)  then
+    if not AsList(s) = List([1..100],String)  then
         Print("Failed fun, iter\n");        
         return false;
     fi;
     s := OrderedSetDS(type, {a,b} -> Int(a) < Int(b), Iterator(List([1..100],String)), 
                  GlobalMersenneTwister);
-    if not AsSortedList(s) = List([1..100],String)  then
+    if not AsList(s) = List([1..100],String)  then
         Print("Failed fun, iter, rs\n");        
         return false;
     fi;

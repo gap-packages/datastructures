@@ -4,9 +4,7 @@
 
 InstallMethod(IsEmpty, [IsOrderedSetDS], d -> Size(d) = 0);
 
-InstallMethod(Iterator, [IsOrderedSetDS], IteratorSorted);
-
-InstallMethod(AsSortedList, [IsOrderedSetDS], 
+InstallMethod(AsSortedList, [IsStandardOrderedSetDS], 
         function(s)
     local  i, l, x;
     i := IteratorSorted(s);
@@ -33,6 +31,7 @@ InstallMethod(AsList, [IsOrderedSetDS],
 end);
 
 
+InstallMethod(IteratorSorted, [IsStandardOrderedSetDS], Iterator);
 
 InstallMethod(\=, [IsOrderedSetDS, IsOrderedSetDS], 
         IsIdenticalObj);

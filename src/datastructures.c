@@ -14,7 +14,7 @@
 #include "hashmap.h"
 #include "pairingheap.h"
 #include "skiplist.h"
-#include "bst.h"
+#include "avl.h"
 
 #include <src/gaputils.h>
 
@@ -27,7 +27,7 @@ static struct DatastructuresModule * submodules[] = {
     &HashmapModule,
     &PairingHeapModule,
     &SkiplistModule,
-    &BSTModule
+    &AVLModule
 };
 
 #define ITERATE_SUBMODULE(func)                                              \

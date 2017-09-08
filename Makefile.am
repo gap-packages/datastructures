@@ -17,7 +17,7 @@ datastructures_la_SOURCES = \
     src/datastructures.c \
     src/datastructures.h \
     src/skiplist.c \
-    src/bst.c
+    src/avl.c
 
 datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
 # Note that the latter is only for GAP 4.4.12

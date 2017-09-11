@@ -48,6 +48,7 @@ DeclareOperation("RootsIteratorOfPartitionDS", [IsPartitionDS]);
 #
 DeclareAttribute("NumberParts", IsPartitionDS);
 DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS);
+DeclareAttribute("PartsOfPartitionDS", IsPartitionDS);
 
 
 

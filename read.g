@@ -40,4 +40,3 @@ ReadPackage("datastructures", "gap/skiplist.gi");
 ReadPackage("datastructures", "gap/avltree.gi");
 
 ReadPackage("datastructures", "gap/union-find.gi");
-ReadPackage("datastructures", "gap/union-find2.gi");

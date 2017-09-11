@@ -311,7 +311,7 @@ AVL.TreeByOrderedList := function(l)
         #
         # Now assemble the bitfield with all the miscellaneous data
         #
-        node[4] := AVL.Bitfields.builder(hr-hl+1, hasl, hasr, to - from + 1);
+        node[4] := BuildBitfields(AVL.Bitfields.widths, hr-hl+1, hasl, hasr, to - from + 1);
         return [Maximum(hl,hr)+1, node, min, max];
     end;
     x := foo(l, 1, Length(l));
@@ -708,7 +708,7 @@ AVL.AddSetInnerGAP :=
     
     if not ghi(avl[4]) then
         # inserting a new leaf here
-        newnode := [,val,,AVL.Bitfields.builder(1,0,0,1)];
+        newnode := [,val,,BuildBitfields(AVL.Bitfields.widths,1,0,0,1)];
         newnode[j] := avl;
         if IsBound(avl[i]) then           
             newnode[i] := avl[i];
@@ -778,7 +778,7 @@ InstallMethod(AddSet, [IsAVLTreeRep and IsOrderedSetDS and IsMutable, IsObject],
         function(avl, val)
     local  res;
     if not IsBound(avl!.lists[1]) then
-        avl!.lists[1] := [,val,,AVL.Bitfields.builder(1,0,0,1)];
+        avl!.lists[1] := [,val,,BuildBitfields(AVL.Bitfields.widths,1,0,0,1)];
         return 1;
     fi;
     res := AVL.AddSetInner(avl!.lists[1],val,avl!.isLess, AVL.Trinode);

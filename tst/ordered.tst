@@ -108,7 +108,7 @@ true
 gap> s2 := ShallowCopy(s);;
 gap> Size(s) = Size(s2);
 true
-gap> AddSet(s2, 101/2);
+gap> AddSet(s2, 101/2);;
 gap> 101/2 in s;
 false
 gap> AsList(s);
@@ -130,7 +130,7 @@ gap> IsAVLTreeRep(s2);
 true
 gap> Size(s) = Size(s2);
 true
-gap> AddSet(s2, 101/2);
+gap> AddSet(s2, 101/2);;
 gap> 101/2 in s;
 false
 gap> AsList(s);

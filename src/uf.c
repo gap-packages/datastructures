@@ -7,49 +7,8 @@
 
 #include "src/debug.h"
 
-static Obj DS_UF_FIND(Obj self, Obj xo, Obj parents) {
-  Int x = INT_INTOBJ(xo);
-  Int y;
-  Int z;
-  Obj *p;
-  GAP_ASSERT(IS_PLIST(parents));
-  GAP_ASSERT(LEN_PLIST(parents) >= x);
-  GAP_ASSERT(x >= 1);
-  GAP_ASSERT(ELM_PLIST(parents,x));
-  p = ADDR_OBJ(parents);
-  while (1) {
-    y = INT_INTOBJ(p[x]);
-    GAP_ASSERT(0 < y && y <= LEN_PLIST(parents));
-    if (y == x)
-      return INTOBJ_INT(x);
-    z = INT_INTOBJ(p[y]);
-    GAP_ASSERT(0 < z && z <= LEN_PLIST(parents));
-    if (y == z)
-      return INTOBJ_INT(y);
-    p[x] = INTOBJ_INT(z);
-    x = z;
-  }
-}
-
-static Obj DS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj rank, Obj parents) {
-  Int x = INT_INTOBJ(DS_UF_FIND(0, xo, parents));
-  Int y = INT_INTOBJ(DS_UF_FIND(0, yo, parents));
-  Int rx, ry;
-  if (x == y)
-    return False;
-  rx = INT_INTOBJ(ELM_PLIST(rank,x));
-  ry = INT_INTOBJ(ELM_PLIST(rank,y));
-  if (rx > ry)
-    SET_ELM_PLIST(parents, y, INTOBJ_INT(x));
-  else {
-    SET_ELM_PLIST(parents, x, INTOBJ_INT(y));
-    if (rx == ry)
-      SET_ELM_PLIST(rank, y, INTOBJ_INT(ry+1));
-  }
-  return True;
-}
-
-static Obj DS_UF2_FIND(Obj self, Obj xo, Obj data) {
+ 
+static Obj DS_UF_FIND(Obj self, Obj xo, Obj data) {
   UInt x = INT_INTOBJ(xo);
   UInt y;
   UInt z;
@@ -75,9 +34,9 @@ static Obj DS_UF2_FIND(Obj self, Obj xo, Obj data) {
   }
 }
 
-static Obj DS_UF2_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
-  UInt x = INT_INTOBJ(DS_UF2_FIND(0, xo, data));
-  UInt y = INT_INTOBJ(DS_UF2_FIND(0, yo, data));
+static Obj DS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
+  UInt x = INT_INTOBJ(DS_UF_FIND(0, xo, data));
+  UInt y = INT_INTOBJ(DS_UF_FIND(0, yo, data));
   UInt rx, ry;
   if (x == y)
     return False;
@@ -97,10 +56,8 @@ static Obj DS_UF2_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
 
 
 static StructGVarFunc GVarFuncs[] = {
-  GVARFUNC(DS_UF_FIND, 2, "x, parents"),
-  GVARFUNC(DS_UF_UNITE, 4, "x, y, rank, parents"),
-  GVARFUNC(DS_UF2_FIND, 2, "x, data"),
-  GVARFUNC(DS_UF2_UNITE, 3, "x, y, data"),
+  GVARFUNC(DS_UF_FIND, 2, "x, data"),
+  GVARFUNC(DS_UF_UNITE, 3, "x, y, data"),
     { 0 }
 };
 

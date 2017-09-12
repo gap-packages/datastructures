@@ -28,7 +28,7 @@ static struct DatastructuresModule * submodules[] = {
     &HashmapModule,
     &PairingHeapModule,
     &SkiplistModule,
-    &AVLModule
+    &AVLModule,
     &UFModule
 };
 

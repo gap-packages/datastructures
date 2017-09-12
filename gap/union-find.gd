@@ -47,7 +47,11 @@ DeclareOperation("RootsIteratorOfPartitionDS", [IsPartitionDS]);
 # Basic properties
 #
 DeclareAttribute("NumberParts", IsPartitionDS);
-DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS);
+DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS) ;
+
+#
+# The partition as a list of sets.
+#
 DeclareAttribute("PartsOfPartitionDS", IsPartitionDS);
 
 

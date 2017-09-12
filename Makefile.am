@@ -17,7 +17,7 @@ datastructures_la_SOURCES = \
     src/datastructures.c \
     src/datastructures.h \
     src/skiplist.c \
-    src/avl.c
+    src/avl.c \
     src/uf.c \
     src/uf.h
 

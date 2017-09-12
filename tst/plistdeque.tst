@@ -98,7 +98,6 @@ true
 gap> IsEmpty(q);
 true
 
-
 # do some alternating fron/back pushes/pops
 gap> for i in [1..N] do PushBack(q,i); od;
 gap> for i in [1..QuoInt(N, 2)] do PushFront(q,i); od;
@@ -137,5 +136,3 @@ gap> PlistDequePeekBack(q);
 1
 gap> PlistDequePeekFront(q);
 1
-
-

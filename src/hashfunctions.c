@@ -52,14 +52,17 @@ Int DataHashFuncForPerm(Obj perm)
     UInt max_point = LargestMovedPointPerm(perm);
 
     if (TNUM_OBJ(perm) == T_PERM2) {
-        return HASHKEY_BAG_NC(perm, 1, 0, max_point * 2);
+        return HASHKEY_MEM_NC((const UChar *)ADDR_PERM2(perm), 1,
+                              max_point * 2);
     }
     else if (max_point <= 65536) {
         Obj squash = SquashToPerm2(perm, max_point);
-        return HASHKEY_BAG_NC(squash, 1, 0, max_point * 2);
+        return HASHKEY_MEM_NC((const UChar *)ADDR_PERM2(squash), 1,
+                              max_point * 2);
     }
     else {
-        return HASHKEY_BAG_NC(perm, 1, 0, max_point * 4);
+        return HASHKEY_MEM_NC((const UChar *)ADDR_PERM4(perm), 1,
+                              max_point * 4);
     }
 }
 

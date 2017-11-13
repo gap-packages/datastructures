@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.1.1",
+Version := "0.1.2",
 Date := "13/11/2017",
 
 Persons := [
@@ -127,21 +127,6 @@ AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
 
 Keywords := ["data structures", "algorithms"],
-
-BannerString := Concatenation(DefaultPackageBannerString(~),
-"""
-
-/!\ WARNING /!\
----------------
-
-This is a BETA release of this package. Interfaces and behaviour might
-change between beta releases and break your code. If you are relying on
-any feature and would like it to be retained, please contact us via
-
-   https://github.com/gap-packages/datastructures/issues
-
-or our slack channel on https://gap-system.slack.com.
-"""),
 
 AutoDoc := rec(
     TitlePage := rec(

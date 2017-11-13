@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.1",
+Version := "0.1.1",
 Date := "13/11/2017",
 
 Persons := [
@@ -20,7 +20,7 @@ Persons := [
     FirstNames    := "Markus",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "markusp@mcs.st-andrews.ac.uk",
+    Email         := "markus.pfeiffer@st-andrews.ac.uk",
     WWWHome       := "http://www.morphism.de/~markusp",
     PostalAddress := Concatenation(
                        "School of Computer Science\n",
@@ -102,20 +102,20 @@ AbstractHTML :=
   "The <span class=\"pkgname\">datastructures</span> package provides some \
    standard data structures.",
 
-PackageDoc := rec(
+PackageDoc := [ rec(
   BookName  := "datastructures",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "datastructures - GAP Data Structures",
-),
+) ],
 
 
 ##  Are there restrictions on the operating system for this package? Or does
 ##  the package need other packages to be available?
 Dependencies := rec(
-  GAP := ">= 4.8.7",
+  GAP := ">= 4.9.0",
   NeededOtherPackages := [["GAPDoc", "1.5"]],
   SuggestedOtherPackages := [],
   # OtherPackagesLoadedInAdvance := [],
@@ -127,6 +127,21 @@ AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
 
 Keywords := ["data structures", "algorithms"],
+
+BannerString := Concatenation(DefaultPackageBannerString(~),
+"""
+
+/!\ WARNING /!\
+---------------
+
+This is a BETA release of this package. Interfaces and behaviour might
+change between beta releases and break your code. If you are relying on
+any feature and would like it to be retained, please contact us via
+
+   https://github.com/gap-packages/datastructures/issues
+
+or our slack channel on https://gap-system.slack.com.
+"""),
 
 AutoDoc := rec(
     TitlePage := rec(

@@ -10,6 +10,17 @@ of HPC-GAP.
 The datastructures package consists of two parts: Interface declarations
 and implementations.
 
+
+# WARNING
+
+This is a BETA release of this package. Interfaces and behaviour might
+change between beta releases and break your code. If you are relying on
+any feature and would like it to be retained, please contact us via
+
+   https://github.com/gap-packages/datastructures/issues
+
+or our slack channel #datastructures on https://gap-system.slack.com.
+
 ## Interface Declarations
 
 The goal of interface declarations is to define standard interfaces for

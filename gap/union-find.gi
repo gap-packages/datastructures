@@ -1,7 +1,11 @@
 DeclareRepresentation("IsPartitionDSRep", IsComponentObjectRep,[]);
 UF := rec();
 UF.DefaultType := NewType(PartitionDSFamily, IsPartitionDSRep and IsPartitionDS and IsMutable);
-UF.Bitfields := MakeBitfields(6,54);
+if GAPInfo.BytesPerVariable = 8 then
+    UF.Bitfields := MakeBitfields(6,54);
+else
+    UF.Bitfields := MakeBitfields(5,23);
+fi;
 UF.getRank := UF.Bitfields.getters[1];
 UF.getParent := UF.Bitfields.getters[2];
 UF.setRank := UF.Bitfields.setters[1];

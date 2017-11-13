@@ -7,7 +7,14 @@
 
 #include "src/debug.h"
 
- 
+#ifdef SYS_IS_64_BIT
+#define RANKBITS 6
+#else
+#define RANKBITS 5
+#endif
+
+#define RANKMASK ((1L << RANKBITS) -1)
+
 static Obj DS_UF_FIND(Obj self, Obj xo, Obj data) {
   UInt x = INT_INTOBJ(xo);
   UInt y;
@@ -20,16 +27,16 @@ static Obj DS_UF_FIND(Obj self, Obj xo, Obj data) {
   p = ADDR_OBJ(data);
   while (1) {
     y = INT_INTOBJ(p[x]);
-    y >>= 6;
+    y >>= RANKBITS;
     GAP_ASSERT(0 < y && y <= LEN_PLIST(data));
     if (y == x)
       return INTOBJ_INT(x);
     z = INT_INTOBJ(p[y]);
-    z >>= 6;
+    z >>= RANKBITS;
     GAP_ASSERT(0 < z && z <= LEN_PLIST(data));
     if (y == z)
       return INTOBJ_INT(y);
-    p[x] = INTOBJ_INT((z << 6) | (INT_INTOBJ(p[x]) & 0x3FL));
+    p[x] = INTOBJ_INT((z << RANKBITS) | (INT_INTOBJ(p[x]) & RANKMASK));
     x = z;
   }
 }
@@ -41,15 +48,15 @@ static Obj DS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
   if (x == y)
     return False;
   rx = INT_INTOBJ(ELM_PLIST(data,x));
-  rx &= 0x3FL;
+  rx &= RANKMASK;
   ry = INT_INTOBJ(ELM_PLIST(data,y));
-  ry &= 0x3FL;
+  ry &= RANKMASK;
   if (rx > ry)
-    SET_ELM_PLIST(data, y, INTOBJ_INT((x << 6) | ry));
+    SET_ELM_PLIST(data, y, INTOBJ_INT((x << RANKBITS) | ry));
   else {
-    SET_ELM_PLIST(data, x, INTOBJ_INT((y << 6) | rx));
+    SET_ELM_PLIST(data, x, INTOBJ_INT((y << RANKBITS) | rx));
     if (rx == ry)
-      SET_ELM_PLIST(data, y, INTOBJ_INT((y << 6) | (ry+1)));
+      SET_ELM_PLIST(data, y, INTOBJ_INT((y << RANKBITS) | (ry+1)));
   }
   return True;
 }

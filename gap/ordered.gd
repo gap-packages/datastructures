@@ -24,7 +24,7 @@
 #! TODO We give theoretical bounds for our implementations in the documentation,
 #! and provide some test evidence.
 #!
-#! we refer to these as ordered set <I>data-structure</I> because the differ from the &GAP;
+#! we refer to these as ordered set <E>data-structure</E> because the differ from the &GAP;
 #! notion of a set in a number of ways: 1) They all lie in a common family 'OrderedSetDSFamily'
 #! and pay no attention to the families of the Objects stored in them 
 #! TODO this may be replaced by a more general DatastructuresFamily
@@ -37,6 +37,7 @@
 #!
 #! TODO supply nice wrapper functions for the constructor 
 
+#! @ExampleSession
 #! gap> s := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));
 #! <skiplist 0 entries>
 #! gap> Addset(s, 1);
@@ -54,7 +55,7 @@
 #! false
 #! gap> 97 in b;
 #! true
-#!
+#! @EndExampleSession
 
 
 #! @Section API
@@ -69,7 +70,7 @@
 DeclareCategory("IsOrderedSetDS", IsObject);
 
 #! @Description
-#! Subcategory of Ordererd "sets" where the ordering is the default <
+#! Subcategory of Ordererd "sets" where the ordering is the default &leq;
 
 DeclareCategory("IsStandardOrderedSetDS", IsOrderedSetDS);
 
@@ -85,7 +86,7 @@ BindGlobal( "OrderedSetDSFamily", NewFamily("OrderedSetDSFamily") );
 #! to achieve good complexity with high probability and simple data structures
 #! 
 #! Apart from the filter most combinations of these have defaults. The default lessThan  is the &GAP;
-#! \< function. The default initial entries is none and the default random source is the global Mersenne twister
+#! &lt; function. The default initial entries is none and the default random source is the global Mersenne twister
 #!
 
 
@@ -175,4 +176,3 @@ DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject, IsFunction]);
 #! usage is similar. More details to come
 #! @EndSection
 
-#! @EndChapter

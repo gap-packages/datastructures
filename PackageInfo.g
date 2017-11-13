@@ -12,7 +12,7 @@ SetPackageInfo( rec(
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
 Version := "0.1",
-Date := "31/8/2017",
+Date := "13/11/2017",
 
 Persons := [
   rec(
@@ -55,6 +55,22 @@ Persons := [
     IsMaintainer  := true,
     WWWHome       := "http://caj.host.cs.st-andrews.ac.uk/",
     Email         := "caj21@st-andrews.ac.uk",
+    PostalAddress := Concatenation(
+                       "School of Computer Science\n",
+                       "University of St Andrews\n",
+                       "Jack Cole Building, North Haugh\n",
+                       "St Andrews, Fife, KY16 9SX\n",
+                       "United Kingdom" ),
+    Place         := "St Andrews",
+    Institution   := "University of St Andrews"
+  ),
+  rec(
+    LastName      := "Linton",
+    FirstNames    := "Steve",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    WWWHome       := "http://sl4.host.cs.st-andrews.ac.uk/",
+    Email         := "steve.linton@st-andrews.ac.uk",
     PostalAddress := Concatenation(
                        "School of Computer Science\n",
                        "University of St Andrews\n",

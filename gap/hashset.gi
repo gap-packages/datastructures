@@ -69,8 +69,49 @@ InstallOtherMethod( IsEmpty,
     [ IsHashSetRep ],
     ht -> DS_Hash_Used(ht) = 0);
 
+
+InstallMethod( Set,
+    "for a hash set",
+    [ IsHashSetRep ],
+    ht -> Difference(Set(ht![5]),[fail]));
+
+InstallMethod( AsSet,
+    "for a hash set",
+    [ IsHashSetRep ],
+    ht -> MakeImmutable(Set(ht)));
+
+
+BindGlobal( "NextIterator_HashSet", function(iter)
+    local val, idx;
+    if iter!.next > Length(iter!.list) then
+        Error("<iter> is exhausted");
+    fi;
+    val := iter!.list[ iter!.next ];
+    idx := iter!.next + 1;
+    # skip to the next bound entry not equal to 'fail' (which marks deleted entries)
+    while idx <= Length(iter!.list) and not
+        (IsBound(iter!.list[idx]) and iter!.list[idx] <> fail) do
+        idx := idx + 1;
+    od;
+    iter!.next := idx;
+    return val;
+end);
+
+InstallMethod( Iterator,
+    "for a hash set",
+    [ IsHashSetRep ],
+function(ht)
+    local iter;
+    iter := rec(list := ht![5], next := PositionProperty(~.list, x -> x <> fail));
+    iter.ShallowCopy := iter -> rec(list := iter!.list, next := iter!.next);
+    iter.IsDoneIterator := iter -> iter!.next > Length(iter!.list);
+    iter.NextIterator   := NextIterator_HashSet;
+
+    return IteratorByFunctions( iter );
+end);
+
+
 # TODO: things we could implement (but do we want to?)
-# AsSet
 # UnitSet
 # Union
 # Intersection

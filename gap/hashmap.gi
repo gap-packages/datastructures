@@ -77,3 +77,81 @@ InstallOtherMethod( IsEmpty,
     "for a hash map",
     [ IsHashMapRep ],
     ht -> DS_Hash_Used(ht) = 0);
+
+
+InstallMethod( Keys,
+    "for a hash map",
+    [ IsHashMapRep ],
+function(ht)
+    local keys, k;
+    keys := [];
+    for k in ht![5] do
+        if k <> fail then Add(keys, k); fi;
+    od;
+    return keys;
+end);
+
+InstallMethod( Values,
+    "for a hash map",
+    [ IsHashMapRep ],
+    ht -> Compacted(ht![6]));
+
+
+BindGlobal( "NextIterator_HashMap", function(iter)
+    local idx, next;
+    if iter!.next > Length(iter!.keys) then
+        Error("<iter> is exhausted");
+    fi;
+
+    # remember the result index
+    idx := iter!.next;
+
+    # find the next iterator
+    next := iter!.next + 1;
+    # skip to the next entry with a bound value
+    while next <= Length(iter!.keys) and not IsBound(iter!.values[next]) do
+        Assert(0, not IsBound(iter!.keys[next]) or iter!.keys[next] = fail);
+        next := next + 1;
+    od;
+    iter!.next := next;
+
+    # return value depends on the iterator type
+    if iter!.type = 1 then
+        return iter!.keys[idx];
+    elif iter!.type = 2 then
+        return iter!.values[idx];
+    else
+        return [iter!.keys[idx], iter!.values[idx]];
+    fi;
+end);
+
+BindGlobal( "MakeIterator_HashMap", function(ht, type)
+    local iter;
+    iter := rec(keys := ht![5],
+                values := ht![6],
+                next := PositionBound(~.values),
+                type := type);
+    iter.ShallowCopy := iter -> rec(keys   := iter!.keys,
+                                    values := iter!.values,
+                                    next   := iter!.next,
+                                    type   := iter!.type);
+    iter.IsDoneIterator := iter -> iter!.next > Length(iter!.keys);
+    iter.NextIterator   := NextIterator_HashMap;
+
+    return IteratorByFunctions( iter );
+end);
+
+InstallMethod( KeyIterator,
+    "for a hash set",
+    [ IsHashMapRep ],
+    ht -> MakeIterator_HashMap(ht, 1));
+
+InstallMethod( ValueIterator,
+    "for a hash set",
+    [ IsHashMapRep ],
+    ht -> MakeIterator_HashMap(ht, 2));
+
+InstallMethod( KeyValueIterator,
+    "for a hash set",
+    [ IsHashMapRep ],
+    ht -> MakeIterator_HashMap(ht, 3));

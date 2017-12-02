@@ -7,11 +7,33 @@ gap> START_TEST("hashmap.tst");
 gap> hashmap := HashMap();
 <hash map obj capacity=16 used=0>
 
+# keys and values
+gap> Keys(hashmap);
+[  ]
+gap> Values(hashmap);
+[  ]
+
 # add stuff
 gap> for i in [1..1000] do DS_Hash_SetValue(hashmap, i, i^2); od;
 
 # query it back
 gap> ForAll([1..1000], i -> DS_Hash_Value(hashmap, i) = i^2);
+true
+
+# check keys and values
+gap> keys:=Keys(hashmap);;
+gap> IsDenseList(keys) and SortedList(keys) = [1..1000];
+true
+gap> vals:=Values(hashmap);;
+gap> IsDenseList(vals) and SortedList(vals) = List([1..1000], i->i^2);
+true
+
+# check key and value iterators
+gap> List(ValueIterator(hashmap)) = vals;
+true
+gap> List(KeyIterator(hashmap)) = keys;
+true
+gap> Set(List(KeyValueIterator(hashmap))) = List([1..1000],i->[i,i^2]);
 true
 
 # check for presence of objects known to be contained in the hash map
@@ -68,6 +90,30 @@ gap> IsBound(hashmap[200]);
 true
 gap> IsBound(hashmap[567]);
 false
+
+# check keys and values
+gap> keys:=Keys(hashmap);;
+gap> IsDenseList(keys);
+true
+gap> Length(keys);
+998
+gap> Difference([1..1000], keys);
+[ 100, 567 ]
+gap> vals:=Values(hashmap);;
+gap> IsDenseList(vals);
+true
+gap> Length(vals);
+998
+gap> Difference(List([1..1000], i -> i^2), vals);
+[ 10000, 321489 ]
+
+# check key and value iterators
+gap> List(ValueIterator(hashmap)) = vals;
+true
+gap> List(KeyIterator(hashmap)) = keys;
+true
+gap> Difference(List([1..1000],i->[i,i^2]), List(KeyValueIterator(hashmap)));
+[ [ 100, 10000 ], [ 567, 321489 ] ]
 
 # set previously deleted key again
 gap> hashmap[100] := 42;
@@ -238,6 +284,15 @@ Error, <ht> must be a hashmap or hashset (not a boolean or fail)
 gap> badHashmap := HashMap( x -> "hash" );;
 gap> DS_Hash_Contains(badHashmap, 1);
 Error, <hashfun> must return a small int (not a list (string))
+
+# exhausting iterators
+gap> hashmap := HashMap();;
+gap> it := KeyIterator(hashmap);; NextIterator(it);
+Error, <iter> is exhausted
+gap> it := ValueIterator(hashmap);; NextIterator(it);
+Error, <iter> is exhausted
+gap> it := KeyValueIterator(hashmap);; NextIterator(it);
+Error, <iter> is exhausted
 
 #
 # test reserving capacity

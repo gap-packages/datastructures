@@ -4,7 +4,7 @@
 #
 
 # setup
-gap> N := 100000;;
+gap> N := 10000;;
 gap> primes := Filtered([1..N], IsPrimeInt);;
 
 # create new empty hash set
@@ -12,6 +12,16 @@ gap> hashset := HashSet();
 <hash set obj capacity=16 used=0>
 gap> IsEmpty(hashset);
 true
+
+# test conversion to GAP set and iterator
+gap> s:=Set(hashset); IsMutable(s);
+[  ]
+true
+gap> s:=AsSet(hashset); IsMutable(s);
+[  ]
+false
+gap> List(Iterator(hashset));
+[  ]
 
 # add stuff
 gap> for p in primes do AddSet(hashset, p); od;
@@ -23,6 +33,12 @@ gap> Size(hashset) = Length(primes);
 true
 gap> IsEmpty(hashset);
 false
+gap> AsSet(hashset) = primes;
+true
+gap> Set(hashset) = primes;
+true
+gap> SortedList(List(Iterator(hashset))) = primes;
+true
 
 #
 gap> 43 in hashset;
@@ -38,6 +54,14 @@ false
 gap> RemoveSet(hashset, 43);
 gap> 43 in hashset;
 false
+gap> Size(hashset) = Length(primes) - 1;
+true
+gap> Size(AsSet(hashset)) = Length(primes) - 1;
+true
+gap> AsSet(hashset) = Filtered(primes, x -> x<>43);
+true
+gap> Size(List(Iterator(hashset))) = Length(primes) - 1;
+true
 
 # attempt to delete something which never was in the hash set
 gap> RemoveSet(hashset, 42);
@@ -59,8 +83,29 @@ gap> Size(hashset) = Length(primes);
 true
 gap> IsEmpty(hashset);
 false
+gap> AsSet(hashset) = primes;
+true
+gap> Set(hashset) = primes;
+true
+gap> SortedList(List(Iterator(hashset))) = primes;
+true
 
-# verify
+# remove and verify
 gap> for p in primes do RemoveSet(hashset, p); od;
 gap> IsEmpty(hashset);
 true
+gap> AsSet(hashset);
+[  ]
+gap> Set(hashset);
+[  ]
+gap> List(Iterator(hashset));
+[  ]
+
+#
+# error
+#
+
+# exhausting iterators
+gap> hashset := HashSet();;
+gap> it := Iterator(hashset);; NextIterator(it);
+Error, <iter> is exhausted

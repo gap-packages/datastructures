@@ -29,3 +29,11 @@ BindGlobal( "HashMapType", NewType(HashMapFamily, IsHashMapRep and IsMutable) );
 #! Arguments [hashfunc[, eqfunc]] [capacity]
 #! Create a new hash map.
 DeclareGlobalFunction("HashMap");
+
+
+DeclareOperation("Keys", [IsHashMap]);
+DeclareOperation("Values", [IsHashMap]);
+
+DeclareOperation("KeyIterator", [IsHashMap]);
+DeclareOperation("ValueIterator", [IsHashMap]);
+DeclareOperation("KeyValueIterator", [IsHashMap]);

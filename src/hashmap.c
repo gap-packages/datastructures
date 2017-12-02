@@ -40,18 +40,18 @@ static inline Int IsHashSet(Obj ht)
     return TYPE_POSOBJ(ht) == HashSetType;
 }
 
-static Int _DS_Hash_Lookup_intern(const Obj ht,
+static UInt _DS_Hash_Lookup_intern(const Obj ht,
                                   const Obj keys,
                                   const Obj key,
                                   const Obj hash,
                                   const Obj eqfun,
-                                  const Int mask,
+                                  const UInt mask,
                                   const Int key_is_unique,
                                   const Int create)
 {
     Obj tmp;
-    Int idx, perturb;
-    Int first_free = 0;
+    UInt idx, perturb;
+    UInt first_free = 0;
 
     perturb = INT_INTOBJ(hash);
     idx = perturb & mask;
@@ -79,7 +79,7 @@ static Int _DS_Hash_Lookup_intern(const Obj ht,
     return idx + 1;
 }
 
-static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
+static UInt _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, Int create)
 {
     if (key == Fail)
         ErrorQuit("<key> must not be equal to 'fail'", 0, 0);
@@ -97,11 +97,11 @@ static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
 
     Obj keys = ELM_PLIST(ht, POS_KEYS);
 
-    Int capacity = LEN_PLIST(keys);
+    UInt capacity = LEN_PLIST(keys);
     GAP_ASSERT(capacity >= 16);
     GAP_ASSERT(0 == (capacity & (capacity - 1)));    // power of 2?
 
-    Int mask = capacity - 1;
+    UInt mask = capacity - 1;
     return _DS_Hash_Lookup_intern(ht, keys, key, hash, eqfun, mask, 0,
                                   create);
 }
@@ -113,7 +113,7 @@ static Int _DS_Hash_Lookup_MayCreate(Obj ht, Obj key, int create)
 // is sufficient to allow all elements to be stored, and that
 // it is a power of 2.
 //
-static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
+static void _DS_Hash_Resize_intern(Obj ht, UInt new_capacity)
 {
     GAP_ASSERT(new_capacity >= 16);
     GAP_ASSERT(0 == (new_capacity & (new_capacity - 1)));    // power of 2?
@@ -121,8 +121,8 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
     Obj old_keys = ELM_PLIST(ht, POS_KEYS);
     Obj old_vals = !IsHashSet(ht) ? ELM_PLIST(ht, POS_VALUES) : 0;
 
-    Int old_capacity = LEN_PLIST(old_keys);
-    Int old_size = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+    UInt old_capacity = LEN_PLIST(old_keys);
+    UInt old_size = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
 
     GAP_ASSERT(new_capacity >= old_size);
 
@@ -139,9 +139,9 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
     GAP_ASSERT(hashfun && TNUM_OBJ(hashfun) == T_FUNCTION);
 
     // copy data into new hash
-    Int       new_size = 0;
-    const Int mask = new_capacity - 1;
-    for (Int old_idx = 1; old_idx <= old_capacity; ++old_idx) {
+    UInt       new_size = 0;
+    const UInt mask = new_capacity - 1;
+    for (UInt old_idx = 1; old_idx <= old_capacity; ++old_idx) {
         Obj k = ELM_PLIST(old_keys, old_idx);
         if (k == 0 || k == Fail)
             continue;
@@ -156,7 +156,7 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
         // can do this slightly better than by calling lookup, since we
         // don't have to call _equal().
 
-        Int idx = _DS_Hash_Lookup_intern(ht, keys, k, hash, 0, mask, 1, 1);
+        UInt idx = _DS_Hash_Lookup_intern(ht, keys, k, hash, 0, mask, 1, 1);
 
         SET_ELM_PLIST(keys, idx, k);
         if (old_vals) {
@@ -195,12 +195,12 @@ static void _DS_Hash_Resize_intern(Obj ht, Int new_capacity)
 // unchanged.
 static void _DS_GrowIfNecessary(Obj ht)
 {
-    Int used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
-    Int deleted = INT_INTOBJ(ELM_PLIST(ht, POS_DELETED));
+    UInt used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+    UInt deleted = INT_INTOBJ(ELM_PLIST(ht, POS_DELETED));
 
     Obj keys = ELM_PLIST(ht, POS_KEYS);
 
-    Int capacity = LEN_PLIST(keys);
+    UInt capacity = LEN_PLIST(keys);
     if ((used + deleted) * LOADFACTOR_DENOMINATOR >
         capacity * LOADFACTOR_NUMERATOR) {
         while (used * LOADFACTOR_DENOMINATOR >
@@ -219,7 +219,7 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
 
     _DS_GrowIfNecessary(ht);
 
-    Int idx = _DS_Hash_Lookup_MayCreate(ht, key, 1);
+    UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 1);
 
     Obj keys = ELM_PLIST(ht, POS_KEYS);
     Obj values = !IsHashSet(ht) ? ELM_PLIST(ht, POS_VALUES) : 0;
@@ -270,7 +270,7 @@ static void _DS_Hash_AddSet(Obj ht, Obj key)
 
     _DS_GrowIfNecessary(ht);
 
-    Int idx = _DS_Hash_Lookup_MayCreate(ht, key, 1);
+    UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 1);
 
     Obj keys = ELM_PLIST(ht, POS_KEYS);
 
@@ -337,8 +337,8 @@ Obj DS_Hash_Create(Obj self, Obj hashfunc, Obj eqfunc, Obj capacity, Obj novalue
     }
 
     // convert capacity into integer and round up to a power of 2
-    Int requestedCapacity = INT_INTOBJ(capacity);
-    Int c = 16;
+    UInt requestedCapacity = INT_INTOBJ(capacity);
+    UInt c = 16;
     while (c < requestedCapacity)
         c <<= 1;
 
@@ -406,7 +406,7 @@ Obj DS_Hash_Contains(Obj self, Obj ht, Obj key)
 Obj DS_Hash_Value(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMap(ht);
-    Int idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
+    UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
     if (idx == 0)
         return Fail;
     Obj values = ELM_PLIST(ht, POS_VALUES);
@@ -421,8 +421,8 @@ Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
                   (Int)TNAM_OBJ(new_capacity), 0);
     }
 
-    Int c = LEN_PLIST(ELM_PLIST(ht, POS_KEYS));
-    Int requestedCapacity = INT_INTOBJ(new_capacity);
+    UInt c = LEN_PLIST(ELM_PLIST(ht, POS_KEYS));
+    UInt requestedCapacity = INT_INTOBJ(new_capacity);
     if (c >= requestedCapacity)
         return 0;
 
@@ -432,7 +432,7 @@ Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 
     // Make sure capacity is big enough to contain all its elements
     // while staying under the load factor
-    Int used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
+    UInt used = INT_INTOBJ(ELM_PLIST(ht, POS_USED));
     while (used * LOADFACTOR_DENOMINATOR > c * LOADFACTOR_NUMERATOR)
         c <<= 1;
 
@@ -466,7 +466,7 @@ Obj DS_Hash_AddSet(Obj self, Obj ht, Obj key)
 Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
-    Int idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
+    UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
     if (!idx)
         return Fail;
 

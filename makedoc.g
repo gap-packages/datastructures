@@ -20,4 +20,3 @@ AutoDoc(rec(
         autodoc := true,
         scaffold := rec( includes := [ "intro.xml" ] ),
     ));
-PrintTo("VERSION", GAPInfo.PackageInfoCurrent.Version);

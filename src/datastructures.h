@@ -13,16 +13,6 @@
 
 #include "src/compiled.h" /* GAP headers */
 
-#undef PACKAGE
-#undef PACKAGE_BUGREPORT
-#undef PACKAGE_NAME
-#undef PACKAGE_STRING
-#undef PACKAGE_TARNAME
-#undef PACKAGE_URL
-#undef PACKAGE_VERSION
-
-#include "pkgconfig.h" /* our own configure results */
-
 // Helper macro to simplify initialization of StructGVarFunc records
 #define GVARFUNC(name, nparam, params)                                       \
     {                                                                        \

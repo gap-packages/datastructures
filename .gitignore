@@ -24,6 +24,7 @@
 /doc/_*.xml
 
 /bin/
+/obj/
 /Makefile
 
 *.la

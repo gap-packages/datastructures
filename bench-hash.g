@@ -75,7 +75,7 @@ q := Q_VEC8BIT(sample_vec);
 i := LogInt(256,q);
 # i is now the number of field elements per byte
 bytelen := QuoInt(Length(sample_vec),i);
-#SHALLOW_SIZE(sample_vec) - 3*GAPInfo.BytesPerVariable;
+#SIZE_OBJ(sample_vec) - 3*GAPInfo.BytesPerVariable;
 
 hashfun := function(vec8bit)
     return HashKeyBag(vec8bit, 101, 3*GAPInfo.BytesPerVariable, bytelen);

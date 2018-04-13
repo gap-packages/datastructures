@@ -12,6 +12,7 @@
 #include "src/debug.h"
 #include "src/ariths.h"
 #include "src/intfuncs.h"
+#include "src/objects.h"
 
 enum {
     // offsets in the hashmap positional object
@@ -313,6 +314,13 @@ static void DS_RequireHashMap(Obj ht)
     }
 }
 
+static void DS_RequireMutable(Obj ht)
+{
+    if (!IS_MUTABLE_OBJ(ht)) {
+        ErrorQuit("<ht> must be a mutable hashmap or hashset",
+                  0, 0);
+    }
+}
 
 //
 // high-level functions, to be called from GAP
@@ -417,6 +425,7 @@ Obj DS_Hash_Value(Obj self, Obj ht, Obj key)
 Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 {
     DS_RequireHashMapOrSet(ht);
+    DS_RequireMutable(ht);
     if (!IS_POS_INTOBJ(new_capacity)) {
         ErrorQuit("<capacity> must be a small positive integer (not a %s)",
                   (Int)TNAM_OBJ(new_capacity), 0);
@@ -444,12 +453,14 @@ Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 Obj DS_Hash_SetValue(Obj self, Obj ht, Obj key, Obj val)
 {
     DS_RequireHashMap(ht);
+    DS_RequireMutable(ht);
     return _DS_Hash_SetOrAccValue(ht, key, val, 0);
 }
 
 Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
 {
     DS_RequireHashMap(ht);
+    DS_RequireMutable(ht);
     if (TNUM_OBJ(accufunc) != T_FUNCTION) {
         ErrorQuit("<accufunc> must be a function (not a %s)",
                   (Int)TNAM_OBJ(accufunc), 0);
@@ -460,6 +471,7 @@ Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
 Obj DS_Hash_AddSet(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashSet(ht);
+    DS_RequireMutable(ht);
     _DS_Hash_AddSet(ht, key);
     return 0;
 }
@@ -467,6 +479,7 @@ Obj DS_Hash_AddSet(Obj self, Obj ht, Obj key)
 Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
+    DS_RequireMutable(ht);
     UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
     if (!idx)
         return Fail;

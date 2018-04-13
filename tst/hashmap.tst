@@ -386,5 +386,26 @@ true
 gap> hashmap[foo];
 3
 
+##########################################
+#
+# Test mutability
+#
+gap> hashmap := HashMap();
+<hash map obj capacity=16 used=0>
+gap> hashmap[15] := "";
+""
+gap> MakeImmutable(hashmap);
+<hash map obj capacity=16 used=1>
+gap> IsMutable(hashmap);
+false
+gap> hashmap[15] := "2";
+Error, <ht> must be a mutable hashmap or hashset
+gap> hashmap[17] := 7;
+Error, <ht> must be a mutable hashmap or hashset
+gap> Unbind(hashmap[17]);
+Error, <ht> must be a mutable hashmap or hashset
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+Error, <ht> must be a mutable hashmap or hashset
+
 #
 gap> STOP_TEST( "hashmap.tst", 1);

@@ -109,3 +109,16 @@ gap> List(Iterator(hashset));
 gap> hashset := HashSet();;
 gap> it := Iterator(hashset);; NextIterator(it);
 Error, <iter> is exhausted
+
+# mutability
+gap> hashset := HashSet();
+<hash set obj capacity=16 used=0>
+gap> AddSet(hashset, 15);
+gap> MakeImmutable(hashset);
+<hash set obj capacity=16 used=1>
+gap> AddSet(hashset, 15);
+Error, <ht> must be a mutable hashmap or hashset
+gap> RemoveSet(hashset, 20);
+Error, <ht> must be a mutable hashmap or hashset
+
+

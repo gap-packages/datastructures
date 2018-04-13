@@ -1,4 +1,3 @@
-//
 // Datastructures: GAP package providing common datastructures.
 //
 // Copyright (C) 2015-2017  The datastructures team.
@@ -33,7 +32,9 @@ enum {
 };
 
 static Obj HashMapType;    // Imported from the library
+static Obj IsHashMapRep;    // Imported from the library
 static Obj HashSetType;    // Imported from the library
+static Obj IsHashSetRep;    // Imported from the library
 
 static inline Int IsHashSet(Obj ht)
 {
@@ -289,8 +290,9 @@ static void _DS_Hash_AddSet(Obj ht, Obj key)
 
 static void DS_RequireHashMapOrSet(Obj ht)
 {
-    if (TNUM_OBJ(ht) != T_POSOBJ || (TYPE_POSOBJ(ht) != HashMapType
-        && TYPE_POSOBJ(ht) != HashSetType)) {
+    if (TNUM_OBJ(ht) != T_POSOBJ ||
+        (DoFilter(IsHashSetRep, ht) == False &&
+         DoFilter(IsHashMapRep, ht) == False)) {
         ErrorQuit("<ht> must be a hashmap or hashset (not a %s)",
                   (Int)TNAM_OBJ(ht), 0);
     }
@@ -298,15 +300,14 @@ static void DS_RequireHashMapOrSet(Obj ht)
 
 static void DS_RequireHashSet(Obj ht)
 {
-    if (TNUM_OBJ(ht) != T_POSOBJ || TYPE_POSOBJ(ht) != HashSetType) {
-        ErrorQuit("<ht> must be a hashset (not a %s)",
-                  (Int)TNAM_OBJ(ht), 0);
+    if (TNUM_OBJ(ht) != T_POSOBJ || DoFilter(IsHashSetRep, ht) == False) {
+        ErrorQuit("<ht> must be a hashset (not a %s)", (Int)TNAM_OBJ(ht), 0);
     }
 }
 
 static void DS_RequireHashMap(Obj ht)
 {
-    if (TNUM_OBJ(ht) != T_POSOBJ || TYPE_POSOBJ(ht) != HashMapType) {
+    if (TNUM_OBJ(ht) != T_POSOBJ || DoFilter(IsHashMapRep, ht) == False) {
         ErrorQuit("<ht> must be a hashmap object (not a %s)",
                   (Int)TNAM_OBJ(ht), 0);
     }
@@ -513,7 +514,9 @@ static Int InitKernel(void)
     InitHdlrFuncsFromTable(GVarFuncs);
 
     ImportGVarFromLibrary("HashMapType", &HashMapType);
+    ImportGVarFromLibrary("IsHashMapRep", &IsHashMapRep);
     ImportGVarFromLibrary("HashSetType", &HashSetType);
+    ImportGVarFromLibrary("IsHashSetRep", &IsHashSetRep);
 
     return 0;
 }

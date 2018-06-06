@@ -21,9 +21,9 @@ datastructures_la_SOURCES = \
     src/uf.c \
     src/uf.h
 
-datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
-# Note that the latter is only for GAP 4.4.12
-datastructures_la_LDFLAGS = -module -avoid-version -Bsymbolic
+datastructures_la_CPPFLAGS = $(GAP_CPPFLAGS)
+datastructures_la_CFLAGS = $(GAP_CFLAGS)
+datastructures_la_LDFLAGS = $(GAP_LDFLAGS) -module -avoid-version -Bsymbolic
 if SYS_IS_CYGWIN
 datastructures_la_LDFLAGS += -no-undefined -version-info 0:0:0 -Wl,$(GAPROOT)/bin/$(GAPARCH)/gap.dll
 endif

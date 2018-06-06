@@ -115,7 +115,7 @@ PackageDoc := [ rec(
 ##  Are there restrictions on the operating system for this package? Or does
 ##  the package need other packages to be available?
 Dependencies := rec(
-  GAP := ">= 4.9.0",
+  GAP := ">= 4.9.1",
   NeededOtherPackages := [["GAPDoc", "1.5"]],
   SuggestedOtherPackages := [],
   # OtherPackagesLoadedInAdvance := [],

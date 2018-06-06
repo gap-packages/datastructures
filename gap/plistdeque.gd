@@ -31,8 +31,8 @@ DeclareGlobalFunction("PlistDequeTail");
 DeclareGlobalFunction("PlistDequeCapacity");
 DeclareGlobalFunction("PlistDequeLength");
 
-BindGlobal("QHEAD", 1);
-BindGlobal("QTAIL", 2);
-BindGlobal("QCAPACITY", 3);
-BindGlobal("QFACTOR", 4);
-BindGlobal("QDATA", 5);
+BindConstant("QHEAD", 1);
+BindConstant("QTAIL", 2);
+BindConstant("QCAPACITY", 3);
+BindConstant("QFACTOR", 4);
+BindConstant("QDATA", 5);

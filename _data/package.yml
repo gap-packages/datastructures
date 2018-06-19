@@ -60,12 +60,16 @@ citeas: |
 
 bibtex: |
     @misc{ datastructures0.1.3,
-      author =           {Pfeiffer, M. and Horn, M. and Jefferson, C. and Linton, S.},
-      title =            {{datastructures}, Collection of standard data structures for GAP, {V}ersion 0.1.3},
+      author =           {Pfeiffer,  M.  and  Horn,  M.  and  Jefferson,  C. and
+                          Linton, S.},
+      title =            {{datastructures},    Collection   of   standard   data
+                          structures for GAP, {V}ersion 0.1.3},
       month =            {Jun},
       year =             {2018},
       note =             {GAP package},
-      howpublished =     {\href {https://gap-packages.github.io/datastructures} {\texttt{https://gap-packages.github.io/}\discretionary {}{}{}\texttt{datastructures}}},
+      howpublished =     {\href  {https://gap-packages.github.io/datastructures}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{datastructures}}},
       keywords =         {data structures; algorithms},
       printedkey =       {PHJL18}
     }

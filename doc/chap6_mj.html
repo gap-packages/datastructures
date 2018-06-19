@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (datastructures) - Chapter 6: Ordered Set Datastructures</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap6"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap6.html">[MathJax off]</a></p>
+<p><a id="X8134174379D8CD1E" name="X8134174379D8CD1E"></a></p>
+<div class="ChapSects"><a href="chap6_mj.html#X8134174379D8CD1E">6 <span class="Heading">Ordered Set Datastructures</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X86A9B6F87E619FFF">6.1 <span class="Heading">Usage</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X7C5F33687C53BEF0">6.2 <span class="Heading">API</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7EF1A0377AF3FE71">6.2-1 OrderedSetDS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7C1B24A48188DC68">6.2-2 OrderedSetDS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7C16B56880A7A426">6.2-3 OrderedSetDS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X81F6C23A848D89FD">6.2-4 OrderedSetDS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X785F29D484E84A9B">6.2-5 AddSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X79CA0BD27822C1FB">6.2-6 RemoveSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7DD7225D7A6F92C6"><code>6.2-7 \in</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X85F4EDA0841AADFD">6.2-8 LessFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B2E5BB28435AE50">6.2-9 Size</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X83A682A08318DBA0">6.2-10 IteratorSorted</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X79F3D6D08181A543">6.3 <span class="Heading">Implementations</span></a>
+</span>
+</div>
+</div>
+
+<h3>6 <span class="Heading">Ordered Set Datastructures</span></h3>
+
+<p>In this chapter we deal with datastructures designed to represent sets of objects which have an intrinsic ordering. Such datastructures should support fast (possibly amortised) <span class="SimpleMath">\(O(\log n)\)</span> addition, deletion and membership test operations and allow efficient iteration through all the objects in the datastructure in the order determined by the given comparison function. Since they represent a set, adding an object equal to one already present has no effect.</p>
+
+<p>TODO We give theoretical bounds for our implementations in the documentation, and provide some test evidence.</p>
+
+<p>we refer to these as ordered set <em>data-structure</em> because the differ from the <strong class="pkg">GAP</strong> notion of a set in a number of ways: 1) They all lie in a common family 'OrderedSetDSFamily' and pay no attention to the families of the Objects stored in them TODO this may be replaced by a more general DatastructuresFamily 2) Equality of these structures is by identity, not equality of the represented set 3) The ordering of the objects in the set does not have to be default <strong class="pkg">GAP</strong> ordering "less than", but is determined by the Attribute LessFunction</p>
+
+<p><a id="X86A9B6F87E619FFF" name="X86A9B6F87E619FFF"></a></p>
+
+<h4>6.1 <span class="Heading">Usage</span></h4>
+
+<p>TODO supply nice wrapper functions for the constructor</p>
+
+
+<div class="example"><pre>
+ gap&gt; s := OrderedSetDS(IsSkipListRep, {x,y} -&gt; String(x) &lt; String(y));
+ &lt;skiplist 0 entries&gt;
+ gap&gt; Addset(s, 1);
+ gap&gt; AddSet(s, 2);
+ gap&gt; AddSet(s, 10);
+ gap&gt; AddSet(s, (1,2,3));
+ gap&gt; RemoveSet(s, (1,2,3));
+ 1
+ gap&gt; AsListSorted(s);
+ [ 1, 10, 2 ]
+
+ gap&gt; b := OrderedSetDS(IsBinarySearchTreeRep, Primes);
+ &lt;bst size 168&gt;
+ gap&gt; 91 in b; 
+ false
+ gap&gt; 97 in b;
+ true
+</pre></div>
+
+<p><a id="X7C5F33687C53BEF0" name="X7C5F33687C53BEF0"></a></p>
+
+<h4>6.2 <span class="Heading">API</span></h4>
+
+<p>Every implementation of an ordered set datastructure must follow the API set out below This is however temporary pending the discussion oftypes for data structutes</p>
+
+<p><a id="X7EF1A0377AF3FE71" name="X7EF1A0377AF3FE71"></a></p>
+
+<h5>6.2-1 OrderedSetDS</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderedSetDS</code>( <var class="Arg">filter</var>, <var class="Arg">lessThan</var>, <var class="Arg">initial</var>, <var class="Arg">entries</var>, <var class="Arg">randsom</var>, <var class="Arg">source</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Category of Ordererd "sets" Subcategory of Ordererd "sets" where the ordering is the default UNKNOWNEntity(leq) Constructors for ordered sets The general form of constructor.</p>
+
+<p>the random source is useful in a number of possible implementations that used randomised methods to achieve good complexity with high probability and simple data structures</p>
+
+<p>Apart from the filter most combinations of these have defaults. The default lessThan is the <strong class="pkg">GAP</strong> &lt; function. The default initial entries is none and the default random source is the global Mersenne twister</p>
+
+<p>Other constructors cover making an ordered set from another ordered set or from an iterator (which is drained)</p>
+
+<p><a id="X7C1B24A48188DC68" name="X7C1B24A48188DC68"></a></p>
+
+<h5>6.2-2 OrderedSetDS</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderedSetDS</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><a id="X7C16B56880A7A426" name="X7C16B56880A7A426"></a></p>
+
+<h5>6.2-3 OrderedSetDS</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderedSetDS</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var>, <var class="Arg">arg3</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><a id="X81F6C23A848D89FD" name="X81F6C23A848D89FD"></a></p>
+
+<h5>6.2-4 OrderedSetDS</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderedSetDS</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var>, <var class="Arg">arg3</var>, <var class="Arg">arg4</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><a id="X785F29D484E84A9B" name="X785F29D484E84A9B"></a></p>
+
+<h5>6.2-5 AddSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AddSet</code>( <var class="Arg">set</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>adds an object to set. Noop if it is already there/</p>
+
+<p><a id="X79CA0BD27822C1FB" name="X79CA0BD27822C1FB"></a></p>
+
+<h5>6.2-6 RemoveSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RemoveSet</code>( <var class="Arg">set</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Remove an object from the set if present. Returns the number of copies that were present (always 1 or 0, but an integer for consistency with multisets)</p>
+
+<p>All Objects in IsOrderedSetDS should implemnent \in</p>
+
+<p><a id="X7DD7225D7A6F92C6" name="X7DD7225D7A6F92C6"></a></p>
+
+<h5><code>6.2-7 \in</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This is usually stored</p>
+
+<p><a id="X85F4EDA0841AADFD" name="X85F4EDA0841AADFD"></a></p>
+
+<h5>6.2-8 LessFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LessFunction</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>The number of objects in the set</p>
+
+<p><a id="X7B2E5BB28435AE50" name="X7B2E5BB28435AE50"></a></p>
+
+<h5>6.2-9 Size</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>FUndamental method for running through the set in order</p>
+
+<p><a id="X83A682A08318DBA0" name="X83A682A08318DBA0"></a></p>
+
+<h5>6.2-10 IteratorSorted</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IteratorSorted</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Default methods based on IteratorSorted are given for these, but can be overridden for data structures that support better alfgorithms</p>
+
+<p><a id="X79F3D6D08181A543" name="X79F3D6D08181A543"></a></p>
+
+<h4>6.3 <span class="Heading">Implementations</span></h4>
+
+<p>Three implementations of ordered set data structures are currently included: skiplists, binary search trees and (as a specialisation of binary search trees) AVL trees. AVL trees seem to be the fastest in general, and memory usage is similar. More details to come</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

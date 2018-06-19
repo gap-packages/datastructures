@@ -1,0 +1,22 @@
+  
+  [1X5 [33X[0;0YHashsets[133X[101X
+  
+  [33X[0;0YA  hash  set  stores  key-value pairs and allows efficient lookup of keys by
+  using a hash function.[133X
+  
+  
+  [1X5.1 [33X[0;0YAPI[133X[101X
+  
+  [1X5.1-1 IsHashSet[101X
+  
+  [33X[1;0Y[29X[2XIsHashSet[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  
+  [33X[0;0YCategory of hashsets[133X
+  
+  [33X[0;0YArguments [hashfunc[, eqfunc]] [capacity] Create a new hash set.[133X
+  
+  [1X5.1-2 HashSet[101X
+  
+  [33X[1;0Y[29X[2XHashSet[102X( [3Xarg[103X ) [32X function[133X
+  

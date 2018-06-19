@@ -1,0 +1,45 @@
+  
+  [1X7 [33X[0;0YQueues[133X[101X
+  
+  [33X[0;0YA queue only promises access at the front and at the back[133X
+  
+  
+  [1X7.1 [33X[0;0YAPI[133X[101X
+  
+  [1X7.1-1 IsQueue[101X
+  
+  [33X[1;0Y[29X[2XIsQueue[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  
+  [1X7.1-2 PushBack[101X
+  
+  [33X[1;0Y[29X[2XPushBack[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X7.1-3 PushFront[101X
+  
+  [33X[1;0Y[29X[2XPushFront[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [33X[0;0YFor queues, this is just an alias for PushBack[133X
+  
+  [1X7.1-4 Push[101X
+  
+  [33X[1;0Y[29X[2XPush[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X7.1-5 PopBack[101X
+  
+  [33X[1;0Y[29X[2XPopBack[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [1X7.1-6 PopFront[101X
+  
+  [33X[1;0Y[29X[2XPopFront[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [33X[0;0YFor queues, this is just an alias for PopFront[133X
+  
+  [1X7.1-7 Pop[101X
+  
+  [33X[1;0Y[29X[2XPop[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [1X7.1-8 Capacity[101X
+  
+  [33X[1;0Y[29X[2XCapacity[102X( [3Xarg[103X ) [32X attribute[133X
+  

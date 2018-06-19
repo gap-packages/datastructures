@@ -1,0 +1,46 @@
+  
+  [1X3 [33X[0;0YHash Functions[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YA  hash  function  in datapackages is a function H which maps a value X to a
+  small   integer   (where  a  small  integer  is  an  integer  in  the  range
+  [-2^28..2^28-1] on a 32-bit system, and [-2^60..2^60-1] on a 64-bit system),
+  under the requirement that if X=Y, then H(X)=H(Y).[133X
+  
+  [33X[0;0YA  variety  of hash functions are provided by datastructures, with different
+  behaviours.  A  bad  choice of hash function can lead to serious performance
+  problems.[133X
+  
+  
+  [1X3.2 [33X[0;0YHash Functions[133X[101X
+  
+  [33X[0;0YHashes  any  values  built  from  the  basic  built-in  types of GAP, namely
+  integers,   booleans,  lists,  records,  permutations,  transformations  and
+  partial permutations.[133X
+  
+  [33X[0;0YAlso  this function will takes a variadic length list of arguments, treating
+  more  than  one  argument  as  equivalent  to  a list, so HashBasic(x,y,z) =
+  HashBasic([x,y,z]).[133X
+  
+  [1X3.2-1 HashBasic[101X
+  
+  [33X[1;0Y[29X[2XHashBasic[102X( [3Xarg[103X ) [32X function[133X
+  
+  [33X[0;0Ydatastructures   provides   two   hash  functions  for  permutation  groups.
+  Hash_PermGroup_Fast  is  faster,  but  will return the same value for groups
+  with the same size, orbits and transitivity.[133X
+  
+  [1X3.2-2 Hash_PermGroup_Fast[101X
+  
+  [33X[1;0Y[29X[2XHash_PermGroup_Fast[102X( [3Xarg[103X ) [32X function[133X
+  
+  [33X[0;0Ydatastructures   provides   two   hash  functions  for  permutation  groups.
+  Hash_PermGroup_Complete  is  slower, but is extremely unlikely to return the
+  same hash for two different groups.[133X
+  
+  [1X3.2-3 Hash_PermGroup_Complete[101X
+  
+  [33X[1;0Y[29X[2XHash_PermGroup_Complete[102X( [3Xarg[103X ) [32X function[133X
+  

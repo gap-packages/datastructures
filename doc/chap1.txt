@@ -1,0 +1,19 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YPurpose and goals of this package[133X[101X
+  
+  [33X[0;0YTODO[133X
+  
+  
+  [1X1.2 [33X[0;0YOverview over this manual[133X[101X
+  
+  [33X[0;0YTODO[133X
+  
+  
+  [1X1.3 [33X[0;0YFeedback[133X[101X
+  
+  [33X[0;0YFor  bug  reports,  feature  requests  and suggestions, please use our issue
+  tracker ([7Xhttps://github.com/gap-packages/datastructures/issues[107X).[133X
+  

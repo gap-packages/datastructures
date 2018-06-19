@@ -1,0 +1,134 @@
+  
+  [1X6 [33X[0;0YOrdered Set Datastructures[133X[101X
+  
+  [33X[0;0YIn  this  chapter  we deal with datastructures designed to represent sets of
+  objects which have an intrinsic ordering. Such datastructures should support
+  fast  (possibly  amortised) [23XO(\log n)[123X addition, deletion and membership test
+  operations  and  allow  efficient  iteration  through all the objects in the
+  datastructure  in  the  order  determined  by the given comparison function.
+  Since  they  represent  a set, adding an object equal to one already present
+  has no effect.[133X
+  
+  [33X[0;0YTODO   We   give   theoretical   bounds   for  our  implementations  in  the
+  documentation, and provide some test evidence.[133X
+  
+  [33X[0;0Ywe  refer to these as ordered set [13Xdata-structure[113X because the differ from the
+  [5XGAP[105X  notion of a set in a number of ways: 1) They all lie in a common family
+  'OrderedSetDSFamily'  and  pay  no  attention to the families of the Objects
+  stored   in   them   TODO   this   may   be   replaced  by  a  more  general
+  DatastructuresFamily  2)  Equality  of  these structures is by identity, not
+  equality  of  the  represented set 3) The ordering of the objects in the set
+  does  not  have to be default [5XGAP[105X ordering "less than", but is determined by
+  the Attribute LessFunction[133X
+  
+  
+  [1X6.1 [33X[0;0YUsage[133X[101X
+  
+  [33X[0;0YTODO supply nice wrapper functions for the constructor[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X gap> s := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));[128X[104X
+    [4X[28X <skiplist 0 entries>[128X[104X
+    [4X[28X gap> Addset(s, 1);[128X[104X
+    [4X[28X gap> AddSet(s, 2);[128X[104X
+    [4X[28X gap> AddSet(s, 10);[128X[104X
+    [4X[28X gap> AddSet(s, (1,2,3));[128X[104X
+    [4X[28X gap> RemoveSet(s, (1,2,3));[128X[104X
+    [4X[28X 1[128X[104X
+    [4X[28X gap> AsListSorted(s);[128X[104X
+    [4X[28X [ 1, 10, 2 ][128X[104X
+    [4X[28X[128X[104X
+    [4X[28X gap> b := OrderedSetDS(IsBinarySearchTreeRep, Primes);[128X[104X
+    [4X[28X <bst size 168>[128X[104X
+    [4X[28X gap> 91 in b; [128X[104X
+    [4X[28X false[128X[104X
+    [4X[28X gap> 97 in b;[128X[104X
+    [4X[28X true[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YAPI[133X[101X
+  
+  [33X[0;0YEvery implementation of an ordered set datastructure must follow the API set
+  out  below This is however temporary pending the discussion oftypes for data
+  structutes[133X
+  
+  [1X6.2-1 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xfilter[103X, [3XlessThan[103X, [3Xinitial[103X, [3Xentries[103X, [3Xrandsom[103X, [3Xsource[103X ) [32X operation[133X
+  
+  [33X[0;0YCategory  of  Ordererd  "sets"  Subcategory  of  Ordererd  "sets"  where the
+  ordering is the default UNKNOWNEntity(leq) Constructors for ordered sets The
+  general form of constructor.[133X
+  
+  [33X[0;0Ythe  random  source  is  useful in a number of possible implementations that
+  used randomised methods to achieve good complexity with high probability and
+  simple data structures[133X
+  
+  [33X[0;0YApart  from the filter most combinations of these have defaults. The default
+  lessThan  is the [5XGAP[105X < function. The default initial entries is none and the
+  default random source is the global Mersenne twister[133X
+  
+  [33X[0;0YOther  constructors  cover making an ordered set from another ordered set or
+  from an iterator (which is drained)[133X
+  
+  [1X6.2-2 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X6.2-3 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  
+  [1X6.2-4 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X, [3Xarg4[103X ) [32X operation[133X
+  
+  [1X6.2-5 AddSet[101X
+  
+  [33X[1;0Y[29X[2XAddSet[102X( [3Xset[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0Yadds an object to set. Noop if it is already there/[133X
+  
+  [1X6.2-6 RemoveSet[101X
+  
+  [33X[1;0Y[29X[2XRemoveSet[102X( [3Xset[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0YRemove  an object from the set if present. Returns the number of copies that
+  were present (always 1 or 0, but an integer for consistency with multisets)[133X
+  
+  [33X[0;0YAll Objects in IsOrderedSetDS should implemnent \in[133X
+  
+  [1X6.2-7 \in[101X
+  
+  [33X[1;0Y[29X[2X\in[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [33X[0;0YThis is usually stored[133X
+  
+  [1X6.2-8 LessFunction[101X
+  
+  [33X[1;0Y[29X[2XLessFunction[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe number of objects in the set[133X
+  
+  [1X6.2-9 Size[101X
+  
+  [33X[1;0Y[29X[2XSize[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YFUndamental method for running through the set in order[133X
+  
+  [1X6.2-10 IteratorSorted[101X
+  
+  [33X[1;0Y[29X[2XIteratorSorted[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [33X[0;0YDefault  methods  based  on  IteratorSorted  are given for these, but can be
+  overridden for data structures that support better alfgorithms[133X
+  
+  
+  [1X6.3 [33X[0;0YImplementations[133X[101X
+  
+  [33X[0;0YThree implementations of ordered set data structures are currently included:
+  skiplists,  binary  search  trees  and (as a specialisation of binary search
+  trees)  AVL  trees.  AVL trees seem to be the fastest in general, and memory
+  usage is similar. More details to come[133X
+  

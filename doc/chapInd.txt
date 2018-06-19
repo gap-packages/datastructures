@@ -1,0 +1,41 @@
+  
+  
+  [1XIndex[101X
+  
+  [2X\in[102X, for IsObject, IsOrderedSetDS 6.2-7 
+  [2XAddSet[102X, for IsOrderedSetDS and IsMutable, IsObject 6.2-5 
+  [2XCapacity[102X, for IsQueue 7.1-8 
+  [2XHash_PermGroup_Complete[102X 3.2-3 
+  [2XHash_PermGroup_Fast[102X 3.2-2 
+  [2XHashBasic[102X 3.2-1 
+  [2XHashMap[102X 4.1-2 
+  [2XHashSet[102X 5.1-2 
+  [2XIsHashMap[102X, for IsObject and IsFinite 4.1-1 
+  [2XIsHashSet[102X, for IsObject and IsFinite 5.1-1 
+  [2XIsHeap[102X, for IsObject 2.3-1 
+  [2XIsQueue[102X, for IsObject 7.1-1 
+  [2XIsStack[102X, for IsObject 8.1-1 
+  [2XIteratorSorted[102X, for IsOrderedSetDS 6.2-10 
+  [2XLessFunction[102X, for IsOrderedSetDS 6.2-8 
+  [2XMerge[102X, for IsHeap, IsHeap 2.3-5 
+  [2XOrderedSetDS[102X, for IsOrderedSetDS, IsFunction, IsIterator 6.2-3 
+      for IsOrderedSetDS, IsFunction, IsIterator, IsRandomSource 6.2-4 
+      for IsOrderedSetDS, IsIterator 6.2-2 
+      for IsOrderedSetDS, IsOrderedSetDS 6.2-1 
+  [2XPeek[102X, for IsHeap 2.3-3 
+      for IsStack 8.1-3 
+  [2XPop[102X, for IsHeap 2.3-4 
+      for IsQueue 7.1-7 
+      for IsStack 8.1-4 
+  [2XPopBack[102X, for IsQueue 7.1-5 
+  [2XPopFront[102X, for IsQueue 7.1-6 
+  [2XPush[102X, for IsHeap, IsObject 2.3-2 
+      for IsQueue, IsObject 7.1-4 
+      for IsStack, IsObject 8.1-2 
+  [2XPushBack[102X, for IsQueue, IsObject 7.1-2 
+  [2XPushFront[102X, for IsQueue, IsObject 7.1-3 
+  [2XRemoveSet[102X, for IsOrderedSetDS and IsMutable, IsObject 6.2-6 
+  [2XSize[102X, for IsOrderedSetDS 6.2-9 
+  
+  
+  -------------------------------------------------------

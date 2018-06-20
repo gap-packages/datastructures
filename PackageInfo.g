@@ -122,7 +122,13 @@ Dependencies := rec(
   ExternalConditions := []
 ),
 
-AvailabilityTest := ReturnTrue,
+AvailabilityTest := function()
+  if (not ("datastructures" in SHOW_STAT())) and
+     (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") = fail) then
+     return fail;
+  fi;
+  return true;
+end,
 
 TestFile := "tst/testall.g",
 

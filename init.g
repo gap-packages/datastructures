@@ -52,3 +52,6 @@ ReadPackage("datastructures", "gap/hashfunctions.gd");
 
 # Union-find
 ReadPackage("datastructures", "gap/union-find.gd");
+
+# Memoising functions
+ReadPackage("datastructures", "gap/memoize.gd");

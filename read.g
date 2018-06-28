@@ -40,3 +40,6 @@ ReadPackage("datastructures", "gap/skiplist.gi");
 ReadPackage("datastructures", "gap/avltree.gi");
 
 ReadPackage("datastructures", "gap/union-find.gi");
+
+# Memoising functions
+ReadPackage("datastructures", "gap/memoize.gi");

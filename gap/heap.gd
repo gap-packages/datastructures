@@ -18,9 +18,10 @@
 
 #! @Chapter Heaps
 #!
-#! A heap is a tree datastructure that stores items that can be compared using
-#! an ordering relation $\leq$ such that for any child $C$ of a node $N$ it holds
-#! that $C \leq N$.
+#! @Section Introduction
+#! A <E>heap</E > is a tree datastructure that stores items that can be compared
+#! using an ordering relation $\leq$ such that for any child $C$ of a node $N$
+#! it holds that $C \leq N$.
 #!
 #! The fundamental operations for heaps are Construction, <C>Push</C>ing data
 #! onto the heap <C>Peek</C>ing at the topmost item, and <C>Pop</C>ping the
@@ -29,23 +30,14 @@
 #! For a good heap implementation these basic operations should not exceed
 #! $O(\log n)$ in runtime where $n$ is the number of items on the heap.
 #!
-#! TODO We give theoretical bounds for our implementations in the documentation,
-#! and provide some test evidence.
-
-#! @Section Usage
+#
+# TODO: Give theoretical bounds for our implementations in the documentation,
+# and provide some test evidence.
 #!
-#! gap> h := BinaryHeap();
-#! gap> Push(h, 5);
-#! gap> Push(h, -10);
-#! gap> Peek(h);
-#! gap> Pop(h);
+#! We currently provide two types of heaps: <Ref Label="BinaryHeap"/> and
+#! <Ref Label="PairingHeap" />.
 #!
-#! gap> h := PairingHeap( {x,y} -> x.rank > y.rank );
-#! gap> Push(h, rec( rank  := 5 ));
-#! gap> Push(h, rec( rank  := 7 ));
-#! gap> Push(h, rec( rank  := -15 ));
-#! gap> Pop(h);
-#!
+#! @EndSection
 
 #! @Section API
 #!
@@ -84,4 +76,25 @@ DeclareOperation("Pop", [IsHeap]);
 #! @Arguments heap1, heap2
 DeclareOperation("Merge", [IsHeap, IsHeap]);
 
+#! @EndSection
+
+#!
+#! @Section Examples
+#!
+#! @BeginExample
+#! gap> h := BinaryHeap();
+#! gap> Push(h, 5);
+#! gap> Push(h, -10);
+#! gap> Peek(h);
+#! gap> Pop(h);
+#! @EndExample
+#!
+#! @BeginExample
+#! gap> h := PairingHeap( {x,y} -> x.rank > y.rank );
+#! gap> Push(h, rec( rank  := 5 ));
+#! gap> Push(h, rec( rank  := 7 ));
+#! gap> Push(h, rec( rank  := -15 ));
+#! gap> Pop(h);
+#! @EndExample
+#!
 #! @EndSection

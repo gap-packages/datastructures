@@ -12,6 +12,11 @@
 ##  Declarations for pairing heaps in GAP.
 ##
 
+
+#! @Chapter Heaps
+#!
+#! @Section Pairing heaps
+#!
 DeclareRepresentation( "IsPairingHeapFlatRep", IsHeap and IsPositionalObjectRep, []);
 BindGlobal( "PairingHeapType", NewType(HeapFamily, IsPairingHeapFlatRep));
 BindGlobal( "PairingHeapTypeMutable", NewType(HeapFamily,

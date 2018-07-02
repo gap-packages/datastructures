@@ -7,27 +7,31 @@
 <Section>
 <Heading>Purpose and goals of this package</Heading>
 
-TODO
+The <Package>datastructures</Package> package for &GAP; has two main goals:
+<List>
+  <Item>Provide abstract interfaces for commonly used datastructures</Item>
+  <Item>Provide good low-leve implementations for these datastructures</Item>
+</List>
 
+By default the <Package>datastructures</Package> package is not automatically
+loaded by &GAP; when it is installed. You must load the package with
+<C>LoadPackage("IO");</C> before its functions become available.<P/>
 </Section>
 
 
 <Section>
-<Heading>Overview over this manual</Heading>
+  <Heading>Overview over this manual</Heading>
 
-TODO
-
+  Chapter <Ref Chap="install"/> describes the installation of this package.
 </Section>
 
 
 <Section Label="feedback">
-<Heading>Feedback</Heading>
+  <Heading>Feedback</Heading>
 
-For bug reports, feature requests and suggestions, please use our
-<URL Text="issue tracker">https://github.com/gap-packages/datastructures/issues</URL>.
-
+  For bug reports, feature requests and suggestions, please use our
+  <URL Text="issue tracker">https://github.com/gap-packages/datastructures/issues</URL>.
 </Section>
-
 
 </Chapter>
 

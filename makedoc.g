@@ -18,5 +18,7 @@ fi;
 
 AutoDoc(rec(
         autodoc := true,
-        scaffold := rec( includes := [ "intro.xml" ] ),
+        scaffold := rec( includes := [ "intro.xml", "install.xml" ] ),
     ));
+
+QUIT;

@@ -12,10 +12,6 @@
 #!
 #! @Section Binary heaps
 #!
-#! A binary heap is a special kind of heap.
-#! TODO
-#!
-
 DeclareRepresentation( "IsBinaryHeapFlatRep", IsHeap and IsPositionalObjectRep, []);
 BindGlobal( "BinaryHeapType", NewType(HeapFamily, IsBinaryHeapFlatRep and IsMutable));
 

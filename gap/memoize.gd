@@ -34,7 +34,7 @@
 #!    If this is <K>true</K>, the cache is emptied whenever
 #!    <Ref Func="FlushCaches"/> is called.
 #!  </Item>
-#!  <Mark><C>contract</C> (defaults to <Ref Func="ReturnTrue"/>)
+#!  <Mark><C>contract</C> (defaults to <Ref Func="ReturnTrue"/>)</Mark>
 #!  <Item>
 #!    A function that is called on the arguments given to <A>function</A>.
 #!    If this function returns <K>false</K>, then <C>errorHandler</C> is

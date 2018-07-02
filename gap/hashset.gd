@@ -26,6 +26,8 @@ DeclareRepresentation( "IsHashSetRep", IsHashSet and IsPositionalObjectRep, [] )
 BindGlobal( "HashSetType", NewType(HashSetFamily, IsHashSetRep and IsMutable) );
 
 
-#! Arguments [hashfunc[, eqfunc]] [capacity]
+#! @Description
 #! Create a new hash set.
+#!
+#! @Arguments [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashSet");

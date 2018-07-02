@@ -13,8 +13,6 @@
 #! A hash map stores key-value pairs and allows efficient lookup of keys
 #! by using a hash function.
 #!
-
-
 #! @Section API
 #!
 #! @Description
@@ -25,9 +23,10 @@ BindGlobal( "HashMapFamily", NewFamily("HashMapFamily") );
 DeclareRepresentation( "IsHashMapRep", IsHashMap and IsPositionalObjectRep, [] );
 BindGlobal( "HashMapType", NewType(HashMapFamily, IsHashMapRep and IsMutable) );
 
-
-#! Arguments [hashfunc[, eqfunc]] [capacity]
-#! Create a new hash map.
+#! @Description
+#!   Create a new hash map.
+#!
+#! @Arguments [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashMap");
 
 

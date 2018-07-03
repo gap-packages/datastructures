@@ -14,7 +14,7 @@
 #!
 #! @Section Memoisation with HashMap
 #!
-#! @Arguments [function [, options]]
+#! @Arguments function [, options]
 #! @Returns A function
 #! @Description
 #!  <C>MemoizeFunction</C> returns a function which behaves the same as <A>function</A>,

@@ -68,7 +68,7 @@
 #! For the purposes of the <Package>datastructures</Package>, we provide
 #! a category <Ref Filt="IsHeap"/> . Every
 #! implementation of a heap in the category <Ref Filt="IsHeap"/>
-#! must follos the API described in this section.
+#! must follow the API described in this section.
 #!
 
 #! @Description
@@ -113,5 +113,5 @@ DeclareOperation("Pop", [IsHeap]);
 DeclareOperation("Merge", [IsHeap, IsHeap]);
 
 # TODO: find out how to properly docuymnt this without a `DeclareOperation`
-#! Heaps also support <Ref Filt="IsEmpty"/> and
-#! <Ref Oper="Size"/>
+#! Heaps also support <Ref Filt="IsEmpty" BookName="ref"/> and
+#! <Ref Oper="Size" BookName="ref"/>

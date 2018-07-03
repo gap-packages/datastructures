@@ -3,49 +3,53 @@
   <Heading>Installation</Heading>
   <Index><Package>datastructures</Package></Index>
 
-  To install this package, extract the package's archive file into &GAP;'s
-  <F>pkg</F> folder. <P/>
+  The release version and the development version of the package require slightly different
+  processes for compilation of the kernel module. The package does not work
+  without compiling this module
 
-  The package does not work without compiling its kernel module; to build it,
-  execute the following commands in the package's source directory
+  <Section>
+    To install this package, extract the package's archive file into &GAP;'s
+    <F>pkg</F> folder. <P/>
 
-  <Verb>
-    ./configure
-    make
-  </Verb>
+    <Heading>Release version</Heading>
+    <Verb>
+      ./configure
+      make
+    </Verb>
 
-  The <Package>datastructures</Package> is not loaded by &GAP; by default. To
-  load the package run <C>LoadPackage("datastructures");</C> at the &GAP; prompt.
+    The <Package>datastructures</Package> is not loaded by &GAP; by default. To
+    load the package run <C>LoadPackage("datastructures");</C> at the &GAP; prompt.
+  </Section>
 
   <Section>
     <Heading>Development version</Heading>
-
+    
     To build the a development version of the package, first obtain the sources
     from github
-
+    
     <Verb>
       git clone https://github.com/gap-packages/datastructures
     </Verb>
-
+    
     Install the required dependencies. If you are also using a development
     version of &GAP;, then you will have already installed them as part of its
     compilation process.
-
+    
     <List>
       <Item>a C compiler, e.g. GCC or Clang</Item>
       <Item>GNU Make</Item>
       <Item>GNU Autoconf (we recommend 2.69 or later)</Item>
       <Item>GNU Libtool</Item>
     </List>
-
+    
     To build the kernel module then run the following commands.
     <Verb>
       sh autogen.sh
       ./configure
       make
-    </Verb>
-  </Section>
-
+    </Verb>Verb>
+  </Section>>
+  
   <Section>
     <Heading>Building the documentation</Heading>
 

@@ -10,16 +10,16 @@
 
 #! @Chapter Memoisation
 #!
-#! We provide simple ways to cache return values of pure functions.
+#! <Package>datastructures</Package> provides simple ways to cache return values of pure functions.
 #!
 #! @Section Memoisation with HashMap
 #!
 #! @Arguments [function [, options]]
 #! @Returns A function
 #! @Description
-#!  MemoiseFunction returns a function which behaves the same as <A>function</A>,
+#!  <C>MemoizeFunction</C> returns a function which behaves the same as <A>function</A>,
 #!  except that it caches the return value of <A>function</A>.
-#!  The cache can be flushed by calling <Ref Func="FlushCaches"/>.
+#!  The cache can be flushed by calling <Ref Func="FlushCaches" BookName="ref"/>.
 #!
 #!  This function does not promise to never call <A>function</A> more than
 #!  once for any input -- values may be removed if the cache gets too large,
@@ -32,9 +32,9 @@
 #!  <Mark><C>flush</C> (default <K>true</K>)</Mark>
 #!  <Item>
 #!    If this is <K>true</K>, the cache is emptied whenever
-#!    <Ref Func="FlushCaches"/> is called.
+#!    <Ref Func="FlushCaches" BookName="ref"/> is called.
 #!  </Item>
-#!  <Mark><C>contract</C> (defaults to <Ref Func="ReturnTrue"/>)</Mark>
+#!  <Mark><C>contract</C> (defaults to <Ref Func="ReturnTrue" BookName="ref"/>)</Mark>
 #!  <Item>
 #!    A function that is called on the arguments given to <A>function</A>.
 #!    If this function returns <K>false</K>, then <C>errorHandler</C> is

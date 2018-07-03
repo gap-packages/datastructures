@@ -11,7 +11,10 @@
 #! @Chapter Hashmaps
 #!
 #! A hash map stores key-value pairs and allows efficient lookup of keys
-#! by using a hash function.
+#! by using a hash function.<P/>
+#!
+#! <Package>datastructures</Package> currently provides a reference implementation
+#! of hashmaps using a hashtable stored in a plain &GAP; list.
 #!
 #! @Section API
 #!
@@ -24,15 +27,40 @@ DeclareRepresentation( "IsHashMapRep", IsHashMap and IsPositionalObjectRep, [] )
 BindGlobal( "HashMapType", NewType(HashMapFamily, IsHashMapRep and IsMutable) );
 
 #! @Description
-#!   Create a new hash map.
+#! Create a new hash map. The optional argument <A>hashfunc</A> must be a hash-
+#! function , <A>eqfunc</A> must
+#! be a binary equality testing function that returns <K>true</K> if the two arguments
+#! are considered equal, and <K>false</K> if they are not. Refer to Chapter
+#! <Ref Chap="Chapter_HashFunctions"/> about the requirements for hashfunctions and
+#! equality testers.
+#! The optional argument <A>capacity</A> determines the initial size of the hashmap.
 #!
 #! @Arguments [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashMap");
 
-
+#! @Description
+#! Returns the list of keys of the hashmap <A>h</A>.
+#! @Arguments h
+#! @Returns a list
 DeclareOperation("Keys", [IsHashMap]);
+#! @Description
+#! Returns the set of values stored in the hashmap <A>h</A>. 
+#! @Arguments h
+#! @Returns a list
 DeclareOperation("Values", [IsHashMap]);
 
+#! @Description
+#! Returns an interator for the keys stored in the hashmap <A>h</A>.
+#! @Arguments h
+#! @Returns an iterator
 DeclareOperation("KeyIterator", [IsHashMap]);
+#! @Description
+#! Returns an interator for the values stored in the hashmap <A>h</A>.
+#! @Arguments h
+#! @Returns an iterator
 DeclareOperation("ValueIterator", [IsHashMap]);
+#! @Description
+#! Returns an interator for key-value-pairs stored in the hashmap <A>h</A>.
+#! @Arguments h
+#! @Returns an iterator
 DeclareOperation("KeyValueIterator", [IsHashMap]);

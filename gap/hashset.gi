@@ -12,6 +12,8 @@
 ##  Implementation of a hash set for GAP.
 ##
 
+#! @Chapter Hashsets
+#! @Section API
 InstallGlobalFunction(HashSet,
 function(arg...)
     local hashfunc, eqfunc, capacity, res;
@@ -44,37 +46,61 @@ function(ht)
             " used=",DS_Hash_Used(ht),">");
 end);
 
+#! @Description
+#! Add <A>obj</A> to <A>hashset</A>.
+#! @Arguments hashset, obj
 InstallOtherMethod(AddSet,
     "for a hash set and a key",
     [ IsHashSetRep, IsObject ],
     DS_Hash_AddSet);
 
+#! @Description
+#! Test membership of <A>obj</A> in <A>hashset</A>
+#! @Arguments obj, hashset
 InstallOtherMethod( \in,
     "for a hash set and a key",
     [ IsObject, IsHashSetRep ],
     {key, ht} -> DS_Hash_Contains(ht, key));
 
+#! @Description
+#! Remove <A>obj</A> from <A>hashset</A>.
+#! @Arguments hashset, obj
 InstallOtherMethod( RemoveSet,
     "for a hash set and a key",
     [ IsHashSetRep, IsObject ],
     DS_Hash_Delete);
 
+#! @Description
+#! Return the size of a hashset
+#! @Arguments hashset
+#! Returns an integer
 InstallOtherMethod( Size,
     "for a hash set",
     [ IsHashSetRep ],
     ht -> DS_Hash_Used(ht));
 
+#! @Description
+#! Test a hashset for emptiness.
+#! @Arguments hashset
+#! @Returns a boolean
 InstallOtherMethod( IsEmpty,
     "for a hash set",
     [ IsHashSetRep ],
     ht -> DS_Hash_Used(ht) = 0);
 
-
+#! @Description
+#! Convert a hashset into a &GAP; set
+#! @Arguments hashset
+#! @Returns a set
 InstallMethod( Set,
     "for a hash set",
     [ IsHashSetRep ],
     ht -> Difference(Set(ht![5]),[fail]));
 
+#! @Description
+#! Convert a hashset into a &GAP; set
+#! @Arguments hashset
+#! @Returns an immutable set
 InstallMethod( AsSet,
     "for a hash set",
     [ IsHashSetRep ],
@@ -97,6 +123,12 @@ BindGlobal( "NextIterator_HashSet", function(iter)
     return val;
 end);
 
+#! @Description
+#! Create an iterator for the values contained in a hashset.
+#! Note that elements added to the hashset after
+#! the creation of an iterator are not guaranteed to be returned by that iterator.
+#! @Arguments set
+#! @Returns an iterator
 InstallMethod( Iterator,
     "for a hash set",
     [ IsHashSetRep ],

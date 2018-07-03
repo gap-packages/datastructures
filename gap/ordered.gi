@@ -4,12 +4,12 @@
 
 InstallMethod(IsEmpty, [IsOrderedSetDS], d -> Size(d) = 0);
 
-InstallMethod(AsSortedList, [IsStandardOrderedSetDS], 
+InstallMethod(AsSortedList, [IsStandardOrderedSetDS],
         function(s)
     local  i, l, x;
     i := IteratorSorted(s);
     l := [];
-    for x in i do 
+    for x in i do
         Add(l,x);
     od;
     return MakeImmutable(l);
@@ -19,12 +19,12 @@ end);
 # This one might belong somewhere more generic
 #
 
-InstallMethod(AsList, [IsOrderedSetDS], 
+InstallMethod(AsList, [IsOrderedSetDS],
         function(s)
     local  i, l, x;
     i := Iterator(s);
     l := [];
-    for x in i do 
+    for x in i do
         Add(l,x);
     od;
     return MakeImmutable(l);
@@ -33,7 +33,7 @@ end);
 
 InstallMethod(IteratorSorted, [IsStandardOrderedSetDS], Iterator);
 
-InstallMethod(\=, [IsOrderedSetDS, IsOrderedSetDS], 
+InstallMethod(\=, [IsOrderedSetDS, IsOrderedSetDS],
         IsIdenticalObj);
 
 InstallMethod(Length, [IsOrderedSetDS], Size);

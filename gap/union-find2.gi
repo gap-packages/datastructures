@@ -12,8 +12,8 @@ InstallMethod(PartitionDS, [IsPartitionDSRep2 and IsPartitionDS and IsMutable, I
         function(filt, n)
     local  r;
     r := rec();
-    r.data := List([1..n], i->BuildBitfields(UF2.Bitfields.widths, 1,i));    
-    Add(r.data, fail);    
+    r.data := List([1..n], i->BuildBitfields(UF2.Bitfields.widths, 1,i));
+    Add(r.data, fail);
     r.nparts := n;
     Objectify(UF2.DefaultType, r);
     return r;
@@ -21,26 +21,26 @@ end);
 
 
 InstallMethod(PartitionDS, [IsPartitionDSRep2 and IsPartitionDS and IsMutable, IsCyclotomicCollColl],
-        function(filt, parts)    
+        function(filt, parts)
     local  r, n,, seen, sp, sr, p, x;
-    if not ForAll(parts, IsSet) and 
+    if not ForAll(parts, IsSet) and
        ForAll(parts, p->ForAll(p, IsPosInt)) then
         Error("PartitionDS: supplied partition must be a list of disjoint sets of positive integers");
-    fi;    
+    fi;
     r := rec();
     n := Maximum(List(parts, Maximum));
-    r.data := List([1..n], i->BuildBitfields(UF2.Bitfields.widths,1,i));    
-    Add(r.data, fail);    
-    seen := BlistList([1..n],[]);    
+    r.data := List([1..n], i->BuildBitfields(UF2.Bitfields.widths,1,i));
+    Add(r.data, fail);
+    seen := BlistList([1..n],[]);
     sp := UF2.setParent;
-    sr := UF2.setRank;    
+    sr := UF2.setRank;
     for p in parts do
         for x in p do
             if seen[x] then
                 Error("PartitionDS: supplied partition must be a list of disjoint sets of positive integers");
             fi;
             seen[x] := true;
-            r.data[x]  := sp(r.data[x],p[1]);            
+            r.data[x]  := sp(r.data[x],p[1]);
         od;
         r.data[p[1]] := sr(r.data[p[1]],2);
     od;
@@ -55,12 +55,12 @@ UF2.RepresentativeTarjan :=
   function(uf, x)
     local  gp, sp, p, y, z;
     gp := UF2.getParent;
-    sp := UF2.setParent;    
+    sp := UF2.setParent;
     p := uf!.data;
     while true do
         y := gp(p[x]);
         if y = x then
-            return x;            
+            return x;
         fi;
         z := gp(p[y]);
         if y = z then
@@ -71,7 +71,7 @@ UF2.RepresentativeTarjan :=
     od;
 end;
 
-if IsBound(DS_UF2_FIND)  then 
+if IsBound(DS_UF2_FIND)  then
     UF2.RepresentativeKernel := function(uf, x)
         return DS_UF2_FIND(x, uf!.data);
     end;
@@ -85,7 +85,7 @@ fi;
 
 
 if IsBound(DS_UF2_UNITE) then
-    InstallMethod(Unite, [IsPartitionDSRep2 and IsMutable and IsPartitionDS, 
+    InstallMethod(Unite, [IsPartitionDSRep2 and IsMutable and IsPartitionDS,
             IsPosInt, IsPosInt],
             function(uf, x, y)
         if DS_UF2_UNITE(x, y, uf!.data) then
@@ -93,7 +93,7 @@ if IsBound(DS_UF2_UNITE) then
         fi;
     end);
 else
-    InstallMethod(Unite, [IsPartitionDSRep2 and IsMutable and IsPartitionDS, 
+    InstallMethod(Unite, [IsPartitionDSRep2 and IsMutable and IsPartitionDS,
             IsPosInt, IsPosInt],
             function(uf, x, y)
         local  r, rx, ry;
@@ -102,7 +102,7 @@ else
         if x  = y then
             return;
         fi;
-        r := uf!.data;  
+        r := uf!.data;
         rx := UF2.getRank(r[x]);
         ry := UF2.getRank(r[y]);
         if rx > ry then
@@ -113,8 +113,8 @@ else
             r[x] := UF2.setParent(r[x],y);
             r[y] := UF2.setRank(r[y],ry+1);
         fi;
-        uf!.nparts := uf!.nparts -1;    
-        return;    
+        uf!.nparts := uf!.nparts -1;
+        return;
     end);
 fi;
 
@@ -140,7 +140,7 @@ InstallMethod(RootsIteratorOfPartitionDS, [IsPartitionDSRep2 and IsPartitionDS],
         function(uf)
     local  i, gp;
     i := 1;
-    gp := UF2.getParent;    
+    gp := UF2.getParent;
     while i < SizeUnderlyingSetDS(uf) and gp(uf!.data[i]) <> i do
         i := i+1;
     od;
@@ -153,8 +153,8 @@ InstallMethod(RootsIteratorOfPartitionDS, [IsPartitionDSRep2 and IsPartitionDS],
         local  x, y, p, n;
         x := iter!.pt;
         y := x;
-        p := iter!.uf!.data;    
-        n := iter!.n;    
+        p := iter!.uf!.data;
+        n := iter!.n;
         while y <= n and gp(p[y]) <> y do
             y := y+1;
         od;
@@ -181,17 +181,12 @@ end);
 
 
 ufbench2 := function(n)
-    local  u;    
+    local  u;
     u := PartitionDS(IsPartitionDSRep2, n);
     while NumberParts(u) > 1 do
         Unite(u, Random(GlobalMersenneTwister,1,n),
               Random(GlobalMersenneTwister,1,n));
     od;
     return u;
-    
+
 end;
-
-
-
-
-

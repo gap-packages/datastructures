@@ -16,8 +16,8 @@ InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, Is
         function(filt, n)
     local  r;
     r := rec();
-    r.data := List([1..n], i->BuildBitfields(UF.Bitfields.widths, 1,i));    
-    Add(r.data, fail);    
+    r.data := List([1..n], i->BuildBitfields(UF.Bitfields.widths, 1,i));
+    Add(r.data, fail);
     r.nparts := n;
     Objectify(UF.DefaultType, r);
     return r;
@@ -25,26 +25,26 @@ end);
 
 
 InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, IsCyclotomicCollColl],
-        function(filt, parts)    
+        function(filt, parts)
     local  r, n, seen, sp, sr, p, x;
-      if not (ForAll(parts, IsSet) and 
+      if not (ForAll(parts, IsSet) and
        ForAll(parts, p->ForAll(p, IsPosInt))) then
         Error("PartitionDS: supplied partition must be a list of disjoint sets of positive integers");
-    fi;    
+    fi;
     r := rec();
     n := Maximum(List(parts, Maximum));
-    r.data := List([1..n], i->BuildBitfields(UF.Bitfields.widths,1,i));    
-    Add(r.data, fail);    
-    seen := BlistList([1..n],[]);    
+    r.data := List([1..n], i->BuildBitfields(UF.Bitfields.widths,1,i));
+    Add(r.data, fail);
+    seen := BlistList([1..n],[]);
     sp := UF.setParent;
-    sr := UF.setRank;    
+    sr := UF.setRank;
     for p in parts do
         for x in p do
             if seen[x] then
                 Error("PartitionDS: supplied partition must be a list of disjoint sets of positive integers");
             fi;
             seen[x] := true;
-            r.data[x]  := sp(r.data[x],p[1]);            
+            r.data[x]  := sp(r.data[x],p[1]);
         od;
         r.data[p[1]] := sr(r.data[p[1]],2);
     od;
@@ -59,12 +59,12 @@ UF.RepresentativeTarjan :=
   function(uf, x)
     local  gp, sp, p, y, z;
     gp := UF.getParent;
-    sp := UF.setParent;    
+    sp := UF.setParent;
     p := uf!.data;
     while true do
         y := gp(p[x]);
         if y = x then
-            return x;            
+            return x;
         fi;
         z := gp(p[y]);
         if y = z then
@@ -75,7 +75,7 @@ UF.RepresentativeTarjan :=
     od;
 end;
 
-if IsBound(DS_UF_FIND)  then 
+if IsBound(DS_UF_FIND)  then
     UF.RepresentativeKernel := function(uf, x)
         return DS_UF_FIND(x, uf!.data);
     end;
@@ -93,7 +93,7 @@ UF.UniteGAP := function(uf, x, y)
     if x  = y then
         return;
     fi;
-    r := uf!.data;  
+    r := uf!.data;
     rx := UF.getRank(r[x]);
     ry := UF.getRank(r[y]);
     if rx > ry then
@@ -104,13 +104,13 @@ UF.UniteGAP := function(uf, x, y)
         r[x] := UF.setParent(r[x],y);
         r[y] := UF.setRank(r[y],ry+1);
     fi;
-    uf!.nparts := uf!.nparts -1;    
-    return;    
+    uf!.nparts := uf!.nparts -1;
+    return;
 end;
-    
+
 
 if IsBound(DS_UF_UNITE) then
-    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS, 
+    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS,
             IsPosInt, IsPosInt],
             function(uf, x, y)
         if DS_UF_UNITE(x, y, uf!.data) then
@@ -118,7 +118,7 @@ if IsBound(DS_UF_UNITE) then
         fi;
     end);
 else
-    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS, 
+    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS,
             IsPosInt, IsPosInt],
             UF.UniteGAP);
 fi;
@@ -145,7 +145,7 @@ InstallMethod(RootsIteratorOfPartitionDS, [IsPartitionDSRep and IsPartitionDS],
         function(uf)
     local  i, gp;
     i := 1;
-    gp := UF.getParent;    
+    gp := UF.getParent;
     while i < SizeUnderlyingSetDS(uf) and gp(uf!.data[i]) <> i do
         i := i+1;
     od;
@@ -158,8 +158,8 @@ InstallMethod(RootsIteratorOfPartitionDS, [IsPartitionDSRep and IsPartitionDS],
         local  x, y, p, n;
         x := iter!.pt;
         y := x+1;
-        p := iter!.uf!.data;    
-        n := iter!.n;    
+        p := iter!.uf!.data;
+        n := iter!.n;
         while y <= n and gp(p[y]) <> y do
             y := y+1;
         od;
@@ -192,7 +192,7 @@ InstallMethod(PartsOfPartitionDS, [IsPartitionDS],
         Add(p[r],i);
     od;
     p := Compacted(p);
-    MakeImmutable(p);    
+    MakeImmutable(p);
     for x in p do
         IsSet(x);
     od;
@@ -204,11 +204,3 @@ InstallMethod(ViewString, [IsPartitionDS],
 
 InstallMethod(String, [IsPartitionDS],
         u->Concatenation("PartitionDS( IsPartitionDS, ",String(PartsOfPartitionDS(u)),")"));
-
-
-                          
-
-
-
-
-

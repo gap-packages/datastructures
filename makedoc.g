@@ -17,7 +17,7 @@ if fail = LoadPackage("AutoDoc", ">= 2016.01.21") then
 fi;
 
 AutoDoc(rec(
-        autodoc := true,
+        autodoc := rec( files := [ "doc/Intros.autodoc" ] ),
         scaffold := rec( includes := [ "intro.xml", "install.xml" ] ),
     ));
 

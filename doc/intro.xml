@@ -13,9 +13,12 @@ The <Package>datastructures</Package> package for &GAP; has two main goals:
   <Item>Provide good low-level implementations for these datastructures</Item>
 </List>
 
-By default the <Package>datastructures</Package> package is not automatically
-loaded by &GAP; when it is installed. You must load the package with
-<C>LoadPackage("IO");</C> before its functions become available.<P/>
+The package <Package>datastructures</Package> requires building of a kernel
+module for &GAP; to function, please refer to Chapter <Ref Label="install"/> for
+details; the package is not automatically loaded by &GAP; after it has been installed.
+
+You must load the package with <C>LoadPackage("datastructures");</C>
+before its functions become available.<P/>
 </Section>
 
 
@@ -34,4 +37,3 @@ loaded by &GAP; when it is installed. You must load the package with
 </Section>
 
 </Chapter>
-

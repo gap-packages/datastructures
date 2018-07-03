@@ -47,8 +47,8 @@
       sh autogen.sh
       ./configure
       make
-    </Verb>Verb>
-  </Section>>
+    </Verb>
+  </Section>
   
   <Section>
     <Heading>Building the documentation</Heading>

@@ -20,6 +20,8 @@
 # simplicity, low constant (in O-notation) and cache friendliness.
 #
 
+#! @Chapter Heaps
+#! @Section Binary Heaps
 InstallGlobalFunction(BinaryHeap,
 function(arg...)
     local isLess, data, heap, x;

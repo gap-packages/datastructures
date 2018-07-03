@@ -7,25 +7,12 @@
 ##  This package is licensed under the GPL 2 or later, please refer
 ##  to the COPYRIGHT.md and LICENSE files for details.
 ##
-
-# pairingheap.gi
-#
-#  A fairly naive implementation of pairing heaps in GAP.
-#
-#  push and peek is O(1), pop is amortised O(log n), n is number of nodes
-#
 #  see
 #    Fredman, Sedgewick, Sleator, Tarjan (1986),
 #          "The pairing heap: a new form of self-adjusting heap"
 #          http://www.cs.cmu.edu/afs/cs.cmu.edu/user/sleator/www/papers/pairing-heaps.pdf
 #
 
-#
-# TODO:
-#
-#  - implement decrease priority
-#  - do benchmarks and consider more efficient implementations
-#
 InstallGlobalFunction(PairingHeap,
 function(arg...)
     local isLess, data, heap, x;

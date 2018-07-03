@@ -10,7 +10,7 @@
 The <Package>datastructures</Package> package for &GAP; has two main goals:
 <List>
   <Item>Provide abstract interfaces for commonly used datastructures</Item>
-  <Item>Provide good low-leve implementations for these datastructures</Item>
+  <Item>Provide good low-level implementations for these datastructures</Item>
 </List>
 
 By default the <Package>datastructures</Package> package is not automatically

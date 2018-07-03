@@ -12,6 +12,9 @@
 ##  Implementation of a hash map for GAP.
 ##
 
+#! @Chapter Hashmaps
+#! @Section API
+
 InstallGlobalFunction(HashMap,
 function(arg...)
     local hashfunc, eqfunc, capacity;
@@ -43,36 +46,57 @@ function(ht)
             " used=",DS_Hash_Used(ht),">");
 end);
 
+#! @Description
+#! List-style access for hashmaps.
+#! @Arguments hashmap, object
 InstallOtherMethod(\[\],
     "for a hash map and a key",
     [ IsHashMapRep, IsObject ],
     DS_Hash_Value); # TODO: raise an error if key is not bound
 
+#! @Description
+#! List-style access for hashmaps.
+#! @Arguments hashmap, object
 InstallOtherMethod(\[\]\:\=,
     "for a hash map, a key and a value",
     [ IsHashMapRep, IsObject, IsObject ],
     DS_Hash_SetValue);
 
+#! @Description
+#! Test whether a key is stored in the hashmap.
+#! @Arguments object, hashmap
 InstallOtherMethod( \in,
     "for a hash map and a key",
     [ IsObject, IsHashMapRep ],
     {key, ht} -> DS_Hash_Contains(ht, key));
 
+#! @Description
+#! Test whether a key is stored in the hashmap.
+#! @Arguments object, hashmap
 InstallOtherMethod( IsBound\[\],
     "for a hash map and a key",
     [ IsHashMapRep, IsObject ],
     DS_Hash_Contains);
 
+#! @Description
+#! Delete a key from a hashmap.
+#! @Arguments object, hashmap
 InstallOtherMethod( Unbind\[\],
     "for a hash map and a key",
     [ IsHashMapRep, IsObject ],
     DS_Hash_Delete);
 
+#! @Description
+#! Determine the number of keys stored in a hashmap.
+#! @Arguments hashmap
 InstallOtherMethod( Size,
     "for a hash map",
     [ IsHashMapRep ],
     ht -> DS_Hash_Used(ht));
 
+#! @Description
+#! Test whether a hashmap is empty.
+#! @Arguments object, hashmap
 InstallOtherMethod( IsEmpty,
     "for a hash map",
     [ IsHashMapRep ],

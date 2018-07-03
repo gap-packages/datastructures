@@ -10,10 +10,11 @@
 
 #! @Chapter Hashsets
 #!
-#! A hash set stores key-value pairs and allows efficient lookup of keys
-#! by using a hash function.
+#! A hash set stores objects and allows efficient lookup whether an object
+#! is already a member of the set.
 #!
-
+#! <Package>datastructures</Package> currently provides a reference implementation
+#! of hashsets using a hashtable stored in a plain &GAP; list.
 
 #! @Section API
 #!
@@ -25,9 +26,14 @@ BindGlobal( "HashSetFamily", NewFamily("HashSetFamily") );
 DeclareRepresentation( "IsHashSetRep", IsHashSet and IsPositionalObjectRep, [] );
 BindGlobal( "HashSetType", NewType(HashSetFamily, IsHashSetRep and IsMutable) );
 
-
 #! @Description
-#! Create a new hash set.
+#! Create a new hashset. The optional argument <A>hashfunc</A> must be a hash-
+#! function, <A>eqfunc</A> must
+#! be a binary equality testing function that returns <K>true</K> if the two arguments
+#! are considered equal, and <K>false</K> if they are not. Refer to Chapter
+#! <Ref Chap="Chapter_HashFunctions"/> about the requirements for hashfunctions and
+#! equality testers.
+#! The optional argument <A>capacity</A> determines the initial size of the hashmap.
 #!
 #! @Arguments [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashSet");

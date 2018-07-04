@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.2.0",
+Version := "0.2.1",
 Date := "04/07/2018",
 
 Persons := [

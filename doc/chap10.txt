@@ -1,52 +1,218 @@
   
-  [1X10 [33X[0;0YStacks[133X[101X
+  [1X10 [33X[0;0YOrdered Set Datastructures[133X[101X
   
-  [33X[0;0YA  stack  is  a  deque where items can be [10XPush[110Xed onto the stack, and the top
-  item can be [10XPop[110Xped off the stack.[133X
+  [33X[0;0YIn  this  chapter  we deal with datastructures designed to represent sets of
+  objects which have an intrinsic ordering. Such datastructures should support
+  fast  (possibly  amortised) [23XO(\log n)[123X addition, deletion and membership test
+  operations  and  allow  efficient  iteration  through all the objects in the
+  datastructure  in  the  order  determined  by the given comparison function.
+  Since  they  represent  a set, adding an object equal to one already present
+  has no effect.[133X
   
-  [33X[0;0YStacks are wrapped GAP plain lists.[133X
+  [33X[0;0YWe  refer  to these as ordered set [13Xdatastructure[113X because the differ from the
+  [5XGAP[105X notion of a set in a number of ways:[133X
+  
+  [30X    [33X[0;6YThey    all    lie    in    a    common    family   [2XOrderedSetDSFamily[102X
+        ([14X???OrderedSetDSFamily???[114X) and pay no attention to the families of the
+        Objects stored in them.[133X
+  
+  [30X    [33X[0;6YEquality  of  these  structures  is  by  identity, not equality of the
+        represented set[133X
+  
+  [30X    [33X[0;6YThe ordering of the objects in the set does not have to be default [5XGAP[105X
+        ordering "less than", but is determined by the Attribute [10XLessFunction[110X[133X
+  
+  [33X[0;0YThree implementations of ordered set data structures are currently included:
+  skiplists,  binary  search  trees  and (as a specialisation of binary search
+  trees)  AVL  trees.  AVL trees seem to be the fastest in general, and memory
+  usage is similar. More details to come[133X
   
   
-  [1X10.1 [33X[0;0YAPI[133X[101X
+  [1X10.1 [33X[0;0YUsage[133X[101X
   
-  [1X10.1-1 Stack[101X
+  [4X[32X  Example  [32X[104X
+    [4X[28X gap> s := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));[128X[104X
+    [4X[28X <skiplist 0 entries>[128X[104X
+    [4X[28X gap> Addset(s, 1);[128X[104X
+    [4X[28X gap> AddSet(s, 2);[128X[104X
+    [4X[28X gap> AddSet(s, 10);[128X[104X
+    [4X[28X gap> AddSet(s, (1,2,3));[128X[104X
+    [4X[28X gap> RemoveSet(s, (1,2,3));[128X[104X
+    [4X[28X 1[128X[104X
+    [4X[28X gap> AsListSorted(s);[128X[104X
+    [4X[28X [ 1, 10, 2 ][128X[104X
+    [4X[28X[128X[104X
+    [4X[28X gap> b := OrderedSetDS(IsBinarySearchTreeRep, Primes);[128X[104X
+    [4X[28X <bst size 168>[128X[104X
+    [4X[28X gap> 91 in b;[128X[104X
+    [4X[28X false[128X[104X
+    [4X[28X gap> 97 in b;[128X[104X
+    [4X[28X true[128X[104X
+  [4X[32X[104X
   
-  [33X[1;0Y[29X[2XStack[102X(  ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ystack[133X
   
-  [33X[0;0YConstructor for stacks[133X
+  [1X10.2 [33X[0;0YAPI[133X[101X
   
-  [1X10.1-2 IsStack[101X
+  [33X[0;0YEvery implementation of an ordered set datastructure must follow the API set
+  out below[133X
   
-  [33X[1;0Y[29X[2XIsStack[102X( [3Xarg[103X ) [32X filter[133X
+  [1X10.2-1 IsOrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XIsOrderedSetDS[102X( [3Xarg[103X ) [32X filter[133X
   [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YCategory of heaps[133X
+  [33X[0;0YCategory of ordered set.[133X
   
-  [1X10.1-3 Push[101X
+  [1X10.2-2 IsStandardOrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XPush[102X( [3Xstack[103X, [3Xobject[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsStandardOrderedSetDS[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YPuts [3Xobject[103X onto [3Xstack[103X.[133X
+  [33X[0;0YSubcategory   of   ordered   sets   where  the  ordering  is  [5XGAP[105X's  default
+  UNKNOWNEntity(leq)[133X
   
-  [1X10.1-4 Peek[101X
+  [1X10.2-3 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XPeek[102X( [3Xstack[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yobject or [9Xfail[109X[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xfilter[103X[, [3XlessThan[103X[, [3XinitialEntries[103X[, [3XrandomSource[103X]]] ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yan ordered set datastructure[133X
   
-  [33X[0;0YReturn the object at the top of [3Xstack[103X. If [3Xstack[103X is empty, returns [9Xfail[109X[133X
+  [33X[0;0YThe  family  that  contains all ordered set datastructures. Constructors for
+  ordered sets[133X
   
-  [1X10.1-5 Pop[101X
+  [33X[0;0YThe  argument  [3Xfilter[103X is a filter that the resulting ordered set object will
+  have.[133X
   
-  [33X[1;0Y[29X[2XPop[102X( [3Xstack[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yobject or [9Xfail[109X[133X
+  [33X[0;0YThe  optional  argument [3XlessThan[103X must be a binary function that returns [9Xtrue[109X
+  if its first argument is less than its second argument, and [9Xfalse[109X otherwise.
+  The default [3XlessThan[103X is [5XGAP[105X's built in UNKNOWNEntity(leq).[133X
   
-  [33X[0;0YRemove  the  top  item  from  [3Xstack[103X  and  return it. If [3Xstack[103X is empty, this
-  function returns fail.[133X
+  [33X[0;0YThe  optional  argument  [3X initialEntries[103X gives a collection of elements that
+  the ordered set is initialised with, and defaults to the empty set.[133X
   
-  [1X10.1-6 Size[101X
+  [33X[0;0YThe  optional  argument  [3XrandomSource[103X  is  useful  in  a  number of possible
+  implementations  that  use  randomised  methods  to  achieve  good amortised
+  complexity  with high probability and simple data structures. It defaults to
+  the global Mersenne twister.[133X
   
-  [33X[1;0Y[29X[2XSize[102X( [3Xarg[103X ) [32X attribute[133X
+  [1X10.2-4 OrderedSetDS[101X
   
-  [33X[0;0YNumber of elements on [3Xstack[103X[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  
+  [1X10.2-5 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  
+  [1X10.2-6 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  
+  [1X10.2-7 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X10.2-8 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X10.2-9 OrderedSetDS[101X
+  
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [1X10.2-10 AddSet[101X
+  
+  [33X[1;0Y[29X[2XAddSet[102X( [3Xset[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0YOther  constructors  cover  making  an ordered set from another ordered set,
+  from  an  iterator,  from a function and an iterator, or from a function, an
+  iterator and a random source.[133X
+  
+  [33X[0;0YAdds [3Xobject[103X to [3Xset[103X. Does nothing if [3Xobject[103X[10Xin[110X[3Xset[103Xset.[133X
+  
+  [1X10.2-11 RemoveSet[101X
+  
+  [33X[1;0Y[29X[2XRemoveSet[102X( [3Xset[103X, [3Xobject[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Y[9X0[109X or [9X1[109X[133X
+  
+  [33X[0;0YRemoves  [3Xobject[103X  from  [3Xset[103X  if  present, and returns the number of copies of
+  [3Xobject[103X  that  were  in  [3Xset[103X,  that  is  [9X0[109X  or  [9X1[109X.  This for consistency with
+  multisets.[133X
+  
+  [1X10.2-12 \in[101X
+  
+  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xset[103X ) [32X operation[133X
+  
+  [33X[0;0YAll  objects  in  IsOrderedSetDS  must  implement \in, which returns [3Xtrue[103X if
+  [3Xobject[103X is present in [3Xset[103X and [9Xfalse[109X otherwise.[133X
+  
+  [1X10.2-13 LessFunction[101X
+  
+  [33X[1;0Y[29X[2XLessFunction[102X( [3Xset[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe binary function to perform the comparison for elements of the set.[133X
+  
+  [1X10.2-14 Size[101X
+  
+  [33X[1;0Y[29X[2XSize[102X( [3Xset[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe number of objects in the set[133X
+  
+  [1X10.2-15 IteratorSorted[101X
+  
+  [33X[1;0Y[29X[2XIteratorSorted[102X( [3Xset[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yiterator[133X
+  
+  [33X[0;0YReturns  an iterator of [3Xset[103X that can be used to iterate through the elements
+  of [3Xset[103X in the order imposed by [2XLessFunction[102X ([14X???LessFunction???[114X).[133X
+  
+  
+  [1X10.3 [33X[0;0YDefault methods[133X[101X
+  
+  [33X[0;0YDefault methods based on [2XIteratorSorted[102X ([14X???IteratorSorted???[114X) are installed
+  for  the following operations and attributes, but can be overridden for data
+  structures that support better algorithms.[133X
+  
+  [1X10.3-1 Iterator[101X
+  
+  [33X[1;0Y[29X[2XIterator[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [1X10.3-2 AsSSortedList[101X
+  
+  [33X[1;0Y[29X[2XAsSSortedList[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-3 AsSortedList[101X
+  
+  [33X[1;0Y[29X[2XAsSortedList[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-4 AsList[101X
+  
+  [33X[1;0Y[29X[2XAsList[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-5 EnumeratorSorted[101X
+  
+  [33X[1;0Y[29X[2XEnumeratorSorted[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-6 Enumerator[101X
+  
+  [33X[1;0Y[29X[2XEnumerator[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-7 IsEmpty[101X
+  
+  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xarg[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  
+  [1X10.3-8 Length[101X
+  
+  [33X[1;0Y[29X[2XLength[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [1X10.3-9 Position[101X
+  
+  [33X[1;0Y[29X[2XPosition[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  
+  [1X10.3-10 PositionSortedOp[101X
+  
+  [33X[1;0Y[29X[2XPositionSortedOp[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  
+  [1X10.3-11 PositionSortedOp[101X
+  
+  [33X[1;0Y[29X[2XPositionSortedOp[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
   

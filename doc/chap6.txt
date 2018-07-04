@@ -1,107 +1,62 @@
   
-  [1X6 [33X[0;0YHashmaps[133X[101X
-  
-  [33X[0;0YA  hash  map  stores  key-value pairs and allows efficient lookup of keys by
-  using a hash function.[133X
-  
-  [33X[0;0Y[5Xdatastructures[105X  currently  provides  a  reference implementation of hashmaps
-  using a hashtable stored in a plain [5XGAP[105X list.[133X
+  [1X6 [33X[0;0YHash Functions[133X[101X
   
   
-  [1X6.1 [33X[0;0YAPI[133X[101X
+  [1X6.1 [33X[0;0YIntroduction[133X[101X
   
-  [1X6.1-1 IsHashMap[101X
+  [33X[0;0YA  hash function in [5Xdatastructures[105X is a function [22XH[122X which maps a value [22XX[122X to a
+  small   integer   (where  a  small  integer  is  an  integer  in  the  range
+  [10X[-2^28..2^28-1][110X on a 32-bit system, and [10X[-2^60..2^60-1][110X on a 64-bit system),
+  under the requirement that if [22XX=Y[122X, then [22XH(X)=H(Y)[122X.[133X
   
-  [33X[1;0Y[29X[2XIsHashMap[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [33X[0;0YA  variety  of  hash functions is provided by [5Xdatastructures[105X, with different
+  behaviours.  A  bad  choice of hash function can lead to serious performance
+  problems.[133X
   
-  [33X[0;0YCategory of hash maps[133X
+  [33X[0;0Y[5Xdatastructures[105X  does not guarantee consistency of hash values across release
+  or [5XGAP[105X sessions.[133X
   
-  [1X6.1-2 HashMap[101X
   
-  [33X[1;0Y[29X[2XHashMap[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X, ]][[3Xcapacity[103X] ) [32X function[133X
+  [1X6.2 [33X[0;0YHash Functions for Basic Types[133X[101X
   
-  [33X[0;0YCreate  a  new  hash  map.  The  optional  argument [3Xhashfunc[103X must be a hash-
-  function  ,  [3Xeqfunc[103X  must be a binary equality testing function that returns
-  [9Xtrue[109X  if  the two arguments are considered equal, and [9Xfalse[109X if they are not.
-  Refer  to  Chapter  [14X5[114X  about the requirements for hashfunctions and equality
-  testers.  The  optional argument [3Xcapacity[103X determines the initial size of the
-  hashmap.[133X
+  [1X6.2-1 HashBasic[101X
   
-  [1X6.1-3 Keys[101X
+  [33X[1;0Y[29X[2XHashBasic[102X( [3Xobj...[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya small integer[133X
   
-  [33X[1;0Y[29X[2XKeys[102X( [3Xh[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Ya list[133X
+  [33X[0;0YHashes any values built inductively from[133X
   
-  [33X[0;0YReturns the list of keys of the hashmap [3Xh[103X.[133X
+  [30X    [33X[0;6Ybuilt-in    types,    namely    integers,    booleans,   permutations,
+        transformations, partial permutations, and[133X
   
-  [1X6.1-4 Values[101X
+  [30X    [33X[0;6Yconstructors for lists and records.[133X
   
-  [33X[1;0Y[29X[2XValues[102X( [3Xh[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Ya list[133X
+  [33X[0;0YThis  function is variadic, treating more than one argument as equivalent to
+  a    list   containing   the   arguments,   that   is   [10XHashBasic(x,y,z)   =
+  HashBasic([x,y,z])[110X.[133X
   
-  [33X[0;0YReturns the set of values stored in the hashmap [3Xh[103X.[133X
   
-  [1X6.1-5 KeyIterator[101X
+  [1X6.3 [33X[0;0YHash Functions for Permutation Groups[133X[101X
   
-  [33X[1;0Y[29X[2XKeyIterator[102X( [3Xh[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yan iterator[133X
+  [33X[0;0Y[5Xdatastructures[105X   provides   two   hash  functions  for  permutation  groups;
+  [2XHash_PermGroup_Fast[102X  ([14X6.3-1[114X)  is  the  faster one, with higher likelihood of
+  collisions  and  [2XHash_PermGroup_Complete[102X  ([14X6.3-2[114X)  is  slower but provides a
+  lower likelihood of collisions.[133X
   
-  [33X[0;0YReturns an interator for the keys stored in the hashmap [3Xh[103X.[133X
+  [1X6.3-1 Hash_PermGroup_Fast[101X
   
-  [1X6.1-6 ValueIterator[101X
+  [33X[1;0Y[29X[2XHash_PermGroup_Fast[102X( [3Xgroup[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya small integer[133X
   
-  [33X[1;0Y[29X[2XValueIterator[102X( [3Xh[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yan iterator[133X
+  [33X[0;0Y[2XHash_PermGroup_Fast[102X is faster than [2XHash_PermGroup_Complete[102X ([14X6.3-2[114X), but will
+  return  the  same  value for groups with the same size, orbits and degree of
+  transitivity.[133X
   
-  [33X[0;0YReturns an interator for the values stored in the hashmap [3Xh[103X.[133X
+  [1X6.3-2 Hash_PermGroup_Complete[101X
   
-  [1X6.1-7 KeyValueIterator[101X
+  [33X[1;0Y[29X[2XHash_PermGroup_Complete[102X( [3Xgroup[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya small integer[133X
   
-  [33X[1;0Y[29X[2XKeyValueIterator[102X( [3Xh[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yan iterator[133X
-  
-  [33X[0;0YReturns an interator for key-value-pairs stored in the hashmap [3Xh[103X.[133X
-  
-  [1X6.1-8 \[\][101X
-  
-  [33X[1;0Y[29X[2X\[\][102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
-  
-  [33X[0;0YList-style access for hashmaps.[133X
-  
-  [1X6.1-9 \[\]\:\=[101X
-  
-  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
-  
-  [33X[0;0YList-style access for hashmaps.[133X
-  
-  [1X6.1-10 \in[101X
-  
-  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
-  
-  [33X[0;0YTest whether a key is stored in the hashmap.[133X
-  
-  [1X6.1-11 IsBound\[\][101X
-  
-  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
-  
-  [33X[0;0YTest whether a key is stored in the hashmap.[133X
-  
-  [1X6.1-12 Unbind\[\][101X
-  
-  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
-  
-  [33X[0;0YDelete a key from a hashmap.[133X
-  
-  [1X6.1-13 Size[101X
-  
-  [33X[1;0Y[29X[2XSize[102X( [3Xhashmap[103X ) [32X function[133X
-  
-  [33X[0;0YDetermine the number of keys stored in a hashmap.[133X
-  
-  [1X6.1-14 IsEmpty[101X
-  
-  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
-  
-  [33X[0;0YTest whether a hashmap is empty.[133X
+  [33X[0;0Y[2XHash_PermGroup_Complete[102X  is  slower than [2XHash_PermGroup_Fast[102X ([14X6.3-1[114X), but is
+  extremely unlikely to return the same hash for two different groups.[133X
   

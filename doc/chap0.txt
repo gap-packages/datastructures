@@ -6,7 +6,7 @@
                 [1X Collection of standard data structures for [5XGAP[105X [101X
   
   
-                                     0.2.0
+                                     0.2.1
   
   
                                   4 July 2018
@@ -93,9 +93,8 @@
     1.2 [33X[0;0YOverview over this manual[133X
     1.3 [33X[0;0YFeedback[133X
   2 [33X[0;0YInstallation[133X
-    2.1 [33X[0;0YRelease version[133X
-    2.2 [33X[0;0YDevelopment version[133X
-    2.3 [33X[0;0YBuilding the documentation[133X
+    2.1 [33X[0;0YBuilding the Kernel Module[133X
+    2.2 [33X[0;0YBuilding the Documentation[133X
   3 [33X[0;0YHeaps[133X
     3.1 [33X[0;0YIntroduction[133X
     3.2 [33X[0;0YAPI[133X
@@ -137,82 +136,94 @@
       4.2-6 PlistDequePeekFront
       4.2-7 PlistDequePeekBack
       4.2-8 PlistDequeExpand
-  5 [33X[0;0YHash Functions[133X
+  5 [33X[0;0YUnion-Find[133X
     5.1 [33X[0;0YIntroduction[133X
-    5.2 [33X[0;0YHash Functions for Basic Types[133X
-      5.2-1 HashBasic
-    5.3 [33X[0;0YHash Functions for Permutation Groups[133X
-      5.3-1 Hash_PermGroup_Fast
-      5.3-2 Hash_PermGroup_Complete
-  6 [33X[0;0YHashmaps[133X
-    6.1 [33X[0;0YAPI[133X
-      6.1-1 IsHashMap
-      6.1-2 HashMap
-      6.1-3 Keys
-      6.1-4 Values
-      6.1-5 KeyIterator
-      6.1-6 ValueIterator
-      6.1-7 KeyValueIterator
-      6.1-8 \[\]
-      6.1-9 \[\]\:\=
-      6.1-10 \in
-      6.1-11 IsBound\[\]
-      6.1-12 Unbind\[\]
-      6.1-13 Size
-      6.1-14 IsEmpty
-  7 [33X[0;0YHashsets[133X
+    5.2 [33X[0;0YAPI[133X
+      5.2-1 IsPartitionDS
+      5.2-2 PartitionDS
+      5.2-3 PartitionDS
+      5.2-4 Representative
+      5.2-5 Unite
+      5.2-6 RootsIteratorOfPartitionDS
+      5.2-7 NumberParts
+      5.2-8 SizeUnderlyingSetDS
+      5.2-9 PartsOfPartitionDS
+  6 [33X[0;0YHash Functions[133X
+    6.1 [33X[0;0YIntroduction[133X
+    6.2 [33X[0;0YHash Functions for Basic Types[133X
+      6.2-1 HashBasic
+    6.3 [33X[0;0YHash Functions for Permutation Groups[133X
+      6.3-1 Hash_PermGroup_Fast
+      6.3-2 Hash_PermGroup_Complete
+  7 [33X[0;0YHashmaps[133X
     7.1 [33X[0;0YAPI[133X
-      7.1-1 IsHashSet
-      7.1-2 HashSet
-      7.1-3 AddSet
-      7.1-4 \in
-      7.1-5 RemoveSet
-      7.1-6 Size
-      7.1-7 IsEmpty
-      7.1-8 Set
-      7.1-9 AsSet
-      7.1-10 Iterator
-  8 [33X[0;0YMemoisation[133X
-    8.1 [33X[0;0YMemoisation with HashMap[133X
-      8.1-1 MemoizeFunction
-  9 [33X[0;0YOrdered Set Datastructures[133X
-    9.1 [33X[0;0YUsage[133X
-    9.2 [33X[0;0YAPI[133X
-      9.2-1 IsOrderedSetDS
-      9.2-2 IsStandardOrderedSetDS
-      9.2-3 OrderedSetDS
-      9.2-4 OrderedSetDS
-      9.2-5 OrderedSetDS
-      9.2-6 OrderedSetDS
-      9.2-7 OrderedSetDS
-      9.2-8 OrderedSetDS
-      9.2-9 OrderedSetDS
-      9.2-10 AddSet
-      9.2-11 RemoveSet
-      9.2-12 \in
-      9.2-13 LessFunction
-      9.2-14 Size
-      9.2-15 IteratorSorted
-    9.3 [33X[0;0YDefault methods[133X
-      9.3-1 Iterator
-      9.3-2 AsSSortedList
-      9.3-3 AsSortedList
-      9.3-4 AsList
-      9.3-5 EnumeratorSorted
-      9.3-6 Enumerator
-      9.3-7 IsEmpty
-      9.3-8 Length
-      9.3-9 Position
-      9.3-10 PositionSortedOp
-      9.3-11 PositionSortedOp
-  10 [33X[0;0YStacks[133X
-    10.1 [33X[0;0YAPI[133X
-      10.1-1 Stack
-      10.1-2 IsStack
-      10.1-3 Push
-      10.1-4 Peek
-      10.1-5 Pop
-      10.1-6 Size
+      7.1-1 IsHashMap
+      7.1-2 HashMap
+      7.1-3 Keys
+      7.1-4 Values
+      7.1-5 KeyIterator
+      7.1-6 ValueIterator
+      7.1-7 KeyValueIterator
+      7.1-8 \[\]
+      7.1-9 \[\]\:\=
+      7.1-10 \in
+      7.1-11 IsBound\[\]
+      7.1-12 Unbind\[\]
+      7.1-13 Size
+      7.1-14 IsEmpty
+  8 [33X[0;0YHashsets[133X
+    8.1 [33X[0;0YAPI[133X
+      8.1-1 IsHashSet
+      8.1-2 HashSet
+      8.1-3 AddSet
+      8.1-4 \in
+      8.1-5 RemoveSet
+      8.1-6 Size
+      8.1-7 IsEmpty
+      8.1-8 Set
+      8.1-9 AsSet
+      8.1-10 Iterator
+  9 [33X[0;0YMemoisation[133X
+    9.1 [33X[0;0YMemoisation with HashMap[133X
+      9.1-1 MemoizeFunction
+  10 [33X[0;0YOrdered Set Datastructures[133X
+    10.1 [33X[0;0YUsage[133X
+    10.2 [33X[0;0YAPI[133X
+      10.2-1 IsOrderedSetDS
+      10.2-2 IsStandardOrderedSetDS
+      10.2-3 OrderedSetDS
+      10.2-4 OrderedSetDS
+      10.2-5 OrderedSetDS
+      10.2-6 OrderedSetDS
+      10.2-7 OrderedSetDS
+      10.2-8 OrderedSetDS
+      10.2-9 OrderedSetDS
+      10.2-10 AddSet
+      10.2-11 RemoveSet
+      10.2-12 \in
+      10.2-13 LessFunction
+      10.2-14 Size
+      10.2-15 IteratorSorted
+    10.3 [33X[0;0YDefault methods[133X
+      10.3-1 Iterator
+      10.3-2 AsSSortedList
+      10.3-3 AsSortedList
+      10.3-4 AsList
+      10.3-5 EnumeratorSorted
+      10.3-6 Enumerator
+      10.3-7 IsEmpty
+      10.3-8 Length
+      10.3-9 Position
+      10.3-10 PositionSortedOp
+      10.3-11 PositionSortedOp
+  11 [33X[0;0YStacks[133X
+    11.1 [33X[0;0YAPI[133X
+      11.1-1 Stack
+      11.1-2 IsStack
+      11.1-3 Push
+      11.1-4 Peek
+      11.1-5 Pop
+      11.1-6 Size
   
   
   [32X

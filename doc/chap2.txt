@@ -1,53 +1,37 @@
   
   [1X2 [33X[0;0YInstallation[133X[101X
   
-  [33X[0;0YThe  release  version  and  the  development  version of the package require
-  slightly  different  processes  for  compilation  of  the kernel module. The
-  package does not work without compiling this module[133X
-  
-  
-  [1X2.1 [33X[0;0YRelease version[133X[101X
-  
-  [33X[0;0YTo  install  this package, extract the package's archive file into [5XGAP[105X's [11Xpkg[111X
-  folder.[133X
-  
-        ./configure
-        make
-      
-  
-  [33X[0;0YThe  [5Xdatastructures[105X is not loaded by [5XGAP[105X by default. To load the package run
+  [33X[0;0Y[5Xdatastructures[105X does not work without compiling its kernel module, and is not
+  loaded    by    [5XGAP[105X    by    default.    To    load    the    package    run
   [10XLoadPackage("datastructures");[110X at the [5XGAP[105X prompt.[133X
   
   
-  [1X2.2 [33X[0;0YDevelopment version[133X[101X
+  [1X2.1 [33X[0;0YBuilding the Kernel Module[133X[101X
   
-  [33X[0;0YTo  build the a development version of the package, first obtain the sources
-  from github[133X
-  
-        git clone https://github.com/gap-packages/datastructures
-      
-  
-  [33X[0;0YInstall  the  required  dependencies.  If  you  are also using a development
-  version  of  [5XGAP[105X,  then  you will have already installed them as part of its
-  compilation process.[133X
+  [33X[0;0YTo build the kernel module, you will need[133X
   
   [30X    [33X[0;6Ya C compiler, e.g. GCC or Clang[133X
   
   [30X    [33X[0;6YGNU Make[133X
   
-  [30X    [33X[0;6YGNU Autoconf (we recommend 2.69 or later)[133X
+  [33X[0;0YTo  install a released version of this package, either extract the package's
+  archive file into [5XGAP[105X's [11Xpkg[111X folder.[133X
   
-  [30X    [33X[0;6YGNU Libtool[133X
+  [33X[0;0YTo  install the current development version of this package, obtain the most
+  recent code from [12XGitHub[112X[133X
   
-  [33X[0;0YTo build the kernel module then run the following commands.[133X
+        git clone https://github.com/gap-packages/datastructures
+      
   
-        sh autogen.sh
+  [33X[0;0YTo  build the kernel module then run the following commands in the package's
+  directory.[133X
+  
         ./configure
         make
       
   
   
-  [1X2.3 [33X[0;0YBuilding the documentation[133X[101X
+  [1X2.2 [33X[0;0YBuilding the Documentation[133X[101X
   
   [33X[0;0YTo  build  the  package  documentation,  run  the  following  command in the
   package's directory[133X

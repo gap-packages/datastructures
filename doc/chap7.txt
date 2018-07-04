@@ -1,84 +1,107 @@
   
-  [1X7 [33X[0;0YHashsets[133X[101X
+  [1X7 [33X[0;0YHashmaps[133X[101X
   
-  [33X[0;0YA  hash  set stores objects and allows efficient lookup whether an object is
-  already a member of the set.[133X
+  [33X[0;0YA  hash  map  stores  key-value pairs and allows efficient lookup of keys by
+  using a hash function.[133X
   
-  [33X[0;0Y[5Xdatastructures[105X  currently  provides  a  reference implementation of hashsets
+  [33X[0;0Y[5Xdatastructures[105X  currently  provides  a  reference implementation of hashmaps
   using a hashtable stored in a plain [5XGAP[105X list.[133X
   
   
   [1X7.1 [33X[0;0YAPI[133X[101X
   
-  [1X7.1-1 IsHashSet[101X
+  [1X7.1-1 IsHashMap[101X
   
-  [33X[1;0Y[29X[2XIsHashSet[102X( [3Xarg[103X ) [32X filter[133X
+  [33X[1;0Y[29X[2XIsHashMap[102X( [3Xarg[103X ) [32X filter[133X
   [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YCategory of hashsets[133X
+  [33X[0;0YCategory of hash maps[133X
   
-  [1X7.1-2 HashSet[101X
+  [1X7.1-2 HashMap[101X
   
-  [33X[1;0Y[29X[2XHashSet[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X, ]][[3Xcapacity[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XHashMap[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X, ]][[3Xcapacity[103X] ) [32X function[133X
   
-  [33X[0;0YCreate  a  new  hashset.  The  optional  argument  [3Xhashfunc[103X  must be a hash-
-  function,  [3Xeqfunc[103X  must  be  a binary equality testing function that returns
+  [33X[0;0YCreate  a  new  hash  map.  The  optional  argument [3Xhashfunc[103X must be a hash-
+  function  ,  [3Xeqfunc[103X  must be a binary equality testing function that returns
   [9Xtrue[109X  if  the two arguments are considered equal, and [9Xfalse[109X if they are not.
-  Refer  to  Chapter  [14X5[114X  about the requirements for hashfunctions and equality
+  Refer  to  Chapter  [14X6[114X  about the requirements for hashfunctions and equality
   testers.  The  optional argument [3Xcapacity[103X determines the initial size of the
   hashmap.[133X
   
-  [1X7.1-3 AddSet[101X
+  [1X7.1-3 Keys[101X
   
-  [33X[1;0Y[29X[2XAddSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XKeys[102X( [3Xh[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Ya list[133X
   
-  [33X[0;0YAdd [3Xobj[103X to [3Xhashset[103X.[133X
+  [33X[0;0YReturns the list of keys of the hashmap [3Xh[103X.[133X
   
-  [1X7.1-4 \in[101X
+  [1X7.1-4 Values[101X
   
-  [33X[1;0Y[29X[2X\in[102X( [3Xobj[103X, [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XValues[102X( [3Xh[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Ya list[133X
   
-  [33X[0;0YTest membership of [3Xobj[103X in [3Xhashset[103X[133X
+  [33X[0;0YReturns the set of values stored in the hashmap [3Xh[103X.[133X
   
-  [1X7.1-5 RemoveSet[101X
+  [1X7.1-5 KeyIterator[101X
   
-  [33X[1;0Y[29X[2XRemoveSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X function[133X
-  
-  [33X[0;0YRemove [3Xobj[103X from [3Xhashset[103X.[133X
-  
-  [1X7.1-6 Size[101X
-  
-  [33X[1;0Y[29X[2XSize[102X( [3Xhashset[103X ) [32X function[133X
-  
-  [33X[0;0YReturn the size of a hashset Returns an integer[133X
-  
-  [1X7.1-7 IsEmpty[101X
-  
-  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xhashset[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya boolean[133X
-  
-  [33X[0;0YTest a hashset for emptiness.[133X
-  
-  [1X7.1-8 Set[101X
-  
-  [33X[1;0Y[29X[2XSet[102X( [3Xhashset[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya set[133X
-  
-  [33X[0;0YConvert a hashset into a [5XGAP[105X set[133X
-  
-  [1X7.1-9 AsSet[101X
-  
-  [33X[1;0Y[29X[2XAsSet[102X( [3Xhashset[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan immutable set[133X
-  
-  [33X[0;0YConvert a hashset into a [5XGAP[105X set[133X
-  
-  [1X7.1-10 Iterator[101X
-  
-  [33X[1;0Y[29X[2XIterator[102X( [3Xset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XKeyIterator[102X( [3Xh[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan iterator[133X
   
-  [33X[0;0YCreate an iterator for the values contained in a hashset. Note that elements
-  added to the hashset after the creation of an iterator are not guaranteed to
-  be returned by that iterator.[133X
+  [33X[0;0YReturns an interator for the keys stored in the hashmap [3Xh[103X.[133X
+  
+  [1X7.1-6 ValueIterator[101X
+  
+  [33X[1;0Y[29X[2XValueIterator[102X( [3Xh[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yan iterator[133X
+  
+  [33X[0;0YReturns an interator for the values stored in the hashmap [3Xh[103X.[133X
+  
+  [1X7.1-7 KeyValueIterator[101X
+  
+  [33X[1;0Y[29X[2XKeyValueIterator[102X( [3Xh[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yan iterator[133X
+  
+  [33X[0;0YReturns an interator for key-value-pairs stored in the hashmap [3Xh[103X.[133X
+  
+  [1X7.1-8 \[\][101X
+  
+  [33X[1;0Y[29X[2X\[\][102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
+  
+  [33X[0;0YList-style access for hashmaps.[133X
+  
+  [1X7.1-9 \[\]\:\=[101X
+  
+  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
+  
+  [33X[0;0YList-style access for hashmaps.[133X
+  
+  [1X7.1-10 \in[101X
+  
+  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  
+  [33X[0;0YTest whether a key is stored in the hashmap.[133X
+  
+  [1X7.1-11 IsBound\[\][101X
+  
+  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  
+  [33X[0;0YTest whether a key is stored in the hashmap.[133X
+  
+  [1X7.1-12 Unbind\[\][101X
+  
+  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  
+  [33X[0;0YDelete a key from a hashmap.[133X
+  
+  [1X7.1-13 Size[101X
+  
+  [33X[1;0Y[29X[2XSize[102X( [3Xhashmap[103X ) [32X function[133X
+  
+  [33X[0;0YDetermine the number of keys stored in a hashmap.[133X
+  
+  [1X7.1-14 IsEmpty[101X
+  
+  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  
+  [33X[0;0YTest whether a hashmap is empty.[133X
   

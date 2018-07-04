@@ -1,62 +1,79 @@
   
-  [1X5 [33X[0;0YHash Functions[133X[101X
+  [1X5 [33X[0;0YUnion-Find[133X[101X
   
   
   [1X5.1 [33X[0;0YIntroduction[133X[101X
   
-  [33X[0;0YA  hash function in [5Xdatastructures[105X is a function [22XH[122X which maps a value [22XX[122X to a
-  small   integer   (where  a  small  integer  is  an  integer  in  the  range
-  [10X[-2^28..2^28-1][110X on a 32-bit system, and [10X[-2^60..2^60-1][110X on a 64-bit system),
-  under the requirement that if [22XX=Y[122X, then [22XH(X)=H(Y)[122X.[133X
-  
-  [33X[0;0YA  variety  of  hash functions is provided by [5Xdatastructures[105X, with different
-  behaviours.  A  bad  choice of hash function can lead to serious performance
-  problems.[133X
-  
-  [33X[0;0Y[5Xdatastructures[105X  does not guarantee consistency of hash values across release
-  or [5XGAP[105X sessions.[133X
+  [33X[0;0Y[5Xdatastructures[105X   defines   the   interface   for   mutable  data  structures
+  representing  partitions  of  [10X[1..n][110X,  commonly  known  as  union-find  data
+  structures.  Key  operations  are  [2XUnite[102X  ([14X5.2-5[114X) which fuses two parts of a
+  partition   and   [2XRepresentative[102X   ([14X5.2-4[114X)   which   returns   a   canonical
+  representative of the part containing a given point.[133X
   
   
-  [1X5.2 [33X[0;0YHash Functions for Basic Types[133X[101X
+  [1X5.2 [33X[0;0YAPI[133X[101X
   
-  [1X5.2-1 HashBasic[101X
+  [1X5.2-1 IsPartitionDS[101X
   
-  [33X[1;0Y[29X[2XHashBasic[102X( [3Xobj...[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya small integer[133X
+  [33X[1;0Y[29X[2XIsPartitionDS[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YHashes any values built inductively from[133X
+  [33X[0;0YCategory of datastructures representing partitions. Equality is identity and
+  family is ignored.[133X
   
-  [30X    [33X[0;6Ybuilt-in    types,    namely    integers,    booleans,   permutations,
-        transformations, partial permutations, and[133X
+  [1X5.2-2 PartitionDS[101X
   
-  [30X    [33X[0;6Yconstructors for lists and records.[133X
+  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xn[103X ) [32X operation[133X
   
-  [33X[0;0YThis  function is variadic, treating more than one argument as equivalent to
-  a    list   containing   the   arguments,   that   is   [10XHashBasic(x,y,z)   =
-  HashBasic([x,y,z])[110X.[133X
+  [33X[0;0YFamily   containing  all  partition  data  structures  Returns  the  trivial
+  partition of the set [10X[1..n][110X.[133X
   
+  [1X5.2-3 PartitionDS[101X
   
-  [1X5.3 [33X[0;0YHash Functions for Permutation Groups[133X[101X
+  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xpartition[103X ) [32X operation[133X
   
-  [33X[0;0Y[5Xdatastructures[105X   provides   two   hash  functions  for  permutation  groups;
-  [2XHash_PermGroup_Fast[102X  ([14X5.3-1[114X)  is  the  faster one, with higher likelihood of
-  collisions  and  [2XHash_PermGroup_Complete[102X  ([14X5.3-2[114X)  is  slower but provides a
-  lower likelihood of collisions.[133X
+  [33X[0;0YReturns the union find structure of [3Xpartition[103X.[133X
   
-  [1X5.3-1 Hash_PermGroup_Fast[101X
+  [1X5.2-4 Representative[101X
   
-  [33X[1;0Y[29X[2XHash_PermGroup_Fast[102X( [3Xgroup[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya small integer[133X
+  [33X[1;0Y[29X[2XRepresentative[102X( [3Xunionfind[103X, [3Xk[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Ya positive integer[133X
   
-  [33X[0;0Y[2XHash_PermGroup_Fast[102X is faster than [2XHash_PermGroup_Complete[102X ([14X5.3-2[114X), but will
-  return  the  same  value for groups with the same size, orbits and degree of
-  transitivity.[133X
+  [33X[0;0YReturns  a  canonical  representative of the part of the partition that [3Xk[103X is
+  contained in.[133X
   
-  [1X5.3-2 Hash_PermGroup_Complete[101X
+  [1X5.2-5 Unite[101X
   
-  [33X[1;0Y[29X[2XHash_PermGroup_Complete[102X( [3Xgroup[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya small integer[133X
+  [33X[1;0Y[29X[2XUnite[102X( [3Xunionfind[103X, [3Xk1[103X, [3Xk2[103X ) [32X operation[133X
   
-  [33X[0;0Y[2XHash_PermGroup_Complete[102X  is  slower than [2XHash_PermGroup_Fast[102X ([14X5.3-1[114X), but is
-  extremely unlikely to return the same hash for two different groups.[133X
+  [33X[0;0YFuses the parts of the paritition [3Xunionfind[103X containing [3Xk1[103X and [3Xk2[103X.[133X
+  
+  [1X5.2-6 RootsIteratorOfPartitionDS[101X
+  
+  [33X[1;0Y[29X[2XRootsIteratorOfPartitionDS[102X( [3Xunionfind[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yan iterator[133X
+  
+  [33X[0;0YReturns  an iterator that runs through canonical representatives of parts of
+  the partition [3Xunionfind[103X.[133X
+  
+  [1X5.2-7 NumberParts[101X
+  
+  [33X[1;0Y[29X[2XNumberParts[102X( [3Xunionfind[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya positive integer[133X
+  
+  [33X[0;0YReturns the number of parts of the partition [3Xunionfind[103X.[133X
+  
+  [1X5.2-8 SizeUnderlyingSetDS[101X
+  
+  [33X[1;0Y[29X[2XSizeUnderlyingSetDS[102X( [3Xunionfind[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya positive integer[133X
+  
+  [33X[0;0YReturns the size of the underlying set of the partition [3Xunionfind[103X.[133X
+  
+  [1X5.2-9 PartsOfPartitionDS[101X
+  
+  [33X[1;0Y[29X[2XPartsOfPartitionDS[102X( [3Xunionfind[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of lists[133X
+  
+  [33X[0;0YReturns the partition [3Xunionfind[103X as a list of lists.[133X
   

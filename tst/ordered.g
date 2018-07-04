@@ -52,6 +52,10 @@ osdsworkout := function(s, l1, l2)
             Error("Wrong object");
             return false;            
         fi;
+        if s[count] <> x then
+            Error("Wrong object");
+            return false;
+        fi;
         count := count+1;        
     od;
     if count <> Length(sl1) + 1 then

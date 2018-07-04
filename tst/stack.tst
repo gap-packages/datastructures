@@ -22,6 +22,8 @@ true
 # Pop
 gap> Pop(s);
 fail
+gap> Peek(s);
+fail
 
 # Push & Peek
 gap> Push(s, 15);

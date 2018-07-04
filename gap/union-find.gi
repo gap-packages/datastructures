@@ -9,7 +9,7 @@
 ##
 
 #! @Chapter Union-Find
-#! @Section First implementation
+#! @Section Implementation
 
 DeclareRepresentation("IsPartitionDSRep", IsComponentObjectRep,[]);
 UF := rec();

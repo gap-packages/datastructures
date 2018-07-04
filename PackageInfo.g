@@ -1,7 +1,7 @@
 ##
 ##  Datastructures: GAP package providing common datastructures.
 ##
-##  Copyright (C) 2015-2017  The datastructures team.
+##  Copyright (C) 2015-2018  The datastructures team.
 ##  For list of the team members, please refer to the COPYRIGHT file.
 ##
 ##  This package is licensed under the GPL 2 or later, please refer
@@ -11,8 +11,8 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.1.3",
-Date := "19/06/2018",
+Version := "0.2.0",
+Date := "04/07/2018",
 
 Persons := [
   rec(
@@ -84,8 +84,8 @@ Persons := [
 
 Status := "dev",
 
-SourceRepository := rec( 
-  Type := "git", 
+SourceRepository := rec(
+  Type := "git",
   URL := "https://github.com/gap-packages/datastructures"
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
@@ -122,7 +122,13 @@ Dependencies := rec(
   ExternalConditions := []
 ),
 
-AvailabilityTest := ReturnTrue,
+AvailabilityTest := function()
+  if (not ("datastructures" in SHOW_STAT())) and
+     (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") = fail) then
+     return fail;
+  fi;
+  return true;
+end,
 
 TestFile := "tst/testall.g",
 
@@ -131,15 +137,15 @@ Keywords := ["data structures", "algorithms"],
 AutoDoc := rec(
     TitlePage := rec(
         Copyright :=
-"""&copyright; 2015-17 by Chris Jefferson, Markus Pfeiffer, Max Horn, Reimer Behrends and others<P/>
-&datastructures; package is free software; 
-you can redistribute it and/or modify it under the terms of the 
-<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL> 
-as published by the Free Software Foundation; either version 2 of the License, 
+"""&copyright; 2015-18 by Chris Jefferson, Steve Linton, Markus Pfeiffer, Max Horn, Reimer Behrends and others<P/>
+&datastructures; package is free software;
+you can redistribute it and/or modify it under the terms of the
+<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+as published by the Free Software Foundation; either version 2 of the License,
 or (at your option) any later version.""",
         Acknowledgements :=
-"""We appreciate very much all past and future comments, suggestions and 
-contributions to this package and its documentation provided by &GAP; 
+"""We appreciate very much all past and future comments, suggestions and
+contributions to this package and its documentation provided by &GAP;
 users and developers.""",
     ),
 ),

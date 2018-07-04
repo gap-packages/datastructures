@@ -1,22 +1,185 @@
   
-  [1X4 [33X[0;0YHashmaps[133X[101X
-  
-  [33X[0;0YA  hash  map  stores  key-value pairs and allows efficient lookup of keys by
-  using a hash function.[133X
+  [1X4 [33X[0;0YQueues and Deques[133X[101X
   
   
   [1X4.1 [33X[0;0YAPI[133X[101X
   
-  [1X4.1-1 IsHashMap[101X
+  [1X4.1-1 IsQueue[101X
   
-  [33X[1;0Y[29X[2XIsHashMap[102X( [3Xarg[103X ) [32X filter[133X
+  [33X[1;0Y[29X[2XIsQueue[102X( [3Xarg[103X ) [32X filter[133X
   [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YCategory of hash maps[133X
+  [33X[0;0YThe category of queues.[133X
   
-  [33X[0;0YArguments [hashfunc[, eqfunc]] [capacity] Create a new hash map.[133X
+  [1X4.1-2 IsDeque[101X
   
-  [1X4.1-2 HashMap[101X
+  [33X[1;0Y[29X[2XIsDeque[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[1;0Y[29X[2XHashMap[102X( [3Xarg[103X ) [32X function[133X
+  [33X[0;0YThe category of deques.[133X
+  
+  [1X4.1-3 PushBack[101X
+  
+  [33X[1;0Y[29X[2XPushBack[102X( [3Xdeque[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0YAdd [3Xobject[103X to the back of [3Xdeque[103X.[133X
+  
+  [1X4.1-4 PushFront[101X
+  
+  [33X[1;0Y[29X[2XPushFront[102X( [3Xdeque[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0YAdd [3Xobject[103X to the front of [3Xdeque[103X.[133X
+  
+  [1X4.1-5 PopBack[101X
+  
+  [33X[1;0Y[29X[2XPopBack[102X( [3Xdeque[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yobject[133X
+  
+  [33X[0;0YRemove an element from the back of [3Xdeque[103X and return it.[133X
+  
+  [1X4.1-6 PopFront[101X
+  
+  [33X[1;0Y[29X[2XPopFront[102X( [3Xdeque[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yobject[133X
+  
+  [33X[0;0YRemove an element from the front of [3Xdeque[103X and return it.[133X
+  
+  [33X[0;0YFor queues, this is just an alias for PushBack[133X
+  
+  [1X4.1-7 Enqueue[101X
+  
+  [33X[1;0Y[29X[2XEnqueue[102X( [3Xqueue[103X, [3Xobject[103X ) [32X operation[133X
+  
+  [33X[0;0YAdd [3Xobject[103X to [3Xqueue[103X.[133X
+  
+  [1X4.1-8 Dequeue[101X
+  
+  [33X[1;0Y[29X[2XDequeue[102X( [3Xqueue[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Yobject[133X
+  
+  [33X[0;0YRemove an object from the front of [3Xqueue[103X and return it.[133X
+  
+  [1X4.1-9 Capacity[101X
+  
+  [33X[1;0Y[29X[2XCapacity[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YAllocated storage capacity of [3Xqueue[103X.[133X
+  
+  [1X4.1-10 Capacity[101X
+  
+  [33X[1;0Y[29X[2XCapacity[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YAllocated storage capacity of [3Xdeque[103X.[133X
+  
+  [1X4.1-11 Length[101X
+  
+  [33X[1;0Y[29X[2XLength[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YNumber of elements in [3Xqueue[103X.[133X
+  
+  [1X4.1-12 Length[101X
+  
+  [33X[1;0Y[29X[2XLength[102X( [3Xarg[103X ) [32X attribute[133X
+  
+  [33X[0;0YNumber of elements in [3Xdeque[103X.[133X
+  
+  
+  [1X4.2 [33X[0;0YDeques implemented using plain lists[133X[101X
+  
+  [33X[0;0Y[5Xdatastructures[105X  implements  deques using a circular buffer stored in a [5XGAP[105X a
+  plain   list,   wrapped   in   a  positional  object  ([2XIsPositionalObjectRep[102X
+  ([14XIsPositionalObjectRep???[114X)).[133X
+  
+  [33X[0;0YThe five positions in such a deque [10XQ[110X have the following purpose[133X
+  
+  [30X    [33X[0;6Y[10XQ![1][110X - head, the index in [10XQ![5][110X of the first element in the deque[133X
+  
+  [30X    [33X[0;6Y[10XQ![2][110X - tail, the index in [10XQ![5][110X of the last element in the deque[133X
+  
+  [30X    [33X[0;6Y[10XQ![3][110X - capacity, the allocated capacity in the deque[133X
+  
+  [30X    [33X[0;6Y[10XQ![4][110X - factor by which storage is increased if capacity is exceeded[133X
+  
+  [30X    [33X[0;6Y[10XQ![5][110X - GAP plain list with storage for capacity many entries[133X
+  
+  [33X[0;0YGlobal  constants  [9XQHEAD[109X,  [9XQTAIL[109X, [9XQCAPACITY[109X, [9XQFACTOR[109X, and [9XQDATA[109X are bound to
+  reflect the above.[133X
+  
+  [33X[0;0YWhen  a push fills the deque, its capacity is resized by a factor of [9XQFACTOR[109X
+  using  PlistDequeExpand.  A  new  empty  plist  is allocated and all current
+  entries  of  the  deque are copied into the new plist with the head entry at
+  index 1.[133X
+  
+  [33X[0;0YThe  deque  is  empty if and only if head = tail and the entry that head and
+  tail point to in the storage list is unbound.[133X
+  
+  [1X4.2-1 PlistDeque[101X
+  
+  [33X[1;0Y[29X[2XPlistDeque[102X( [[3Xcapacity[103X[, [3Xfactor[103X]] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya deque[133X
+  
+  [33X[0;0YConstructor  for plist based deques. The optinal argument [3Xcapacity[103X must be a
+  positive  integer and is the capacity of the created deque, and the optional
+  argument  [3Xfactor[103X  must  be  a  rational number greater than one which is the
+  factor  by  which  the  storage  of the deque is increased if it runs out of
+  capacity when an object is put on the queue.[133X
+  
+  [1X4.2-2 PlistDequePushFront[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePushFront[102X( [3Xdeque[103X, [3Xobject[103X ) [32X function[133X
+  
+  [33X[0;0YPush [3Xobject[103X to the front of [3Xdeque[103X.[133X
+  
+  [1X4.2-3 PlistDequePushBack[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePushBack[102X( [3Xdeque[103X, [3Xobject[103X ) [32X function[133X
+  
+  [33X[0;0YPush [3Xobject[103X to the back of [3Xdeque[103X.[133X
+  
+  [1X4.2-4 PlistDequePopFront[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePopFront[102X( [3Xdeque[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yobject or fail[133X
+  
+  [33X[0;0YPop object from the front of [3Xdeque[103X and return it. If [3Xdeque[103X is empty, returns
+  [9Xfail[109X.[133X
+  
+  [1X4.2-5 PlistDequePopBack[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePopBack[102X( [3Xdeque[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yobject or fail[133X
+  
+  [33X[0;0YPop  object from the back of [3Xdeque[103X and return it. If [3Xdeque[103X is empty, returns
+  [9Xfail[109X.[133X
+  
+  [1X4.2-6 PlistDequePeekFront[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePeekFront[102X( [3Xdeque[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yobject or fail[133X
+  
+  [33X[0;0YReturns  the  object  at  the  front  [3Xdeque[103X without removing it. If [3Xdeque[103X is
+  empty, returns [9Xfail[109X.[133X
+  
+  [1X4.2-7 PlistDequePeekBack[101X
+  
+  [33X[1;0Y[29X[2XPlistDequePeekBack[102X( [3Xdeque[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yobject or fail[133X
+  
+  [33X[0;0YReturns the object at the back [3Xdeque[103X without removing it. If [3Xdeque[103X is empty,
+  returns [9Xfail[109X.[133X
+  
+  [1X4.2-8 PlistDequeExpand[101X
+  
+  [33X[1;0Y[29X[2XPlistDequeExpand[102X( [3Xdeque[103X ) [32X function[133X
+  
+  [33X[0;0YHelper function to expand the capacity of [3Xdeque[103X by the configured factor.[133X
+  
+  [33X[0;0Y[13XQueues[113X  are  linear  data structure that allow adding elements at the end of
+  the  queue,  and removing elements from the front. A [13Xdeque[113X is a [13Xdouble-ended
+  queue[113X; a linear data structure that allows access to objects at both ends.[133X
+  
+  [33X[0;0YThe  API  that  objects  that  lie  in  [2XIsQueue[102X  ([14X???IsQueue???[114X) and [2XIsDeque[102X
+  ([14X???IsDeque???[114X) must implement the API set out below.[133X
+  
+  [33X[0;0Y[5Xdatastructures[105X provides[133X
   

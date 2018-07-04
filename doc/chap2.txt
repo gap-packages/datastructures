@@ -1,70 +1,57 @@
   
-  [1X2 [33X[0;0YHeaps[133X[101X
+  [1X2 [33X[0;0YInstallation[133X[101X
+  
+  [33X[0;0YThe  release  version  and  the  development  version of the package require
+  slightly  different  processes  for  compilation  of  the kernel module. The
+  package does not work without compiling this module[133X
   
   
-  [1X2.1 [33X[0;0YBinary heaps[133X[101X
+  [1X2.1 [33X[0;0YRelease version[133X[101X
   
-  [33X[0;0YA binary heap is a special kind of heap. TODO[133X
+  [33X[0;0YTo  install  this package, extract the package's archive file into [5XGAP[105X's [11Xpkg[111X
+  folder.[133X
   
-  [33X[0;0YA  heap is a tree datastructure that stores items that can be compared using
-  an  ordering  relation  [23X\leq[123X  such that for any child [23XC[123X of a node [23XN[123X it holds
-  that [23XC \leq N[123X.[133X
+        ./configure
+        make
+      
   
-  [33X[0;0YThe fundamental operations for heaps are Construction, [10XPush[110Xing data onto the
-  heap  [10XPeek[110Xing  at  the topmost item, and [10XPop[110Xping the topmost item off of the
-  heap.[133X
-  
-  [33X[0;0YFor  a  good  heap  implementation  these basic operations should not exceed
-  [23XO(\log n)[123X in runtime where [23Xn[123X is the number of items on the heap.[133X
-  
-  [33X[0;0YTODO   We   give   theoretical   bounds   for  our  implementations  in  the
-  documentation, and provide some test evidence.[133X
+  [33X[0;0YThe  [5Xdatastructures[105X is not loaded by [5XGAP[105X by default. To load the package run
+  [10XLoadPackage("datastructures");[110X at the [5XGAP[105X prompt.[133X
   
   
-  [1X2.2 [33X[0;0YUsage[133X[101X
+  [1X2.2 [33X[0;0YDevelopment version[133X[101X
   
-  [33X[0;0Ygap>  h  :=  BinaryHeap(); gap> Push(h, 5); gap> Push(h, -10); gap> Peek(h);
-  gap> Pop(h);[133X
+  [33X[0;0YTo  build the a development version of the package, first obtain the sources
+  from github[133X
   
-  [33X[0;0Ygap> h := PairingHeap( {x,y} -> x.rank > y.rank ); gap> Push(h, rec( rank :=
-  5 )); gap> Push(h, rec( rank := 7 )); gap> Push(h, rec( rank := -15 )); gap>
-  Pop(h);[133X
+        git clone https://github.com/gap-packages/datastructures
+      
+  
+  [33X[0;0YInstall  the  required  dependencies.  If  you  are also using a development
+  version  of  [5XGAP[105X,  then  you will have already installed them as part of its
+  compilation process.[133X
+  
+  [30X    [33X[0;6Ya C compiler, e.g. GCC or Clang[133X
+  
+  [30X    [33X[0;6YGNU Make[133X
+  
+  [30X    [33X[0;6YGNU Autoconf (we recommend 2.69 or later)[133X
+  
+  [30X    [33X[0;6YGNU Libtool[133X
+  
+  [33X[0;0YTo build the kernel module then run the following commands.[133X
+  
+        sh autogen.sh
+        ./configure
+        make
+      
   
   
-  [1X2.3 [33X[0;0YAPI[133X[101X
+  [1X2.3 [33X[0;0YBuilding the documentation[133X[101X
   
-  [33X[0;0YEvery  implementation  of  a  heap  must  follow  the  API described in this
-  section.[133X
+  [33X[0;0YTo  build  the  package  documentation,  run  the  following  command in the
+  package's directory[133X
   
-  [1X2.3-1 IsHeap[101X
-  
-  [33X[1;0Y[29X[2XIsHeap[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
-  
-  [33X[0;0YCategory of heaps[133X
-  
-  [1X2.3-2 Push[101X
-  
-  [33X[1;0Y[29X[2XPush[102X( [3Xheap[103X, [3Xobject[103X ) [32X operation[133X
-  
-  [33X[0;0YThrows the object [3Xobject[103X a new object onto [3Xheap[103X.[133X
-  
-  [1X2.3-3 Peek[101X
-  
-  [33X[1;0Y[29X[2XPeek[102X( [3Xheap[103X ) [32X operation[133X
-  
-  [33X[0;0YInspect the item at the top of [3Xheap[103X.[133X
-  
-  [1X2.3-4 Pop[101X
-  
-  [33X[1;0Y[29X[2XPop[102X( [3Xheap[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Yan object[133X
-  
-  [33X[0;0YRemove the top item from [3Xheap[103X and return it.[133X
-  
-  [1X2.3-5 Merge[101X
-  
-  [33X[1;0Y[29X[2XMerge[102X( [3Xheap1[103X, [3Xheap2[103X ) [32X operation[133X
-  
-  [33X[0;0YMerge two heaps (of the same type)[133X
+        gap makedog.g
+      
   

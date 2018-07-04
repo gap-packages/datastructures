@@ -2,40 +2,98 @@
   
   [1XIndex[101X
   
-  [2X\in[102X, for IsObject, IsOrderedSetDS 6.2-7 
-  [2XAddSet[102X, for IsOrderedSetDS and IsMutable, IsObject 6.2-5 
-  [2XCapacity[102X, for IsQueue 7.1-8 
-  [2XHash_PermGroup_Complete[102X 3.2-3 
-  [2XHash_PermGroup_Fast[102X 3.2-2 
-  [2XHashBasic[102X 3.2-1 
-  [2XHashMap[102X 4.1-2 
-  [2XHashSet[102X 5.1-2 
-  [2XIsHashMap[102X, for IsObject and IsFinite 4.1-1 
-  [2XIsHashSet[102X, for IsObject and IsFinite 5.1-1 
-  [2XIsHeap[102X, for IsObject 2.3-1 
-  [2XIsQueue[102X, for IsObject 7.1-1 
-  [2XIsStack[102X, for IsObject 8.1-1 
-  [2XIteratorSorted[102X, for IsOrderedSetDS 6.2-10 
-  [2XLessFunction[102X, for IsOrderedSetDS 6.2-8 
-  [2XMerge[102X, for IsHeap, IsHeap 2.3-5 
-  [2XOrderedSetDS[102X, for IsOrderedSetDS, IsFunction, IsIterator 6.2-3 
-      for IsOrderedSetDS, IsFunction, IsIterator, IsRandomSource 6.2-4 
-      for IsOrderedSetDS, IsIterator 6.2-2 
-      for IsOrderedSetDS, IsOrderedSetDS 6.2-1 
-  [2XPeek[102X, for IsHeap 2.3-3 
-      for IsStack 8.1-3 
-  [2XPop[102X, for IsHeap 2.3-4 
-      for IsQueue 7.1-7 
-      for IsStack 8.1-4 
-  [2XPopBack[102X, for IsQueue 7.1-5 
-  [2XPopFront[102X, for IsQueue 7.1-6 
-  [2XPush[102X, for IsHeap, IsObject 2.3-2 
-      for IsQueue, IsObject 7.1-4 
-      for IsStack, IsObject 8.1-2 
-  [2XPushBack[102X, for IsQueue, IsObject 7.1-2 
-  [2XPushFront[102X, for IsQueue, IsObject 7.1-3 
-  [2XRemoveSet[102X, for IsOrderedSetDS and IsMutable, IsObject 6.2-6 
-  [2XSize[102X, for IsOrderedSetDS 6.2-9 
+  [2X\[\][102X, for \ 6.1-8 
+  [2X\[\]\:\=[102X, for \ 6.1-9 
+  [2X\in[102X, for IsObject, IsHashMapRep 6.1-10 
+      for IsObject, IsHashSetRep 7.1-4 
+      for IsObject, IsOrderedSetDS 9.2-12 
+  [2XAddSet[102X, for IsHashSetRep, IsObject 7.1-3 
+      for IsOrderedSetDS and IsMutable, IsObject 9.2-10 
+  [2XAsList[102X, for IsOrderedSetDS 9.3-4 
+  [2XAsSet[102X, for IsHashSetRep 7.1-9 
+  [2XAsSortedList[102X, for IsOrderedSetDS 9.3-3 
+  [2XAsSSortedList[102X, for IsOrderedSetDS 9.3-2 
+  [2XBinaryHeap[102X 3.3-1 
+  [2XCapacity[102X, for IsDeque 4.1-10 
+      for IsQueue 4.1-9 
+  [5Xdatastructures[105X 2. 
+  [2XDequeue[102X, for IsQueue, IsObject 4.1-8 
+  [2XEnqueue[102X, for IsQueue, IsObject 4.1-7 
+  [2XEnumerator[102X, for IsOrderedSetDS 9.3-6 
+  [2XEnumeratorSorted[102X, for IsOrderedSetDS 9.3-5 
+  [2XHash_PermGroup_Complete[102X 5.3-2 
+  [2XHash_PermGroup_Fast[102X 5.3-1 
+  [2XHashBasic[102X 5.2-1 
+  [2XHashMap[102X 6.1-2 
+  [2XHashSet[102X 7.1-2 
+  [2XHeap[102X 3.2-2 
+  [2XIsBinaryHeapFlatRep[102X, for IsHeap and IsPositionalObjectRep 3.5-1 
+  [2XIsBound\[\][102X, for \ 6.1-11 
+  [2XIsDeque[102X, for IsObject 4.1-2 
+  [2XIsEmpty[102X, for IsHashMapRep 6.1-14 
+      for IsHashSetRep 7.1-7 
+      for IsOrderedSetDS 9.3-7 
+  [2XIsHashMap[102X, for IsObject and IsFinite 6.1-1 
+  [2XIsHashSet[102X, for IsObject and IsFinite 7.1-1 
+  [2XIsHeap[102X, for IsObject 3.2-1 
+  [2XIsOrderedSetDS[102X, for IsObject 9.2-1 
+  [2XIsPairingHeapFlatRep[102X, for IsHeap and IsPositionalObjectRep 3.6-1 
+  [2XIsQueue[102X, for IsObject 4.1-1 
+  [2XIsStack[102X, for IsObject 10.1-2 
+  [2XIsStandardOrderedSetDS[102X, for IsOrderedSetDS 9.2-2 
+  [2XIterator[102X, for IsHashSetRep 7.1-10 
+      for IsOrderedSetDS 9.3-1 
+  [2XIteratorSorted[102X, for IsOrderedSetDS 9.2-15 
+  [2XKeyIterator[102X, for IsHashMap 6.1-5 
+  [2XKeys[102X, for IsHashMap 6.1-3 
+  [2XKeyValueIterator[102X, for IsHashMap 6.1-7 
+  [2XLength[102X, for IsDeque 4.1-12 
+      for IsOrderedSetDS 9.3-8 
+      for IsQueue 4.1-11 
+  [2XLessFunction[102X, for IsOrderedSetDS 9.2-13 
+  [2XMemoizeFunction[102X 8.1-1 
+  [2XMerge[102X, for IsHeap, IsHeap 3.2-7 
+  [2XNewHeap[102X, for IsHeap, IsObject, IsObject 3.2-3 
+  [2XOrderedSetDS[102X, for IsOrderedSetDS 9.2-9 
+      for IsOrderedSetDS, IsFunction 9.2-7 
+      for IsOrderedSetDS, IsFunction, IsListOrCollection 9.2-6 
+      for IsOrderedSetDS, IsFunction, IsListOrCollection, IsRandomSource 9.2-3 
+      for IsOrderedSetDS, IsFunction, IsRandomSource 9.2-4 
+      for IsOrderedSetDS, IsListOrCollection 9.2-8 
+      for IsOrderedSetDS, IsListOrCollection, IsRandomSource 9.2-5 
+  [2XPairingHeap[102X 3.4-1 
+  [2XPeek[102X, for IsHeap 3.2-5 
+      for IsStack 10.1-4 
+  [2XPlistDeque[102X 4.2-1 
+  [2XPlistDequeExpand[102X 4.2-8 
+  [2XPlistDequePeekBack[102X 4.2-7 
+  [2XPlistDequePeekFront[102X 4.2-6 
+  [2XPlistDequePopBack[102X 4.2-5 
+  [2XPlistDequePopFront[102X 4.2-4 
+  [2XPlistDequePushBack[102X 4.2-3 
+  [2XPlistDequePushFront[102X 4.2-2 
+  [2XPop[102X, for IsHeap 3.2-6 
+      for IsStack 10.1-5 
+  [2XPopBack[102X, for IsDeque 4.1-5 
+  [2XPopFront[102X, for IsDeque 4.1-6 
+  [2XPosition[102X, for IsOrderedSetDS, IsObject, IsInt 9.3-9 
+  [2XPositionSortedOp[102X, for IsOrderedSetDS, IsObject 9.3-10 
+      for IsOrderedSetDS, IsObject, IsFunction 9.3-11 
+  [2XPush[102X, for IsHeap, IsObject 3.2-4 
+      for IsStack, IsObject 10.1-3 
+  [2XPushBack[102X, for IsDeque, IsObject 4.1-3 
+  [2XPushFront[102X, for IsDeque, IsObject 4.1-4 
+  [2XRemoveSet[102X, for IsHashSetRep, IsObject 7.1-5 
+      for IsOrderedSetDS and IsMutable, IsObject 9.2-11 
+  [2XSet[102X, for IsHashSetRep 7.1-8 
+  [2XSize[102X, for [IsStack] 10.1-6 
+      for IsHashMapRep 6.1-13 
+      for IsHashSetRep 7.1-6 
+      for IsOrderedSetDS 9.2-14 
+  [2XStack[102X 10.1-1 
+  [2XUnbind\[\][102X, for \ 6.1-12 
+  [2XValueIterator[102X, for IsHashMap 6.1-6 
+  [2XValues[102X, for IsHashMap 6.1-4 
   
   
   -------------------------------------------------------

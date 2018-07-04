@@ -18,7 +18,8 @@ fi;
 
 AutoDoc(rec(
         autodoc := rec( files := [ "doc/Intros.autodoc" ] ),
-        scaffold := rec( includes := [ "intro.xml", "install.xml" ] ),
+        scaffold := rec( includes := [ "intro.xml", "install.xml" ]
+                       , entities := rec( GITHUB := "<B>GitHub</B>" ) )
     ));
 
 QUIT;

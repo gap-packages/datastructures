@@ -10,9 +10,13 @@
 
 #! @Chapter Union-Find
 #!
-#! <Package>datastructures</Package> defines the interface for data structures
-#! representing mutable partitions of <C>[1..n]</C>. Key operations are <Ref Oper="Unite"/>
-#! which fuses two parts of a partition and <Ref Oper="Representative"/> which
+#! @Section Introduction
+#! <Package>datastructures</Package> defines the interface for mutable data structures
+#! representing partitions of <C>[1..n]</C>, commonly known as union-find data structures.
+#! Key operations are
+#! <Ref Oper="Unite" Label="for IsPartitionDS and IsMutable, IsPosInt, IsPosInt"/>
+#! which fuses two parts of a partition and
+#! <Ref Oper="Representative" Label="for IsPartitionDS, IsPosInt"/> which
 #! returns a canonical representative of the part containing a given point.
 #!
 
@@ -52,14 +56,14 @@ DeclareConstructor("PartitionDS",[IsPartitionDS, IsCyclotomicCollColl]);
 DeclareOperation("Representative",[IsPartitionDS, IsPosInt]);
 
 #! @Description
-#! Fuses the parts of the paritition <A>unionfind</A> containing <A>k1</A> 
+#! Fuses the parts of the paritition <A>unionfind</A> containing <A>k1</A>
 #! and <A>k2</A>.
 #! @Arguments unionfind, k1, k2
 #! @Returns
 DeclareOperation("Unite",[IsPartitionDS and IsMutable, IsPosInt, IsPosInt]);
 
 #! @Description
-#! Returns an iterator that runs through canonical representatives of parts 
+#! Returns an iterator that runs through canonical representatives of parts
 #! of the partition <A>unionfind</A>.
 #! @Arguments unionfind
 #! @Returns an iterator

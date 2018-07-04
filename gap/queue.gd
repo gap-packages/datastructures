@@ -8,42 +8,83 @@
 ##  to the COPYRIGHT.md and LICENSE files for details.
 ##
 
-##
-##  This file implements queues. These can be used both as FIFO queues,
-##  as deques, and as stacks.
-##
-
-#! @Chapter Queues
+#! @Chapter Queues and Deques
 #!
-#! A queue only promises access at the front and at the back
-
+#! <E>Queues</E> are linear data structure that allow adding elements at the end of the queue,
+#! and removing elements from the front.
+#! A <E>deque</E> is a <E>double-ended queue</E>; a linear data structure that allows access
+#! to objects at both ends.<P/>
+#!
+#! The API that objects that lie in <Ref Filt="IsQueue"/> and
+#! <Ref Filt="IsDeque"/> must implement the API set out below.
+#!
+#! <Package>datastructures</Package> provides
+#!
+#!
 #! @Section API
 #!
 
-#!
+#! @Description
+#! The category of queues.
 DeclareCategory("IsQueue", IsObject);
 
+#! @Description
+#! The category of deques.
+DeclareCategory("IsDeque", IsObject);
+
+##! @Description
+## Hack because HPCGAP has a NewQueue
+## DeclareConstructor("NewQueue_", [IsQueue, IsObject, IsPosInt]);
+
+#! @Description
 # Hack because HPCGAP has a NewQueue
-DeclareConstructor("NewQueue_", [IsQueue, IsObject, IsPosInt]);
+DeclareConstructor("NewDeque", [IsDeque, IsObject, IsPosInt]);
 
-#!
-DeclareOperation("PushBack", [IsQueue, IsObject]);
+#! @Description
+#! Add <A>object</A> to the back of <A>deque</A>.
+#! @Arguments deque, object
+DeclareOperation("PushBack", [IsDeque, IsObject]);
 
-#!
-DeclareOperation("PushFront", [IsQueue, IsObject]);
+#! @Description
+#! Add <A>object</A> to the front of <A>deque</A>.
+#! @Arguments deque, object
+DeclareOperation("PushFront", [IsDeque, IsObject]);
+
+#! @Description
+#! Remove an element from the back of <A>deque</A> and return it.
+#! @Arguments deque
+#! @Returns object
+DeclareOperation("PopBack", [IsDeque]);
+
+#! @Description
+#! Remove an element from the front of <A>deque</A> and return it.
+#! @Arguments deque
+#! @Returns object
+DeclareOperation("PopFront", [IsDeque]);
 
 #! For queues, this is just an alias for PushBack
-DeclareOperation("Push", [IsQueue, IsObject]);
+#! @Description
+#! Add <A>object</A> to <A>queue</A>.
+#! @Arguments queue, object
+DeclareOperation("Enqueue", [IsQueue, IsObject]);
 
-#!
-DeclareOperation("PopBack", [IsQueue]);
+#! @Description
+#! Remove an object from the front of <A>queue</A> and return it.
+#! @Arguments queue
+#! @Returns object
+DeclareOperation("Dequeue", [IsQueue, IsObject]);
 
-#!
-DeclareOperation("PopFront", [IsQueue]);
-
-#! For queues, this is just an alias for PopFront
-DeclareOperation("Pop", [IsQueue]);
-
-#!
+#! @Description
+#! Allocated storage capacity of <A>queue</A>.
 DeclareAttribute("Capacity", IsQueue);
+#! @Description
+#! Allocated storage capacity of <A>deque</A>.
+DeclareAttribute("Capacity", IsDeque);
+
+#! @Description
+#! Number of elements in <A>queue</A>.
+DeclareAttribute("Length", IsQueue);
+#! @Description
+#! Number of elements in <A>deque</A>.
+DeclareAttribute("Length", IsDeque);
 

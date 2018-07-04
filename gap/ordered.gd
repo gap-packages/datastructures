@@ -55,7 +55,7 @@
 
 #! @Section Usage
 #!
-#! @ExampleSession
+#! @BeginExample
 #! gap> s := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));
 #! <skiplist 0 entries>
 #! gap> Addset(s, 1);
@@ -73,8 +73,7 @@
 #! false
 #! gap> 97 in b;
 #! true
-#! @EndExampleSession
-
+#! @EndExample
 
 #! @Section API
 #!

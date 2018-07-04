@@ -13,7 +13,7 @@ The <Package>datastructures</Package> package for &GAP; has two main goals:
   <Item>Provide good low-level implementations for these datastructures</Item>
 </List>
 
-The package <Package>datastructures</Package> requires building of a kernel
+<Package>datastructures</Package> requires building of a kernel
 module for &GAP; to function, please refer to Chapter <Ref Label="install"/> for
 details; the package is not automatically loaded by &GAP; after it has been installed.
 
@@ -26,6 +26,8 @@ before its functions become available.<P/>
   <Heading>Overview over this manual</Heading>
 
   Chapter <Ref Chap="install"/> describes the installation of this package.
+  The remaining chapters describe the available datastructures in this package with
+  a definition of the supported API and details about provided implementations.
 </Section>
 
 

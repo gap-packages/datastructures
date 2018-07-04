@@ -1,27 +1,29 @@
-#############################################################################
 ##
-#W  union-find.gd                    GAPData                     Steve Linton
+##  Datastructures: GAP package providing common datastructures.
 ##
+##  Copyright (C) 2015-2018 The datastructures team.
+##  For list of the team members, please refer to the COPYRIGHT file.
 ##
-#Y  Copyright (C) 2017 The GAP Group
-##
-##  This file defines the interface for data structures representing mutable 
-##  partitions of 1..n. key operations are Unite which fuses two parts of 
-##  a partition and Representative which returns a canonical representative
-##  of the part containing a given point.
-##
-##
+##  This package is licensed under the GPL 2 or later, please refer
+##  to the COPYRIGHT.md and LICENSE files for details.
 ##
 
-##  Category of datastructures representing partitions.
-##  As usual with data structures, equality is identity and family is
-##  ignored.
+#! @Chapter Union-Find
+#!
+#! <Package>datastructures</Package> defines the interface for data structures
+#! representing mutable partitions of <C>[1..n]</C>. Key operations are <Ref Oper="Unite"/>
+#! which fuses two parts of a partition and <Ref Oper="Representative"/> which
+#! returns a canonical representative of the part containing a given point.
+#!
 
+#! @Section API
+#! @Description
+#! Category of datastructures representing partitions.
+#! Equality is identity and family is ignored.
 DeclareCategory("IsPartitionDS", IsObject);
 
-##  Family containing all partition data structures
-##  May be merged in a general DatastructuresFamily
-
+#! @Description
+#! Family containing all partition data structures
 BindGlobal("PartitionDSFamily", NewFamily(IsPartitionDS));
 
 #
@@ -29,32 +31,56 @@ BindGlobal("PartitionDSFamily", NewFamily(IsPartitionDS));
 # Given a list of disjoint sets, return that partition. Any points up to the maximum
 # of any of the sets not included in a set are in singleton parts.
 #
+#! @Description
+#! Returns the trivial partition of the set <C>[1..n]</C>.
+#! @Arguments filter, n
 DeclareConstructor("PartitionDS",[IsPartitionDS, IsPosInt]);
+#! @Description
+#! Returns the union find structure of <A>partition</A>.
+#! @Arguments filter, partition
 DeclareConstructor("PartitionDS",[IsPartitionDS, IsCyclotomicCollColl]);
 
 #
 # Key operations
 #
+
+#! @Description
+#! Returns a canonical representative of the part of the partition that
+#! <A>k</A> is contained in.
+#! @Arguments unionfind, k
+#! @Returns a positive integer
 DeclareOperation("Representative",[IsPartitionDS, IsPosInt]);
+
+#! @Description
+#! Fuses the parts of the paritition <A>unionfind</A> containing <A>k1</A> 
+#! and <A>k2</A>.
+#! @Arguments unionfind, k1, k2
+#! @Returns
 DeclareOperation("Unite",[IsPartitionDS and IsMutable, IsPosInt, IsPosInt]);
 
-#
-# Runs through all the canonical representatives
-#
+#! @Description
+#! Returns an iterator that runs through canonical representatives of parts 
+#! of the partition <A>unionfind</A>.
+#! @Arguments unionfind
+#! @Returns an iterator
 DeclareOperation("RootsIteratorOfPartitionDS", [IsPartitionDS]);
 
-#
-# Basic properties
-#
+#! @Description
+#! Returns the number of parts of the partition <A>unionfind</A>.
+#! @Arguments unionfind
+#! @Returns a positive integer
 DeclareAttribute("NumberParts", IsPartitionDS);
-DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS) ;
 
-#
-# The partition as a list of sets.
-#
+#! @Description
+#! Returns the size of the underlying set of the partition <A>unionfind</A>.
+#! @Arguments unionfind
+#! @Returns a positive integer
+DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS);
+
+#! @Description
+#! Returns the partition <A>unionfind</A> as a list of lists.
+#! @Arguments unionfind
+#! @Returns a list of lists
 DeclareAttribute("PartsOfPartitionDS", IsPartitionDS);
 
-
-
-
-
+#! @EndSection

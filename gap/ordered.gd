@@ -9,11 +9,15 @@
 ##  actually GAP sets for because they ignore families and equality is identity
 ##  rather than extensional)
 ##
+#T what is the equality used in these datastructures?
 #T will add corresponding "maps" (where the keys are ordered)
+#
 ##
 ## Implementations currently available include skip-lists, Binary Search trees
 ## and AVL trees
 ##
+#
+#
 
 #! @Chapter Ordered Set Datastructures
 #!
@@ -78,29 +82,35 @@
 #!
 
 #! @Description
-#! Category of Ordererd "sets"
+#! Category of ordered set.
 DeclareCategory("IsOrderedSetDS", IsObject);
 
 #! @Description
-#! Subcategory of Ordererd "sets" where the ordering is the default &leq;
+#! Subcategory of ordered sets where the ordering is &GAP;'s default &leq;
 DeclareCategory("IsStandardOrderedSetDS", IsOrderedSetDS);
 
+#! @Description
+#! The family that contains all ordered set datastructures.
 BindGlobal( "OrderedSetDSFamily", NewFamily("OrderedSetDSFamily") );
 
 #! @Description
 #! Constructors for ordered sets
-
-#! The general form of constructor.
 #!
-#! @Arguments filter, lessThan, initial entries, randsom source
-#! the random source is useful in a number of possible implementations that used randomised methods
-#! to achieve good complexity with high probability and simple data structures
+#! The argument <A>filter</A> is a filter that the resulting ordered set
+#! object will have.<P/>
+#! The optional argument <A>lessThan</A> must be a binary function that returns <K>true</K> if
+#! its first argument is less than its second argument, and <K>false</K> otherwise. The default
+#! <A>lessThan</A> is &GAP;'s built in &leq;.<P/>
+#! The optional argument <A> initialEntries</A> gives a collection of elements that the ordered
+#! set is initialised with, and defaults to the empty set.<P/>
+#! The optional argument <A>randomSource</A > is
+#! useful in a number of possible implementations that use randomised methods
+#! to achieve good amortised complexity with high probability and simple data structures. It defaults
+#! to the global Mersenne twister.
 #!
-#! Apart from the filter most combinations of these have defaults. The default lessThan  is the &GAP;
-#! &lt; function. The default initial entries is none and the default random source is the global Mersenne twister
+#! @Arguments filter, [lessThan, [initialEntries, [randomSource]]]
+#! @Returns an ordered set datastructure
 #!
-
-
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction, IsListOrCollection, IsRandomSource]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction, IsRandomSource]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsListOrCollection, IsRandomSource]);
@@ -108,49 +118,64 @@ DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction, IsListOrCollecti
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsListOrCollection ]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS]);
+
+#! @Description
 #!
+#! Other constructors cover making an ordered set from another ordered set,
+#! from an iterator, from a function and an iterator, or from a function, an iterator
+#! and a random source.
 #!
-#! Other constructors cover making an ordered set from another ordered set
-#! or from an iterator (which is drained)
-#!
+# TODO: Document properly or get Steve to do it.
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsOrderedSetDS]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsIterator]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction, IsIterator]);
 DeclareConstructor("OrderedSetDS", [IsOrderedSetDS, IsFunction, IsIterator, IsRandomSource]);
 
 
-
-#! @Description adds an object to set. Noop if it is already there/
+#! @Description
+#! Adds <A>object</A> to <A>set</A>. Does nothing if <A>object</A><C>in</C><A>set</A>set.
 #!
 #! @Arguments set, object
 DeclareOperation("AddSet", [IsOrderedSetDS and IsMutable, IsObject]);
 
-#! @Description Remove an object from the set if present. Returns the number of copies that
-#! were present (always 1 or 0, but an integer for consistency with multisets)
-#!
+#! @Description
+#! Removes <A>object</A> from <A>set</A> if present, and
+#! returns the number of copies of <A>object</A> that were in <A>set</A>, that is
+#! <K>0</K> or <K>1</K>. This for consistency with multisets.
+#! @Returns <K>0</K> or <K>1</K>
 #! @Arguments set, object
 DeclareOperation("RemoveSet", [IsOrderedSetDS and IsMutable, IsObject]);
-#!
-#!
-#! All Objects in IsOrderedSetDS should implemnent \in
-#!
+
+#! @Description
+#! All objects in IsOrderedSetDS must implement \in, which returns <A>true</A>
+#! if <A>object</A> is present in <A>set</A> and <K>false</K> otherwise.
+#! @Arguments object, set
 #DeclareOperation("\in", [IsObject, IsOrderedSetDS]);
 
 #! @Description
-#! This is usually stored
+#! The binary function to perform the comparison for elements of the set.
+#! @Arguments set
 DeclareAttribute("LessFunction", IsOrderedSetDS);
 
 #! @Description
 #! The number of objects in the set
+#! @Arguments set
 DeclareAttribute("Size", IsOrderedSetDS);
 
 #! @Description
-#! FUndamental method for running through the set in order
+#! Returns an iterator of <A>set</A> that can be used to iterate through the elements
+#! of <A>set</A> in the order imposed by <Ref Attr="LessFunction"/>.
+#! @Returns iterator
+#! @Arguments set
 DeclareOperation("IteratorSorted", [IsOrderedSetDS]);
 
+#! @EndSection
+
+#! @Section Default methods
 #!
-#! Default methods based on IteratorSorted are given for these, but
-#! can be overridden for data structures that support better alfgorithms
+#! Default methods based on <Ref Oper="IteratorSorted"/> are installed for the following
+#! operations and attributes, but can be overridden for data structures that
+#! support better algorithms.
 #!
 
 #! @Description
@@ -184,6 +209,7 @@ DeclareOperation("Position", [IsOrderedSetDS, IsObject, IsInt]);
 
 #! @Description
 DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject]);
+
 #! @Description
 DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject, IsFunction]);
 

@@ -39,9 +39,6 @@ gap> PlistDequePopFront(q);
 gap> PlistDequePushBack(q, 15);
 gap> PlistDequePopBack(q);
 15
-gap> Push(q, 15);
-gap> Pop(q);
-15
 gap> IsEmpty(q);
 true
 

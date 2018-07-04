@@ -16,14 +16,15 @@
 # Q[1] - head, the index in Q[4] of the first element in the deque
 # Q[2] - tail, the index in Q[4] of the last element in the deque
 # Q[3] - capacity, the allocated capacity in the deque
-# Q[4] - GAP plain list with storage for capacity many entries
+# Q[4] - factor by which storage is resized if capacity is exceeded
+# Q[5] - GAP plain list with storage for capacity many entries
 #
-# Global variables QHEAD, QTAIL, QCAPACITY, and QDATA are bound to reflect
-# the above.
+# Global constants QHEAD, QTAIL, QCAPACITY, QFACTOR, and QDATA are bound to
+# reflect the above.
 #
-# When a push fills the deque, its capacity is doubled using PlistDequeExpand.
-# A new empty plist is allocated and all current entries of the deque are copied
-# into the new plist with the head entry at index 1.
+# When a push fills the deque, its capacity is resized by QFACTO R using
+# PlistDequeExpand. A new empty plist is allocated and all current entries of
+# the deque are copied into the new plist with the head entry at index 1.
 #
 # The deque is empty if and only if head = tail and the entry that head and tail
 # point to in the storage list is unbound.
@@ -238,11 +239,6 @@ InstallMethod(PushFront,
         [IsPlistDequeRep, IsObject],
         PlistDequePushFront);
 
-InstallMethod(Push,
-        "for IsPlistDeque and an object",
-        [IsPlistDequeRep, IsObject],
-        PlistDequePushBack);
-
 InstallMethod(PopFront,
         "for IsPlistDeque and an object",
         [IsPlistDequeRep],
@@ -252,11 +248,6 @@ InstallMethod(PopBack,
         "for IsPlistDeque and an object",
         [IsPlistDequeRep],
         PlistDequePopBack);
-
-InstallMethod(Pop,
-        "for IsPlistDeque and an object",
-        [IsPlistDequeRep],
-        PlistDequePopFront);
 
 InstallOtherMethod(IsEmpty,
         "for IsPlistDeque",

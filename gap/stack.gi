@@ -29,7 +29,11 @@ InstallMethod(Peek
              , "for a stack"
              , [IsStack],
 function(s)
-    return s![1][Length(s![1])];
+    if Length(s![1]) > 0 then
+        return s![1][Length(s![1])];
+    else
+        return fail;
+    fi;
 end);
 
 InstallMethod(Pop

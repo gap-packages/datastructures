@@ -15,7 +15,7 @@
       <Item>GNU Make</Item>
     </List>
  
-    To install a released version of this package, either extract the package's
+    To install a released version of this package, extract the package's
     archive file into &GAP;'s <F>pkg</F> folder. <P/>
     
     To install the current development version of this package, obtain the most recent

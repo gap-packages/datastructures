@@ -40,7 +40,7 @@
     package's directory
 
     <Verb>
-      gap makedog.g
+      gap makedoc.g
     </Verb>
   </Section>
 </Chapter>

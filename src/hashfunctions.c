@@ -310,6 +310,10 @@ static Int InitLibrary(void)
     // be wrapped in a list by GAP
     Obj gvar = NewFunctionC("DATA_HASH_FUNC_RECURSIVE", -1, "arg",
                             DATA_HASH_FUNC_RECURSIVE1);
+    InitHandlerFunc( DATA_HASH_FUNC_RECURSIVE1, __FILE__ ":DATA_HASH_FUNC_RECURSIVE1" );
+    InitHandlerFunc( DATA_HASH_FUNC_RECURSIVE2, __FILE__ ":DATA_HASH_FUNC_RECURSIVE2" );
+    InitHandlerFunc( DATA_HASH_FUNC_RECURSIVE3, __FILE__ ":DATA_HASH_FUNC_RECURSIVE3" );
+    InitHandlerFunc( DATA_HASH_FUNC_RECURSIVE4, __FILE__ ":DATA_HASH_FUNC_RECURSIVE4" );
     SET_HDLR_FUNC(gvar, 1, DATA_HASH_FUNC_RECURSIVE1);
     SET_HDLR_FUNC(gvar, 2, DATA_HASH_FUNC_RECURSIVE2);
     SET_HDLR_FUNC(gvar, 3, DATA_HASH_FUNC_RECURSIVE3);

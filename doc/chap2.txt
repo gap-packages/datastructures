@@ -14,8 +14,8 @@
   
   [30X    [33X[0;6YGNU Make[133X
   
-  [33X[0;0YTo  install a released version of this package, either extract the package's
-  archive file into [5XGAP[105X's [11Xpkg[111X folder.[133X
+  [33X[0;0YTo install a released version of this package, extract the package's archive
+  file into [5XGAP[105X's [11Xpkg[111X folder.[133X
   
   [33X[0;0YTo  install the current development version of this package, obtain the most
   recent code from [12XGitHub[112X[133X
@@ -36,6 +36,6 @@
   [33X[0;0YTo  build  the  package  documentation,  run  the  following  command in the
   package's directory[133X
   
-        gap makedog.g
+        gap makedoc.g
       
   

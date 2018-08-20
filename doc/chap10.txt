@@ -31,23 +31,23 @@
   [1X10.1 [33X[0;0YUsage[133X[101X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X gap> s := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));[128X[104X
-    [4X[28X <skiplist 0 entries>[128X[104X
-    [4X[28X gap> Addset(s, 1);[128X[104X
-    [4X[28X gap> AddSet(s, 2);[128X[104X
-    [4X[28X gap> AddSet(s, 10);[128X[104X
-    [4X[28X gap> AddSet(s, (1,2,3));[128X[104X
-    [4X[28X gap> RemoveSet(s, (1,2,3));[128X[104X
-    [4X[28X 1[128X[104X
-    [4X[28X gap> AsListSorted(s);[128X[104X
-    [4X[28X [ 1, 10, 2 ][128X[104X
+    [4X[25Xgap>[125X [27Xs := OrderedSetDS(IsSkipListRep, {x,y} -> String(x) < String(y));[127X[104X
+    [4X[28X<skiplist 0 entries>[128X[104X
+    [4X[25Xgap>[125X [27XAddset(s, 1);[127X[104X
+    [4X[25Xgap>[125X [27XAddSet(s, 2);[127X[104X
+    [4X[25Xgap>[125X [27XAddSet(s, 10);[127X[104X
+    [4X[25Xgap>[125X [27XAddSet(s, (1,2,3));[127X[104X
+    [4X[25Xgap>[125X [27XRemoveSet(s, (1,2,3));[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XAsListSorted(s);[127X[104X
+    [4X[28X[ 1, 10, 2 ][128X[104X
     [4X[28X[128X[104X
-    [4X[28X gap> b := OrderedSetDS(IsBinarySearchTreeRep, Primes);[128X[104X
-    [4X[28X <bst size 168>[128X[104X
-    [4X[28X gap> 91 in b;[128X[104X
-    [4X[28X false[128X[104X
-    [4X[28X gap> 97 in b;[128X[104X
-    [4X[28X true[128X[104X
+    [4X[25Xgap>[125X [27Xb := OrderedSetDS(IsBinarySearchTreeRep, Primes);[127X[104X
+    [4X[28X<bst size 168>[128X[104X
+    [4X[25Xgap>[125X [27X91 in b;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27X97 in b;[127X[104X
+    [4X[28Xtrue[128X[104X
   [4X[32X[104X
   
   

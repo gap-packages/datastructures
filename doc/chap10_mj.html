@@ -90,23 +90,23 @@
 
 
 <div class="example"><pre>
- gap&gt; s := OrderedSetDS(IsSkipListRep, {x,y} -&gt; String(x) &lt; String(y));
- &lt;skiplist 0 entries&gt;
- gap&gt; Addset(s, 1);
- gap&gt; AddSet(s, 2);
- gap&gt; AddSet(s, 10);
- gap&gt; AddSet(s, (1,2,3));
- gap&gt; RemoveSet(s, (1,2,3));
- 1
- gap&gt; AsListSorted(s);
- [ 1, 10, 2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s := OrderedSetDS(IsSkipListRep, {x,y} -&gt; String(x) &lt; String(y));</span>
+&lt;skiplist 0 entries&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Addset(s, 1);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AddSet(s, 2);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AddSet(s, 10);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AddSet(s, (1,2,3));</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RemoveSet(s, (1,2,3));</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AsListSorted(s);</span>
+[ 1, 10, 2 ]
 
- gap&gt; b := OrderedSetDS(IsBinarySearchTreeRep, Primes);
- &lt;bst size 168&gt;
- gap&gt; 91 in b;
- false
- gap&gt; 97 in b;
- true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b := OrderedSetDS(IsBinarySearchTreeRep, Primes);</span>
+&lt;bst size 168&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">91 in b;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">97 in b;</span>
+true
 </pre></div>
 
 <p><a id="X7C5F33687C53BEF0" name="X7C5F33687C53BEF0"></a></p>

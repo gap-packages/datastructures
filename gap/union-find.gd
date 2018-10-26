@@ -31,7 +31,7 @@ DeclareCategory("IsPartitionDS", IsObject);
 BindGlobal("PartitionDSFamily", NewFamily(IsPartitionDS));
 
 #
-# Constructors. Given an integer return the trivial partittion (n parts of size 1)
+# Constructors. Given an integer return the trivial partition (n parts of size 1)
 # Given a list of disjoint sets, return that partition. Any points up to the maximum
 # of any of the sets not included in a set are in singleton parts.
 #

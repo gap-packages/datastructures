@@ -55,8 +55,8 @@ InstallOtherMethod(\[\],
     DS_Hash_Value); # TODO: raise an error if key is not bound
 
 #! @Description
-#! List-style access for hashmaps.
-#! @Arguments hashmap, object
+#! List-style assignment for hashmaps.
+#! @Arguments hashmap, object, object
 InstallOtherMethod(\[\]\:\=,
     "for a hash map, a key and a value",
     [ IsHashMapRep, IsObject, IsObject ],

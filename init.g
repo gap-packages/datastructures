@@ -44,6 +44,9 @@ ReadPackage("datastructures", "gap/hashmap.gd");
 # hash sets
 ReadPackage("datastructures", "gap/hashset.gd");
 
+# Slices
+ReadPackage("datastructures", "gap/slice.gd");
+
 # Stacks
 ReadPackage("datastructures", "gap/stack.gd");
 

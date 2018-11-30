@@ -375,7 +375,8 @@ gap> hashmap["foo"];
 fail
 
 # now insert a key to which we keep a reference
-gap> foo:="foo";;
+# must be immutable else an immutable copy will be made on insertion
+gap> foo:=Immutable("foo");;
 gap> hashmap[foo] := 3;;
 gap> DS_Hash_Contains(hashmap, foo);
 true
@@ -406,6 +407,17 @@ gap> Unbind(hashmap[17]);
 Error, <ht> must be a mutable hashmap or hashset
 gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
 Error, <ht> must be a mutable hashmap or hashset
+
+# Test key mutability
+gap> l := [1];;
+gap> hashmap := HashMap();;
+gap> hashmap[l] := 2;;
+gap> Add(l, 2);;
+gap> hashmap[l] := 3;;
+gap> hashmap[l];
+3
+gap> hashmap[[1]];
+2
 
 #
 gap> STOP_TEST( "hashmap.tst", 1);

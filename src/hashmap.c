@@ -255,7 +255,7 @@ static Obj _DS_Hash_SetOrAccValue(Obj ht, Obj key, Obj val, Obj accufunc)
     }
     else {
         DS_IncrementCounterInPlist(ht, POS_USED, INTOBJ_INT(1));
-
+        key = CopyObj(key, 0);
         SET_ELM_PLIST(keys, idx, key);
         SET_ELM_PLIST(values, idx, val);
         CHANGED_BAG(keys);
@@ -283,6 +283,7 @@ static void _DS_Hash_AddSet(Obj ht, Obj key)
     }
 
     if (old_k == Fail || old_k == 0) {
+        key = CopyObj(key, 0);
         DS_IncrementCounterInPlist(ht, POS_USED, INTOBJ_INT(1));
         SET_ELM_PLIST(keys, idx, key);
         CHANGED_BAG(keys);

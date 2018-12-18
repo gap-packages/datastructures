@@ -71,7 +71,7 @@
   
   [1X3.2-3 NewHeap[101X
   
-  [33X[1;0Y[29X[2XNewHeap[102X( [[3Xfilter[103X, [3Xfunc[103X, [3Xdata[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XNewHeap[102X( [[3Xfilter[103X, [3Xfunc[103X, [3Xdata[103X] ) [32X constructor[133X
   [6XReturns:[106X  [33X[0;10Ya heap[133X
   
   [33X[0;0YConstruct a new heap[133X

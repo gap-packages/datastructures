@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (datastructures) - Chapter 7: Hashmaps</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -18,7 +18,7 @@
 <body class="chap7"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
@@ -35,11 +35,11 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X820C9185827968FA">7.1-5 KeyIterator</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7B4D76A47B09C173">7.1-6 ValueIterator</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F75A43984B05E73">7.1-7 KeyValueIterator</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8260521B7B8EDA42"><code>7.1-8 \[\]</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7BC639737EE8D550"><code>7.1-9 \[\]\:\=</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X818E60167B0B12F7"><code>7.1-8 \[\]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8028C04B7895B9CD"><code>7.1-9 \[\]\:\=</code></a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X78DF0E377A70207E"><code>7.1-10 \in</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X86CDF1A881005775"><code>7.1-11 IsBound\[\]</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X866AE565788CC98B"><code>7.1-12 Unbind\[\]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X84CD9B0B82DC85F7"><code>7.1-11 IsBound\[\]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X85A876A479D7161D"><code>7.1-12 Unbind\[\]</code></a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X866A89F080CE944A">7.1-13 Size</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X857102527A38A649">7.1-14 IsEmpty</a></span>
 </div></div>
@@ -116,19 +116,19 @@
 
 <p>Returns an interator for key-value-pairs stored in the hashmap <var class="Arg">h</var>.</p>
 
-<p><a id="X8260521B7B8EDA42" name="X8260521B7B8EDA42"></a></p>
+<p><a id="X818E60167B0B12F7" name="X818E60167B0B12F7"></a></p>
 
 <h5><code>7.1-8 \[\]</code></h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \[\]</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>List-style access for hashmaps.</p>
 
-<p><a id="X7BC639737EE8D550" name="X7BC639737EE8D550"></a></p>
+<p><a id="X8028C04B7895B9CD" name="X8028C04B7895B9CD"></a></p>
 
 <h5><code>7.1-9 \[\]\:\=</code></h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \[\]\:\=</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>List-style access for hashmaps.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \[\]\:\=</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>List-style assignment for hashmaps.</p>
 
 <p><a id="X78DF0E377A70207E" name="X78DF0E377A70207E"></a></p>
 
@@ -137,14 +137,14 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Test whether a key is stored in the hashmap.</p>
 
-<p><a id="X86CDF1A881005775" name="X86CDF1A881005775"></a></p>
+<p><a id="X84CD9B0B82DC85F7" name="X84CD9B0B82DC85F7"></a></p>
 
 <h5><code>7.1-11 IsBound\[\]</code></h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBound\[\]</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Test whether a key is stored in the hashmap.</p>
 
-<p><a id="X866AE565788CC98B" name="X866AE565788CC98B"></a></p>
+<p><a id="X85A876A479D7161D" name="X85A876A479D7161D"></a></p>
 
 <h5><code>7.1-12 Unbind\[\]</code></h5>
 
@@ -169,7 +169,7 @@
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

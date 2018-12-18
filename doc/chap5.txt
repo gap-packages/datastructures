@@ -23,14 +23,14 @@
   
   [1X5.2-2 PartitionDS[101X
   
-  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xn[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xn[103X ) [32X constructor[133X
   
   [33X[0;0YFamily   containing  all  partition  data  structures  Returns  the  trivial
   partition of the set [10X[1..n][110X.[133X
   
   [1X5.2-3 PartitionDS[101X
   
-  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xpartition[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XPartitionDS[102X( [3Xfilter[103X, [3Xpartition[103X ) [32X constructor[133X
   
   [33X[0;0YReturns the union find structure of [3Xpartition[103X.[133X
   

@@ -73,7 +73,7 @@
   
   [1X10.2-3 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xfilter[103X[, [3XlessThan[103X[, [3XinitialEntries[103X[, [3XrandomSource[103X]]] ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xfilter[103X[, [3XlessThan[103X[, [3XinitialEntries[103X[, [3XrandomSource[103X]]] ) [32X constructor[133X
   [6XReturns:[106X  [33X[0;10Yan ordered set datastructure[133X
   
   [33X[0;0YThe  family  that  contains all ordered set datastructures. Constructors for
@@ -96,27 +96,27 @@
   
   [1X10.2-4 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X constructor[133X
   
   [1X10.2-5 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X constructor[133X
   
   [1X10.2-6 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X constructor[133X
   
   [1X10.2-7 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X constructor[133X
   
   [1X10.2-8 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg1[103X, [3Xarg2[103X ) [32X constructor[133X
   
   [1X10.2-9 OrderedSetDS[101X
   
-  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XOrderedSetDS[102X( [3Xarg[103X ) [32X constructor[133X
   
   [1X10.2-10 AddSet[101X
   

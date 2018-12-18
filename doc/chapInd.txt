@@ -2,11 +2,14 @@
   
   [1XIndex[101X
   
-  [2X\[\][102X, for \ 7.1-8 
-  [2X\[\]\:\=[102X, for \ 7.1-9 
+  [2X\[\][102X, for IsHashMapRep, IsObject 7.1-8 
+      for IsSliceRep, IsPosInt 11.1-3 
+  [2X\[\]\:\=[102X, for IsHashMapRep, IsObject, IsObject 7.1-9 
+      for IsSliceRep and IsMutable, IsPosInt, IsObject 11.1-4 
   [2X\in[102X, for IsObject, IsHashMapRep 7.1-10 
       for IsObject, IsHashSetRep 8.1-4 
       for IsObject, IsOrderedSetDS 10.2-12 
+      for IsObject, IsSliceRep 11.1-5 
   [2XAddSet[102X, for IsHashSetRep, IsObject 8.1-3 
       for IsOrderedSetDS and IsMutable, IsObject 10.2-10 
   [2XAsList[102X, for IsOrderedSetDS 10.3-4 
@@ -28,7 +31,8 @@
   [2XHashSet[102X 8.1-2 
   [2XHeap[102X 3.2-2 
   [2XIsBinaryHeapFlatRep[102X, for IsHeap and IsPositionalObjectRep 3.5-1 
-  [2XIsBound\[\][102X, for \ 7.1-11 
+  [2XIsBound\[\][102X, for IsHashMapRep, IsObject 7.1-11 
+      for IsSliceRep, IsPosInt 11.1-6 
   [2XIsDeque[102X, for IsObject 4.1-2 
   [2XIsEmpty[102X, for IsHashMapRep 7.1-14 
       for IsHashSetRep 8.1-7 
@@ -40,7 +44,8 @@
   [2XIsPairingHeapFlatRep[102X, for IsHeap and IsPositionalObjectRep 3.6-1 
   [2XIsPartitionDS[102X, for IsObject 5.2-1 
   [2XIsQueue[102X, for IsObject 4.1-1 
-  [2XIsStack[102X, for IsObject 11.1-2 
+  [2XIsSlice[102X, for IsList 11.1-2 
+  [2XIsStack[102X, for IsObject 12.1-2 
   [2XIsStandardOrderedSetDS[102X, for IsOrderedSetDS 10.2-2 
   [2XIterator[102X, for IsHashSetRep 8.1-10 
       for IsOrderedSetDS 10.3-1 
@@ -51,6 +56,7 @@
   [2XLength[102X, for IsDeque 4.1-12 
       for IsOrderedSetDS 10.3-8 
       for IsQueue 4.1-11 
+      for IsSliceRep 11.1-8 
   [2XLessFunction[102X, for IsOrderedSetDS 10.2-13 
   [2XMemoizeFunction[102X 9.1-1 
   [2XMerge[102X, for IsHeap, IsHeap 3.2-7 
@@ -68,7 +74,7 @@
       for IsPartitionDS, IsPosInt 5.2-2 
   [2XPartsOfPartitionDS[102X, for IsPartitionDS 5.2-9 
   [2XPeek[102X, for IsHeap 3.2-5 
-      for IsStack 11.1-4 
+      for IsStack 12.1-4 
   [2XPlistDeque[102X 4.2-1 
   [2XPlistDequeExpand[102X 4.2-8 
   [2XPlistDequePeekBack[102X 4.2-7 
@@ -78,14 +84,14 @@
   [2XPlistDequePushBack[102X 4.2-3 
   [2XPlistDequePushFront[102X 4.2-2 
   [2XPop[102X, for IsHeap 3.2-6 
-      for IsStack 11.1-5 
+      for IsStack 12.1-5 
   [2XPopBack[102X, for IsDeque 4.1-5 
   [2XPopFront[102X, for IsDeque 4.1-6 
   [2XPosition[102X, for IsOrderedSetDS, IsObject, IsInt 10.3-9 
   [2XPositionSortedOp[102X, for IsOrderedSetDS, IsObject 10.3-10 
       for IsOrderedSetDS, IsObject, IsFunction 10.3-11 
   [2XPush[102X, for IsHeap, IsObject 3.2-4 
-      for IsStack, IsObject 11.1-3 
+      for IsStack, IsObject 12.1-3 
   [2XPushBack[102X, for IsDeque, IsObject 4.1-3 
   [2XPushFront[102X, for IsDeque, IsObject 4.1-4 
   [2XRemoveSet[102X, for IsHashSetRep, IsObject 8.1-5 
@@ -93,13 +99,15 @@
   [2XRepresentative[102X, for IsPartitionDS, IsPosInt 5.2-4 
   [2XRootsIteratorOfPartitionDS[102X, for IsPartitionDS 5.2-6 
   [2XSet[102X, for IsHashSetRep 8.1-8 
-  [2XSize[102X, for [IsStack] 11.1-6 
+  [2XSize[102X, for [IsStack] 12.1-6 
       for IsHashMapRep 7.1-13 
       for IsHashSetRep 8.1-6 
       for IsOrderedSetDS 10.2-14 
   [2XSizeUnderlyingSetDS[102X, for IsPartitionDS 5.2-8 
-  [2XStack[102X 11.1-1 
-  [2XUnbind\[\][102X, for \ 7.1-12 
+  [2XSlice[102X 11.1-1 
+  [2XStack[102X 12.1-1 
+  [2XUnbind\[\][102X, for IsHashMapRep, IsObject 7.1-12 
+      for IsSliceRep and IsMutable, IsPosInt 11.1-7 
   [2XUnite[102X, for IsPartitionDS and IsMutable, IsPosInt, IsPosInt 5.2-5 
   [2XValueIterator[102X, for IsHashMap 7.1-6 
   [2XValues[102X, for IsHashMap 7.1-4 

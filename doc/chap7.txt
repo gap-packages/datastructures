@@ -71,9 +71,9 @@
   
   [1X7.1-9 \[\]\:\=[101X
   
-  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X, [3Xobject[103X ) [32X function[133X
   
-  [33X[0;0YList-style access for hashmaps.[133X
+  [33X[0;0YList-style assignment for hashmaps.[133X
   
   [1X7.1-10 \in[101X
   

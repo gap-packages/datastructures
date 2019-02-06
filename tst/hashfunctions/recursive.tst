@@ -39,5 +39,19 @@ gap> HashBasic(1,2,3,4,5) = HashBasic([1,2,3,4,5]);
 true
 gap> HashBasic(1,2,3,4,5,6,7,8,9,10) = HashBasic([1,2,3,4,5,6,7,8,9,10]);
 true
+
+# Make two records, one internally sorted, one not.
+gap> rec1 := rec(aaax := 1, aaay := 2, aaaz := 3);;
+gap> rec2 := rec(aaay := 2, aaaz := 3, aaax := 1);;
+gap> rec1;
+rec( aaax := 1, aaay := 2, aaaz := 3 )
+gap> HashBasic(rec1) = HashBasic(rec2);
+true
+gap> rec1.aaaq := 9;; rec1.aaap := 8;;
+gap> rec2.aaap := 8;; rec2.aaaq := 9;;
+gap> HashBasic(rec1) = HashBasic(rec2);
+true
+
+# Check objects we don't handle
 gap> HashBasic(SymmetricGroup(3));
 Error, Unable to hash object (component)

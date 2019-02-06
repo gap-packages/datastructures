@@ -176,17 +176,22 @@ Int BasicRecursiveHashForPRec(Obj obj)
 {
     GAP_ASSERT(IS_PREC(obj));
 
-    // This is just a random number which fits in a 32-bit UInt.
+    // This is just a random number which fits in a 32-bit UInt,
+    // mainly to give the hash value of an empty record a value which
+    // is unlikely to clash with anything else
     UInt current_hash = 1928498392;
-
-    /* ensure record is sorted */
-    SortPRecRNam(obj, 0);
 
     /* hash componentwise                                               */
     for (Int i = 1; i <= LEN_PREC(obj); i++) {
-        UInt recname = GET_RNAM_PREC(obj, i);
+        // labs, as this can be negative in an unsorted record
+        UInt recname = labs(GET_RNAM_PREC(obj, i));
+        Obj  recnameobj = NAME_RNAM(recname);
+        // The '23792' here is just a seed value.
+        Int  hashrecname = HASHKEY_WHOLE_BAG_NC(recnameobj, 23792);
         UInt rechash = BasicRecursiveHash(GET_ELM_PREC(obj, i));
-        current_hash = HashCombine3(current_hash, recname, rechash);
+
+        // Use +, because record may be out of order
+        current_hash += HashCombine2(hashrecname, rechash);
     }
 
     return current_hash;

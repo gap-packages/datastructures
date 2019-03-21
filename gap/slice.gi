@@ -20,7 +20,15 @@ InstallGlobalFunction(Slice,
 function(list, begin, len)
     local o;
     # begin - 1 because GAP lists are 1 indexed
-    o := Objectify(SliceTypeMutable, rec(list := list, begin := begin - 1, len := len));
+    if IsSliceRep( list ) then
+      # Avoid recursive constructions of slices.
+      o:= Objectify( SliceTypeMutable,
+                     rec( list:= list!.list,
+                          begin:= begin + list!.begin - 1,
+                          len:= len ) );
+    else
+      o := Objectify(SliceTypeMutable, rec(list := list, begin := begin - 1, len := len));
+    fi;
     if IsSmallList(list) then
         SetIsSmallList(o, true);
     fi;

@@ -63,4 +63,9 @@ gap> s[1];
 1
 gap> s[2];
 Error, Cannot access element 2 of a range with 1 elements
-gap> STOP_TEST("stack.tst", 1);
+gap> x:= [1,5,3,2,4,,4,3];;
+gap> s:= Slice( x, 2, 6 );
+[ 5, 3, 2, 4,, 4 ]
+gap> Slice( s, 2, 4 );
+[ 3, 2, 4, ]
+gap> STOP_TEST( "slice.tst" );

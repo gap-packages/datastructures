@@ -60,8 +60,6 @@
 #! gap> Pop(h);
 #! rec( rank := -15 )
 #! @EndExample
-#!
-#! @EndSection
 
 #! @Section API
 #!

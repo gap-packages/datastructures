@@ -86,5 +86,3 @@ DeclareAttribute("SizeUnderlyingSetDS", IsPartitionDS);
 #! @Arguments unionfind
 #! @Returns a list of lists
 DeclareAttribute("PartsOfPartitionDS", IsPartitionDS);
-
-#! @EndSection

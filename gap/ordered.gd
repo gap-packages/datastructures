@@ -168,8 +168,6 @@ DeclareAttribute("Size", IsOrderedSetDS);
 #! @Arguments set
 DeclareOperation("IteratorSorted", [IsOrderedSetDS]);
 
-#! @EndSection
-
 #! @Section Default methods
 #!
 #! Default methods based on <Ref Oper="IteratorSorted"/> are installed for the following
@@ -214,6 +212,4 @@ DeclareOperation("PositionSortedOp", [IsOrderedSetDS, IsObject, IsFunction]);
 
 
 # TODO - maps, cursors, Union and Intersection, Reversed
-
-#! @EndSection
 

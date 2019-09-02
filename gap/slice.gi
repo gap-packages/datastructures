@@ -36,9 +36,15 @@ function(list, begin, len)
 end);
 
 InstallMethod(ViewString, "for slices",
-    [ IsSliceRep ],
+    [ IsSliceRep ], SUM_FLAGS,
 function(slice)
     return STRINGIFY("<slice size=", slice!.len, ">");
+end);
+
+InstallMethod(ViewObj, "for slices",
+    [ IsSliceRep ], SUM_FLAGS,
+function(slice)
+    Print("<slice size=", slice!.len, ">");
 end);
 
 #! @Description

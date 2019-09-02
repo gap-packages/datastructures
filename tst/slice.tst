@@ -3,7 +3,7 @@ gap> LoadPackage("datastructures", false);
 true
 gap> x := [1,5,3,2,4,6,4,3];;
 gap> s := Slice(x, 3, 3);
-[ 3, 2, 4 ]
+<slice size=3>
 gap> List(s);
 [ 3, 2, 4 ]
 gap> Length(s);
@@ -47,7 +47,7 @@ gap> List(s);
 gap> List(x);
 [ 1, 5, 9,, 4, 6, 4, 3 ]
 gap> s := Slice(x, 3, 0);
-[  ]
+<slice size=0>
 gap> Length(s);
 0
 gap> List(s);
@@ -55,7 +55,7 @@ gap> List(s);
 gap> s[1];
 Error, Cannot access element 1 of a range with 0 elements
 gap> s := Slice(x, 1, 1);
-[ 1 ]
+<slice size=1>
 gap> s[0];
 Error, no method found! For debugging hints type ?Recovery from NoMethodFound
 Error, no 1st choice method found for `[]' on 2 arguments
@@ -65,7 +65,7 @@ gap> s[2];
 Error, Cannot access element 2 of a range with 1 elements
 gap> x:= [1,5,3,2,4,,4,3];;
 gap> s:= Slice( x, 2, 6 );
-[ 5, 3, 2, 4,, 4 ]
+<slice size=6>
 gap> Slice( s, 2, 4 );
-[ 3, 2, 4, ]
+<slice size=4>
 gap> STOP_TEST( "slice.tst" );

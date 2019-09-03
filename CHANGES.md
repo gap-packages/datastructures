@@ -1,8 +1,14 @@
 # CHANGES to the 'datastructures' GAP package
 
-## X.Y.Z (2019-MM-DD)
+## 0.2.4 (2019-09-03)
 
   - Require GAP >= 4.10
+  - Switch to a stable hash function for records
+  - Avoid creation of recursive slice objects
+  - Add ViewObj for slices
+  - Fix rank of ViewString for slices, so that it is called even if e.g.
+    all packages are loaded
+  - Various janitorial changes
 
 ## 0.2.3 (2018-12-18)
 

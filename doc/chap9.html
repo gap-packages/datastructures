@@ -44,7 +44,7 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MemoizeFunction</code>( <var class="Arg">function</var>[, <var class="Arg">options</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: A function</p>
 
-<p><code class="code">MemoizeFunction</code> returns a function which behaves the same as <var class="Arg">function</var>, except that it caches the return value of <var class="Arg">function</var>. The cache can be flushed by calling <code class="func">FlushCaches</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap79.html#X87A4316C818B3DE3"><span class="RefLink">Reference: FlushCaches</span></a>).</p>
+<p><code class="code">MemoizeFunction</code> returns a function which behaves the same as <var class="Arg">function</var>, except that it caches the return value of <var class="Arg">function</var>. The cache can be flushed by calling <code class="func">FlushCaches</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap79_mj.html#X87A4316C818B3DE3"><span class="RefLink">Reference: FlushCaches</span></a>).</p>
 
 <p>This function does not promise to never call <var class="Arg">function</var> more than once for any input -- values may be removed if the cache gets too large, or GAP chooses to flush all caches, or if multiple threads try to calculate the same value simultaneously.</p>
 
@@ -53,10 +53,10 @@
 
 <dl>
 <dt><strong class="Mark"><code class="code">flush</code> (default <code class="keyw">true</code>)</strong></dt>
-<dd><p>If this is <code class="keyw">true</code>, the cache is emptied whenever <code class="func">FlushCaches</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap79.html#X87A4316C818B3DE3"><span class="RefLink">Reference: FlushCaches</span></a>) is called.</p>
+<dd><p>If this is <code class="keyw">true</code>, the cache is emptied whenever <code class="func">FlushCaches</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap79_mj.html#X87A4316C818B3DE3"><span class="RefLink">Reference: FlushCaches</span></a>) is called.</p>
 
 </dd>
-<dt><strong class="Mark"><code class="code">contract</code> (defaults to <code class="func">ReturnTrue</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap5.html#X7DB422A2876CCC4D"><span class="RefLink">Reference: ReturnTrue</span></a>))</strong></dt>
+<dt><strong class="Mark"><code class="code">contract</code> (defaults to <code class="func">ReturnTrue</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap5_mj.html#X7DB422A2876CCC4D"><span class="RefLink">Reference: ReturnTrue</span></a>))</strong></dt>
 <dd><p>A function that is called on the arguments given to <var class="Arg">function</var>. If this function returns <code class="keyw">false</code>, then <code class="code">errorHandler</code> is called.</p>
 
 </dd>

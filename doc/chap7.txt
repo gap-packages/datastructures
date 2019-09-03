@@ -65,43 +65,43 @@
   
   [1X7.1-8 \[\][101X
   
-  [33X[1;0Y[29X[2X\[\][102X( [3Xhashmap[103X, [3Xobject[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\[\][102X( [3Xhashmap[103X, [3Xobject[103X ) [32X operation[133X
   
   [33X[0;0YList-style access for hashmaps.[133X
   
   [1X7.1-9 \[\]\:\=[101X
   
-  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X, [3Xobject[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xhashmap[103X, [3Xobject[103X, [3Xobject[103X ) [32X operation[133X
   
   [33X[0;0YList-style assignment for hashmaps.[133X
   
   [1X7.1-10 \in[101X
   
-  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X operation[133X
   
   [33X[0;0YTest whether a key is stored in the hashmap.[133X
   
   [1X7.1-11 IsBound\[\][101X
   
-  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X operation[133X
   
   [33X[0;0YTest whether a key is stored in the hashmap.[133X
   
   [1X7.1-12 Unbind\[\][101X
   
-  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xobject[103X, [3Xhashmap[103X ) [32X operation[133X
   
   [33X[0;0YDelete a key from a hashmap.[133X
   
   [1X7.1-13 Size[101X
   
-  [33X[1;0Y[29X[2XSize[102X( [3Xhashmap[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XSize[102X( [3Xhashmap[103X ) [32X operation[133X
   
   [33X[0;0YDetermine the number of keys stored in a hashmap.[133X
   
   [1X7.1-14 IsEmpty[101X
   
-  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xobject[103X, [3Xhashmap[103X ) [32X operation[133X
   
   [33X[0;0YTest whether a hashmap is empty.[133X
   

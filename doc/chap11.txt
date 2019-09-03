@@ -23,37 +23,37 @@
   
   [1X11.1-3 \[\][101X
   
-  [33X[1;0Y[29X[2X\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X operation[133X
   
   [33X[0;0YList-style access for slices.[133X
   
   [1X11.1-4 \[\]\:\=[101X
   
-  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xslice[103X, [3Xvalue[103X, [3Xobject[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\[\]\:\=[102X( [3Xslice[103X, [3Xvalue[103X, [3Xobject[103X ) [32X operation[133X
   
   [33X[0;0YList-style assignment for slices.[133X
   
   [1X11.1-5 \in[101X
   
-  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xslice[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\in[102X( [3Xobject[103X, [3Xslice[103X ) [32X operation[133X
   
   [33X[0;0YTest whether a value is stored in the slice.[133X
   
   [1X11.1-6 IsBound\[\][101X
   
-  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsBound\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X operation[133X
   
   [33X[0;0YTest whether a location is bound in a slice.[133X
   
   [1X11.1-7 Unbind\[\][101X
   
-  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XUnbind\[\][102X( [3Xslice[103X, [3Xvalue[103X ) [32X operation[133X
   
   [33X[0;0YUnbind a value from a slice.[133X
   
   [1X11.1-8 Length[101X
   
-  [33X[1;0Y[29X[2XLength[102X( [3Xslice[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XLength[102X( [3Xslice[103X ) [32X operation[133X
   
   [33X[0;0YDetermine the length of a slice.[133X
   

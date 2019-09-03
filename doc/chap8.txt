@@ -30,52 +30,52 @@
   
   [1X8.1-3 AddSet[101X
   
-  [33X[1;0Y[29X[2XAddSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XAddSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X operation[133X
   
   [33X[0;0YAdd [3Xobj[103X to [3Xhashset[103X.[133X
   
   [1X8.1-4 \in[101X
   
-  [33X[1;0Y[29X[2X\in[102X( [3Xobj[103X, [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2X\in[102X( [3Xobj[103X, [3Xhashset[103X ) [32X operation[133X
   
   [33X[0;0YTest membership of [3Xobj[103X in [3Xhashset[103X[133X
   
   [1X8.1-5 RemoveSet[101X
   
-  [33X[1;0Y[29X[2XRemoveSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XRemoveSet[102X( [3Xhashset[103X, [3Xobj[103X ) [32X operation[133X
   
   [33X[0;0YRemove [3Xobj[103X from [3Xhashset[103X.[133X
   
   [1X8.1-6 Size[101X
   
-  [33X[1;0Y[29X[2XSize[102X( [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XSize[102X( [3Xhashset[103X ) [32X operation[133X
   
   [33X[0;0YReturn the size of a hashset Returns an integer[133X
   
   [1X8.1-7 IsEmpty[101X
   
-  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsEmpty[102X( [3Xhashset[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Ya boolean[133X
   
   [33X[0;0YTest a hashset for emptiness.[133X
   
   [1X8.1-8 Set[101X
   
-  [33X[1;0Y[29X[2XSet[102X( [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XSet[102X( [3Xhashset[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Ya set[133X
   
   [33X[0;0YConvert a hashset into a [5XGAP[105X set[133X
   
   [1X8.1-9 AsSet[101X
   
-  [33X[1;0Y[29X[2XAsSet[102X( [3Xhashset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XAsSet[102X( [3Xhashset[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan immutable set[133X
   
   [33X[0;0YConvert a hashset into a [5XGAP[105X set[133X
   
   [1X8.1-10 Iterator[101X
   
-  [33X[1;0Y[29X[2XIterator[102X( [3Xset[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIterator[102X( [3Xset[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan iterator[133X
   
   [33X[0;0YCreate an iterator for the values contained in a hashset. Note that elements

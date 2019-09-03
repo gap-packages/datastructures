@@ -11,8 +11,9 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.2.3",
-Date := "18/12/2018",
+Version := "0.2.4",
+Date := "03/09/2019", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
@@ -36,17 +37,16 @@ Persons := [
     FirstNames    := "Max",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
+    Email         := "max.horn@uni-siegen.de",
+    WWWHome       := "https://www.quendi.de/math",
     PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
+                       "Department Mathematik\n",
+                       "Universität Siegen\n",
+                       "Walter-Flex-Straße 3\n",
+                       "57072 Siegen\n",
                        "Germany" ),
-    Place         := "Gießen, Germany",
-    Institution   := "Justus-Liebig-Universität Gießen"
+    Place         := "Siegen, Germany",
+    Institution   := "Universität Siegen"
   ),
   rec(
     LastName      := "Jefferson",
@@ -115,7 +115,7 @@ PackageDoc := [ rec(
 ##  Are there restrictions on the operating system for this package? Or does
 ##  the package need other packages to be available?
 Dependencies := rec(
-  GAP := ">= 4.9.1",
+  GAP := ">= 4.10",
   NeededOtherPackages := [["GAPDoc", "1.5"]],
   SuggestedOtherPackages := [],
   # OtherPackagesLoadedInAdvance := [],

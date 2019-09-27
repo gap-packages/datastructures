@@ -13,7 +13,7 @@
 #!
 #! <Package>datastructures</Package> implements deques
 #! using a circular buffer stored in a &GAP; a plain list,
-#! wrapped in a positional object (<Ref Filt="IsPositionalObjectRep" BookName="Ref"/>).
+#! wrapped in a positional object (<Ref Sect="Positional Objects" BookName="ref"/>).
 #!
 #! The five positions in such a deque <C>Q</C> have the following purpose
 #!

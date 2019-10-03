@@ -85,7 +85,7 @@
 DeclareCategory("IsOrderedSetDS", IsObject);
 
 #! @Description
-#! Subcategory of ordered sets where the ordering is &GAP;'s default $\leq$
+#! Subcategory of ordered sets where the ordering is &GAP;'s default <C>&lt;</C>
 DeclareCategory("IsStandardOrderedSetDS", IsOrderedSetDS);
 
 #! @Description
@@ -99,7 +99,7 @@ BindGlobal( "OrderedSetDSFamily", NewFamily("OrderedSetDSFamily") );
 #! object will have.<P/>
 #! The optional argument <A>lessThan</A> must be a binary function that returns <K>true</K> if
 #! its first argument is less than its second argument, and <K>false</K> otherwise. The default
-#! <A>lessThan</A> is &GAP;'s built in $\leq$.<P/>
+#! <A>lessThan</A> is &GAP;'s built in <C>&lt;</C>.<P/>
 #! The optional argument <A> initialEntries</A> gives a collection of elements that the ordered
 #! set is initialised with, and defaults to the empty set.<P/>
 #! The optional argument <A>randomSource</A > is

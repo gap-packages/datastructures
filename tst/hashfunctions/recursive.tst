@@ -53,5 +53,10 @@ gap> HashBasic(rec1) = HashBasic(rec2);
 true
 
 # Check objects we don't handle
+#@if GAPInfo.KernelInfo.KERNEL_API_VERSION >= 7000
+gap> HashBasic(SymmetricGroup(3));
+Error, Unable to hash component object
+#@else
 gap> HashBasic(SymmetricGroup(3));
 Error, Unable to hash object (component)
+#@fi

@@ -235,8 +235,13 @@ Error, <key> must not be equal to 'fail'
 # a positional object which isn't a hash map
 gap> IsPositionalObjectRep(infinity);
 true
+#@if GAPInfo.KernelInfo.KERNEL_API_VERSION >= 7000
+gap> DS_Hash_Value(infinity, 1);
+Error, <ht> must be a hashmap object (not a positional object)
+#@else
 gap> DS_Hash_Value(infinity, 1);
 Error, <ht> must be a hashmap object (not a object (positional))
+#@fi
 
 # test input validation for DS_Hash_Contains
 gap> DS_Hash_Contains(fail, 1);

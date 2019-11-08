@@ -10,6 +10,7 @@ matrix:
   include:
     - env: GAPBRANCH=master
     - env: GAPBRANCH=stable-4.10
+    - env: GAPBRANCH=stable-4.11
     - env: GAPBRANCH=master
       os: osx
     - env: GAPBRANCH=master ABI=32

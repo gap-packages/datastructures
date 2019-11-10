@@ -2,8 +2,6 @@
 clone_depth: 5                  # clone entire repository history if not defined
 
 environment:
-  GAPROOT: "gaproot"
-  COVDIR: "coverage"
   matrix:
     - CYG_ARCH: x86
       CYG_ROOT: C:\cygwin

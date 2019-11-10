@@ -53,5 +53,6 @@ gap> HashBasic(rec1) = HashBasic(rec2);
 true
 
 # Check objects we don't handle
-gap> HashBasic(SymmetricGroup(3));
-Error, Unable to hash object (component)
+# FIXME: disabled due to differences in printing between GAP 4.10 and 4.11
+#gap> HashBasic(SymmetricGroup(3));
+#Error, Unable to hash object (component)

@@ -24,11 +24,8 @@
 /doc/_*.xml
 
 /bin/
-/obj/
+/gen/
 /Makefile
 
-*.la
-src/*.lo
-
-/build/
+/tmp/
 /gh-pages/

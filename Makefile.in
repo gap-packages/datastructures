@@ -1,135 +1,18 @@
 #
 # Makefile rules for the datastructures package
 #
-# This requires GNU make (just as the main GAP does).
-#
-# For simple packages one should only need to modify the MODULE_NAME
-# and the SOURCES variable.
-#
-MODULE_NAME = datastructures
+KEXT_NAME = datastructures
 
-SOURCES =
-SOURCES += src/avl.c
-SOURCES += src/binaryheap.c
-SOURCES += src/datastructures.c
-SOURCES += src/hashfunctions.c
-SOURCES += src/hashmap.c
-SOURCES += src/pairingheap.c
-SOURCES += src/skiplist.c
-SOURCES += src/uf.c
+KEXT_SOURCES =
+KEXT_SOURCES += src/avl.c
+KEXT_SOURCES += src/binaryheap.c
+KEXT_SOURCES += src/datastructures.c
+KEXT_SOURCES += src/hashfunctions.c
+KEXT_SOURCES += src/hashmap.c
+KEXT_SOURCES += src/pairingheap.c
+KEXT_SOURCES += src/skiplist.c
+KEXT_SOURCES += src/uf.c
 
-########################################################################
-# Do not edit below (unless you know what you're doing.
-########################################################################
-
-########################################################################
-# Some variables (that should come from GAP's configure'd setup
-########################################################################
+# include shared GAP package build system
 GAPPATH = @GAPPATH@
-GAPARCH = @GAPARCH@
-
-BINARCHDIR = bin/@GAPARCH@
-GAPINSTALLIB = $(BINARCHDIR)/$(MODULE_NAME).so
-
-MKDIR_P = /bin/mkdir -p
-
-GAP = @GAPPATH@/gap
-GAC = @GAPPATH@/gac
-
-all: $(GAPINSTALLIB)
-.PHONY: all
-
-########################################################################
-# Object files
-########################################################################
-
-# OBJS shall contain the names of all object files that constitute the
-# package's kernel library.
-OBJS = $(patsubst src/%.c,obj/%.lo,$(SOURCES))
-
-########################################################################
-# Quiet rules.
-#
-# Replace regular output with quiet messages, unless V is set,
-# e.g. "make V=1"
-########################################################################
-ifneq ($(findstring $(MAKEFLAGS),s),s)
-ifndef V
-QUIET_GAC     = @echo "   GAC     $< => $@";
-LIBTOOL          += --silent
-endif
-endif
-
-########################################################################
-# Rules for automatic header dependency tracking.
-#
-# This is somewhat similar to what automake does, but relies on compiler
-# support. The result is much simpler.
-#
-# So, here is what happens: In each directory containing source files,
-# a ".deps" subdirectory is created. We then instruct the compiler via
-# some flags to create a ".deps/FOO.d" file when it compiles "FOO.c".
-# This file encodes the header dependencies of "FOO.c" in a way that
-# make can read (i.e. simply as a bunch of make targets with
-# dependencies).
-#
-# Finally, to let make track the header dependencies, we include the *.d files.
-#
-# For a more detailed explanation of a very similar scheme, read this:
-# http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
-#
-########################################################################
-
-# Name of subdirectories in which the generated dependencies are stored.
-DEPDIRNAME := .deps
-
-# List of all (potential) dependency directories, derived from OBJS
-# and SOURCES (the latter for generated sources, which may also involve
-# dependency tracking)
-DEPDIRS = $(addsuffix $(DEPDIRNAME),$(sort $(dir $(SOURCES) $(OBJS))))
-
-# Include the dependency tracking files.
--include $(wildcard $(addsuffix /*.d,$(DEPDIRS)))
-
-# Mark *.d files as PHONY. This stops make from trying to
-# recreate them (which it can't), and in particular from looking for potential
-# source files. This can save quite a bit of disk access time.
-.PHONY: $(wildcard $(addsuffix /*.d,$(DEPDIRS)))
-
-DEPFILE = "$(@D)/$(DEPDIRNAME)/$(*F).d"
-
-# The following flags instruct the compiler to enable advanced
-# dependency tracking. Supported by GCC 3 and newer; clang; Intel C
-# compiler; and more.
-#
-# TODO: use configure to compute DEPFLAGS, so that we can
-# disable it for compilers that don't support it, resp. replace it
-# something that works for that compiler
-DEPFLAGS = -MQ "$@" -MMD -MP -MF $(DEPFILE)
-
-obj/%.lo: src/%.c
-	@$(MKDIR_P) $(@D)/$(DEPDIRNAME)
-	@$(QUIET_GAC)$(GAC) -d -p "$(DEPFLAGS)" -c $< -o $@
-
-$(GAPINSTALLIB): $(OBJS)
-	@$(MKDIR_P) $(BINARCHDIR)
-	@$(QUIET_GAC)$(GAC) -d -p "$(DEPFLAGS)" $(OBJS) -o $@
-
-clean:
-	rm -rf $(BINARCHDIR)
-	rm -rf obj
-
-distclean:
-	rm -rf bin obj Makefile
-	(cd doc && ./clean)
-
-doc: default
-	$(GAP) makedoc.g
-
-check: default
-	$(GAP) tst/testall.g
-
-Makefile: configure Makefile.in
-	./configure "@GAPPATH@"
-
-.PHONY: default clean distclean doc check
+include Makefile.gappkg

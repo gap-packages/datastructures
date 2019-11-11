@@ -1,5 +1,12 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.2.5 (2019-11-11)
+
+  - Replace the build system with a new one that doesn't use autotool
+  - Fix loading workspaces which use datastructures
+  - Fix some issues in the documentation
+  - Adjust test suite to pass in both GAP 4.10 and 4.11
+
 ## 0.2.4 (2019-09-03)
 
   - Require GAP >= 4.10

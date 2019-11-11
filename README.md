@@ -17,8 +17,7 @@ and implementations.
 This is a BETA release of this package. Interfaces and behaviour might
 change between beta releases and break your code. If you are relying on
 any feature and would like it to be retained, please contact us via
-
-   https://github.com/gap-packages/datastructures/issues
+   <https://github.com/gap-packages/datastructures/issues>
 
 or our slack channel #datastructures on https://gap-system.slack.com.
 
@@ -51,14 +50,12 @@ List queues based on Reimer Behrends' implementation in HPC-GAP
 Full information and documentation can be found in the manual, available
 as PDF `doc/manual.pdf` or as HTML `doc/chap0_mj.html`, or on the package
 homepage at
-
   <http://gap-packages.github.io/datastructures/>
 
 
 ## Bug reports and feature requests
 
 Please submit bug reports and feature requests via our GitHub issue tracker:
-
   <https://github.com/gap-packages/datastructures/issues>
 
 

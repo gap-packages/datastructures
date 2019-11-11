@@ -87,8 +87,8 @@
   [1X4.2 [33X[0;0YDeques implemented using plain lists[133X[101X
   
   [33X[0;0Y[5Xdatastructures[105X  implements  deques using a circular buffer stored in a [5XGAP[105X a
-  plain   list,   wrapped   in   a  positional  object  ([2XIsPositionalObjectRep[102X
-  ([14XIsPositionalObjectRep???[114X)).[133X
+  plain   list,   wrapped  in  a  positional  object  ([14X'Reference:  Positional
+  Objects'[114X).[133X
   
   [33X[0;0YThe five positions in such a deque [10XQ[110X have the following purpose[133X
   

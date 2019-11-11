@@ -68,8 +68,7 @@
   [33X[1;0Y[29X[2XIsStandardOrderedSetDS[102X( [3Xarg[103X ) [32X filter[133X
   [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
   
-  [33X[0;0YSubcategory   of   ordered   sets   where  the  ordering  is  [5XGAP[105X's  default
-  UNKNOWNEntity(leq)[133X
+  [33X[0;0YSubcategory of ordered sets where the ordering is [5XGAP[105X's default [10X<[110X[133X
   
   [1X10.2-3 OrderedSetDS[101X
   
@@ -84,7 +83,7 @@
   
   [33X[0;0YThe  optional  argument [3XlessThan[103X must be a binary function that returns [9Xtrue[109X
   if its first argument is less than its second argument, and [9Xfalse[109X otherwise.
-  The default [3XlessThan[103X is [5XGAP[105X's built in UNKNOWNEntity(leq).[133X
+  The default [3XlessThan[103X is [5XGAP[105X's built in [10X<[110X.[133X
   
   [33X[0;0YThe  optional  argument  [3X initialEntries[103X gives a collection of elements that
   the ordered set is initialised with, and defaults to the empty set.[133X

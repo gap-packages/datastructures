@@ -11,7 +11,7 @@
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
 
-#include "src/compiled.h" /* GAP headers */
+#include "compiled.h" // GAP headers
 
 // Helper macro to simplify initialization of StructGVarFunc records
 #define GVARFUNC(name, nparam, params)                                       \

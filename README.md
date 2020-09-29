@@ -1,4 +1,4 @@
-[![Travis Build Status](https://travis-ci.org/gap-packages/datastructures.svg?branch=master)](https://travis-ci.org/gap-packages/datastructures)
+[![Travis Build Status](https://travis-ci.com/gap-packages/datastructures.svg?branch=master)](https://travis-ci.com/gap-packages/datastructures)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gap-packages/datastructures?branch=master&svg=true)](https://ci.appveyor.com/project/gap-packages/datastructures)
 [![Code Coverage](https://codecov.io/github/gap-packages/datastructures/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/datastructures)
 

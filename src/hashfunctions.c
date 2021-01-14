@@ -18,6 +18,8 @@
 #include "src/trans.h"
 #include "src/pperm.h"
 
+#include <stdlib.h> // for labs
+
 
 // SquashToPerm2 takes a permutation in PERM4 form, and the largest moved
 // point of the permutation (which should be <= 65536), and returns the

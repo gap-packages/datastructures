@@ -1,5 +1,10 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.2.6 (2021-04-13)
+
+  - Prepare for GAP 4.12
+  - Various janitorial changes
+
 ## 0.2.5 (2019-11-11)
 
   - Replace the build system with a new one that doesn't use autotool

@@ -24,7 +24,7 @@
 # namespace
 SKIPLISTS := rec();
 
-IsSkipListRep := NewRepresentation("IsSkipListRep", IsComponentObjectRep, []);
+DeclareRepresentation("IsSkipListRep", IsComponentObjectRep, []);
 
 SKIPLISTS.SkipListDefaultType :=  NewType(OrderedSetDSFamily, IsSkipListRep and IsOrderedSetDS and IsMutable);
 SKIPLISTS.SkipListStandardType :=  NewType(OrderedSetDSFamily, IsSkipListRep and IsStandardOrderedSetDS and IsMutable);

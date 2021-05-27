@@ -19,7 +19,7 @@
 AVL := rec();
 
 
-IsAVLTreeRep := NewRepresentation("IsAVLTreeRep", IsComponentObjectRep, []);
+DeclareRepresentation("IsAVLTreeRep", IsComponentObjectRep, []);
 
 
 AVL.DefaultType :=  NewType(OrderedSetDSFamily, IsAVLTreeRep and  IsOrderedSetDS and IsMutable);

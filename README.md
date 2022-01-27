@@ -1,5 +1,4 @@
 [![Build Status](https://github.com/gap-packages/datastructures/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/datastructures/actions?query=workflow%3ACI+branch%3Amaster)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gap-packages/datastructures?branch=master&svg=true)](https://ci.appveyor.com/project/gap-packages/datastructures)
 [![Code Coverage](https://codecov.io/github/gap-packages/datastructures/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/datastructures)
 
 # The datastructures GAP package

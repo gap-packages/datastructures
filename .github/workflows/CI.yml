@@ -46,11 +46,11 @@ jobs:
       - uses: gap-actions/setup-cygwin@v1
       - uses: gap-actions/setup-gap@cygwin-v2
         with:
-          GAP_PKGS_TO_BUILD: ''
+          GAP_PKGS_TO_BUILD: 'profiling io'
       - uses: gap-actions/build-pkg@cygwin-v1
       - uses: gap-actions/run-pkg-tests@cygwin-v2
-        with:
-          NO_COVERAGE: 'yes'
+      - uses: gap-actions/process-coverage@cygwin-v2
+      - uses: codecov/codecov-action@v2
 
   # The documentation job
   manual:

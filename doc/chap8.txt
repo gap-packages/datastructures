@@ -13,13 +13,13 @@
   [1X8.1-1 IsHashSet[101X
   
   [33X[1;0Y[29X[2XIsHashSet[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YCategory of hashsets[133X
   
   [1X8.1-2 HashSet[101X
   
-  [33X[1;0Y[29X[2XHashSet[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X, ]][[3Xcapacity[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XHashSet[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X]][,] [[3Xcapacity[103X] ) [32X function[133X
   
   [33X[0;0YCreate  a  new  hashset.  The  optional  argument  [3Xhashfunc[103X  must be a hash-
   function,  [3Xeqfunc[103X  must  be  a binary equality testing function that returns

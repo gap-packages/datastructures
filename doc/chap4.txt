@@ -7,14 +7,14 @@
   [1X4.1-1 IsQueue[101X
   
   [33X[1;0Y[29X[2XIsQueue[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YThe category of queues.[133X
   
   [1X4.1-2 IsDeque[101X
   
   [33X[1;0Y[29X[2XIsDeque[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YThe category of deques.[133X
   
@@ -178,8 +178,8 @@
   the  queue,  and removing elements from the front. A [13Xdeque[113X is a [13Xdouble-ended
   queue[113X; a linear data structure that allows access to objects at both ends.[133X
   
-  [33X[0;0YThe  API  that  objects  that  lie  in  [2XIsQueue[102X  ([14X???IsQueue???[114X) and [2XIsDeque[102X
-  ([14X???IsDeque???[114X) must implement the API set out below.[133X
+  [33X[0;0YThe  API  that  objects that lie in [2XIsQueue[102X ([14X4.1-1[114X) and [2XIsDeque[102X ([14X4.1-2[114X) must
+  implement the API set out below.[133X
   
   [33X[0;0Y[5Xdatastructures[105X provides[133X
   

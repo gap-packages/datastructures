@@ -51,14 +51,14 @@
   
   [1X3.2 [33X[0;0YAPI[133X[101X
   
-  [33X[0;0YFor  the  purposes  of  the  [5Xdatastructures[105X,  we  provide  a category [2XIsHeap[102X
-  ([14X???IsHeap???[114X)  .  Every  implementation  of  a  heap in the category [2XIsHeap[102X
-  ([14X???IsHeap???[114X) must follow the API described in this section.[133X
+  [33X[0;0YFor the purposes of the [5Xdatastructures[105X, we provide a category [2XIsHeap[102X ([14X3.2-1[114X)
+  .  Every implementation of a heap in the category [2XIsHeap[102X ([14X3.2-1[114X) must follow
+  the API described in this section.[133X
   
   [1X3.2-1 IsHeap[101X
   
   [33X[1;0Y[29X[2XIsHeap[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YThe category of heaps. Every object in this category promises to support the
   API described in this section.[133X
@@ -152,7 +152,7 @@
   [1X3.5-1 IsBinaryHeapFlatRep[101X
   
   [33X[1;0Y[29X[2XIsBinaryHeapFlatRep[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   
   [1X3.6 [33X[0;0YImplementation[133X[101X
@@ -160,5 +160,5 @@
   [1X3.6-1 IsPairingHeapFlatRep[101X
   
   [33X[1;0Y[29X[2XIsPairingHeapFlatRep[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   

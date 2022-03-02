@@ -12,15 +12,15 @@
   [33X[0;0YWe  refer  to these as ordered set [13Xdatastructure[113X because the differ from the
   [5XGAP[105X notion of a set in a number of ways:[133X
   
-  [30X    [33X[0;6YThey    all    lie    in    a    common    family   [2XOrderedSetDSFamily[102X
-        ([14X???OrderedSetDSFamily???[114X) and pay no attention to the families of the
-        Objects stored in them.[133X
+  [30X    [33X[0;6YThey  all  lie  in  a  common  family  [10XOrderedSetDSFamily[110X  and  pay no
+        attention to the families of the objects stored in them.[133X
   
   [30X    [33X[0;6YEquality  of  these  structures  is  by  identity, not equality of the
         represented set[133X
   
   [30X    [33X[0;6YThe ordering of the objects in the set does not have to be default [5XGAP[105X
-        ordering "less than", but is determined by the Attribute [10XLessFunction[110X[133X
+        ordering  "less than", but is determined by the attribute [2XLessFunction[102X
+        ([14X10.2-13[114X)[133X
   
   [33X[0;0YThree implementations of ordered set data structures are currently included:
   skiplists,  binary  search  trees  and (as a specialisation of binary search
@@ -59,14 +59,14 @@
   [1X10.2-1 IsOrderedSetDS[101X
   
   [33X[1;0Y[29X[2XIsOrderedSetDS[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YCategory of ordered set.[133X
   
   [1X10.2-2 IsStandardOrderedSetDS[101X
   
   [33X[1;0Y[29X[2XIsStandardOrderedSetDS[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YSubcategory of ordered sets where the ordering is [5XGAP[105X's default [10X<[110X[133X
   
@@ -161,14 +161,14 @@
   [6XReturns:[106X  [33X[0;10Yiterator[133X
   
   [33X[0;0YReturns  an iterator of [3Xset[103X that can be used to iterate through the elements
-  of [3Xset[103X in the order imposed by [2XLessFunction[102X ([14X???LessFunction???[114X).[133X
+  of [3Xset[103X in the order imposed by [2XLessFunction[102X ([14X10.2-13[114X).[133X
   
   
   [1X10.3 [33X[0;0YDefault methods[133X[101X
   
-  [33X[0;0YDefault methods based on [2XIteratorSorted[102X ([14X???IteratorSorted???[114X) are installed
-  for  the following operations and attributes, but can be overridden for data
-  structures that support better algorithms.[133X
+  [33X[0;0YDefault  methods  based  on  [2XIteratorSorted[102X  ([14XReference: IteratorSorted[114X) are
+  installed for the following operations and attributes, but can be overridden
+  for data structures that support better algorithms.[133X
   
   [1X10.3-1 Iterator[101X
   
@@ -197,7 +197,7 @@
   [1X10.3-7 IsEmpty[101X
   
   [33X[1;0Y[29X[2XIsEmpty[102X( [3Xarg[103X ) [32X property[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [1X10.3-8 Length[101X
   

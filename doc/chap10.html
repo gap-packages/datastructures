@@ -69,13 +69,13 @@
 
 
 <ul>
-<li><p>They all lie in a common family <code class="func">OrderedSetDSFamily</code> (<span class="RefLink">???</span>) and pay no attention to the families of the Objects stored in them.</p>
+<li><p>They all lie in a common family <code class="code">OrderedSetDSFamily</code> and pay no attention to the families of the objects stored in them.</p>
 
 </li>
 <li><p>Equality of these structures is by identity, not equality of the represented set</p>
 
 </li>
-<li><p>The ordering of the objects in the set does not have to be default <strong class="pkg">GAP</strong> ordering "less than", but is determined by the Attribute <code class="code">LessFunction</code></p>
+<li><p>The ordering of the objects in the set does not have to be default <strong class="pkg">GAP</strong> ordering "less than", but is determined by the attribute <code class="func">LessFunction</code> (<a href="chap10.html#X85F4EDA0841AADFD"><span class="RefLink">10.2-13</span></a>)</p>
 
 </li>
 </ul>
@@ -117,7 +117,7 @@ true
 <h5>10.2-1 IsOrderedSetDS</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsOrderedSetDS</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
-<p>Returns: <code class="code">true</code> or <code class="code">false</code></p>
+<p>Returns: <code class="keyw">true</code> or <code class="keyw">false</code></p>
 
 <p>Category of ordered set.</p>
 
@@ -126,7 +126,7 @@ true
 <h5>10.2-2 IsStandardOrderedSetDS</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsStandardOrderedSetDS</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
-<p>Returns: <code class="code">true</code> or <code class="code">false</code></p>
+<p>Returns: <code class="keyw">true</code> or <code class="keyw">false</code></p>
 
 <p>Subcategory of ordered sets where the ordering is <strong class="pkg">GAP</strong>'s default <code class="code">&lt;</code></p>
 
@@ -223,13 +223,13 @@ true
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IteratorSorted</code>( <var class="Arg">set</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: iterator</p>
 
-<p>Returns an iterator of <var class="Arg">set</var> that can be used to iterate through the elements of <var class="Arg">set</var> in the order imposed by <code class="func">LessFunction</code> (<span class="RefLink">???</span>).</p>
+<p>Returns an iterator of <var class="Arg">set</var> that can be used to iterate through the elements of <var class="Arg">set</var> in the order imposed by <code class="func">LessFunction</code> (<a href="chap10.html#X85F4EDA0841AADFD"><span class="RefLink">10.2-13</span></a>).</p>
 
 <p><a id="X8373B442852AB64B" name="X8373B442852AB64B"></a></p>
 
 <h4>10.3 <span class="Heading">Default methods</span></h4>
 
-<p>Default methods based on <code class="func">IteratorSorted</code> (<span class="RefLink">???</span>) are installed for the following operations and attributes, but can be overridden for data structures that support better algorithms.</p>
+<p>Default methods based on <code class="func">IteratorSorted</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap30_mj.html#X8688C20B828FC129"><span class="RefLink">Reference: IteratorSorted</span></a>) are installed for the following operations and attributes, but can be overridden for data structures that support better algorithms.</p>
 
 <p><a id="X805D48307D3FBC57" name="X805D48307D3FBC57"></a></p>
 
@@ -266,7 +266,7 @@ true
 <h5>10.3-7 IsEmpty</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsEmpty</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
-<p>Returns: <code class="code">true</code> or <code class="code">false</code></p>
+<p>Returns: <code class="keyw">true</code> or <code class="keyw">false</code></p>
 
 <p><a id="X78B39A307B3B8879" name="X78B39A307B3B8879"></a></p>
 

@@ -13,13 +13,13 @@
   [1X7.1-1 IsHashMap[101X
   
   [33X[1;0Y[29X[2XIsHashMap[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
   
   [33X[0;0YCategory of hash maps[133X
   
   [1X7.1-2 HashMap[101X
   
-  [33X[1;0Y[29X[2XHashMap[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X, ]][[3Xcapacity[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XHashMap[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X]][,] [[3Xcapacity[103X] ) [32X function[133X
   
   [33X[0;0YCreate  a  new  hash  map.  The  optional  argument [3Xhashfunc[103X must be a hash-
   function  ,  [3Xeqfunc[103X  must be a binary equality testing function that returns

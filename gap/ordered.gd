@@ -37,13 +37,13 @@
 #! We refer to these as ordered set <E>datastructure</E> because the differ
 #! from the &GAP; notion of a set in a number of ways:
 #! <List>
-#!  <Item> They all lie in a common family <Ref Fam="OrderedSetDSFamily"/>
-#!         and pay no attention to the families of the Objects stored in them.
+#!  <Item> They all lie in a common family <C>OrderedSetDSFamily</C>
+#!         and pay no attention to the families of the objects stored in them.
 #!  </Item>
 #!  <Item> Equality of these structures is by identity, not equality of the represented set
 #!  </Item>
 #!  <Item> The ordering of the objects in the set does not have to be default &GAP;
-#!         ordering "less than", but is determined by the Attribute <C>LessFunction</C>
+#!         ordering "less than", but is determined by the attribute <Ref Attr="LessFunction" Label="for IsOrderedSetDS"/>
 #!  </Item>
 #! </List>
 #!
@@ -163,14 +163,14 @@ DeclareAttribute("Size", IsOrderedSetDS);
 
 #! @Description
 #! Returns an iterator of <A>set</A> that can be used to iterate through the elements
-#! of <A>set</A> in the order imposed by <Ref Attr="LessFunction"/>.
+#! of <A>set</A> in the order imposed by <Ref Attr="LessFunction" Label="for IsOrderedSetDS"/>.
 #! @Returns iterator
 #! @Arguments set
 DeclareOperation("IteratorSorted", [IsOrderedSetDS]);
 
 #! @Section Default methods
 #!
-#! Default methods based on <Ref Oper="IteratorSorted"/> are installed for the following
+#! Default methods based on <Ref Oper="IteratorSorted" BookName="ref"/> are installed for the following
 #! operations and attributes, but can be overridden for data structures that
 #! support better algorithms.
 #!

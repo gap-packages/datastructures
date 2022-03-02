@@ -82,7 +82,7 @@ Persons := [
   ),
 ],
 
-Status := "dev",
+Status := "deposited",
 
 SourceRepository := rec(
   Type := "git",

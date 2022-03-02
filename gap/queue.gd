@@ -15,8 +15,8 @@
 #! A <E>deque</E> is a <E>double-ended queue</E>; a linear data structure that allows access
 #! to objects at both ends.<P/>
 #!
-#! The API that objects that lie in <Ref Filt="IsQueue"/> and
-#! <Ref Filt="IsDeque"/> must implement the API set out below.
+#! The API that objects that lie in <Ref Filt="IsQueue" Label="for IsObject"/> and
+#! <Ref Filt="IsDeque" Label="for IsObject"/> must implement the API set out below.
 #!
 #! <Package>datastructures</Package> provides
 #!

@@ -64,8 +64,8 @@
 #! @Section API
 #!
 #! For the purposes of the <Package>datastructures</Package>, we provide
-#! a category <Ref Filt="IsHeap"/> . Every
-#! implementation of a heap in the category <Ref Filt="IsHeap"/>
+#! a category <Ref Filt="IsHeap" Label="for IsObject"/> . Every
+#! implementation of a heap in the category <Ref Filt="IsHeap" Label="for IsObject"/>
 #! must follow the API described in this section.
 #!
 

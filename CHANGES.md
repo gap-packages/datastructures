@@ -1,5 +1,9 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.2.7 (2022-03-03)
+
+  - Various janitorial changes
+
 ## 0.2.6 (2021-04-13)
 
   - Prepare for GAP 4.12

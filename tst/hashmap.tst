@@ -140,23 +140,23 @@ gap> Filtered([1..1000], i -> not DS_Hash_Contains(hashmap, i));
 #
 gap> hashmap[567];
 fail
-gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, \+);
 false
 gap> hashmap[567];
 1
-gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, \+);
 true
 gap> hashmap[567];
 2
-gap> DS_Hash_AccumulateValue(hashmap, 567, 5, PROD);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 5, \*);
 true
 gap> hashmap[567];
 10
-gap> DS_Hash_AccumulateValue(hashmap, 567, 2^60-1, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 2^60-1, \+);
 true
 gap> hashmap[567] = 2^60 + 9;
 true
-gap> DS_Hash_AccumulateValue(hashmap, 567, 1/2, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1/2, \+);
 true
 gap> hashmap[567] = 2^60 + 9 + 1/2;
 true
@@ -260,11 +260,11 @@ gap> DS_Hash_Reserve(hashmap, fail);
 Error, <capacity> must be a small positive integer (not a boolean or fail)
 
 # test input validation for DS_Hash_AccumulateValue
-gap> DS_Hash_AccumulateValue(fail, 567, 1, SUM);
+gap> DS_Hash_AccumulateValue(fail, 567, 1, \+);
 Error, <ht> must be a hashmap object (not a boolean or fail)
-gap> DS_Hash_AccumulateValue(hashmap, fail, 1, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, fail, 1, \+);
 Error, <key> must not be equal to 'fail'
-gap> DS_Hash_AccumulateValue(hashmap, 567, fail, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, fail, \+);
 Error, <val> must not be equal to 'fail'
 gap> DS_Hash_AccumulateValue(hashmap, 567, 1, fail);
 Error, <accufunc> must be a function (not a boolean or fail)
@@ -406,7 +406,7 @@ gap> hashmap[17] := 7;
 Error, <ht> must be a mutable hashmap or hashset
 gap> Unbind(hashmap[17]);
 Error, <ht> must be a mutable hashmap or hashset
-gap> DS_Hash_AccumulateValue(hashmap, 567, 1, SUM);
+gap> DS_Hash_AccumulateValue(hashmap, 567, 1, \+);
 Error, <ht> must be a mutable hashmap or hashset
 
 # Test key mutability

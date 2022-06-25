@@ -11,7 +11,7 @@
 # This file contains a GAP implementation of a binary max-heap.
 #
 # Some hints for writing efficient binary heap implementations:
-# <http://stackoverflow.com/questions/6531543>
+# <https://stackoverflow.com/questions/6531543>
 #
 # Note that while there are other heap datastructures which in
 # theory have better asymptotical behavior than binary heaps, in

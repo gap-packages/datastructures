@@ -92,7 +92,7 @@ InstallOtherMethod( IsEmpty,
 #! Convert a hashset into a &GAP; set
 #! @Arguments hashset
 #! @Returns a set
-InstallMethod( Set,
+InstallOtherMethod( Set,
     "for a hash set",
     [ IsHashSetRep ],
     ht -> Difference(Set(ht![5]),[fail]));
@@ -101,7 +101,7 @@ InstallMethod( Set,
 #! Convert a hashset into a &GAP; set
 #! @Arguments hashset
 #! @Returns an immutable set
-InstallMethod( AsSet,
+InstallOtherMethod( AsSet,
     "for a hash set",
     [ IsHashSetRep ],
     ht -> MakeImmutable(Set(ht)));
@@ -129,7 +129,7 @@ end);
 #! the creation of an iterator are not guaranteed to be returned by that iterator.
 #! @Arguments set
 #! @Returns an iterator
-InstallMethod( Iterator,
+InstallOtherMethod( Iterator,
     "for a hash set",
     [ IsHashSetRep ],
 function(ht)

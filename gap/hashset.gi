@@ -47,11 +47,42 @@ function(arg...)
     return res;
 end);
 
-InstallMethod(ViewObj, "for hashsets",
+InstallMethod(PrintString, "for hashsets",
     [ IsHashSetRep ],
 function(ht)
-    Print("<hash set obj capacity=",DS_Hash_Capacity(ht),
-            " used=",DS_Hash_Used(ht),">");
+    local v, first, string;
+    string := [];
+    Add(string, "HashSet([\>\>");
+    first := true;
+    for v in ht do
+        if first then
+            first := false;
+        else
+            Add(string, ",\< \>");
+        fi;
+        Add(string, PrintString(v));
+    od;
+    Add(string, "\<\<])");
+    return Concatenation(string);
+end);
+
+InstallMethod(String, "for hashsets",
+    [ IsHashSetRep ],
+function(ht)
+    local v, first, string;
+    string := [];
+    Add(string, "HashSet([");
+    first := true;
+    for v in ht do
+        if first then
+            first := false;
+        else
+            Add(string, ", ");
+        fi;
+        Add(string, String(v));
+    od;
+    Add(string, "])");
+    return Concatenation(string);
 end);
 
 #! @Description

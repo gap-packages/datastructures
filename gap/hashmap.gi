@@ -54,11 +54,42 @@ function(arg...)
     return map;
 end);
 
-InstallMethod(ViewString, "for hash maps",
+InstallMethod(PrintString, "for hashmaps",
     [ IsHashMapRep ],
 function(ht)
-    return STRINGIFY("<hash map obj capacity=",DS_Hash_Capacity(ht),
-            " used=",DS_Hash_Used(ht),">");
+    local v, first, string;
+    string := [];
+    Add(string, "HashMap([\>\>");
+    first := true;
+    for v in KeyValueIterator(ht) do
+        if first then
+            first := false;
+        else
+            Add(string, ",\< \>");
+        fi;
+        Add(string, PrintString(v));
+    od;
+    Add(string, "\<\<])");
+    return Concatenation(string);
+end);
+
+InstallMethod(String, "for hashmaps",
+    [ IsHashMapRep ],
+function(ht)
+    local v, first, string;
+    string := [];
+    Add(string, "HashMap([");
+    first := true;
+    for v in KeyValueIterator(ht) do
+        if first then
+            first := false;
+        else
+            Add(string, ", ");
+        fi;
+        Add(string, String(v));
+    od;
+    Add(string, "])");
+    return Concatenation(string);
 end);
 
 #! @Description

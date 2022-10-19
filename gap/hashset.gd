@@ -27,7 +27,9 @@ DeclareRepresentation( "IsHashSetRep", IsHashSet and IsPositionalObjectRep, [] )
 BindGlobal( "HashSetType", NewType(HashSetFamily, IsHashSetRep and IsMutable) );
 
 #! @Description
-#! Create a new hashset. The optional argument <A>hashfunc</A> must be a hash-
+#! Create a new hashset. The optional argument <A>values</A> must be a list of values,
+#! which will be inserted into the new hashset in order.
+#! The optional argument <A>hashfunc</A> must be a hash-
 #! function, <A>eqfunc</A> must
 #! be a binary equality testing function that returns <K>true</K> if the two arguments
 #! are considered equal, and <K>false</K> if they are not. Refer to Chapter
@@ -35,5 +37,5 @@ BindGlobal( "HashSetType", NewType(HashSetFamily, IsHashSetRep and IsMutable) );
 #! equality testers.
 #! The optional argument <A>capacity</A> determines the initial size of the hashmap.
 #!
-#! @Arguments [hashfunc[, eqfunc]] [capacity]
+#! @Arguments [values] [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashSet");

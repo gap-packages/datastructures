@@ -16,12 +16,17 @@
 #! @Section API
 InstallGlobalFunction(HashSet,
 function(arg...)
-    local hashfunc, eqfunc, capacity, res;
+    local hashfunc, eqfunc, capacity, res, values, v;
 
+    values := [];
     hashfunc := HashBasic;
     eqfunc := \=;
     capacity := 16;
 
+    if Length(arg) > 0 and IsList(arg[1]) then
+        values := Remove(arg, 1);
+        capacity := Maximum(capacity, Length(values));
+    fi;
     if Length(arg) > 0 and IsFunction(arg[1]) then
         hashfunc := Remove(arg, 1);
     fi;
@@ -36,6 +41,9 @@ function(arg...)
     fi;
 
     res := DS_Hash_Create(hashfunc, eqfunc, capacity, true);
+    for v in values do
+        AddSet(res, v);
+    od;
     return res;
 end);
 

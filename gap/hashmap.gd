@@ -27,15 +27,16 @@ DeclareRepresentation( "IsHashMapRep", IsHashMap and IsPositionalObjectRep, [] )
 BindGlobal( "HashMapType", NewType(HashMapFamily, IsHashMapRep and IsMutable) );
 
 #! @Description
-#! Create a new hash map. The optional argument <A>hashfunc</A> must be a hash-
-#! function , <A>eqfunc</A> must
+#! Create a new hash map. The optional argument <A>values</A> must be a list of
+#! key-value pairs which will be inserted into the new hashmap in order.
+#! The optional argument <A>hashfunc</A> must be a hash-function, <A>eqfunc</A> must
 #! be a binary equality testing function that returns <K>true</K> if the two arguments
 #! are considered equal, and <K>false</K> if they are not. Refer to Chapter
 #! <Ref Chap="Chapter_HashFunctions"/> about the requirements for hashfunctions and
 #! equality testers.
 #! The optional argument <A>capacity</A> determines the initial size of the hashmap.
 #!
-#! @Arguments [hashfunc[, eqfunc]] [capacity]
+#! @Arguments [values] [hashfunc[, eqfunc]] [capacity]
 DeclareGlobalFunction("HashMap");
 
 #! @Description

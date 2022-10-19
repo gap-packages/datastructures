@@ -22,6 +22,10 @@ gap> s:=AsSet(hashset); IsMutable(s);
 false
 gap> List(Iterator(hashset));
 [  ]
+gap> Set(HashSet([])) = [];
+true
+gap> s := Set(HashSet([1,2,3])) = [1,2,3];
+true
 
 # add stuff
 gap> for p in primes do AddSet(hashset, p); od;
@@ -100,6 +104,11 @@ gap> Set(hashset);
 [  ]
 gap> List(Iterator(hashset));
 [  ]
+
+# Check different equality and hash functions
+gap> h := HashSet([20,11,10,21], x -> x mod 2, {x,y} -> (x mod 10 = y mod 10));;
+gap> Set(h);
+[ 11, 20 ]
 
 #
 # error

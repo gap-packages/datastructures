@@ -36,6 +36,17 @@ true
 gap> Set(List(KeyValueIterator(hashmap))) = List([1..1000],i->[i,i^2]);
 true
 
+# Check initial construction
+gap> Set(List(KeyValueIterator(HashMap([])))) = [];
+true
+gap> Set(List(KeyValueIterator(HashMap([[1,2],[3,4]])))) = [[1,2],[3,4]];
+true
+
+# Check different equality and hash functions
+gap> h := HashMap([[20,1],[11,2],[10,3],[21,4]], x -> x mod 2, {x,y} -> (x mod 10 = y mod 10));;
+gap> Set(List(KeyValueIterator(h)));
+[ [ 11, 4 ], [ 20, 3 ] ]
+
 # check for presence of objects known to be contained in the hash map
 gap> DS_Hash_Contains(hashmap, 42);
 true

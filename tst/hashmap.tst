@@ -5,7 +5,7 @@ gap> START_TEST("hashmap.tst");
 # Test hash map with integer keys
 #
 gap> hashmap := HashMap();
-<hash map obj capacity=16 used=0>
+HashMap([])
 
 # keys and values
 gap> Keys(hashmap);
@@ -40,6 +40,24 @@ true
 gap> Set(List(KeyValueIterator(HashMap([])))) = [];
 true
 gap> Set(List(KeyValueIterator(HashMap([[1,2],[3,4]])))) = [[1,2],[3,4]];
+true
+
+# printing
+gap> HashMap();
+HashMap([])
+gap> HashMap([]);
+HashMap([])
+gap> HashMap([[2,3]]);
+HashMap([[ 2, 3 ]])
+gap> String(HashMap([[2,3]]));
+"HashMap([[ 2, 3 ]])"
+gap> String(HashMap([[2,3],[3,4]])) in
+> ["HashMap([[ 2, 3 ], [ 3, 4 ]])","HashMap([[ 3, 4 ], [ 2, 3 ]])"];
+true
+gap> PrintString(HashMap([[2,3]]));
+"HashMap([\>\>[ 2, 3 ]\<\<])"
+gap> PrintString(HashMap([[2,3],[3,4]]))
+> in ["HashMap([\>\>[ 2, 3 ],\< \>[ 3, 4 ]\<\<])","HashMap([\>\>[ 3, 4 ],\< \>[ 2, 3 ]\<\<])"];
 true
 
 # Check different equality and hash functions
@@ -206,15 +224,15 @@ false
 
 # test input validation for HashMap
 gap> HashMap();
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> HashMap(IdFunc);
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> HashMap(20);
-<hash map obj capacity=32 used=0>
+HashMap([])
 gap> HashMap(IdFunc, \=);
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> HashMap(IdFunc, 20);
-<hash map obj capacity=32 used=0>
+HashMap([])
 
 #
 gap> HashMap(fail);
@@ -310,25 +328,25 @@ Error, <iter> is exhausted
 # test reserving capacity
 #
 gap> hashmap := HashMap();
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> for i in [1..1400] do DS_Hash_SetValue(hashmap, i, i^2); od;
-gap> hashmap;
-<hash map obj capacity=2048 used=1400>
+gap> [Size(hashmap), DS_Hash_Capacity(hashmap)];
+[ 1400, 2048 ]
 
 # delete a few keys to make sure this case is handled, too
 gap> for i in [300..499] do DS_Hash_Delete(hashmap, i); od;
-gap> hashmap;
-<hash map obj capacity=2048 used=1200>
+gap> [Size(hashmap), DS_Hash_Capacity(hashmap)];
+[ 1200, 2048 ]
 
 # trying to shrink does nothing
 gap> DS_Hash_Reserve(hashmap, 200);
-gap> hashmap;
-<hash map obj capacity=2048 used=1200>
+gap> [Size(hashmap), DS_Hash_Capacity(hashmap)];
+[ 1200, 2048 ]
 
 # reserving more space does something
 gap> DS_Hash_Reserve(hashmap, 3000);
-gap> hashmap;
-<hash map obj capacity=4096 used=1200>
+gap> [Size(hashmap), DS_Hash_Capacity(hashmap)];
+[ 1200, 4096 ]
 
 ##########################################
 #
@@ -336,7 +354,7 @@ gap> hashmap;
 #
 #
 gap> hashmap := HashMap();
-<hash map obj capacity=16 used=0>
+HashMap([])
 
 # add stuff
 gap> keys := List([1..1000], i -> String(HashKeyBag(2^100+i, 0,0,-1)));;
@@ -374,7 +392,7 @@ true
 # namely: identity.
 #
 gap> hashmap := HashMap( {x} -> (HANDLE_OBJ(x) mod 2^20), IsIdenticalObj );
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> hashmap["foo"] := 1;;
 gap> hashmap["foo"] := 2;;
 gap> DS_Hash_Contains(hashmap, "foo");
@@ -404,11 +422,11 @@ gap> hashmap[foo];
 # Test mutability
 #
 gap> hashmap := HashMap();
-<hash map obj capacity=16 used=0>
+HashMap([])
 gap> hashmap[15] := "";
 ""
 gap> MakeImmutable(hashmap);
-<hash map obj capacity=16 used=1>
+HashMap([[ 15, "" ]])
 gap> IsMutable(hashmap);
 false
 gap> hashmap[15] := "2";

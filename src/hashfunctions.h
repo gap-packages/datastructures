@@ -47,8 +47,8 @@ static UInt ShuffleUInt(UInt key)
     return key;
 }
 
-// Hash two integers together -- comes from implementation in Boost
-static inline UInt HashCombine2(UInt seed, UInt v)
+// Combine a new value with an existing hash value
+static inline UInt AddToHash(UInt seed, UInt v)
 {
     return seed ^ (ShuffleUInt(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
 }

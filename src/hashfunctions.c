@@ -145,7 +145,7 @@ Obj DATA_HASH_FUNC_FOR_INT(Obj self, Obj i)
     }
 
     if (IS_INTOBJ(i))
-        return i;
+        return HashValueToObjInt(ShuffleUInt((UInt)i));
     else
         return HashValueToObjInt(DataHashFuncForInt(i));
 }

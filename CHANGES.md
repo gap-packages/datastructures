@@ -1,5 +1,11 @@
 # CHANGES to the 'datastructures' GAP package
 
+## X.Y.Z (YYYY-MM-DD)
+
+  - Improve printing of HashSets and HashMaps
+  - Allow giving initial values for HashMaps and HashSets
+  - Various janitorial changes
+
 ## 0.2.7 (2022-03-03)
 
   - Various janitorial changes

@@ -19,29 +19,6 @@
 
 extern struct DatastructuresModule HashFunctionsModule;
 
-
-// Hash two integers together
-static inline UInt HashCombine2(UInt hash1, UInt hash2)
-{
-    return 184950419 * hash1 + hash2;
-}
-
-static inline UInt HashCombine3(UInt hash1, UInt hash2, UInt hash3)
-{
-    return 79504963 * hash1 + 3287951041 * hash2 + hash3;
-}
-
-// Transform a UInt into a signed GAP intermediate integer, shrinking
-// the size of the number as required
-static inline Obj HashValueToObjInt(UInt uhash)
-{
-    Int hash = (Int)uhash;
-    // Make sure bottom bits are not lost
-    hash += hash << 11;
-    hash /= 16;
-    return INTOBJ_INT(hash);
-}
-
 // Perform a shuffle of a UInt. Ideally, changing any
 // bit would have a 50/50 chance of changing every other bit.
 // The main purpose of this is to allow adding values when
@@ -69,5 +46,23 @@ static UInt ShuffleUInt(UInt key)
 #endif
     return key;
 }
+
+// Hash two integers together -- comes from implementation in Boost
+static inline UInt HashCombine2(UInt seed, UInt v)
+{
+    return seed ^ (ShuffleUInt(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+}
+
+// Transform a UInt into a signed GAP intermediate integer, shrinking
+// the size of the number as required
+static inline Obj HashValueToObjInt(UInt uhash)
+{
+    Int hash = (Int)uhash;
+    // Make sure bottom bits are not lost
+    hash += hash << 11;
+    hash /= 16;
+    return INTOBJ_INT(hash);
+}
+
 
 #endif

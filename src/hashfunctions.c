@@ -164,11 +164,11 @@ Int BasicRecursiveHashForList(Obj obj)
     for (Int pos = 1; pos <= len; ++pos) {
         Obj val = ELM0_LIST(obj, pos);
         if (val == 0) {
-            current_hash = HashCombine2(current_hash, ~(Int)0);
+            current_hash = AddToHash(current_hash, ~(Int)0);
         }
         else {
             current_hash =
-                HashCombine2(current_hash, BasicRecursiveHash(val));
+                AddToHash(current_hash, BasicRecursiveHash(val));
         }
     }
     return current_hash;
@@ -193,7 +193,7 @@ Int BasicRecursiveHashForPRec(Obj obj)
         UInt rechash = BasicRecursiveHash(GET_ELM_PREC(obj, i));
 
         // Use +, because record may be out of order
-        current_hash += HashCombine2(hashrecname, rechash);
+        current_hash += AddToHash(hashrecname, rechash);
     }
 
     return current_hash;
@@ -256,8 +256,8 @@ Obj DATA_HASH_FUNC_RECURSIVE2(Obj self, Obj obj1, Obj obj2)
     UInt hash1 = BasicRecursiveHash(obj1);
     UInt hash2 = BasicRecursiveHash(obj2);
 
-    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
-    UInt listhash2 = HashCombine2(listhash1, hash2);
+    UInt listhash1 = AddToHash(LIST_BASE_HASH, hash1);
+    UInt listhash2 = AddToHash(listhash1, hash2);
     
     return HashValueToObjInt(listhash2);
 }
@@ -268,9 +268,9 @@ Obj DATA_HASH_FUNC_RECURSIVE3(Obj self, Obj obj1, Obj obj2, Obj obj3)
     Int hash2 = BasicRecursiveHash(obj2);
     Int hash3 = BasicRecursiveHash(obj3);
 
-    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
-    UInt listhash2 = HashCombine2(listhash1, hash2);
-    UInt listhash3 = HashCombine2(listhash2, hash3);
+    UInt listhash1 = AddToHash(LIST_BASE_HASH, hash1);
+    UInt listhash2 = AddToHash(listhash1, hash2);
+    UInt listhash3 = AddToHash(listhash2, hash3);
 
     return HashValueToObjInt(listhash3);
 }
@@ -282,10 +282,10 @@ Obj DATA_HASH_FUNC_RECURSIVE4(Obj self, Obj obj1, Obj obj2, Obj obj3, Obj obj4)
     Int hash3 = BasicRecursiveHash(obj3);
     Int hash4 = BasicRecursiveHash(obj4);
 
-    UInt listhash1 = HashCombine2(LIST_BASE_HASH, hash1);
-    UInt listhash2 = HashCombine2(listhash1, hash2);
-    UInt listhash3 = HashCombine2(listhash2, hash3);
-    UInt listhash4 = HashCombine2(listhash3, hash4);
+    UInt listhash1 = AddToHash(LIST_BASE_HASH, hash1);
+    UInt listhash2 = AddToHash(listhash1, hash2);
+    UInt listhash3 = AddToHash(listhash2, hash3);
+    UInt listhash4 = AddToHash(listhash3, hash4);
 
     return HashValueToObjInt(listhash4);
 }

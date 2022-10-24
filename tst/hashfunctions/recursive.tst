@@ -52,6 +52,12 @@ gap> rec2.aaap := 8;; rec2.aaaq := 9;;
 gap> HashBasic(rec1) = HashBasic(rec2);
 true
 
+# Make sure 'similar' objects have different hashes
+gap> Size(Set([rec(), rec(1 := 2), rec(2 := 1), rec(1 := 2, 3 := 4), rec(1 := 4, 3 := 2)], HashBasic));
+5
+gap> Size(Set([ [], [1], [1,1], [2], [2,1], [2,2]], HashBasic));
+6
+
 # Check objects we don't handle
 # FIXME: disabled due to differences in printing between GAP 4.10 and 4.11
 #gap> HashBasic(SymmetricGroup(3));

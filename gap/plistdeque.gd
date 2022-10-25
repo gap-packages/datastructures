@@ -44,7 +44,7 @@ BindGlobal( "PlistDequeType",
             NewType(PlistDequeFamily, IsPlistDequeRep and IsMutable) );
 
 #! @Description
-#! Constructor for plist based deques. The optinal argument <A>capacity</A> must be
+#! Constructor for plist based deques. The optional argument <A>capacity</A> must be
 #! a positive integer and is the capacity of the created deque, and the optional
 #! argument <A>factor</A> must be a rational number greater than one which is
 #! the factor by which the storage of the deque is increased if it runs out of capacity

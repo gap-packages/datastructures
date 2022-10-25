@@ -417,7 +417,7 @@ end);
 #
 # We copy the tree, but not the data.
 #
-# Threading makes this harder -- maybe flattend and rebuild
+# Threading makes this harder -- maybe flattened and rebuild
 # means that the copy is not the same shape as the original
 #
 #
@@ -457,7 +457,7 @@ InstallMethod(LessFunction, [IsAVLTreeRep and IsOrderedSetDS],
 
 
 #
-# Now we get into worker routines. There are lots of these, becaus the algorithms are complex
+# Now we get into worker routines. There are lots of these, because the algorithms are complex
 # Some of these will get C implementations, others are there to be passed to the C implementations so that they
 # can call back conveniently
 #
@@ -1131,7 +1131,7 @@ AVL.RemoveThisNode := function(node, remove_extremal, trinode)
             fi;
         else
             #
-            # left only -- in this case te left child must be a singleton node
+            # left only -- in this case the left child must be a singleton node
             # because of the balance condition
             #
 

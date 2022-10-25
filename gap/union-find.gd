@@ -56,7 +56,7 @@ DeclareConstructor("PartitionDS",[IsPartitionDS, IsCyclotomicCollColl]);
 DeclareOperation("Representative",[IsPartitionDS, IsPosInt]);
 
 #! @Description
-#! Fuses the parts of the paritition <A>unionfind</A> containing <A>k1</A>
+#! Fuses the parts of the partition <A>unionfind</A> containing <A>k1</A>
 #! and <A>k2</A>.
 #! @Arguments unionfind, k1, k2
 #! @Returns

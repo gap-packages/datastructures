@@ -95,7 +95,7 @@ true
 gap> IsEmpty(q);
 true
 
-# do some alternating fron/back pushes/pops
+# do some alternating front/back pushes/pops
 gap> for i in [1..N] do PushBack(q,i); od;
 gap> for i in [1..QuoInt(N, 2)] do PushFront(q,i); od;
 gap> out1 := List([1..QuoInt(N, 3)], x -> PopBack(q));;

@@ -23,7 +23,7 @@
 #! For some reference see <URL>http://stackoverflow.com/questions/6531543</URL>
 
 #! @Description
-#! Constructor for binary heaps. The optinal argument <A>isLess</A> must be a binary function
+#! Constructor for binary heaps. The optional argument <A>isLess</A> must be a binary function
 #! that performs comparison between two elements on the heap, and returns <K>true</K> if the first
 #! argument is less than the second, and <K>false</K> otherwise.
 #! Using the optional argument <A>data</A> the user can give a collection of initial values that

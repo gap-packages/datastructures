@@ -51,17 +51,17 @@ DeclareOperation("Keys", [IsHashMap]);
 DeclareOperation("Values", [IsHashMap]);
 
 #! @Description
-#! Returns an interator for the keys stored in the hashmap <A>h</A>.
+#! Returns an iterator for the keys stored in the hashmap <A>h</A>.
 #! @Arguments h
 #! @Returns an iterator
 DeclareOperation("KeyIterator", [IsHashMap]);
 #! @Description
-#! Returns an interator for the values stored in the hashmap <A>h</A>.
+#! Returns an iterator for the values stored in the hashmap <A>h</A>.
 #! @Arguments h
 #! @Returns an iterator
 DeclareOperation("ValueIterator", [IsHashMap]);
 #! @Description
-#! Returns an interator for key-value-pairs stored in the hashmap <A>h</A>.
+#! Returns an iterator for key-value-pairs stored in the hashmap <A>h</A>.
 #! @Arguments h
 #! @Returns an iterator
 DeclareOperation("KeyValueIterator", [IsHashMap]);

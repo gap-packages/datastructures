@@ -25,6 +25,7 @@ jobs:
       matrix:
         gap-branch:
           - master
+          - stable-4.12
           - stable-4.11
           - stable-4.10
         ABI: ['']
@@ -41,7 +42,7 @@ jobs:
       - uses: gap-actions/build-pkg@v1
       - uses: gap-actions/run-pkg-tests@v2
       - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
 
   test-cygwin:
     name: "master cygwin64"
@@ -58,7 +59,7 @@ jobs:
       - uses: gap-actions/build-pkg@cygwin-v1
       - uses: gap-actions/run-pkg-tests@cygwin-v2
       - uses: gap-actions/process-coverage@cygwin-v2
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
 
   # The documentation job
   manual:
@@ -76,3 +77,4 @@ jobs:
         with:
           name: manual
           path: ./doc/manual.pdf
+          if-no-files-found: error

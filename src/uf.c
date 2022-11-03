@@ -5,8 +5,6 @@
 
 #include "uf.h"
 
-#include "src/debug.h"
-
 #ifdef SYS_IS_64_BIT
 #define RANKBITS 6
 #else

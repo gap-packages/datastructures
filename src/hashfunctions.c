@@ -13,10 +13,7 @@
 
 #include "hashfunctions.h"
 
-#include "src/objects.h"
-#include "src/permutat.h"
-#include "src/trans.h"
-#include "src/pperm.h"
+#include "intfuncs.h" // GAP header
 
 #include <stdlib.h> // for labs
 

@@ -17,7 +17,7 @@
 #include "avl.h"
 #include "uf.h"
 
-#include <src/gaputils.h>
+#include "compiled.h" // GAP headers
 
 #include "hashfunctions.h"
 

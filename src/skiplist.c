@@ -5,8 +5,6 @@
 
 #include "skiplist.h"
 
-#include "src/debug.h"
-
 
 static Obj DS_Skiplist_RemoveNode(Obj self, Obj lst, Obj nx)
 {

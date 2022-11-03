@@ -15,7 +15,6 @@
 #define HASHFUNCTIONS_H
 
 #include "datastructures.h"
-#include "src/intfuncs.h"
 
 extern struct DatastructuresModule HashFunctionsModule;
 

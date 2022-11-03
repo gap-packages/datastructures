@@ -5,8 +5,6 @@
 
 #include "avl.h"
 
-#include "src/debug.h"
-
 enum {
     AVL_LEFT = 1,
     AVL_VAL = 2,

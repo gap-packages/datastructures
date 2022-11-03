@@ -19,14 +19,15 @@
   
   [1X7.1-2 HashMap[101X
   
-  [33X[1;0Y[29X[2XHashMap[102X( [[3Xhashfunc[103X[, [3Xeqfunc[103X]][,] [[3Xcapacity[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XHashMap[102X( [[3Xvalues[103X][,] [[3Xhashfunc[103X[, [3Xeqfunc[103X]][,] [[3Xcapacity[103X] ) [32X function[133X
   
-  [33X[0;0YCreate  a  new  hash  map.  The  optional  argument [3Xhashfunc[103X must be a hash-
-  function  ,  [3Xeqfunc[103X  must be a binary equality testing function that returns
-  [9Xtrue[109X  if  the two arguments are considered equal, and [9Xfalse[109X if they are not.
-  Refer  to  Chapter  [14X6[114X  about the requirements for hashfunctions and equality
-  testers.  The  optional argument [3Xcapacity[103X determines the initial size of the
-  hashmap.[133X
+  [33X[0;0YCreate  a  new  hash  map.  The  optional  argument [3Xvalues[103X must be a list of
+  key-value  pairs  which  will be inserted into the new hashmap in order. The
+  optional  argument [3Xhashfunc[103X must be a hash-function, [3Xeqfunc[103X must be a binary
+  equality  testing  function  that  returns  [9Xtrue[109X  if  the  two arguments are
+  considered  equal,  and  [9Xfalse[109X if they are not. Refer to Chapter [14X6[114X about the
+  requirements  for  hashfunctions and equality testers. The optional argument
+  [3Xcapacity[103X determines the initial size of the hashmap.[133X
   
   [1X7.1-3 Keys[101X
   
@@ -47,21 +48,21 @@
   [33X[1;0Y[29X[2XKeyIterator[102X( [3Xh[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan iterator[133X
   
-  [33X[0;0YReturns an interator for the keys stored in the hashmap [3Xh[103X.[133X
+  [33X[0;0YReturns an iterator for the keys stored in the hashmap [3Xh[103X.[133X
   
   [1X7.1-6 ValueIterator[101X
   
   [33X[1;0Y[29X[2XValueIterator[102X( [3Xh[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan iterator[133X
   
-  [33X[0;0YReturns an interator for the values stored in the hashmap [3Xh[103X.[133X
+  [33X[0;0YReturns an iterator for the values stored in the hashmap [3Xh[103X.[133X
   
   [1X7.1-7 KeyValueIterator[101X
   
   [33X[1;0Y[29X[2XKeyValueIterator[102X( [3Xh[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Yan iterator[133X
   
-  [33X[0;0YReturns an interator for key-value-pairs stored in the hashmap [3Xh[103X.[133X
+  [33X[0;0YReturns an iterator for key-value-pairs stored in the hashmap [3Xh[103X.[133X
   
   [1X7.1-8 \[\][101X
   

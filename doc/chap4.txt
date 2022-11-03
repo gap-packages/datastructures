@@ -118,7 +118,7 @@
   [33X[1;0Y[29X[2XPlistDeque[102X( [[3Xcapacity[103X[, [3Xfactor[103X]] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10Ya deque[133X
   
-  [33X[0;0YConstructor  for plist based deques. The optinal argument [3Xcapacity[103X must be a
+  [33X[0;0YConstructor for plist based deques. The optional argument [3Xcapacity[103X must be a
   positive  integer and is the capacity of the created deque, and the optional
   argument  [3Xfactor[103X  must  be  a  rational number greater than one which is the
   factor  by  which  the  storage  of the deque is increased if it runs out of

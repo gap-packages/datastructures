@@ -11,8 +11,8 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.2.7",
-Date := "03/03/2022", # dd/mm/yyyy format
+Version := "0.3.0",
+Date := "04/11/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -105,7 +105,7 @@ AbstractHTML :=
 PackageDoc := [ rec(
   BookName  := "datastructures",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "datastructures - GAP Data Structures",
@@ -140,7 +140,7 @@ AutoDoc := rec(
 """&copyright; 2015-18 by Chris Jefferson, Steve Linton, Markus Pfeiffer, Max Horn, Reimer Behrends and others<P/>
 &datastructures; package is free software;
 you can redistribute it and/or modify it under the terms of the
-<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+<URL Text="GNU General Public License">https://www.fsf.org/licenses/gpl.html</URL>
 as published by the Free Software Foundation; either version 2 of the License,
 or (at your option) any later version.""",
         Acknowledgements :=

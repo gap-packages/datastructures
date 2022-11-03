@@ -32,11 +32,11 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X820C9185827968FA">7.1-5 KeyIterator</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7B4D76A47B09C173">7.1-6 ValueIterator</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F75A43984B05E73">7.1-7 KeyValueIterator</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X818E60167B0B12F7"><code>7.1-8 \[\]</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8028C04B7895B9CD"><code>7.1-9 \[\]\:\=</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X818E60167B0B12F7"><code>7.1-8 <span>\</span>[<span>\</span>]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8028C04B7895B9CD"><code>7.1-9 <span>\</span>[<span>\</span>]\:\=</code></a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X78DF0E377A70207E"><code>7.1-10 \in</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X84CD9B0B82DC85F7"><code>7.1-11 IsBound\[\]</code></a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X85A876A479D7161D"><code>7.1-12 Unbind\[\]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X84CD9B0B82DC85F7"><code>7.1-11 IsBound<span>\</span>[<span>\</span>]</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X85A876A479D7161D"><code>7.1-12 Unbind<span>\</span>[<span>\</span>]</code></a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X866A89F080CE944A">7.1-13 Size</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X857102527A38A649">7.1-14 IsEmpty</a></span>
 </div></div>
@@ -65,8 +65,8 @@
 
 <h5>7.1-2 HashMap</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HashMap</code>( [<var class="Arg">hashfunc</var>[, <var class="Arg">eqfunc</var>]][,] [<var class="Arg">capacity</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Create a new hash map. The optional argument <var class="Arg">hashfunc</var> must be a hash- function , <var class="Arg">eqfunc</var> must be a binary equality testing function that returns <code class="keyw">true</code> if the two arguments are considered equal, and <code class="keyw">false</code> if they are not. Refer to Chapter <a href="chap6.html#X7AE36B967EB1382B"><span class="RefLink">6</span></a> about the requirements for hashfunctions and equality testers. The optional argument <var class="Arg">capacity</var> determines the initial size of the hashmap.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HashMap</code>( [<var class="Arg">values</var>][,] [<var class="Arg">hashfunc</var>[, <var class="Arg">eqfunc</var>]][,] [<var class="Arg">capacity</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Create a new hash map. The optional argument <var class="Arg">values</var> must be a list of key-value pairs which will be inserted into the new hashmap in order. The optional argument <var class="Arg">hashfunc</var> must be a hash-function, <var class="Arg">eqfunc</var> must be a binary equality testing function that returns <code class="keyw">true</code> if the two arguments are considered equal, and <code class="keyw">false</code> if they are not. Refer to Chapter <a href="chap6.html#X7AE36B967EB1382B"><span class="RefLink">6</span></a> about the requirements for hashfunctions and equality testers. The optional argument <var class="Arg">capacity</var> determines the initial size of the hashmap.</p>
 
 <p><a id="X827F974B7B5111CA" name="X827F974B7B5111CA"></a></p>
 
@@ -93,7 +93,7 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KeyIterator</code>( <var class="Arg">h</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: an iterator</p>
 
-<p>Returns an interator for the keys stored in the hashmap <var class="Arg">h</var>.</p>
+<p>Returns an iterator for the keys stored in the hashmap <var class="Arg">h</var>.</p>
 
 <p><a id="X7B4D76A47B09C173" name="X7B4D76A47B09C173"></a></p>
 
@@ -102,7 +102,7 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ValueIterator</code>( <var class="Arg">h</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: an iterator</p>
 
-<p>Returns an interator for the values stored in the hashmap <var class="Arg">h</var>.</p>
+<p>Returns an iterator for the values stored in the hashmap <var class="Arg">h</var>.</p>
 
 <p><a id="X7F75A43984B05E73" name="X7F75A43984B05E73"></a></p>
 
@@ -111,20 +111,20 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KeyValueIterator</code>( <var class="Arg">h</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: an iterator</p>
 
-<p>Returns an interator for key-value-pairs stored in the hashmap <var class="Arg">h</var>.</p>
+<p>Returns an iterator for key-value-pairs stored in the hashmap <var class="Arg">h</var>.</p>
 
 <p><a id="X818E60167B0B12F7" name="X818E60167B0B12F7"></a></p>
 
-<h5><code>7.1-8 \[\]</code></h5>
+<h5><code>7.1-8 <span>\</span>[<span>\</span>]</code></h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \[\]</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; <span>\</span>[<span>\</span>]</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>List-style access for hashmaps.</p>
 
 <p><a id="X8028C04B7895B9CD" name="X8028C04B7895B9CD"></a></p>
 
-<h5><code>7.1-9 \[\]\:\=</code></h5>
+<h5><code>7.1-9 <span>\</span>[<span>\</span>]\:\=</code></h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \[\]\:\=</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; <span>\</span>[<span>\</span>]\:\=</code>( <var class="Arg">hashmap</var>, <var class="Arg">object</var>, <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>List-style assignment for hashmaps.</p>
 
 <p><a id="X78DF0E377A70207E" name="X78DF0E377A70207E"></a></p>
@@ -136,16 +136,16 @@
 
 <p><a id="X84CD9B0B82DC85F7" name="X84CD9B0B82DC85F7"></a></p>
 
-<h5><code>7.1-11 IsBound\[\]</code></h5>
+<h5><code>7.1-11 IsBound<span>\</span>[<span>\</span>]</code></h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBound\[\]</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBound<span>\</span>[<span>\</span>]</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Test whether a key is stored in the hashmap.</p>
 
 <p><a id="X85A876A479D7161D" name="X85A876A479D7161D"></a></p>
 
-<h5><code>7.1-12 Unbind\[\]</code></h5>
+<h5><code>7.1-12 Unbind<span>\</span>[<span>\</span>]</code></h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Unbind\[\]</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Unbind<span>\</span>[<span>\</span>]</code>( <var class="Arg">object</var>, <var class="Arg">hashmap</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Delete a key from a hashmap.</p>
 
 <p><a id="X866A89F080CE944A" name="X866A89F080CE944A"></a></p>

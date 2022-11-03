@@ -6,10 +6,10 @@
                 [1X Collection of standard data structures for [5XGAP[105X [101X
   
   
-                                     0.2.7
+                                     0.3.0
   
   
-                                  3 March 2022
+                                4 November 2022
   
   
                                 Markus Pfeiffer
@@ -70,7 +70,7 @@
   
   [33X[0;0Y[5Xdatastructures[105X  package  is  free  software;  you can redistribute it and/or
   modify   it   under   the   terms   of   the   GNU  General  Public  License
-  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  ([7Xhttps://www.fsf.org/licenses/gpl.html[107X)  as  published  by the Free Software
   Foundation;  either  version 2 of the License, or (at your option) any later
   version.[133X
   

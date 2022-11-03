@@ -46,7 +46,7 @@
   
   [33X[1;0Y[29X[2XUnite[102X( [3Xunionfind[103X, [3Xk1[103X, [3Xk2[103X ) [32X operation[133X
   
-  [33X[0;0YFuses the parts of the paritition [3Xunionfind[103X containing [3Xk1[103X and [3Xk2[103X.[133X
+  [33X[0;0YFuses the parts of the partition [3Xunionfind[103X containing [3Xk1[103X and [3Xk2[103X.[133X
   
   [1X5.2-6 RootsIteratorOfPartitionDS[101X
   

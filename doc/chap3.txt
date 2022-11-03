@@ -120,7 +120,7 @@
   [33X[1;0Y[29X[2XBinaryHeap[102X( [[3XisLess[103X[, [3Xdata[103X]] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA binary heap[133X
   
-  [33X[0;0YConstructor  for  binary heaps. The optinal argument [3XisLess[103X must be a binary
+  [33X[0;0YConstructor  for binary heaps. The optional argument [3XisLess[103X must be a binary
   function  that  performs  comparison  between  two elements on the heap, and
   returns  [9Xtrue[109X  if  the  first  argument  is  less than the second, and [9Xfalse[109X
   otherwise.  Using  the optional argument [3Xdata[103X the user can give a collection

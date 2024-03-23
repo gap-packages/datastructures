@@ -65,7 +65,7 @@ Int DataHashFuncForPerm(Obj perm)
     }
 }
 
-Obj DATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
+static Obj FuncDATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
 {
     if (TNUM_OBJ(perm) != T_PERM2 && TNUM_OBJ(perm) != T_PERM4) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_PERM: <perm> must be a permutation "
@@ -76,7 +76,7 @@ Obj DATA_HASH_FUNC_FOR_PERM(Obj self, Obj perm)
     return HashValueToObjInt(DataHashFuncForPerm(perm));
 }
 
-Obj DATA_HASH_FUNC_FOR_PPERM(Obj self, Obj pperm)
+static Obj FuncDATA_HASH_FUNC_FOR_PPERM(Obj self, Obj pperm)
 {
     if (!IS_PPERM(pperm)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_PPERM: <pperm> must be a "
@@ -87,7 +87,7 @@ Obj DATA_HASH_FUNC_FOR_PPERM(Obj self, Obj pperm)
     return HashValueToObjInt(HashFuncForPPerm(pperm));
 }
 
-Obj DATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
+static Obj FuncDATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
 {
     if (!IS_TRANS(trans)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_TRANS: <trans> must be a "
@@ -98,7 +98,7 @@ Obj DATA_HASH_FUNC_FOR_TRANS(Obj self, Obj trans)
     return HashValueToObjInt(HashFuncForTrans(trans));
 }
 
-Obj DATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
+static Obj FuncDATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
 {
     if (!IS_STRING(string)) {
         ErrorMayQuit("DATA_HASH_FUNC_FOR_STRING: <string> must be a "
@@ -132,7 +132,7 @@ Int DataHashFuncForInt(Obj i)
     }
 }
 
-Obj DATA_HASH_FUNC_FOR_INT(Obj self, Obj i)
+static Obj FuncDATA_HASH_FUNC_FOR_INT(Obj self, Obj i)
 {
     if (TNUM_OBJ(i) != T_INT && TNUM_OBJ(i) != T_INTPOS &&
         TNUM_OBJ(i) != T_INTNEG) {
@@ -242,13 +242,13 @@ static inline Int BasicRecursiveHash(Obj obj)
     return 0;
 }
 
-Obj DATA_HASH_FUNC_RECURSIVE1(Obj self, Obj obj)
+static Obj DATA_HASH_FUNC_RECURSIVE1(Obj self, Obj obj)
 {
     Int hash = BasicRecursiveHash(obj);
     return HashValueToObjInt(hash);
 }
 
-Obj DATA_HASH_FUNC_RECURSIVE2(Obj self, Obj obj1, Obj obj2)
+static Obj DATA_HASH_FUNC_RECURSIVE2(Obj self, Obj obj1, Obj obj2)
 {
     UInt hash1 = BasicRecursiveHash(obj1);
     UInt hash2 = BasicRecursiveHash(obj2);
@@ -259,7 +259,7 @@ Obj DATA_HASH_FUNC_RECURSIVE2(Obj self, Obj obj1, Obj obj2)
     return HashValueToObjInt(listhash2);
 }
 
-Obj DATA_HASH_FUNC_RECURSIVE3(Obj self, Obj obj1, Obj obj2, Obj obj3)
+static Obj DATA_HASH_FUNC_RECURSIVE3(Obj self, Obj obj1, Obj obj2, Obj obj3)
 {
     Int hash1 = BasicRecursiveHash(obj1);
     Int hash2 = BasicRecursiveHash(obj2);
@@ -272,7 +272,7 @@ Obj DATA_HASH_FUNC_RECURSIVE3(Obj self, Obj obj1, Obj obj2, Obj obj3)
     return HashValueToObjInt(listhash3);
 }
 
-Obj DATA_HASH_FUNC_RECURSIVE4(Obj self, Obj obj1, Obj obj2, Obj obj3, Obj obj4)
+static Obj DATA_HASH_FUNC_RECURSIVE4(Obj self, Obj obj1, Obj obj2, Obj obj3, Obj obj4)
 {
     Int hash1 = BasicRecursiveHash(obj1);
     Int hash2 = BasicRecursiveHash(obj2);
@@ -291,11 +291,11 @@ Obj DATA_HASH_FUNC_RECURSIVE4(Obj self, Obj obj1, Obj obj2, Obj obj3, Obj obj4)
 // Submodule declaration
 //
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DATA_HASH_FUNC_FOR_STRING, 1, "string"),
-    GVARFUNC(DATA_HASH_FUNC_FOR_TRANS, 1, "trans"),
-    GVARFUNC(DATA_HASH_FUNC_FOR_PPERM, 1, "pperm"),
-    GVARFUNC(DATA_HASH_FUNC_FOR_PERM, 1, "perm"),
-    GVARFUNC(DATA_HASH_FUNC_FOR_INT, 1, "int"),
+    GVAR_FUNC_1ARGS(DATA_HASH_FUNC_FOR_STRING, string),
+    GVAR_FUNC_1ARGS(DATA_HASH_FUNC_FOR_TRANS, trans),
+    GVAR_FUNC_1ARGS(DATA_HASH_FUNC_FOR_PPERM, pperm),
+    GVAR_FUNC_1ARGS(DATA_HASH_FUNC_FOR_PERM, perm),
+    GVAR_FUNC_1ARGS(DATA_HASH_FUNC_FOR_INT, int),
     { 0 }
 };
 

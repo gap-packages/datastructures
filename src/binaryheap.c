@@ -99,7 +99,7 @@ static Int DS_BinaryHeap_BubbleDown(Obj data, Obj isLess, Int i)
     return i;
 }
 
-Obj DS_BinaryHeap_Insert(Obj self, Obj heap, Obj elm)
+static Obj FuncDS_BinaryHeap_Insert(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -118,7 +118,7 @@ Obj DS_BinaryHeap_Insert(Obj self, Obj heap, Obj elm)
     return 0;
 }
 
-Obj DS_BinaryHeap_ReplaceMax(Obj self, Obj heap, Obj elm)
+static Obj FuncDS_BinaryHeap_ReplaceMax(Obj self, Obj heap, Obj elm)
 {
     Obj data = DS_BINARYHEAP_DATA(heap);
     Obj isLess = DS_BINARYHEAP_ISLESS(heap);
@@ -136,8 +136,8 @@ Obj DS_BinaryHeap_ReplaceMax(Obj self, Obj heap, Obj elm)
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_BinaryHeap_Insert, 2, "heap, elm"),
-    GVARFUNC(DS_BinaryHeap_ReplaceMax, 2, "heap, elm"),
+    GVAR_FUNC_2ARGS(DS_BinaryHeap_Insert, heap, elm),
+    GVAR_FUNC_2ARGS(DS_BinaryHeap_ReplaceMax, heap, elm),
     { 0 }
 };
 

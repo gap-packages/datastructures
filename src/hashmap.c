@@ -324,7 +324,7 @@ static void DS_RequireMutable(Obj ht)
 // high-level functions, to be called from GAP
 //
 
-Obj DS_Hash_Create(Obj self, Obj hashfunc, Obj eqfunc, Obj capacity, Obj novalues)
+static Obj FuncDS_Hash_Create(Obj self, Obj hashfunc, Obj eqfunc, Obj capacity, Obj novalues)
 {
     if (TNUM_OBJ(hashfunc) != T_FUNCTION) {
         ErrorQuit("<hashfunc> must be a function (not a %s)",
@@ -379,38 +379,38 @@ Obj DS_Hash_Create(Obj self, Obj hashfunc, Obj eqfunc, Obj capacity, Obj novalue
     return ht;
 }
 
-Obj DS_Hash_Capacity(Obj self, Obj ht)
+static Obj FuncDS_Hash_Capacity(Obj self, Obj ht)
 {
     DS_RequireHashMapOrSet(ht);
     Obj keys = ELM_PLIST(ht, POS_KEYS);
     return INTOBJ_INT(LEN_PLIST(keys));
 }
 
-Obj DS_Hash_Used(Obj self, Obj ht)
+static Obj FuncDS_Hash_Used(Obj self, Obj ht)
 {
     DS_RequireHashMapOrSet(ht);
     return ELM_PLIST(ht, POS_USED);
 }
 
-Obj _DS_Hash_Lookup(Obj self, Obj ht, Obj key)
+static Obj Func_DS_Hash_Lookup(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
     return INTOBJ_INT(_DS_Hash_Lookup_MayCreate(ht, key, 0));
 }
 
-Obj _DS_Hash_LookupCreate(Obj self, Obj ht, Obj key)
+static Obj Func_DS_Hash_LookupCreate(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
     return INTOBJ_INT(_DS_Hash_Lookup_MayCreate(ht, key, 1));
 }
 
-Obj DS_Hash_Contains(Obj self, Obj ht, Obj key)
+static Obj FuncDS_Hash_Contains(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
     return _DS_Hash_Lookup_MayCreate(ht, key, 0) != 0 ? True : False;
 }
 
-Obj DS_Hash_Value(Obj self, Obj ht, Obj key)
+static Obj FuncDS_Hash_Value(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMap(ht);
     UInt idx = _DS_Hash_Lookup_MayCreate(ht, key, 0);
@@ -420,7 +420,7 @@ Obj DS_Hash_Value(Obj self, Obj ht, Obj key)
     return ELM_PLIST(values, idx);
 }
 
-Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
+static Obj FuncDS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
 {
     DS_RequireHashMapOrSet(ht);
     DS_RequireMutable(ht);
@@ -448,14 +448,14 @@ Obj DS_Hash_Reserve(Obj self, Obj ht, Obj new_capacity)
     return 0;
 }
 
-Obj DS_Hash_SetValue(Obj self, Obj ht, Obj key, Obj val)
+static Obj FuncDS_Hash_SetValue(Obj self, Obj ht, Obj key, Obj val)
 {
     DS_RequireHashMap(ht);
     DS_RequireMutable(ht);
     return _DS_Hash_SetOrAccValue(ht, key, val, 0);
 }
 
-Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
+static Obj FuncDS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
 {
     DS_RequireHashMap(ht);
     DS_RequireMutable(ht);
@@ -466,7 +466,7 @@ Obj DS_Hash_AccumulateValue(Obj self, Obj ht, Obj key, Obj val, Obj accufunc)
     return _DS_Hash_SetOrAccValue(ht, key, val, accufunc);
 }
 
-Obj DS_Hash_AddSet(Obj self, Obj ht, Obj key)
+static Obj FuncDS_Hash_AddSet(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashSet(ht);
     DS_RequireMutable(ht);
@@ -474,7 +474,7 @@ Obj DS_Hash_AddSet(Obj self, Obj ht, Obj key)
     return 0;
 }
 
-Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
+static Obj FuncDS_Hash_Delete(Obj self, Obj ht, Obj key)
 {
     DS_RequireHashMapOrSet(ht);
     DS_RequireMutable(ht);
@@ -500,22 +500,22 @@ Obj DS_Hash_Delete(Obj self, Obj ht, Obj key)
 
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_Hash_Create, 4, "hashfunc, eqfunc, capacity, novalues"),
+    GVAR_FUNC_4ARGS(DS_Hash_Create, hashfunc, eqfunc, capacity, novalues),
 
-    GVARFUNC(DS_Hash_Capacity, 1, "ht"),
-    GVARFUNC(DS_Hash_Used, 1, "ht"),
+    GVAR_FUNC_1ARGS(DS_Hash_Capacity, ht),
+    GVAR_FUNC_1ARGS(DS_Hash_Used, ht),
 
-    GVARFUNC(_DS_Hash_Lookup, 2, "ht, key"),
-    GVARFUNC(_DS_Hash_LookupCreate, 2, "ht, key"),
-    GVARFUNC(DS_Hash_Contains, 2, "ht, key"),
-    GVARFUNC(DS_Hash_Value, 2, "ht, key"),
+    GVAR_FUNC_2ARGS(_DS_Hash_Lookup, ht, key),
+    GVAR_FUNC_2ARGS(_DS_Hash_LookupCreate, ht, key),
+    GVAR_FUNC_2ARGS(DS_Hash_Contains, ht, key),
+    GVAR_FUNC_2ARGS(DS_Hash_Value, ht, key),
 
-    GVARFUNC(DS_Hash_Reserve, 2, "ht, capacity"),
-    GVARFUNC(DS_Hash_SetValue, 3, "ht, key, val"),
-    GVARFUNC(DS_Hash_AccumulateValue, 4, "ht, key, val, accufunc"),
-    GVARFUNC(DS_Hash_AddSet, 2, "ht, key"),
+    GVAR_FUNC_2ARGS(DS_Hash_Reserve, ht, capacity),
+    GVAR_FUNC_3ARGS(DS_Hash_SetValue, ht, key, val),
+    GVAR_FUNC_4ARGS(DS_Hash_AccumulateValue, ht, key, val, accufunc),
+    GVAR_FUNC_2ARGS(DS_Hash_AddSet, ht, key),
 
-    GVARFUNC(DS_Hash_Delete, 2, "ht, key"),
+    GVAR_FUNC_2ARGS(DS_Hash_Delete, ht, key),
 
     { 0 }
 };

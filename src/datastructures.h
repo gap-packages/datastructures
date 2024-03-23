@@ -13,15 +13,6 @@
 
 #include "compiled.h" // GAP headers
 
-// Helper macro to simplify initialization of StructGVarFunc records
-#define GVARFUNC(name, nparam, params)                                       \
-    {                                                                        \
-        #name, nparam, params, (GVarFuncType) name, __FILE__ ":" #name       \
-    }
-
-// This typedef is used by the GVARFUNC macro.
-typedef Obj (*GVarFuncType)(/*arguments*/);
-
 
 // To improve code separation, each data structure implementation can
 // provide a DatastructuresModule struct similar to GAP's StructInitInfo.

@@ -12,7 +12,7 @@ enum {
     AVL_FLAGS = 4
 };
 
-Obj DS_AVL_FIND(Obj self, Obj tree, Obj val, Obj less)
+static Obj FuncDS_AVL_FIND(Obj self, Obj tree, Obj val, Obj less)
 {
     const UInt lmask = 0x4;
     const UInt rmask = 0x8;
@@ -54,7 +54,7 @@ Obj DS_AVL_FIND(Obj self, Obj tree, Obj val, Obj less)
 
 
 static Obj
-DS_AVL_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinode)
+FuncDS_AVL_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinode)
 {
     Obj  child;
     UInt dirn;
@@ -97,7 +97,7 @@ DS_AVL_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinode)
     }
     else {
         child = ELM_PLIST(avl, i);
-        deeper = DS_AVL_ADDSET_INNER((Obj)0, child, val, less, trinode);
+        deeper = FuncDS_AVL_ADDSET_INNER((Obj)0, child, val, less, trinode);
         if (deeper == INTOBJ_INT(0)) {
             /* we just have to increase the size of subtree */
             SET_ELM_PLIST(avl, AVL_FLAGS, INTOBJ_INT(flags + 0x10));
@@ -126,7 +126,7 @@ DS_AVL_ADDSET_INNER(Obj self, Obj avl, Obj val, Obj less, Obj trinode)
 
 
 
-static Obj DS_AVL_REMSET_INNER(Obj self,
+static Obj FuncDS_AVL_REMSET_INNER(Obj self,
                                 Obj node,
                                 Obj val,
                                 Obj less,
@@ -163,7 +163,7 @@ static Obj DS_AVL_REMSET_INNER(Obj self,
     if (flags & imask) {
         GAP_ASSERT(ELM_PLIST(node, i));
 	child = ELM_PLIST(node, i);
-        ret = DS_AVL_REMSET_INNER(0, child, val, less,
+        ret = FuncDS_AVL_REMSET_INNER(0, child, val, less,
                                    remove_extremal, trinode, remove_this);
         if (ret == Fail)
             return Fail;
@@ -206,11 +206,9 @@ static Obj DS_AVL_REMSET_INNER(Obj self,
 
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_AVL_FIND, 3, "avl, val, lessFunc"),
-    GVARFUNC(DS_AVL_ADDSET_INNER, 4, "avl, val, lessFunc, trinode"),
-    GVARFUNC(DS_AVL_REMSET_INNER,
-             6,
-             "avl, val, lessFunc, remove_extremal, trinode, remove_this"),
+    GVAR_FUNC_3ARGS(DS_AVL_FIND, avl, val, lessFunc),
+    GVAR_FUNC_4ARGS(DS_AVL_ADDSET_INNER, avl, val, lessFunc, trinode),
+    GVAR_FUNC_6ARGS(DS_AVL_REMSET_INNER, avl, val, lessFunc, remove_extremal, trinode, remove_this),
     { 0 }
 };
 

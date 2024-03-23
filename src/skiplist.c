@@ -6,7 +6,7 @@
 #include "skiplist.h"
 
 
-static Obj DS_Skiplist_RemoveNode(Obj self, Obj lst, Obj nx)
+static Obj FuncDS_Skiplist_RemoveNode(Obj self, Obj lst, Obj nx)
 {
     UInt level, len;
     Obj  node, x;
@@ -35,7 +35,7 @@ static Obj DS_Skiplist_RemoveNode(Obj self, Obj lst, Obj nx)
 }
 
 
-static Obj DS_Skiplist_Scan(Obj self, Obj sl, Obj val, Obj lessFunc)
+static Obj FuncDS_Skiplist_Scan(Obj self, Obj sl, Obj val, Obj lessFunc)
 {
     Obj  ptr;
     UInt level;
@@ -76,8 +76,8 @@ static Obj DS_Skiplist_Scan(Obj self, Obj sl, Obj val, Obj lessFunc)
 
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_Skiplist_Scan, 3, "skiplist, val, lessFunc"),
-    GVARFUNC(DS_Skiplist_RemoveNode, 2, "lst, nx"),
+    GVAR_FUNC_3ARGS(DS_Skiplist_Scan, skiplist, val, lessFunc),
+    GVAR_FUNC_2ARGS(DS_Skiplist_RemoveNode, lst, nx),
     { 0 }
 };
 

@@ -29,7 +29,7 @@ enum {
     NODE_POS_SUBHEAPS,    // list of subheaps
 };
 
-Obj DS_merge_pairs(Obj self, Obj isLess, Obj heaps)
+static Obj FuncDS_merge_pairs(Obj self, Obj isLess, Obj heaps)
 {
     if (!IS_DENSE_PLIST(heaps))
         ErrorQuit("<heaps> is not a dense plist", 0L, 0L);
@@ -95,7 +95,7 @@ Obj DS_merge_pairs(Obj self, Obj isLess, Obj heaps)
 }
 
 static StructGVarFunc GVarFuncs[] = {
-    GVARFUNC(DS_merge_pairs, 2, "isLess, heaps"),
+    GVAR_FUNC_2ARGS(DS_merge_pairs, isLess, heaps),
     { 0 }
 };
 

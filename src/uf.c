@@ -13,7 +13,7 @@
 
 #define RANKMASK ((1L << RANKBITS) -1)
 
-static Obj DS_UF_FIND(Obj self, Obj xo, Obj data) {
+static Obj FuncDS_UF_FIND(Obj self, Obj xo, Obj data) {
   UInt x = INT_INTOBJ(xo);
   UInt y;
   UInt z;
@@ -39,9 +39,9 @@ static Obj DS_UF_FIND(Obj self, Obj xo, Obj data) {
   }
 }
 
-static Obj DS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
-  UInt x = INT_INTOBJ(DS_UF_FIND(0, xo, data));
-  UInt y = INT_INTOBJ(DS_UF_FIND(0, yo, data));
+static Obj FuncDS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
+  UInt x = INT_INTOBJ(FuncDS_UF_FIND(0, xo, data));
+  UInt y = INT_INTOBJ(FuncDS_UF_FIND(0, yo, data));
   UInt rx, ry;
   if (x == y)
     return False;
@@ -61,8 +61,8 @@ static Obj DS_UF_UNITE(Obj self, Obj xo, Obj yo, Obj data) {
 
 
 static StructGVarFunc GVarFuncs[] = {
-  GVARFUNC(DS_UF_FIND, 2, "x, data"),
-  GVARFUNC(DS_UF_UNITE, 3, "x, y, data"),
+    GVAR_FUNC_2ARGS(DS_UF_FIND, x, data),
+    GVAR_FUNC_3ARGS(DS_UF_UNITE, x, y, data),
     { 0 }
 };
 

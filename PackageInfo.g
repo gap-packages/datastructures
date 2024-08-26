@@ -11,8 +11,8 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.3.0",
-Date := "04/11/2022", # dd/mm/yyyy format
+Version := "0.3.1",
+Date := "26/08/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -37,16 +37,16 @@ Persons := [
     FirstNames    := "Max",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "horn@mathematik.uni-kl.de",
+    Email         := "mhorn@rptu.de",
     WWWHome       := "https://www.quendi.de/math",
     PostalAddress := Concatenation(
                        "Fachbereich Mathematik\n",
-                       "TU Kaiserslautern\n",
+                       "RPTU Kaiserslautern-Landau\n",
                        "Gottlieb-Daimler-Straße 48\n",
                        "67663 Kaiserslautern\n",
                        "Germany" ),
     Place         := "Kaiserslautern, Germany",
-    Institution   := "TU Kaiserslautern"
+    Institution   := "RPTU Kaiserslautern-Landau"
   ),
   rec(
     LastName      := "Jefferson",
@@ -115,17 +115,18 @@ PackageDoc := [ rec(
 ##  Are there restrictions on the operating system for this package? Or does
 ##  the package need other packages to be available?
 Dependencies := rec(
-  GAP := ">= 4.10",
+  GAP := ">= 4.12",
   NeededOtherPackages := [["GAPDoc", "1.5"]],
   SuggestedOtherPackages := [],
-  # OtherPackagesLoadedInAdvance := [],
   ExternalConditions := []
 ),
 
 AvailabilityTest := function()
-  if (not ("datastructures" in SHOW_STAT())) and
-     (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") = fail) then
-     return fail;
+  if not IsKernelExtensionAvailable("datastructures") then
+    LogPackageLoadingMessage(PACKAGE_WARNING,
+                             ["the kernel module is not compiled, ",
+                              "the package cannot be loaded."]);
+    return fail;
   fi;
   return true;
 end,

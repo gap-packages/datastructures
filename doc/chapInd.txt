@@ -19,7 +19,7 @@
   [2XBinaryHeap[102X 3.3-1 
   [2XCapacity[102X, for IsDeque 4.1-10 
       for IsQueue 4.1-9 
-  [5Xdatastructures[105X 2. 
+  [5Xdatastructures[105X 2.0 
   [2XDequeue[102X, for IsQueue, IsObject 4.1-8 
   [2XEnqueue[102X, for IsQueue, IsObject 4.1-7 
   [2XEnumerator[102X, for IsOrderedSetDS 10.3-6 

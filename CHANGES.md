@@ -1,5 +1,11 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.3.1 (2024-08-26)
+
+  - Require GAP >= 4.12
+  - Ensure compatibility of source code with future C compilers
+  - Various janitorial changes
+
 ## 0.3.0 (2022-11-04)
 
   - Improve printing of HashSets and HashMaps

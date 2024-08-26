@@ -122,9 +122,11 @@ Dependencies := rec(
 ),
 
 AvailabilityTest := function()
-  if (not ("datastructures" in SHOW_STAT())) and
-     (Filename(DirectoriesPackagePrograms("datastructures"), "datastructures.so") = fail) then
-     return fail;
+  if not IsKernelExtensionAvailable("datastructures") then
+    LogPackageLoadingMessage(PACKAGE_WARNING,
+                             ["the kernel module is not compiled, ",
+                              "the package cannot be loaded."]);
+    return fail;
   fi;
   return true;
 end,

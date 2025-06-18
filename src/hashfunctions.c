@@ -203,7 +203,7 @@ static inline Int BasicRecursiveHash(Obj obj)
     case T_INT:
         return (Int)obj;
     case T_CHAR:
-        hashval = *(UChar *)ADDR_OBJ(obj);
+        hashval = CHAR_VALUE(obj);
         // Add a random 32-bit constant, to stop collisions with small ints
         return hashval + 63588327;
     case T_BOOL:

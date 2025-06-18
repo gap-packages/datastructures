@@ -229,8 +229,9 @@ static inline Int BasicRecursiveHash(Obj obj)
     case T_TRANS2:
     case T_TRANS4:
         return HashFuncForTrans(obj);
-    case T_PREC:
-    case T_PREC+IMMUTABLE:
+    }
+
+    if (IS_PREC(obj)) {
         return BasicRecursiveHashForPRec(obj);
     }
 

@@ -12,7 +12,7 @@
 // Helper function for pairing heaps implementation.
 //
 
-#include "compiled.h" // GAP headers
+#include "gap_all.h" // GAP headers
 #include "pairingheap.h"
 
 enum {

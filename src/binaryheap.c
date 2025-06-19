@@ -15,7 +15,7 @@
 //   <https://stackoverflow.com/questions/6531543>
 //
 
-#include "compiled.h" // GAP headers
+#include "gap_all.h" // GAP headers
 #include "binaryheap.h"
 
 #define DS_BINARYHEAP_ISLESS(heap) ELM_PLIST(heap, 1)

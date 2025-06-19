@@ -11,7 +11,7 @@
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
 
-#include "compiled.h" // GAP headers
+#include "gap_all.h" // GAP headers
 
 
 // To improve code separation, each data structure implementation can

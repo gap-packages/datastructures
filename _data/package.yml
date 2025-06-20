@@ -1,7 +1,7 @@
 name: datastructures
-version: "0.3.1"
+version: "0.3.2"
 license: "GPL-2.0-or-later"
-date: 2024-08-26
+date: 2025-06-20
 description: |
     Collection of standard data structures for GAP
 
@@ -38,7 +38,7 @@ packageinfo: https://gap-packages.github.io/datastructures/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/datastructures/releases/download/v0.3.1/datastructures-0.3.1.tar.gz
+      url: https://github.com/gap-packages/datastructures/releases/download/v0.3.2/datastructures-0.3.2.tar.gz
 
 abstract: |
     The <span class="pkgname">datastructures</span> package provides some    standard data structures.
@@ -50,10 +50,10 @@ keywords: |
     data structures, algorithms.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>PHJL24</span>]   <b class='BibAuthor'>Pfeiffer, M., Horn, M., Jefferson, C. and Linton, S.</b>,
+    [<span class='BibKey'>PHJL25</span>]   <b class='BibAuthor'>Pfeiffer, M., Horn, M., Jefferson, C. and Linton, S.</b>,
      <i class='BibTitle'>datastructures, Collection of standard data structures for GAP,
-             Version 0.3.1</i>
-     (<span class='BibYear'>2024</span>)<br />
+             Version 0.3.2</i>
+     (<span class='BibYear'>2025</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/datastructures">https://gap-packages.github.io/datastructures</a></span>.
     </p>
@@ -63,15 +63,15 @@ bibtex: |
     @misc{ datastructures,
       author =           {Pfeiffer,  M.  and  Horn,  M.  and  Jefferson,  C. and
                           Linton, S.},
-      title =            {{datastructures},    Collection   of   standard   data
-                          structures for GAP, {V}ersion 0.3.1},
-      month =            {Aug},
-      year =             {2024},
+      title =            {{datastructures},   {Collection   of   standard   data
+                          structures for GAP}, {V}ersion 0.3.2},
+      month =            {Jun},
+      year =             {2025},
       note =             {GAP package},
       howpublished =     {\href  {https://gap-packages.github.io/datastructures}
                           {\texttt{https://gap\texttt{\symbol{45}}packages.github.io/}\discretionary
                           {}{}{}\texttt{datastructures}}},
       keywords =         {data structures; algorithms},
-      printedkey =       {PHJL24}
+      printedkey =       {PHJL25}
     }
 

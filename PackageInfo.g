@@ -11,8 +11,8 @@ SetPackageInfo( rec(
 
 PackageName := "datastructures",
 Subtitle := "Collection of standard data structures for GAP",
-Version := "0.3.1",
-Date := "26/08/2024", # dd/mm/yyyy format
+Version := "0.3.2",
+Date := "20/06/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -126,7 +126,7 @@ AvailabilityTest := function()
     LogPackageLoadingMessage(PACKAGE_WARNING,
                              ["the kernel module is not compiled, ",
                               "the package cannot be loaded."]);
-    return fail;
+    return false;
   fi;
   return true;
 end,

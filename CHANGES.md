@@ -1,5 +1,9 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.3.2 (2025-06-20)
+
+  - Various janitorial changes
+
 ## 0.3.1 (2024-08-26)
 
   - Require GAP >= 4.12

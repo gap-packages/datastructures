@@ -17,8 +17,6 @@
 #include "avl.h"
 #include "uf.h"
 
-#include "gap_all.h" // GAP headers
-
 #include "hashfunctions.h"
 
 // List of datastructure submodules

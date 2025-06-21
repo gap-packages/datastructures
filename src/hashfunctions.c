@@ -13,8 +13,6 @@
 
 #include "hashfunctions.h"
 
-#include "gap_all.h" // GAP header
-
 #include <stdlib.h> // for labs
 
 

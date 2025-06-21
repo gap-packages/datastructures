@@ -6,10 +6,10 @@
                 [1X Collection of standard data structures for [5XGAP[105X [101X
   
   
-                                     0.3.2
+                                     0.3.3
   
   
-                                  20 June 2025
+                                  21 June 2025
   
   
                                 Markus Pfeiffer

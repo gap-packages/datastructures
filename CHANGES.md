@@ -1,8 +1,12 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.3.3 (2025-06-21)
+
+  - More preparation for future GAP versions
+
 ## 0.3.2 (2025-06-20)
 
-  - Various janitorial changes
+  - Prepare code for future GAP versions
 
 ## 0.3.1 (2024-08-26)
 

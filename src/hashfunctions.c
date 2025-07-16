@@ -22,8 +22,8 @@
 Obj SquashToPerm2(Obj perm, Int n)
 {
     Obj     squash;
-    UInt2 * ptr;
-    UInt4 * ptr_perm;
+    uint16_t * ptr;
+    uint32_t * ptr_perm;
     GAP_ASSERT(TNUM_OBJ(perm) == T_PERM4);
     GAP_ASSERT(n >= 0 && n <= 65536);
 
@@ -110,7 +110,7 @@ static Obj FuncDATA_HASH_FUNC_FOR_STRING(Obj self, Obj string)
 
 
     UInt    len = GET_LEN_STRING(string);
-    UInt1 * ptr = CHARS_STRING(string);
+    UChar * ptr = CHARS_STRING(string);
 
     // 2782 is just a random number which fits in a 32-bit UInt.
     UInt hashval = HASHKEY_MEM_NC(ptr, 2782, len);

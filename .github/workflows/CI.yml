@@ -1,7 +1,8 @@
 name: CI
 
-# Trigger the workflow on push or pull request
+# Trigger the workflow on push or pull request or manually
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -18,70 +19,42 @@ concurrency:
 jobs:
   # The CI test job
   test:
-    name: ${{ matrix.gap-branch }} ${{ matrix.ABI }}
-    runs-on: ubuntu-latest
+    name: "${{ matrix.os }}: GAP ${{ matrix.gap-branch }} ${{ matrix.ABI }}"
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
         gap-branch:
           - master
+          - stable-4.15
           - stable-4.14
           - stable-4.13
           - stable-4.12
         ABI: ['']
+        os:
+          - ubuntu
         include:
           - gap-branch: master
             ABI: 32
+            os: ubuntu
+          - gap-branch: master
+            os: windows
 
     steps:
       - uses: actions/checkout@v5
+      - uses: gap-actions/setup-cygwin@v2
+        if: ${{ runner.os == 'Windows' }}
       - uses: gap-actions/setup-gap@v2
         with:
           GAPBRANCH: ${{ matrix.gap-branch }}
           ABI: ${{ matrix.ABI }}
-      - uses: gap-actions/build-pkg@v1
-      - uses: gap-actions/run-pkg-tests@v3
-      - uses: gap-actions/run-pkg-tests@v3
+      - uses: gap-actions/build-pkg@v2
+      - uses: gap-actions/run-pkg-tests@v4
+      - uses: gap-actions/run-pkg-tests@v4
+        if: ${{ runner.os != 'Windows' }}
         with:
-          only-needed: true
+          mode: 'onlyneeded'
       - uses: gap-actions/process-coverage@v2
       - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-  test-cygwin:
-    name: "master cygwin64"
-    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
-    runs-on: windows-2019
-    env:
-      CHERE_INVOKING: 1
-    steps:
-      - uses: actions/checkout@v5
-      - uses: gap-actions/setup-cygwin@v1
-      - uses: gap-actions/setup-gap@cygwin-v2
-        with:
-          GAP_PKGS_TO_BUILD: 'profiling io'
-      - uses: gap-actions/build-pkg@cygwin-v1
-      - uses: gap-actions/run-pkg-tests@cygwin-v2
-      - uses: gap-actions/process-coverage@cygwin-v2
-      - uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  # The documentation job
-  manual:
-    name: Build manuals
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v5
-      - uses: gap-actions/setup-gap@v2
-      - uses: gap-actions/build-pkg-docs@v1
-        with:
-          use-latex: 'true'
-      - name: 'Upload documentation'
-        uses: actions/upload-artifact@v4
-        with:
-          name: manual
-          path: ./doc/manual.pdf
-          if-no-files-found: error

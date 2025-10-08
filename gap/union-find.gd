@@ -38,11 +38,37 @@ BindGlobal("PartitionDSFamily", NewFamily("PartitionDSFamily", IsPartitionDS));
 #! @Description
 #! Returns the trivial partition of the set <C>[1..n]</C>.
 #! @Arguments filter, n
-DeclareConstructor("PartitionDS",[IsPartitionDS, IsPosInt]);
+DeclareConstructor("PartitionDSCons",[IsPartitionDS, IsPosInt]);
+
 #! @Description
 #! Returns the union find structure of <A>partition</A>.
 #! @Arguments filter, partition
-DeclareConstructor("PartitionDS",[IsPartitionDS, IsCyclotomicCollColl]);
+DeclareConstructor("PartitionDSCons",[IsPartitionDS, IsCyclotomicCollColl]);
+
+#
+# Operations. Given an integer return the trivial partition (n parts of size 1)
+# Given a list of disjoint sets, return that partition. Any points up to the maximum
+# of any of the sets not included in a set are in singleton parts.
+#
+#! @Description
+#! Returns the trivial partition of the set <C>[1..n]</C>.
+#! @Arguments filter, n
+DeclareOperation("PartitionDS",[IsFunction, IsPosInt]);
+
+#! @Description
+#! Returns the trivial partition of the set <C>[1..n]</C>.
+#! @Arguments n
+DeclareOperation("PartitionDS",[IsPosInt]);
+
+#! @Description
+#! Returns the union find structure of <A>partition</A>.
+#! @Arguments filter, partition
+DeclareOperation("PartitionDS",[IsFunction, IsCyclotomicCollColl]);
+
+#! @Description
+#! Returns the union find structure of <A>partition</A>.
+#! @Arguments partition
+DeclareOperation("PartitionDS",[IsCyclotomicCollColl]);
 
 #
 # Key operations

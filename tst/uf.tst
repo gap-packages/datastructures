@@ -65,9 +65,9 @@ gap> for x in i2 do Print(x,"\n"); od;
 8
 9
 10
-gap> UF.RepresentativeTarjan(u,3);
+gap> Representative(u,3);
 2
-gap> UF.UniteGAP(u,4,5);
+gap> Unite(u,4,5);
 gap> u;
 <union find 7 parts on 10 points>
 gap> PartitionDS(IsPartitionDS,[[2,1]]);
@@ -91,23 +91,23 @@ gap> Representative(u,15);
 16
 gap> u := PartitionDS(IsPartitionDS, 16);
 <union find 16 parts on 16 points>
-gap> for i in [1,3..15] do UF.UniteGAP(u,i, i+1); od;
-gap> for i in [1,5..13] do UF.UniteGAP(u,i, i+2); od;
-gap> for i in [1,9] do UF.UniteGAP(u,i, i+4); od;
-gap> UF.UniteGAP(u,1,9);
-gap> UF.RepresentativeTarjan(u,1);
+gap> for i in [1,3..15] do Unite(u,i, i+1); od;
+gap> for i in [1,5..13] do Unite(u,i, i+2); od;
+gap> for i in [1,9] do Unite(u,i, i+4); od;
+gap> Unite(u,1,9);
+gap> Representative(u,1);
 16
-gap> UF.RepresentativeTarjan(u,15);
+gap> Representative(u,15);
 16
 gap> u := PartitionDS(IsPartitionDS, 16);;
 gap> Unite(u,1,2);
 gap> Unite(u,2,3);
 gap> Unite(u,4,2);
 gap> Unite(u,5,5);
-gap> UF.UniteGAP(u,9,10);
-gap> UF.UniteGAP(u,10,11);
-gap> UF.UniteGAP(u,12,10);
-gap> UF.UniteGAP(u,9,12);
+gap> Unite(u,9,10);
+gap> Unite(u,10,11);
+gap> Unite(u,12,10);
+gap> Unite(u,9,12);
 gap> PartsOfPartitionDS(u);
 [ [ 1, 2, 3, 4 ], [ 5 ], [ 6 ], [ 7 ], [ 8 ], [ 9, 10, 11, 12 ], [ 13 ], 
   [ 14 ], [ 15 ], [ 16 ] ]

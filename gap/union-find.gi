@@ -67,75 +67,19 @@ InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, Is
 end);
 
 
-
-UF.RepresentativeTarjan :=
-  function(uf, x)
-    local  gp, sp, p, y, z;
-    gp := UF.getParent;
-    sp := UF.setParent;
-    p := uf!.data;
-    while true do
-        y := gp(p[x]);
-        if y = x then
-            return x;
-        fi;
-        z := gp(p[y]);
-        if y = z then
-            return y;
-        fi;
-        p[x] := sp(p[x],z);
-        x := z;
-    od;
+UF.RepresentativeKernel := function(uf, x)
+    return DS_UF_FIND(x, uf!.data);
 end;
+InstallMethod(Representative, [IsPartitionDSRep and IsPartitionDS, IsPosInt],
+        UF.RepresentativeKernel);
 
-if IsBound(DS_UF_FIND)  then
-    UF.RepresentativeKernel := function(uf, x)
-        return DS_UF_FIND(x, uf!.data);
-    end;
-    InstallMethod(Representative, [IsPartitionDSRep and IsPartitionDS, IsPosInt],
-            UF.RepresentativeKernel);
-else
-    InstallMethod(Representative, [IsPartitionDSRep and IsPartitionDS, IsPosInt],
-            UF.RepresentativeTarjan);
-fi;
-
-UF.UniteGAP := function(uf, x, y)
-    local  r, rx, ry;
-    x := Representative(uf, x);
-    y := Representative(uf, y);
-    if x  = y then
-        return;
+InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS,
+        IsPosInt, IsPosInt],
+        function(uf, x, y)
+    if DS_UF_UNITE(x, y, uf!.data) then
+        uf!.nparts := uf!.nparts -1;
     fi;
-    r := uf!.data;
-    rx := UF.getRank(r[x]);
-    ry := UF.getRank(r[y]);
-    if rx > ry then
-        r[y] := UF.setParent(r[y],x);
-    elif ry > rx then
-        r[x] := UF.setParent(r[x],y);
-    else
-        r[x] := UF.setParent(r[x],y);
-        r[y] := UF.setRank(r[y],ry+1);
-    fi;
-    uf!.nparts := uf!.nparts -1;
-    return;
-end;
-
-
-if IsBound(DS_UF_UNITE) then
-    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS,
-            IsPosInt, IsPosInt],
-            function(uf, x, y)
-        if DS_UF_UNITE(x, y, uf!.data) then
-            uf!.nparts := uf!.nparts -1;
-        fi;
-    end);
-else
-    InstallMethod(Unite, [IsPartitionDSRep and IsMutable and IsPartitionDS,
-            IsPosInt, IsPosInt],
-            UF.UniteGAP);
-fi;
-
+end);
 
 InstallMethod(\=, [IsPartitionDSRep and IsPartitionDS, IsPartitionDSRep and IsPartitionDS], IsIdenticalObj);
 

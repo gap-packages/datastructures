@@ -96,6 +96,13 @@ DeclareOperation("Unite",[IsPartitionDS and IsMutable, IsPosInt, IsPosInt]);
 DeclareOperation("RootsIteratorOfPartitionDS", [IsPartitionDS]);
 
 #! @Description
+#! Returns a list of the canonical representatives of the parts
+#! of the partition <A>unionfind</A>.
+#! @Arguments unionfind
+#! @Returns A list.
+DeclareOperation("RootsOfPartitionDS", [IsPartitionDS]);
+
+#! @Description
 #! Returns the number of parts of the partition <A>unionfind</A>.
 #! @Arguments unionfind
 #! @Returns a positive integer

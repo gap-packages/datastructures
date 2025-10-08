@@ -57,6 +57,8 @@ gap> for x in i do Print(x,"\n"); od;
 8
 9
 10
+gap> RootsOfPartitionDS(u);
+[ 2, 4, 5, 6, 7, 8, 9, 10 ]
 gap> for x in i2 do Print(x,"\n"); od;
 4
 5
@@ -111,6 +113,8 @@ gap> Unite(u,9,12);
 gap> PartsOfPartitionDS(u);
 [ [ 1, 2, 3, 4 ], [ 5 ], [ 6 ], [ 7 ], [ 8 ], [ 9, 10, 11, 12 ], [ 13 ], 
   [ 14 ], [ 15 ], [ 16 ] ]
+gap> RootsOfPartitionDS(u);
+[ 2, 5, 6, 7, 8, 10, 13, 14, 15, 16 ]
 
 #
 gap> STOP_TEST( "uf.tst", 1);

@@ -28,7 +28,7 @@ DeclareCategory("IsPartitionDS", IsObject);
 
 #! @Description
 #! Family containing all partition data structures
-BindGlobal("PartitionDSFamily", NewFamily(IsPartitionDS));
+BindGlobal("PartitionDSFamily", NewFamily("PartitionDSFamily", IsPartitionDS));
 
 #
 # Constructors. Given an integer return the trivial partition (n parts of size 1)

@@ -25,7 +25,7 @@ UF.setRank := UF.Bitfields.setters[1];
 UF.setParent := UF.Bitfields.setters[2];
 
 
-InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, IsPosInt],
+InstallMethod(PartitionDSCons, [IsPartitionDSRep and IsPartitionDS and IsMutable, IsPosInt],
         function(filt, n)
     local  r;
     r := rec();
@@ -37,7 +37,7 @@ InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, Is
 end);
 
 
-InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, IsCyclotomicCollColl],
+InstallMethod(PartitionDSCons, [IsPartitionDSRep and IsPartitionDS and IsMutable, IsCyclotomicCollColl],
         function(filt, parts)
     local  r, n, seen, sp, sr, p, x;
       if not (ForAll(parts, IsSet) and
@@ -66,6 +66,17 @@ InstallMethod(PartitionDS, [IsPartitionDSRep and IsPartitionDS and IsMutable, Is
     return r;
 end);
 
+InstallMethod(PartitionDS, [IsPosInt],
+n -> PartitionDSCons(IsPartitionDSRep, n));
+
+InstallMethod(PartitionDS, [IsCyclotomicCollColl],
+parts -> PartitionDSCons(IsPartitionDSRep, parts));
+
+InstallMethod(PartitionDS, [IsFunction, IsPosInt],
+{filt, n} -> PartitionDSCons(filt, n));
+
+InstallMethod(PartitionDS, [IsFunction, IsCyclotomicCollColl],
+{filt, parts} -> PartitionDSCons(filt, parts));
 
 UF.RepresentativeKernel := function(uf, x)
     return DS_UF_FIND(x, uf!.data);

@@ -1,5 +1,13 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.4.0 (2025-10-14)
+
+  - Add `RootsOfPartitionDS` (essentially the same as iterating over all of
+    `IteratorOfRootsOfPartitionDS` and storing the result in a list, but faster)
+  - Make `PartitionDS` more convenient to use by allowing to omit the filter argument
+  - Remove redundant code from `union-find.gi`
+  - Fix printing of `PartitionDSFamily`
+
 ## 0.3.3 (2025-06-21)
 
   - More preparation for future GAP versions

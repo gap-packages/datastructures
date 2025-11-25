@@ -20,7 +20,7 @@ concurrency:
 jobs:
   # The CI test job
   test:
-    name: "${{ matrix.os }}: GAP ${{ matrix.gap-branch }} ${{ matrix.ABI }}"
+    name: "${{ matrix.os }}: GAP ${{ matrix.gap-branch }}"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -31,13 +31,9 @@ jobs:
           - stable-4.14
           - stable-4.13
           - stable-4.12
-        ABI: ['']
         os:
           - ubuntu
         include:
-          - gap-branch: master
-            ABI: 32
-            os: ubuntu
           - gap-branch: master
             os: windows
 
@@ -48,7 +44,6 @@ jobs:
       - uses: gap-actions/setup-gap@v2
         with:
           GAPBRANCH: ${{ matrix.gap-branch }}
-          ABI: ${{ matrix.ABI }}
       - uses: gap-actions/build-pkg@v2
       - uses: gap-actions/run-pkg-tests@v4
       - uses: gap-actions/run-pkg-tests@v4

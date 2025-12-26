@@ -1,5 +1,10 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.4.1 (2025-12-26)
+
+  - Identical to previous release, except the manual was rebuilt to fix
+    broken links (caused by a tooling error)
+
 ## 0.4.0 (2025-10-14)
 
   - Add `RootsOfPartitionDS` (essentially the same as iterating over all of

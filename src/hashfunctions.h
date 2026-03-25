@@ -56,10 +56,9 @@ static inline UInt AddToHash(UInt seed, UInt v)
 // the size of the number as required
 static inline Obj HashValueToObjInt(UInt uhash)
 {
-    Int hash = (Int)uhash;
     // Make sure bottom bits are not lost
-    hash += hash << 11;
-    hash /= 16;
+    uhash += uhash << 11;
+    Int hash = (Int)uhash / 16;
     return INTOBJ_INT(hash);
 }
 

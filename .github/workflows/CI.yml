@@ -20,38 +20,35 @@ concurrency:
 jobs:
   # The CI test job
   test:
-    name: "${{ matrix.os }}: GAP ${{ matrix.gap-branch }}"
+    name: "${{ matrix.os }}: GAP ${{ matrix.gap-version }}"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
-        gap-branch:
-          - master
-          - stable-4.16
-          - stable-4.15
-          - stable-4.14
-          - stable-4.13
-          - stable-4.12
+        gap-version:
+          - 'devel'
+          - 'latest'
+          - '4.12'
         os:
           - ubuntu
         include:
-          - gap-branch: master
+          - gap-version: 'devel'
             os: windows
 
     steps:
       - uses: actions/checkout@v6
       - uses: gap-actions/setup-cygwin@v2
         if: ${{ runner.os == 'Windows' }}
-      - uses: gap-actions/setup-gap@v2
+      - uses: gap-actions/setup-gap@v3
         with:
-          GAPBRANCH: ${{ matrix.gap-branch }}
+          gap-version: ${{ matrix.gap-version }}
       - uses: gap-actions/build-pkg@v3
       - uses: gap-actions/run-pkg-tests@v4
       - uses: gap-actions/run-pkg-tests@v4
         if: ${{ runner.os != 'Windows' }}
         with:
-          mode: 'onlyneeded'
-      - uses: gap-actions/process-coverage@v2
+          mode: onlyneeded
+      - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

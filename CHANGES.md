@@ -1,5 +1,10 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.4.2 (2026-07-16)
+
+  - Avoid undefined behavior in HashValueToObjInt
+  - Drop unnecessary dependency on GAPDoc
+
 ## 0.4.1 (2025-12-26)
 
   - Identical to previous release, except the manual was rebuilt to fix

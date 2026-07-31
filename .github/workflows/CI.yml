@@ -1,8 +1,7 @@
 name: CI
 
-# Trigger the workflow on push or pull request or manually
+# Trigger the workflow on push or pull request
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
@@ -26,9 +25,9 @@ jobs:
       fail-fast: false
       matrix:
         gap-version:
-          - 'devel'
-          - 'latest'
-          - '4.12'
+          - 'devel'   # current GAP development version from git
+          - 'latest'  # latest GAP release
+          - 'minimal' # oldest GAP release supported by this package
         os:
           - ubuntu
         include:

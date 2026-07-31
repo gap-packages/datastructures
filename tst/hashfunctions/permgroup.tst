@@ -9,5 +9,7 @@ gap> groups := List([2..20], SymmetricGroup);;
 gap> cHash(groups, List(groups, clean));
 gap> groups := List([2..20], AlternatingGroup);;
 gap> cHash(groups, List(groups, clean));
+#@if IsPackageMarkedForLoading( "primgrp", "" )
 gap> groups := AllPrimitiveGroups(NrMovedPoints, [2..10]);;
 gap> cHash(groups, List(groups, clean));
+#@fi

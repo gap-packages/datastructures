@@ -1,5 +1,9 @@
 # CHANGES to the 'datastructures' GAP package
 
+## 0.4.3 (2026-07-31)
+
+  - Fix test suite to pass even if primgrp package is not loaded
+
 ## 0.4.2 (2026-07-16)
 
   - Avoid undefined behavior in HashValueToObjInt

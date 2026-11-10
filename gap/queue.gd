@@ -9,18 +9,6 @@
 ##
 
 #! @Chapter Queues and Deques
-#!
-#! <E>Queues</E> are linear data structure that allow adding elements at the end of the queue,
-#! and removing elements from the front.
-#! A <E>deque</E> is a <E>double-ended queue</E>; a linear data structure that allows access
-#! to objects at both ends.<P/>
-#!
-#! The API that objects that lie in <Ref Filt="IsQueue" Label="for IsObject"/> and
-#! <Ref Filt="IsDeque" Label="for IsObject"/> must implement the API set out below.
-#!
-#! <Package>datastructures</Package> provides
-#!
-#!
 #! @Section API
 #!
 
